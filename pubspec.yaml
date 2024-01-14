@@ -1,0 +1,7 @@
+name: tmdb_monorepo
+
+environment:
+  sdk: '>=3.2.2 <4.0.0'
+
+dev_dependencies:
+  melos: ^4.0.0

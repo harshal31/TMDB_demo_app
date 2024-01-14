@@ -1,0 +1,14 @@
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gr.dart"
+    - "**/*.iconfig.dart"
+    - "**/generated_plugin_registrant.dart"
+    - "**/*generated_plugin_registrant.dart"
+    - '**/app_localizations*.dart'
+
+
+linter:
+  rules:
+    ## currently enabled only for firebase_core
