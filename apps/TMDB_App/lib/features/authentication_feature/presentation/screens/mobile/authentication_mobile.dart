@@ -3,9 +3,11 @@ import "package:common_widgets/localizations/localized_extension.dart";
 import "package:common_widgets/widgets/snackbar.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:go_router/go_router.dart";
 import "package:tmdb_app/features/authentication_feature/presentation/cubits/authentication_cubit.dart";
 import "package:tmdb_app/features/authentication_feature/presentation/cubits/button_state_cubit.dart";
 import "package:tmdb_app/features/authentication_feature/presentation/use_case/login_use_case.dart";
+import "package:tmdb_app/routes/route_name.dart";
 import "package:tmdb_app/theme/app_theme.dart";
 
 class AuthenticationMobile extends StatefulWidget {
@@ -14,45 +16,63 @@ class AuthenticationMobile extends StatefulWidget {
 }
 
 class _AuthenticationMobileState extends State<AuthenticationMobile> {
-  final ScrollController _scrollController = ScrollController();
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool shouldSkipUserNameError = false;
 
   @override
-  Widget build(BuildContext context) {
-    if (_scrollController.positions.isNotEmpty) {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-    }
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final authenticationCubit = context.read<AuthenticationCubit>();
 
+      if (authenticationCubit.scrollController.positions.isNotEmpty) {
+        authenticationCubit.scrollController
+            .jumpTo(authenticationCubit.scrollController.position.maxScrollExtent);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final authenticationCubit = context.read<AuthenticationCubit>();
     return BlocConsumer<AuthenticationCubit, LoginState>(
       listener: (context, state) {
         if (state.status is LoginFailed) {
           showSimpleSnackBar(context, (state.status as LoginFailed).message);
         }
+
+        if (state.status is LoginSuccess) {
+          context.go(RouteName.home);
+        }
       },
       builder: (context, state) {
+        if (authenticationCubit.scrollController.positions.isNotEmpty) {
+          authenticationCubit.scrollController.jumpTo(
+            authenticationCubit.scrollController.position.maxScrollExtent,
+          );
+        }
+
         return Form(
-          key: _formKey,
+          key: authenticationCubit.formKey,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(
-              controller: _scrollController,
+              controller: authenticationCubit.scrollController,
               child: ConstrainedBox(
-                constraints:
-                    BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height,
+                ),
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AppAsset.images.tmdbLogo.image(
-                        package: "common_widgets",
-                        height: 100,
-                      ),
+                          package: "common_widgets",
+                          height: 150,
+                          width: 250,
+                          fit: BoxFit.cover),
                       TextFormField(
-                        controller: _userNameController,
+                        controller: authenticationCubit.userNameController,
                         textAlignVertical: TextAlignVertical.center,
                         validator: (s) {
                           if (shouldSkipUserNameError) {
@@ -65,8 +85,8 @@ class _AuthenticationMobileState extends State<AuthenticationMobile> {
                         },
                         onChanged: (_) {
                           context.read<ButtonStateCubit>().updateButtonState(
-                              _userNameController.text.isEmpty ||
-                                  _passwordController.text.isEmpty);
+                              authenticationCubit.userNameController.text.isEmpty ||
+                                  authenticationCubit.passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(horizontal: 16),
@@ -76,7 +96,7 @@ class _AuthenticationMobileState extends State<AuthenticationMobile> {
                       ),
                       SizedBox(height: 16),
                       TextFormField(
-                        controller: _passwordController,
+                        controller: authenticationCubit.passwordController,
                         textAlignVertical: TextAlignVertical.center,
                         obscureText: state.shouldObscure,
                         validator: (s) {
@@ -86,17 +106,20 @@ class _AuthenticationMobileState extends State<AuthenticationMobile> {
 
                           return null;
                         },
-                        onChanged: (_) {
+                        onChanged: (c) {
+                          if (c.length == 1) {
+                            authenticationCubit.formKey.currentState?.validate();
+                          }
                           context.read<ButtonStateCubit>().updateButtonState(
-                              _userNameController.text.isEmpty ||
-                                  _passwordController.text.isEmpty);
+                              authenticationCubit.userNameController.text.isEmpty ||
+                                  authenticationCubit.passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () {
-                              if (_passwordController.text.isEmpty) {
+                              if (authenticationCubit.passwordController.text.isEmpty) {
                                 shouldSkipUserNameError = true;
-                                _formKey.currentState?.validate();
+                                authenticationCubit.formKey.currentState?.validate();
                                 return;
                               } else {
                                 shouldSkipUserNameError = false;
@@ -145,11 +168,14 @@ class _AuthenticationMobileState extends State<AuthenticationMobile> {
                                           ? null
                                           : () {
                                               shouldSkipUserNameError = false;
-                                              if (_formKey.currentState?.validate() ??
+                                              if (authenticationCubit.formKey.currentState
+                                                      ?.validate() ??
                                                   false) {
                                                 context.read<AuthenticationCubit>().login(
-                                                      _userNameController.text,
-                                                      _passwordController.text,
+                                                      authenticationCubit
+                                                          .userNameController.text,
+                                                      authenticationCubit
+                                                          .passwordController.text,
                                                     );
                                               }
                                             },
@@ -171,5 +197,11 @@ class _AuthenticationMobileState extends State<AuthenticationMobile> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    context.read<AuthenticationCubit>().disposeControllers();
   }
 }

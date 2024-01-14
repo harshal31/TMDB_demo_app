@@ -5,7 +5,7 @@ class AppAsset {
     return Assets.images;
   }
 
-  // static $AssetsIconGen get icon {
-  //   return Assets.icon;
-  // }
+  static $AssetsIconGen get icon {
+    return Assets.icon;
+  }
 }

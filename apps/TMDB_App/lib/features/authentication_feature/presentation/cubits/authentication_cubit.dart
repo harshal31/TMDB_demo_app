@@ -1,3 +1,4 @@
+import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:get_it/get_it.dart";
 import "package:tmdb_app/constants/hive_key.dart";
@@ -8,6 +9,10 @@ import "package:tmdb_app/features/authentication_feature/presentation/use_case/s
 class AuthenticationCubit extends Cubit<LoginState> {
   final LoginUseCase _useCase;
   final SessionUseCase _sessionUseCase;
+  final ScrollController scrollController = ScrollController();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   AuthenticationCubit(this._useCase, this._sessionUseCase) : super(LoginState.initial());
 
@@ -38,5 +43,11 @@ class AuthenticationCubit extends Cubit<LoginState> {
 
   void updatePasswordVisibility() {
     emit(state.copyWith(shouldVisiblePassword: !state.shouldObscure));
+  }
+
+  void disposeControllers() {
+    scrollController.dispose();
+    userNameController.dispose();
+    passwordController.dispose();
   }
 }
