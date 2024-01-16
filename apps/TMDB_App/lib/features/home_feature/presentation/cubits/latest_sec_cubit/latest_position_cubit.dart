@@ -6,29 +6,62 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LatestPositionCubit extends Cubit<LatestPositionState> {
   LatestPositionCubit() : super(LatestPositionState.initial());
 
-  void storePosition(int? pos, bool? switchState) {
-    final li = List.of(state.switchStates);
-    li[(pos ?? 0)] = switchState ?? true;
-    emit(LatestPositionState(pos ?? 0, li));
+  void storePosition(
+    int? pos,
+    bool currentSwitchState,
+  ) {
+    emit(state.copyWith(
+      pos: pos,
+      currentSwitchState: currentSwitchState,
+    ));
   }
 }
 
 class LatestPositionState with EquatableMixin {
   final int pos;
-  final List<bool> switchStates;
+  final bool currentSwitchState;
 
-  LatestPositionState(this.pos, this.switchStates);
+  LatestPositionState(this.pos, this.currentSwitchState);
 
   factory LatestPositionState.initial() {
-    return LatestPositionState(0, [true, true, true, true]);
+    return LatestPositionState(
+      0,
+      true,
+    );
   }
 
   String getLatestText(BuildContext context) {
     final tr = context.tr.latest;
-    final result = this.switchStates[this.pos] ? context.tr.movies : context.tr.tvSeries;
+    final result = currentSwitchState ? context.tr.movies : context.tr.tvSeries;
     return "$tr $result";
   }
 
+  List<String> getLatestTabTitles(BuildContext context) {
+    return (currentSwitchState
+        ? [
+            context.tr.nowPlaying,
+            context.tr.popular,
+            context.tr.topRated,
+            context.tr.upcoming,
+          ]
+        : [
+            context.tr.airingToday,
+            context.tr.popular,
+            context.tr.topRated,
+            context.tr.onTheAir,
+          ]);
+  }
+
+  LatestPositionState copyWith({int? pos, bool? currentSwitchState}) {
+    return LatestPositionState(
+      pos ?? this.pos,
+      currentSwitchState ?? this.currentSwitchState,
+    );
+  }
+
   @override
-  List<Object?> get props => [pos, switchStates];
+  List<Object?> get props => [
+        pos,
+        currentSwitchState,
+      ];
 }

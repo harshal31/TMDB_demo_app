@@ -65,14 +65,14 @@ class CustomTabBar extends StatelessWidget {
               gradient: indicatorGradientColor,
             ),
             unselectedLabelStyle: context.textTheme.labelMedium?.copyWith(
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w600,
             ),
             onTap: (s) {
               onSelectedTab?.call(s);
             },
             isScrollable: isScrollable ?? false,
             tabAlignment: tabAlignment,
-            labelStyle: context.textTheme.labelLarge?.copyWith(
+            labelStyle: context.textTheme.labelMedium?.copyWith(
               fontWeight: FontWeight.w800,
               color: selectedColor ?? context.colorTheme.onPrimary,
             ),

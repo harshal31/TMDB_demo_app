@@ -180,6 +180,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tv Series'**
   String get tvSeries;
+
+  /// No description provided for @nowPlaying.
+  ///
+  /// In en, this message translates to:
+  /// **'Now Playing'**
+  String get nowPlaying;
+
+  /// No description provided for @popular.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular'**
+  String get popular;
+
+  /// No description provided for @topRated.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Rated'**
+  String get topRated;
+
+  /// No description provided for @upcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get upcoming;
+
+  /// No description provided for @airingToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Airing Today'**
+  String get airingToday;
+
+  /// No description provided for @onTheAir.
+  ///
+  /// In en, this message translates to:
+  /// **'On The Air'**
+  String get onTheAir;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

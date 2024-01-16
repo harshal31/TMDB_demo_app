@@ -48,4 +48,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tvSeries => 'Tv Series';
+
+  @override
+  String get nowPlaying => 'Now Playing';
+
+  @override
+  String get popular => 'Popular';
+
+  @override
+  String get topRated => 'Top Rated';
+
+  @override
+  String get upcoming => 'Upcoming';
+
+  @override
+  String get airingToday => 'Airing Today';
+
+  @override
+  String get onTheAir => 'On The Air';
 }
