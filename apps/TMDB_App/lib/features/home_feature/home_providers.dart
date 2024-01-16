@@ -4,6 +4,7 @@ import 'package:tmdb_app/features/home_feature/presentation/cubits/latest_sec_cu
 import 'package:tmdb_app/features/home_feature/presentation/cubits/latest_sec_cubit/latest_position_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_sec_cubit/trending_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_sec_cubit/trending_position_cubit.dart';
+import 'package:tmdb_app/features/home_feature/presentation/use_case/latest_use_case.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart';
 import 'package:tmdb_app/network/dio_manager.dart';
 
@@ -15,6 +16,9 @@ class HomeProviders {
       )
       ..registerFactory<TrendingUseCase>(
         () => TrendingUseCase(getIt()),
+      )
+      ..registerFactory<LatestUseCase>(
+        () => LatestUseCase(getIt()),
       )
       ..registerFactory<TrendingPositionCubit>(
         () => TrendingPositionCubit(),
