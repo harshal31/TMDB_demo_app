@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
-import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_cubit.dart';
-import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_position_cubit.dart';
+import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_sec_cubit/trending_cubit.dart';
+import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_sec_cubit/trending_position_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart';
 
-class HomeWeb extends StatelessWidget {
-  const HomeWeb({super.key});
+class HomeMobileScreen extends StatelessWidget {
+  const HomeMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final trendingCubit = context.read<TrendingCubit>();
     final trendingPosCubit = context.read<TrendingPositionCubit>();
     return Padding(
-      padding: const EdgeInsets.fromLTRB(34, 16, 34, 0),
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -27,11 +27,11 @@ class HomeWeb extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                BlocBuilder<TrendingPositionCubit, PositionState>(
+                BlocBuilder<TrendingPositionCubit, TrendingPositionState>(
                   builder: (context, state) {
                     return Text(
                       state.getTrendingText(context),
-                      style: context.textTheme.displayLarge?.copyWith(
+                      style: context.textTheme.displaySmall?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                       maxLines: 1,
@@ -40,11 +40,9 @@ class HomeWeb extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(height: 16),
                 Row(
                   children: [
                     Wrap(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
                       children: [
                         CustomTabBar(
                           titles: [
@@ -67,7 +65,7 @@ class HomeWeb extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
-                    BlocBuilder<TrendingPositionCubit, PositionState>(
+                    BlocBuilder<TrendingPositionCubit, TrendingPositionState>(
                       builder: (context, state) {
                         return Switch(
                           thumbIcon: SwitchIcon.thumbIcon,
@@ -85,7 +83,7 @@ class HomeWeb extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 BlocBuilder<TrendingCubit, TrendingState>(
                   builder: (context, state) {
                     return AnimatedOpacity(
@@ -95,11 +93,12 @@ class HomeWeb extends StatelessWidget {
                         height: 225,
                         child: ListView.builder(
                           itemCount: state.trendingResult?.results?.length ?? 0,
+                          shrinkWrap: true,
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (ctx, index) {
                             return Padding(
-                              padding: const EdgeInsets.only(right: 24.0),
+                              padding: const EdgeInsets.only(right: 16.0),
                               child: ExtendedImage.network(
                                 AppConstant.imageBaseUrl +
                                     (state.trendingResult?.results?[index]
@@ -137,7 +136,7 @@ class HomeWeb extends StatelessWidget {
       pos,
       trendingPosCubit.state.switchStates[pos],
     );
-    trendingCubit.getTrendingResult(
+    trendingCubit.fetchTrendingResults(
       pos,
       switchState: trendingPosCubit.state.switchStates[pos],
       timeWindow: trendingPosCubit.state.switchStates[pos] ? ApiKey.day : ApiKey.week,
@@ -152,13 +151,13 @@ class HomeWeb extends StatelessWidget {
   ) {
     if (s) {
       trendingPosCubit.storePosition(pos, s);
-      trendingCubit.getTrendingResult(pos, switchState: s, timeWindow: ApiKey.day);
+      trendingCubit.fetchTrendingResults(pos, switchState: s, timeWindow: ApiKey.day);
       return;
     }
 
     if (!s) {
       trendingPosCubit.storePosition(pos, s);
-      trendingCubit.getTrendingResult(pos, switchState: s, timeWindow: ApiKey.week);
+      trendingCubit.fetchTrendingResults(pos, switchState: s, timeWindow: ApiKey.week);
       return;
     }
   }

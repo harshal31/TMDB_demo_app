@@ -10,8 +10,8 @@ import "package:tmdb_app/features/authentication_feature/presentation/cubits/but
 import "package:tmdb_app/features/authentication_feature/presentation/use_case/login_use_case.dart";
 import "package:tmdb_app/routes/route_name.dart";
 
-class AuthenticationTablet extends StatelessWidget {
-  const AuthenticationTablet({super.key});
+class AuthenticationMobileScreen extends StatelessWidget {
+  const AuthenticationMobileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,32 +21,32 @@ class AuthenticationTablet extends StatelessWidget {
         if (state.status is LoginFailed) {
           showSimpleSnackBar(context, (state.status as LoginFailed).message);
         }
-
         if (state.status is LoginSuccess) {
-          context.go(RouteName.home);
+          context.replace(RouteName.home);
         }
       },
       builder: (context, state) {
         repositionScrollPositionAtCenter(authenticationCubit);
         return Form(
           key: authenticationCubit.formKey,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            alignment: Alignment.center,
-            child: Center(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: SingleChildScrollView(
-                  controller: authenticationCubit.scrollController,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              controller: authenticationCubit.scrollController,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height,
+                ),
+                child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AppAsset.images.tmdbLogo.image(
-                        package: "common_widgets",
-                        height: 300,
-                      ),
+                          package: "common_widgets",
+                          height: 150,
+                          width: 250,
+                          fit: BoxFit.cover),
                       TextFormField(
                         controller: authenticationCubit.userNameController,
                         textAlignVertical: TextAlignVertical.center,
@@ -65,12 +65,6 @@ class AuthenticationTablet extends StatelessWidget {
                                   authenticationCubit.passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: context.colorTheme.primary,
-                              width: 2.0,
-                            ),
-                          ),
                           contentPadding: EdgeInsets.symmetric(horizontal: 16),
                           border: OutlineInputBorder(),
                           hintText: context.tr.userName,
@@ -97,12 +91,6 @@ class AuthenticationTablet extends StatelessWidget {
                                   authenticationCubit.passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: context.colorTheme.primary,
-                              width: 2.0,
-                            ),
-                          ),
                           suffixIcon: IconButton(
                             onPressed: () {
                               if (authenticationCubit.passwordController.text.isEmpty) {
@@ -144,7 +132,6 @@ class AuthenticationTablet extends StatelessWidget {
                                 builder: (context, state) {
                                   return SizedBox(
                                     width: double.infinity,
-                                    height: 50,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:

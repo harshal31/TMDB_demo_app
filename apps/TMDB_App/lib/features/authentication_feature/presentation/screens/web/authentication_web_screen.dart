@@ -10,8 +10,8 @@ import "package:tmdb_app/features/authentication_feature/presentation/cubits/but
 import "package:tmdb_app/features/authentication_feature/presentation/use_case/login_use_case.dart";
 import "package:tmdb_app/routes/route_name.dart";
 
-class AuthenticationWeb extends StatelessWidget {
-  const AuthenticationWeb({super.key});
+class AuthenticationWebScreen extends StatelessWidget {
+  const AuthenticationWebScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

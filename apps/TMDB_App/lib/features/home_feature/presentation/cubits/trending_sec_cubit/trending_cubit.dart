@@ -8,7 +8,7 @@ class TrendingCubit extends Cubit<TrendingState> {
 
   TrendingCubit(this._trendingUseCase) : super(TrendingState.initial());
 
-  void getTrendingResult(
+  void fetchTrendingResults(
     int? pos, {
     bool? switchState,
     String timeWindow = ApiKey.day,
