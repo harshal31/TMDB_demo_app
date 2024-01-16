@@ -1,4 +1,6 @@
 import "package:common_widgets/localizations/app_localizations.dart";
+import "package:common_widgets/theme/app_theme.dart";
+import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:responsive_framework/responsive_framework.dart";
 import "package:tmdb_app/app_level_provider/app_provider.dart";
@@ -7,9 +9,9 @@ import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
 import "package:tmdb_app/routes/app_router.dart";
 import "package:flutter_web_plugins/url_strategy.dart";
-import "package:tmdb_app/theme/app_theme.dart";
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   runApp(MainApp());
 }
@@ -18,12 +20,20 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      scrollBehavior: MaterialScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown
+        },
+      ),
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: goRouter,
+      routerConfig: AppRouter.goRouter,
       debugShowCheckedModeBanner: false,
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: child ?? SizedBox.shrink(),
@@ -39,7 +49,6 @@ class MainApp extends StatelessWidget {
 
 Future<void> initializeDependencies() async {
   usePathUrlStrategy();
-  WidgetsFlutterBinding.ensureInitialized();
   await HiveManager.createHiveManager().initialize(HiveKey.appBoxName);
   AppProviders.registerAppLevelProviders();
 }

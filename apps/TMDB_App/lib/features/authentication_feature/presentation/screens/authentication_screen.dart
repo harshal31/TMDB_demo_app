@@ -1,3 +1,4 @@
+import "package:common_widgets/theme/size_detector.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:get_it/get_it.dart";
@@ -6,9 +7,13 @@ import "package:tmdb_app/features/authentication_feature/presentation/cubits/but
 import "package:tmdb_app/features/authentication_feature/presentation/screens/mobile/authentication_mobile.dart";
 import "package:tmdb_app/features/authentication_feature/presentation/screens/tablet/authentication_tablet.dart";
 import "package:tmdb_app/features/authentication_feature/presentation/screens/web/authentication_web.dart";
-import "package:tmdb_app/theme/size_detector.dart";
 
-class AuthenticationScreen extends StatelessWidget {
+class AuthenticationScreen extends StatefulWidget {
+  @override
+  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
+}
+
+class _AuthenticationScreenState extends State<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -28,5 +33,11 @@ class AuthenticationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    context.read<AuthenticationCubit>().disposeControllers();
   }
 }

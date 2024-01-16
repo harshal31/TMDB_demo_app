@@ -1,6 +1,4 @@
-import "package:flutter/foundation.dart";
-import "package:hive/hive.dart";
-import "package:path_provider/path_provider.dart";
+import "package:hive_flutter/hive_flutter.dart";
 
 class HiveManager {
   static final HiveManager _instance = HiveManager._internal();
@@ -14,12 +12,8 @@ class HiveManager {
 
   Future<void> initialize(String boxName) async {
     this.boxName = boxName;
-    if (!kIsWeb) {
-      final directory = await getApplicationDocumentsDirectory();
-      Hive.init(directory.absolute.path);
-    }
-
-    _openBox(boxName);
+    await Hive.initFlutter();
+    await _openBox(boxName);
   }
 
   Future<void> _openBox(String boxName) async {

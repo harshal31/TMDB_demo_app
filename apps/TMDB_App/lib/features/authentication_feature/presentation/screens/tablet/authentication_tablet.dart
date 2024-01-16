@@ -1,5 +1,6 @@
 import "package:common_widgets/gen/app_asset.dart";
 import "package:common_widgets/localizations/localized_extension.dart";
+import "package:common_widgets/theme/app_theme.dart";
 import "package:common_widgets/widgets/snackbar.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
@@ -8,28 +9,9 @@ import "package:tmdb_app/features/authentication_feature/presentation/cubits/aut
 import "package:tmdb_app/features/authentication_feature/presentation/cubits/button_state_cubit.dart";
 import "package:tmdb_app/features/authentication_feature/presentation/use_case/login_use_case.dart";
 import "package:tmdb_app/routes/route_name.dart";
-import "package:tmdb_app/theme/app_theme.dart";
 
-class AuthenticationTablet extends StatefulWidget {
-  @override
-  State<AuthenticationTablet> createState() => _AuthenticationTabletState();
-}
-
-class _AuthenticationTabletState extends State<AuthenticationTablet> {
-  bool shouldSkipUserNameError = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final authenticationCubit = context.read<AuthenticationCubit>();
-
-      if (authenticationCubit.scrollController.positions.isNotEmpty) {
-        authenticationCubit.scrollController
-            .jumpTo(authenticationCubit.scrollController.position.maxScrollExtent);
-      }
-    });
-  }
+class AuthenticationTablet extends StatelessWidget {
+  const AuthenticationTablet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +27,7 @@ class _AuthenticationTabletState extends State<AuthenticationTablet> {
         }
       },
       builder: (context, state) {
-        if (authenticationCubit.scrollController.positions.isNotEmpty) {
-          authenticationCubit.scrollController
-              .jumpTo(authenticationCubit.scrollController.position.maxScrollExtent);
-        }
+        repositionScrollPositionAtCenter(authenticationCubit);
         return Form(
           key: authenticationCubit.formKey,
           child: Container(
@@ -72,7 +51,7 @@ class _AuthenticationTabletState extends State<AuthenticationTablet> {
                         controller: authenticationCubit.userNameController,
                         textAlignVertical: TextAlignVertical.center,
                         validator: (s) {
-                          if (shouldSkipUserNameError) {
+                          if (authenticationCubit.shouldSkipUserNameError) {
                             return null;
                           }
                           if (s?.isEmpty ?? true) {
@@ -127,11 +106,11 @@ class _AuthenticationTabletState extends State<AuthenticationTablet> {
                           suffixIcon: IconButton(
                             onPressed: () {
                               if (authenticationCubit.passwordController.text.isEmpty) {
-                                shouldSkipUserNameError = true;
+                                authenticationCubit.shouldSkipUserNameError = true;
                                 authenticationCubit.formKey.currentState?.validate();
                                 return;
                               } else {
-                                shouldSkipUserNameError = false;
+                                authenticationCubit.shouldSkipUserNameError = false;
                               }
 
                               context
@@ -177,7 +156,8 @@ class _AuthenticationTabletState extends State<AuthenticationTablet> {
                                       onPressed: state
                                           ? null
                                           : () {
-                                              shouldSkipUserNameError = false;
+                                              authenticationCubit
+                                                  .shouldSkipUserNameError = false;
                                               if (authenticationCubit.formKey.currentState
                                                       ?.validate() ??
                                                   false) {
@@ -209,9 +189,13 @@ class _AuthenticationTabletState extends State<AuthenticationTablet> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    context.read<AuthenticationCubit>().disposeControllers();
+  void repositionScrollPositionAtCenter(AuthenticationCubit authenticationCubit) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (authenticationCubit.scrollController.positions.isNotEmpty) {
+        authenticationCubit.scrollController.jumpTo(
+          authenticationCubit.scrollController.position.maxScrollExtent,
+        );
+      }
+    });
   }
 }

@@ -21,4 +21,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidPasswordMessage => 'Please provide valid Password';
+
+  @override
+  String get trending => 'Trending';
+
+  @override
+  String get latest => 'Latest';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get movies => 'Movies';
+
+  @override
+  String get people => 'People';
+
+  @override
+  String get tv => 'TV';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get thisWeek => 'This Week';
 }

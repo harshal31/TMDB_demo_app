@@ -1,6 +1,5 @@
 import "package:dio/dio.dart";
-import "package:retrofit/dio.dart";
-import "package:retrofit/http.dart";
+import "package:retrofit/retrofit.dart";
 import "package:tmdb_app/constants/endpoint.dart";
 import "package:tmdb_app/features/authentication_feature/data/model/new_request_token.dart";
 import "package:tmdb_app/features/authentication_feature/data/model/new_session.dart";

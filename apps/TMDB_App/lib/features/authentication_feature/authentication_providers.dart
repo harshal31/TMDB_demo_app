@@ -7,7 +7,7 @@ import "package:tmdb_app/features/authentication_feature/presentation/use_case/s
 import "package:tmdb_app/network/dio_manager.dart";
 
 class AuthenticationProviders {
-  static register(GetIt getIt) {
+  static void register(GetIt getIt) {
     getIt
       ..registerFactory<AuthenticationApiService>(
         () => AuthenticationApiService(getIt<DioManager>().dio),

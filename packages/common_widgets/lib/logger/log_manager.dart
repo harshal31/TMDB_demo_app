@@ -11,8 +11,7 @@ class Log {
         printer: PrettyPrinter(
           methodCount: 2,
           errorMethodCount: 10,
-          lineLength: 250,
-          printTime: true,
+          lineLength: 1331,
           printEmojis: true,
           colors: true,
         ),

@@ -13,8 +13,11 @@ class AuthenticationCubit extends Cubit<LoginState> {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool shouldSkipUserNameError = false;
 
-  AuthenticationCubit(this._useCase, this._sessionUseCase) : super(LoginState.initial());
+  AuthenticationCubit(this._useCase, this._sessionUseCase) : super(LoginState.initial()) {
+    emit(LoginState.initial());
+  }
 
   void login(String userName, String password) async {
     emit(state.copyWith(status: LoginLoading()));

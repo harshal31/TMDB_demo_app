@@ -1,6 +1,6 @@
+import "package:common_widgets/theme/app_colors.dart";
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
-import "package:tmdb_app/theme/app_colors.dart";
 
 final darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
   brightness: Brightness.dark,

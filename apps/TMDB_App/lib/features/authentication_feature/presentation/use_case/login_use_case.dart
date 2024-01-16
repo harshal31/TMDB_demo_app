@@ -1,4 +1,5 @@
 import "package:equatable/equatable.dart";
+import "package:flutter/foundation.dart";
 import "package:fpdart/fpdart.dart";
 import "package:get_it/get_it.dart";
 import "package:tmdb_app/constants/api_key.dart";
@@ -23,7 +24,7 @@ class LoginUseCase {
       final loginBody = {
         ApiKey.username: userName,
         ApiKey.password: password,
-        ApiKey.request_token: r.requestToken,
+        ApiKey.requestToken: r.requestToken,
       };
       final getLoginToken = await apiCall(
         () => _authenticationApiService.validateWithLogin(loginBody),
@@ -53,7 +54,7 @@ class LoginState with EquatableMixin {
   }
 
   factory LoginState.initial() {
-    return LoginState();
+    return LoginState(status: None());
   }
 
   @override
@@ -65,7 +66,12 @@ sealed class LoginStatus with EquatableMixin {
   List<Object?> get props => [];
 }
 
-class None extends LoginStatus {}
+class None extends LoginStatus {
+  final String uniqueKey = UniqueKey().toString();
+
+  @override
+  List<Object?> get props => [uniqueKey];
+}
 
 class LoginLoading extends LoginStatus {}
 

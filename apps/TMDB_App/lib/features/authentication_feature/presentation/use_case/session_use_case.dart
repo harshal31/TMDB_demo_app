@@ -16,7 +16,7 @@ class SessionUseCase {
   Future<Either<ErrorResponse, NewSession>> createNewSession({
     required String token,
   }) async {
-    final map = {ApiKey.request_token: token};
+    final map = {ApiKey.requestToken: token};
     final getToken = await apiCall(() => _authenticationApiService.createNewSession(map));
 
     return getToken.fold((l) => left(l), (r) {

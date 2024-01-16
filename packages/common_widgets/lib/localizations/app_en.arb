@@ -4,5 +4,13 @@
   "password": "Password",
   "signIn": "Sign In",
   "invalidUserNameMessage": "Please provide valid Username",
-  "invalidPasswordMessage": "Please provide valid Password"
+  "invalidPasswordMessage": "Please provide valid Password",
+  "trending": "Trending",
+  "latest": "Latest",
+  "all": "All",
+  "movies": "Movies",
+  "people": "People",
+  "tv": "TV",
+  "today": "Today",
+  "thisWeek": "This Week"
 }

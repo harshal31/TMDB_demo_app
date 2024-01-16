@@ -21,9 +21,19 @@ class SizeDetector extends StatelessWidget {
       widget = mobileBuilder.call();
     } else if (value.isTablet) {
       widget = tabletBuilder.call();
-    } else {
+    } else if (value.isDesktop) {
       widget = desktopBuilder.call();
+    } else {
+      widget = SizedBox.shrink();
     }
-    return SafeArea(child: widget);
+    return SafeArea(
+      child: AnimatedContainer(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        duration: Duration(milliseconds: 400),
+        child: widget,
+        curve: Curves.easeInOut,
+      ),
+    );
   }
 }
