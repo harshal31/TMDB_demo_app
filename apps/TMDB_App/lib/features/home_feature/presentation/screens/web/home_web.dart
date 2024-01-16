@@ -31,8 +31,9 @@ class HomeWeb extends StatelessWidget {
                   children: [
                     Text(
                       context.tr.trending,
-                      style: context.textTheme.headlineMedium
-                          ?.copyWith(fontWeight: FontWeight.w700),
+                      style: context.textTheme.displayMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     SizedBox(width: 8),
                     Expanded(

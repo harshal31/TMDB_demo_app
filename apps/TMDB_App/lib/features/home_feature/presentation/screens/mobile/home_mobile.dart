@@ -29,7 +29,9 @@ class HomeMobile extends StatelessWidget {
               children: [
                 Text(
                   context.tr.trending,
-                  style: context.textTheme.titleLarge,
+                  style: context.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 Row(
                   children: [
