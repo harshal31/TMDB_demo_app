@@ -27,38 +27,46 @@ class HomeWeb extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      context.tr.trending,
-                      style: context.textTheme.displayMedium?.copyWith(
+                BlocBuilder<TrendingPositionCubit, PositionState>(
+                  builder: (context, state) {
+                    return Text(
+                      state.getTrendingText(context),
+                      style: context.textTheme.displayLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
+                      maxLines: 1,
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    );
+                  },
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Wrap(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      children: [
+                        CustomTabBar(
+                          titles: [
+                            context.tr.all,
+                            context.tr.movies,
+                            context.tr.tv,
+                            context.tr.people,
+                          ],
+                          isScrollable: true,
+                          tabAlignment: TabAlignment.start,
+                          selectedColor: context.colorTheme.primaryContainer,
+                          onSelectedTab: (pos) {
+                            _trendingTabPressApiCall(
+                              pos,
+                              trendingPosCubit,
+                              trendingCubit,
+                            );
+                          },
+                        )
+                      ],
                     ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Wrap(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        children: [
-                          CustomTabBar(
-                            titles: [
-                              context.tr.all,
-                              context.tr.movies,
-                              context.tr.tv,
-                              context.tr.people,
-                            ],
-                            isScrollable: true,
-                            tabAlignment: TabAlignment.start,
-                            selectedColor: context.colorTheme.primaryContainer,
-                            onSelectedTab: (pos) {
-                              _trendingTabPressApiCall(
-                                  pos, trendingPosCubit, trendingCubit);
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                    Spacer(flex: 4),
+                    Spacer(),
                     BlocBuilder<TrendingPositionCubit, PositionState>(
                       builder: (context, state) {
                         return Switch(

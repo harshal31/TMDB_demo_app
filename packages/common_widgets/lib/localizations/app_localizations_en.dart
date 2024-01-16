@@ -45,4 +45,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get thisWeek => 'This Week';
+
+  @override
+  String get tvSeries => 'Tv Series';
 }

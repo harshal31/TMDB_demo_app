@@ -72,7 +72,7 @@ class CustomTabBar extends StatelessWidget {
             },
             isScrollable: isScrollable ?? false,
             tabAlignment: tabAlignment,
-            labelStyle: context.textTheme.labelMedium?.copyWith(
+            labelStyle: context.textTheme.labelLarge?.copyWith(
               fontWeight: FontWeight.w800,
               color: selectedColor ?? context.colorTheme.onPrimary,
             ),

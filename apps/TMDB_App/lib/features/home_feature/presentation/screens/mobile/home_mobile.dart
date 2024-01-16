@@ -27,11 +27,18 @@ class HomeMobile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  context.tr.trending,
-                  style: context.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+                BlocBuilder<TrendingPositionCubit, PositionState>(
+                  builder: (context, state) {
+                    return Text(
+                      state.getTrendingText(context),
+                      style: context.textTheme.displaySmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                      maxLines: 1,
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    );
+                  },
                 ),
                 Row(
                   children: [
@@ -50,12 +57,15 @@ class HomeMobile extends StatelessWidget {
                             selectedColor: context.colorTheme.primaryContainer,
                             onSelectedTab: (pos) {
                               _trendingTabPressApiCall(
-                                  pos, trendingPosCubit, trendingCubit);
+                                pos,
+                                trendingPosCubit,
+                                trendingCubit,
+                              );
                             },
                           )
                         ],
                       ),
-                      flex: 2,
+                      flex: 5,
                     ),
                     Spacer(),
                     BlocBuilder<TrendingPositionCubit, PositionState>(

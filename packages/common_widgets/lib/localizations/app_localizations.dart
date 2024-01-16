@@ -174,6 +174,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This Week'**
   String get thisWeek;
+
+  /// No description provided for @tvSeries.
+  ///
+  /// In en, this message translates to:
+  /// **'Tv Series'**
+  String get tvSeries;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
