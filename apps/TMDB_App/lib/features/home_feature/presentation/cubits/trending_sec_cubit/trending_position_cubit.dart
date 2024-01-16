@@ -7,28 +7,26 @@ class TrendingPositionCubit extends Cubit<TrendingPositionState> {
   TrendingPositionCubit() : super(TrendingPositionState.initial());
 
   void storePosition(int? pos, bool? switchState) {
-    final li = List.of(state.switchStates);
-    li[(pos ?? 0)] = switchState ?? true;
-    emit(TrendingPositionState(pos ?? 0, li));
+    emit(TrendingPositionState(pos ?? 0, switchState ?? true));
   }
 }
 
 class TrendingPositionState with EquatableMixin {
   final int pos;
-  final List<bool> switchStates;
+  final bool switchState;
 
-  TrendingPositionState(this.pos, this.switchStates);
+  TrendingPositionState(this.pos, this.switchState);
 
   factory TrendingPositionState.initial() {
-    return TrendingPositionState(0, [true, true, true, true]);
+    return TrendingPositionState(0, true);
   }
 
   String getTrendingText(BuildContext context) {
     final tr = context.tr.trending;
-    final result = this.switchStates[this.pos] ? context.tr.today : context.tr.thisWeek;
+    final result = this.switchState ? context.tr.today : context.tr.thisWeek;
     return "$tr $result";
   }
 
   @override
-  List<Object?> get props => [pos, switchStates];
+  List<Object?> get props => [pos, switchState];
 }

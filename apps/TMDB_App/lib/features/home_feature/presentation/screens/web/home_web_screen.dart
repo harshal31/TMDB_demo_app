@@ -71,7 +71,7 @@ class HomeWebScreen extends StatelessWidget {
                       builder: (context, state) {
                         return Switch(
                           thumbIcon: SwitchIcon.thumbIcon,
-                          value: state.switchStates[state.pos],
+                          value: state.switchState,
                           onChanged: (s) {
                             _trendingSwitchApiCall(
                               s,
@@ -135,12 +135,12 @@ class HomeWebScreen extends StatelessWidget {
   ) {
     trendingPosCubit.storePosition(
       pos,
-      trendingPosCubit.state.switchStates[pos],
+      trendingPosCubit.state.switchState,
     );
     trendingCubit.fetchTrendingResults(
       pos,
-      switchState: trendingPosCubit.state.switchStates[pos],
-      timeWindow: trendingPosCubit.state.switchStates[pos] ? ApiKey.day : ApiKey.week,
+      switchState: trendingPosCubit.state.switchState,
+      timeWindow: trendingPosCubit.state.switchState ? ApiKey.day : ApiKey.week,
     );
   }
 
