@@ -60,6 +60,10 @@ class TrendingState with EquatableMixin {
     );
   }
 
+  List<String> get getImageUrls {
+    return this.trendingResult?.results?.map((e) => e.getImagePath()).toList() ?? [];
+  }
+
   @override
   List<Object?> get props => [trendingResult, trendingStatus];
 }

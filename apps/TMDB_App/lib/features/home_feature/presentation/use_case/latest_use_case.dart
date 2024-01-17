@@ -61,6 +61,10 @@ class LatestState with EquatableMixin {
     );
   }
 
+  List<String> get getImageUrls {
+    return this.results.map((e) => e.getImagePath()).toList();
+  }
+
   @override
   List<Object?> get props => [latestStatus, results];
 }

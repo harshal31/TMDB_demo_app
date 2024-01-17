@@ -27,6 +27,15 @@ class TrendingPositionState with EquatableMixin {
     return "$tr $result";
   }
 
+  List<String> getTrendingTabTitles(BuildContext context) {
+    return [
+      context.tr.all,
+      context.tr.movies,
+      context.tr.tv,
+      context.tr.people,
+    ];
+  }
+
   @override
   List<Object?> get props => [pos, switchState];
 }

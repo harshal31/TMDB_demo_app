@@ -1,16 +1,17 @@
-import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/switch_icon.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/features/home_feature/presentation/cubits/free_to_watch_sec_cubit/free_to_watch_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/latest_sec_cubit/latest_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/latest_sec_cubit/latest_position_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_sec_cubit/trending_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_sec_cubit/trending_position_cubit.dart';
+import 'package:tmdb_app/features/home_feature/presentation/tmdb_horizontal_list.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/latest_use_case.dart';
+import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart';
 
 class HomeTabletScreen extends StatelessWidget {
@@ -22,6 +23,7 @@ class HomeTabletScreen extends StatelessWidget {
     final trendingPosCubit = context.read<TrendingPositionCubit>();
     final latestCubit = context.read<LatestCubit>();
     final latestPosCubit = context.read<LatestPositionCubit>();
+    final freeToWatchCubit = context.read<FreeToWatchCubit>();
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -70,12 +72,7 @@ class HomeTabletScreen extends StatelessWidget {
                 SizedBox(height: 8),
                 FittedBox(
                   child: CustomTabBar(
-                    titles: [
-                      context.tr.all,
-                      context.tr.movies,
-                      context.tr.tv,
-                      context.tr.people,
-                    ],
+                    titles: trendingPosCubit.state.getTrendingTabTitles(context),
                     isScrollable: true,
                     tabAlignment: TabAlignment.start,
                     selectedColor: context.colorTheme.primaryContainer,
@@ -96,25 +93,8 @@ class HomeTabletScreen extends StatelessWidget {
                       duration: Duration(milliseconds: 500),
                       child: SizedBox(
                         height: 225,
-                        child: ListView.builder(
-                          itemCount: state.trendingResult?.results?.length ?? 0,
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (ctx, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 16.0),
-                              child: ExtendedImage.network(
-                                state.trendingResult?.results?[index].getImagePath() ?? "",
-                                width: 150,
-                                height: 225,
-                                fit: BoxFit.fill,
-                                cache: true,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                //cancelToken: cancellationToken,
-                              ),
-                            );
-                          },
+                        child: TmdbHorizontalList(
+                          imageUrls: state.getImageUrls,
                         ),
                       ),
                     );
@@ -195,26 +175,58 @@ class HomeTabletScreen extends StatelessWidget {
                       duration: Duration(milliseconds: 500),
                       child: SizedBox(
                         height: 225,
-                        child: ListView.builder(
-                          itemCount: state.results.length,
-                          shrinkWrap: true,
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (ctx, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 16.0),
-                              child: ExtendedImage.network(
-                                state.results[index].getImagePath(),
-                                width: 150,
-                                height: 225,
-                                fit: BoxFit.fill,
-                                cache: true,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                //cancelToken: cancellationToken,
-                              ),
-                            );
-                          },
+                        child: TmdbHorizontalList(
+                          imageUrls: state.getImageUrls,
+                        ),
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+          SliverToBoxAdapter(child: SizedBox(height: 16)),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BlocBuilder<FreeToWatchCubit, AdvanceFilterState>(
+                  builder: (context, state) {
+                    return Text(
+                      state.getFreeToWatchText(context, state.pos),
+                      style: context.textTheme.displayMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                      maxLines: 1,
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                FittedBox(
+                  child: CustomTabBar(
+                    titles: freeToWatchCubit.state.getFreeToWatchMovieTabTitles(context),
+                    isScrollable: true,
+                    tabAlignment: TabAlignment.start,
+                    selectedColor: context.colorTheme.primaryContainer,
+                    onSelectedTab: (pos) {
+                      freeToWatchCubit.fetchFreeResults(pos);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 16),
+                BlocBuilder<FreeToWatchCubit, AdvanceFilterState>(
+                  builder: (context, state) {
+                    return AnimatedOpacity(
+                      opacity: state.latestStatus is AdvanceFilterStatusDone ? 1.0 : 0.0,
+                      duration: Duration(milliseconds: 500),
+                      child: SizedBox(
+                        height: 225,
+                        child: TmdbHorizontalList(
+                          imageUrls: state.getImageUrls,
+                          onItemClick: (i) {},
                         ),
                       ),
                     );

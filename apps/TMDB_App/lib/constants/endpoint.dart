@@ -8,4 +8,9 @@ class Endpoint {
 
   static const String trendingApis = "/trending/{${ApiKey.dynamicPath}}/";
   static const String latestApis = "/{${ApiKey.dynamicPath}}/{${ApiKey.dynamicPath2}}";
+
+  static const String advanceDiscover = "/discover/{${ApiKey.dynamicPath}}";
+
+// "https://api.themoviedb.org/3/discover/movie"
+// "https://api.themoviedb.org/3/discover/tv"
 }

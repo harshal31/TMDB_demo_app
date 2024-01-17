@@ -216,6 +216,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'On The Air'**
   String get onTheAir;
+
+  /// No description provided for @freeToWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Free To Watch'**
+  String get freeToWatch;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

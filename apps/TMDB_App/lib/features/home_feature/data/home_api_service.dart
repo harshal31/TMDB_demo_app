@@ -35,4 +35,10 @@ abstract class HomeApiService {
     @Query(ApiKey.page) int page,
     @Query(ApiKey.timezone) String timezone,
   );
+
+  @GET("${Endpoint.advanceDiscover}")
+  Future<HttpResponse<LatestResults>> fetchAdvanceFilterTvAndMovies(
+    @Path(ApiKey.dynamicPath) String dynamicPath,
+    @Queries() Map<String, dynamic> queryMap,
+  );
 }

@@ -66,4 +66,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onTheAir => 'On The Air';
+
+  @override
+  String get freeToWatch => 'Free To Watch';
 }
