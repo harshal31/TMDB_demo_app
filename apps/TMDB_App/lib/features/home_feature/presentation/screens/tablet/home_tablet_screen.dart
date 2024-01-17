@@ -246,15 +246,14 @@ class HomeTabletScreen extends StatelessWidget {
     TrendingPositionCubit trendingPosCubit,
     TrendingCubit trendingCubit,
   ) {
-    trendingPosCubit.storePosition(
-      pos,
-      trendingPosCubit.state.switchState,
-    );
-    trendingCubit.fetchTrendingResults(
-      pos,
-      switchState: trendingPosCubit.state.switchState,
-      timeWindow: trendingPosCubit.state.switchState ? ApiKey.day : ApiKey.week,
-    );
+    if (pos != trendingPosCubit.state.pos) {
+      trendingPosCubit.storePosition(pos, trendingPosCubit.state.switchState);
+      trendingCubit.fetchTrendingResults(
+        pos,
+        switchState: trendingPosCubit.state.switchState,
+        timeWindow: trendingPosCubit.state.switchState ? ApiKey.day : ApiKey.week,
+      );
+    }
   }
 
   /// This method is called when trending switcher is pressed
@@ -284,11 +283,13 @@ class HomeTabletScreen extends StatelessWidget {
     LatestPositionCubit latestPosCubit,
     LatestCubit latestCubit,
   ) {
-    latestPosCubit.storePosition(pos, latestPosCubit.state.currentSwitchState);
-    latestCubit.fetchLatestResults(
-      latestPosCubit.state.currentSwitchState,
-      latestPosCubit.state.getCurrentTabTitle(context),
-    );
+    if (pos != latestPosCubit.state.pos) {
+      latestPosCubit.storePosition(pos, latestPosCubit.state.currentSwitchState);
+      latestCubit.fetchLatestResults(
+        latestPosCubit.state.currentSwitchState,
+        latestPosCubit.state.getCurrentTabTitle(context),
+      );
+    }
   }
 
   /// This method is called when latest switcher is pressed
