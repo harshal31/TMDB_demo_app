@@ -78,11 +78,11 @@ class CustomTabBar extends StatelessWidget {
             ),
             tabs: titles
                 .map((e) => Tab(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(e),
-                      ),
-                    ))
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(e),
+              ),
+            ))
                 .toList(),
           ),
         ),

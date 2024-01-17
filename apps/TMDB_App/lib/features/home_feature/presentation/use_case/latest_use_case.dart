@@ -19,34 +19,68 @@ class LatestUseCase {
 
   LatestUseCase(this._homeApiService);
 
-  Future<Either<ErrorResponse, LatestResults>> fetchLatestResultsBasedOnMediaType(
+  Future<Either<ErrorResponse, List<LatestData>>> fetchLatestResultsBasedOnMediaType(
     String mediaType,
     String currentTab, {
     String language = ApiKey.defaultLanguage,
     int page = 1,
     String region = "",
+    String timezone = "",
   }) async {
     final dynamicPath = dynamicPathMapper[currentTab] ?? "";
     final networkCall = mediaType == ApiKey.movie
         ? _homeApiService.getLatestMovies(mediaType, dynamicPath, language, page, region)
-        : _homeApiService.getLatestMovies(mediaType, dynamicPath, language, page, region);
+        : _homeApiService.getLatestTvSeries(mediaType, dynamicPath, language, page, timezone);
 
     final result = await apiCall(() => networkCall);
 
     return result.fold(
       (l) => left(l),
-      (r) => right(r),
+      (r) => right(r.latestData ?? []),
     );
   }
 }
 
 class LatestState with EquatableMixin {
-  LatestState();
+  final LatestSectionStatus? latestStatus;
+  final List<LatestData> results;
+
+  LatestState(this.latestStatus, this.results);
 
   factory LatestState.initial() {
-    return LatestState();
+    return LatestState(null, []);
+  }
+
+  LatestState copyWith({
+    LatestSectionStatus? latestStatus,
+    List<LatestData>? results,
+  }) {
+    return LatestState(
+      latestStatus ?? this.latestStatus,
+      results ?? this.results,
+    );
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [latestStatus, results];
+}
+
+sealed class LatestSectionStatus with EquatableMixin {}
+
+class LatestSectionLoading extends LatestSectionStatus {
+  final String uniqueKey;
+
+  LatestSectionLoading(this.uniqueKey);
+
+  @override
+  List<Object?> get props => [uniqueKey];
+}
+
+class LatestSectionDone extends LatestSectionStatus {
+  final String uniqueKey;
+
+  LatestSectionDone(this.uniqueKey);
+
+  @override
+  List<Object?> get props => [uniqueKey];
 }

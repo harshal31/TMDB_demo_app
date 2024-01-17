@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tmdb_app/constants/app_constant.dart';
 
 part 'latest_results.g.dart';
 
@@ -156,5 +157,9 @@ class LatestData {
       voteAverage: voteAverage ?? this.voteAverage,
       voteCount: voteCount ?? this.voteCount,
     );
+  }
+
+  String getImagePath() {
+    return AppConstant.imageBaseUrl + (this.posterPath ?? "");
   }
 }

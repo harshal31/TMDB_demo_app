@@ -40,16 +40,20 @@ class LatestPositionState with EquatableMixin {
     return (currentSwitchState
         ? [
             context.tr.nowPlaying,
+            context.tr.upcoming,
             context.tr.popular,
             context.tr.topRated,
-            context.tr.upcoming,
           ]
         : [
             context.tr.airingToday,
+            context.tr.onTheAir,
             context.tr.popular,
             context.tr.topRated,
-            context.tr.onTheAir,
           ]);
+  }
+
+  String getCurrentTabTitle(BuildContext context) {
+    return this.getLatestTabTitles(context)[this.pos];
   }
 
   LatestPositionState copyWith({int? pos, bool? currentSwitchState}) {

@@ -1,3 +1,4 @@
+import "package:common_widgets/localizations/localized_extension.dart";
 import "package:common_widgets/theme/size_detector.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
@@ -24,7 +25,11 @@ class HomeScreen extends StatelessWidget {
           create: (c) => GetIt.instance.get<TrendingPositionCubit>(),
         ),
         BlocProvider(
-          create: (c) => GetIt.instance.get<LatestCubit>()..fetchLatestResults(),
+          create: (c) => GetIt.instance.get<LatestCubit>()
+            ..fetchLatestResults(
+              true,
+              context.tr.nowPlaying,
+            ),
         ),
         BlocProvider(
           create: (c) => GetIt.instance.get<LatestPositionCubit>(),
