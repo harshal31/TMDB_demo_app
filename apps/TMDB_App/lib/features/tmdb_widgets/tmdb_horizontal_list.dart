@@ -23,7 +23,6 @@ class TmdbHorizontalList extends StatelessWidget {
       height: height ?? 225,
       child: ListView.builder(
         itemCount: imageUrls.isNotEmpty ? (imageUrls.length + 1) : 0,
-        shrinkWrap: true,
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {

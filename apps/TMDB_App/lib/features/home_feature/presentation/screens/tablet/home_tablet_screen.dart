@@ -9,7 +9,7 @@ import 'package:tmdb_app/features/home_feature/presentation/cubits/latest_sec_cu
 import 'package:tmdb_app/features/home_feature/presentation/cubits/latest_sec_cubit/latest_position_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_sec_cubit/trending_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/trending_sec_cubit/trending_position_cubit.dart';
-import 'package:tmdb_app/features/home_feature/presentation/tmdb_horizontal_list.dart';
+import 'package:tmdb_app/features/tmdb_widgets/tmdb_horizontal_list.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/latest_use_case.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart';

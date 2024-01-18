@@ -69,4 +69,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get freeToWatch => 'Free To Watch';
+
+  @override
+  String get markAsFavorite => 'Mark As Favorite';
+
+  @override
+  String get addToWatchlist => 'Add to your watchlist';
+
+  @override
+  String get rateIt => 'Rate It!';
+
+  @override
+  String get overview => 'Overview';
+
+  @override
+  String get topBilledCast => 'Top Billed Cast';
+
+  @override
+  String get fullCastCrew => 'Full Cast and Crew';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get original => 'Original';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get budget => 'Budget';
+
+  @override
+  String get revenue => 'Revenue';
+
+  @override
+  String get keywords => 'Keywords';
+
+  @override
+  String get social => 'Social';
+
+  @override
+  String get reviews => 'Reviews';
+
+  @override
+  String get readAllReviews => 'Read All Reviews';
+
+  @override
+  String get media => 'Media';
+
+  @override
+  String get mostPopular => 'Most Popular';
+
+  @override
+  String get videos => 'Videos';
+
+  @override
+  String get backdrops => 'Backdrops';
+
+  @override
+  String get posters => 'Posters';
+
+  @override
+  String get recommendations => 'Recommendations';
 }

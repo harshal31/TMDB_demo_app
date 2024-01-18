@@ -222,6 +222,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Free To Watch'**
   String get freeToWatch;
+
+  /// No description provided for @markAsFavorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark As Favorite'**
+  String get markAsFavorite;
+
+  /// No description provided for @addToWatchlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to your watchlist'**
+  String get addToWatchlist;
+
+  /// No description provided for @rateIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate It!'**
+  String get rateIt;
+
+  /// No description provided for @overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overview;
+
+  /// No description provided for @topBilledCast.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Billed Cast'**
+  String get topBilledCast;
+
+  /// No description provided for @fullCastCrew.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Cast and Crew'**
+  String get fullCastCrew;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @original.
+  ///
+  /// In en, this message translates to:
+  /// **'Original'**
+  String get original;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get budget;
+
+  /// No description provided for @revenue.
+  ///
+  /// In en, this message translates to:
+  /// **'Revenue'**
+  String get revenue;
+
+  /// No description provided for @keywords.
+  ///
+  /// In en, this message translates to:
+  /// **'Keywords'**
+  String get keywords;
+
+  /// No description provided for @social.
+  ///
+  /// In en, this message translates to:
+  /// **'Social'**
+  String get social;
+
+  /// No description provided for @reviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews'**
+  String get reviews;
+
+  /// No description provided for @readAllReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Read All Reviews'**
+  String get readAllReviews;
+
+  /// No description provided for @media.
+  ///
+  /// In en, this message translates to:
+  /// **'Media'**
+  String get media;
+
+  /// No description provided for @mostPopular.
+  ///
+  /// In en, this message translates to:
+  /// **'Most Popular'**
+  String get mostPopular;
+
+  /// No description provided for @videos.
+  ///
+  /// In en, this message translates to:
+  /// **'Videos'**
+  String get videos;
+
+  /// No description provided for @backdrops.
+  ///
+  /// In en, this message translates to:
+  /// **'Backdrops'**
+  String get backdrops;
+
+  /// No description provided for @posters.
+  ///
+  /// In en, this message translates to:
+  /// **'Posters'**
+  String get posters;
+
+  /// No description provided for @recommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendations'**
+  String get recommendations;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

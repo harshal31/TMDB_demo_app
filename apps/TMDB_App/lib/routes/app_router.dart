@@ -6,19 +6,23 @@ import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
 import 'package:tmdb_app/features/authentication_feature/presentation/screens/authentication_screen.dart';
 import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.dart";
+import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
+import "package:tmdb_app/routes/route_param.dart";
 
 class AppRouter {
   static GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
   static GoRouter goRouter = GoRouter(
-    redirect: shouldRedirectToHomeScreenIfLoggedIn,
     navigatorKey: _rootNavigatorKey,
     initialLocation: RouteName.login,
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
         path: RouteName.login,
+        redirect: (ctx, s) {
+          return shouldRedirectToHomeScreenIfLoggedIn(ctx, s);
+        },
         builder: (ctx, state) {
           return AuthenticationScreen();
         },
@@ -28,6 +32,16 @@ class AppRouter {
         builder: (ctx, state) {
           return HomeScreen();
         },
+        routes: [
+          GoRoute(
+            name: RouteName.movie,
+            path: "${RouteName.movie}/:${RouteParam.id}",
+            builder: (ctx, state) {
+              final movieId = state.pathParameters[RouteParam.id] ?? "";
+              return MovieDetailScreen(movieId: movieId);
+            },
+          )
+        ],
       ),
     ],
   );
@@ -36,8 +50,7 @@ class AppRouter {
     BuildContext c,
     GoRouterState s,
   ) async {
-    final sessionId =
-        await GetIt.instance.get<HiveManager>().getString(HiveKey.sessionId);
+    final sessionId = await GetIt.instance.get<HiveManager>().getString(HiveKey.sessionId);
     if (sessionId.isNotEmpty) {
       return RouteName.home;
     }
