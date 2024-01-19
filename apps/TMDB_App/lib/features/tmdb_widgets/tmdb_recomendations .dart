@@ -2,6 +2,8 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 class TmdbRecomendations extends StatelessWidget {
+  TmdbRecomendations({super.key});
+
   final imageUrls = [
     "https://image.tmdb.org/t/p/original/Ag3D9qXjhJ2FUkrlJ0Cv1pgxqYQ.jpg",
     "https://image.tmdb.org/t/p/original/3b8VyzOHZKBTnbLGR7PriCV1C06.jpg",
@@ -20,6 +22,8 @@ class TmdbRecomendations extends StatelessWidget {
       child: ListView.builder(
         itemCount: imageUrls.length + 1,
         padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           if (index == imageUrls.length) {
@@ -50,7 +54,7 @@ class TmdbRecomendations extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(10.0),
               ),
-              cacheMaxAge: Duration(hours: 1),
+              cacheMaxAge: Duration(minutes: 30),
             ),
           );
         },

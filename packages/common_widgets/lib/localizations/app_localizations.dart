@@ -265,17 +265,11 @@ abstract class AppLocalizations {
   /// **'Status'**
   String get status;
 
-  /// No description provided for @original.
+  /// No description provided for @originalLanguage.
   ///
   /// In en, this message translates to:
-  /// **'Original'**
-  String get original;
-
-  /// No description provided for @language.
-  ///
-  /// In en, this message translates to:
-  /// **'Language'**
-  String get language;
+  /// **'Original Language'**
+  String get originalLanguage;
 
   /// No description provided for @budget.
   ///
@@ -348,6 +342,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recommendations'**
   String get recommendations;
+
+  /// No description provided for @readMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Read More'**
+  String get readMore;
+
+  /// No description provided for @readLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Read Less'**
+  String get readLess;
+
+  /// No description provided for @writtenBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Written by {user} on {date}'**
+  String writtenBy(Object date, Object user);
+
+  /// No description provided for @aReviewBy.
+  ///
+  /// In en, this message translates to:
+  /// **'A Review By {user}'**
+  String aReviewBy(Object user);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

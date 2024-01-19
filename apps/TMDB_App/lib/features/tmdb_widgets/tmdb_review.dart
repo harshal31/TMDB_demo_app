@@ -1,7 +1,19 @@
+import 'package:common_widgets/common_utils/date_util.dart';
+import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/read_more_text.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 
 class TmdbReview extends StatelessWidget {
+  final ReviewResults? result;
+
+  const TmdbReview({
+    super.key,
+    required this.result,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -17,13 +29,24 @@ class TmdbReview extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 CircleAvatar(
+                  radius: 20,
                   backgroundColor: context.colorTheme.primary,
                   // Replace with actual image or initial
-                  child: Text(
-                    'P',
-                    style: context.textTheme.titleMedium?.copyWith(
-                        color: context.colorTheme.onPrimary, fontWeight: FontWeight.w900),
-                  ),
+                  child: result?.authorDetails?.avatarPath?.isNotEmpty ?? false
+                      ? ExtendedImage.network(
+                          result?.authorDetails?.getAvatar() ?? "",
+                          fit: BoxFit.cover,
+                          cache: true,
+                          shape: BoxShape.circle,
+                          cacheMaxAge: Duration(minutes: 30),
+                        )
+                      : Text(
+                          'P',
+                          style: context.textTheme.titleMedium?.copyWith(
+                            color: context.colorTheme.onPrimary,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
                 ),
                 SizedBox(width: 8.0),
                 Expanded(
@@ -32,7 +55,7 @@ class TmdbReview extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'A review by pimpskitters',
+                        context.tr.aReviewBy(result?.authorDetails?.name ?? ""),
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.w900,
                         ),
@@ -57,10 +80,11 @@ class TmdbReview extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  '3.0',
+                                  result?.authorDetails?.rating.toString() ?? "",
                                   style: context.textTheme.titleSmall?.copyWith(
-                                      color: context.colorTheme.onPrimary,
-                                      fontWeight: FontWeight.w800),
+                                    color: context.colorTheme.onPrimary,
+                                    fontWeight: FontWeight.w800,
+                                  ),
                                 ),
                               ],
                             ),
@@ -68,7 +92,8 @@ class TmdbReview extends StatelessWidget {
                           const SizedBox(width: 16),
                           Expanded(
                             child: Text(
-                              'Written by pimpskitters on January 17, 2024',
+                              context.tr.writtenBy(result?.authorDetails?.name ?? "",
+                                  result?.createdAt.formatDateInMMMMFormat ?? ""),
                               style: context.textTheme.titleSmall?.copyWith(
                                 color: context.colorTheme.outline,
                               ),
@@ -82,13 +107,15 @@ class TmdbReview extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16.0),
-            Text(
-              'Its not just that Larson is deeply uncharismatic, or that now the whole marvel '
-              'thing reeks of try hard desperation to restart the previous two decades longest running gravy train. '
-              'Its mostly that all of the marvel movies always have been, low grade cartoons for lame brained adults. '
-              'The fuckheads who slurped it all are now pretending like this is any worse, it isn\'t. '
-              'Its the same thing, and you wasted a lifetime of watching hours on all the other marvel nonsense, you lose.',
+            ReadMoreText(
+              result?.content ?? "",
+              colorClickableText: context.colorTheme.primary,
               style: context.textTheme.bodyMedium,
+              moreStyle: context.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+              trimCollapsedText: context.tr.readMore,
+              trimExpandedText: context.tr.readLess,
+              trimLines: 5,
+              trimMode: TrimMode.Line,
             ),
           ],
         ),

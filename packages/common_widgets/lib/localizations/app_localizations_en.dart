@@ -92,10 +92,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get status => 'Status';
 
   @override
-  String get original => 'Original';
-
-  @override
-  String get language => 'Language';
+  String get originalLanguage => 'Original Language';
 
   @override
   String get budget => 'Budget';
@@ -132,4 +129,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recommendations => 'Recommendations';
+
+  @override
+  String get readMore => 'Read More';
+
+  @override
+  String get readLess => 'Read Less';
+
+  @override
+  String writtenBy(Object date, Object user) {
+    return 'Written by $user on $date';
+  }
+
+  @override
+  String aReviewBy(Object user) {
+    return 'A Review By $user';
+  }
 }

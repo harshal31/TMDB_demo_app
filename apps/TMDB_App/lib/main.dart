@@ -21,6 +21,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       scrollBehavior: MaterialScrollBehavior().copyWith(
+        physics: BouncingScrollPhysics(),
         dragDevices: {
           PointerDeviceKind.mouse,
           PointerDeviceKind.touch,

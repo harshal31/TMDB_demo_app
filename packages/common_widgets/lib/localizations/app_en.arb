@@ -28,8 +28,7 @@
   "topBilledCast": "Top Billed Cast",
   "fullCastCrew": "Full Cast and Crew",
   "status": "Status",
-  "original": "Original",
-  "language": "Language",
+  "originalLanguage": "Original Language",
   "budget": "Budget",
   "revenue": "Revenue",
   "keywords": "Keywords",
@@ -41,5 +40,9 @@
   "videos": "Videos",
   "backdrops": "Backdrops",
   "posters": "Posters",
-  "recommendations": "Recommendations"
+  "recommendations": "Recommendations",
+  "readMore": "Read More",
+  "readLess": "Read Less",
+  "writtenBy": "Written by {user} on {date}",
+  "aReviewBy": "A Review By {user}"
 }

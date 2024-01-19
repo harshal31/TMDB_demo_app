@@ -25,6 +25,17 @@ class $AssetsIconGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/facebook.png
+  AssetGenImage get facebook =>
+      const AssetGenImage('assets/images/facebook.png');
+
+  /// File path: assets/images/imdb.png
+  AssetGenImage get imdb => const AssetGenImage('assets/images/imdb.png');
+
+  /// File path: assets/images/instagram.png
+  AssetGenImage get instagram =>
+      const AssetGenImage('assets/images/instagram.png');
+
   /// File path: assets/images/tmdb_logo.png
   AssetGenImage get tmdbLogo =>
       const AssetGenImage('assets/images/tmdb_logo.png');
@@ -33,8 +44,15 @@ class $AssetsImagesGen {
   AssetGenImage get trimTmdbLogo =>
       const AssetGenImage('assets/images/trim_tmdb_logo.png');
 
+  /// File path: assets/images/twitter.png
+  AssetGenImage get twitter => const AssetGenImage('assets/images/twitter.png');
+
+  /// File path: assets/images/wiki.png
+  AssetGenImage get wiki => const AssetGenImage('assets/images/wiki.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [tmdbLogo, trimTmdbLogo];
+  List<AssetGenImage> get values =>
+      [facebook, imdb, instagram, tmdbLogo, trimTmdbLogo, twitter, wiki];
 }
 
 class Assets {

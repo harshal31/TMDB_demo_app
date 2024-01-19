@@ -4,6 +4,7 @@ class AppConstant {
   static const String baseUrl = "https://api.themoviedb.org/$_apiVersion";
   static const String requestTokenExpiryFormat = "yyyy-MM-dd HH:mm:ss 'UTC'";
   static const String imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+  static const String originalImageBaseUrl = "https://image.tmdb.org/t/p/original";
 
   static const double mobMin = 0.0;
   static const double mobMax = 450;

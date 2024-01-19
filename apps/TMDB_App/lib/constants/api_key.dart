@@ -6,6 +6,10 @@ class ApiKey {
   static const String language = "language";
   static const String dynamicPath = "dynamicPath";
   static const String dynamicPath2 = "dynamicPath2";
+  static const String mediaType = "mediaType";
+  static const String typeId = "typeId";
+  static const String sessionId = "session_id";
+
   static const String defaultLanguage = "en-US";
   static const String week = "week";
   static const String day = "day";
@@ -25,7 +29,6 @@ class ApiKey {
   static const String region = "region";
   static const String defaultSortOrder = "popularity.desc";
   static const String freeToWatchValue = "free|ads";
-
 
   static const String certification = "certification";
   static const String certification_gte = "certification.gte";
