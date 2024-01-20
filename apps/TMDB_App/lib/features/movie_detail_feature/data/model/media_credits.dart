@@ -112,7 +112,7 @@ class Cast {
   }
 
   String getImage() {
-    return AppConstant.originalImageBaseUrl + (this.profilePath ?? "");
+    return AppConstant.imageBaseUrl + (this.profilePath ?? "");
   }
 }
 

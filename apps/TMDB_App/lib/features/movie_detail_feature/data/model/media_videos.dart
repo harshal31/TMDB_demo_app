@@ -6,7 +6,7 @@ class MediaVideos {
   @JsonKey(name: 'id')
   int? id;
   @JsonKey(name: 'results')
-  List<Results>? results;
+  List<Videos>? results;
 
   MediaVideos({
     this.id,
@@ -20,7 +20,7 @@ class MediaVideos {
 
   MediaVideos copyWith({
     int? id,
-    List<Results>? results,
+    List<Videos>? results,
   }) {
     return MediaVideos(
       id: id ?? this.id,
@@ -30,7 +30,7 @@ class MediaVideos {
 }
 
 @JsonSerializable()
-class Results {
+class Videos {
   @JsonKey(name: 'iso_639_1')
   String? iso6391;
   @JsonKey(name: 'iso_3166_1')
@@ -52,7 +52,7 @@ class Results {
   @JsonKey(name: 'id')
   String? id;
 
-  Results({
+  Videos({
     this.iso6391,
     this.iso31661,
     this.name,
@@ -65,12 +65,12 @@ class Results {
     this.id,
   });
 
-  factory Results.fromJson(Map<String, dynamic> json) =>
-      _$ResultsFromJson(json);
+  factory Videos.fromJson(Map<String, dynamic> json) =>
+      _$VideosFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ResultsToJson(this);
+  Map<String, dynamic> toJson() => _$VideosToJson(this);
 
-  Results copyWith({
+  Videos copyWith({
     String? iso6391,
     String? iso31661,
     String? name,
@@ -82,7 +82,7 @@ class Results {
     String? publishedAt,
     String? id,
   }) {
-    return Results(
+    return Videos(
       iso6391: iso6391 ?? this.iso6391,
       iso31661: iso31661 ?? this.iso31661,
       name: name ?? this.name,

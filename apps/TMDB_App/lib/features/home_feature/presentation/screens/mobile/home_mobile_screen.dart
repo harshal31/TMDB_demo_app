@@ -14,6 +14,8 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_horizontal_list.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/latest_use_case.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart';
+import 'package:tmdb_app/routes/route_name.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 
 class HomeMobileScreen extends StatelessWidget {
   const HomeMobileScreen({super.key});
@@ -96,7 +98,11 @@ class HomeMobileScreen extends StatelessWidget {
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
                           onItemClick: (i) {
-                            context.go("/home/a");
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: state.trendingResult?.results?[i].mediaType,
+                              movieId: state.trendingResult?.results?[i].id.toString(),
+                            );
                           },
                         ),
                       ),
@@ -179,7 +185,13 @@ class HomeMobileScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
-                          onItemClick: (i) {},
+                          onItemClick: (i) {
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: ApiKey.movie,
+                              movieId: state.results[i].id.toString(),
+                            );
+                          },
                         ),
                       ),
                     );
@@ -229,7 +241,13 @@ class HomeMobileScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
-                          onItemClick: (i) {},
+                          onItemClick: (i) {
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: state.pos == 0 ? ApiKey.movie : ApiKey.tv,
+                              movieId: state.results[i].id.toString(),
+                            );
+                          },
                         ),
                       ),
                     );
@@ -320,5 +338,16 @@ class HomeMobileScreen extends StatelessWidget {
       );
       return;
     }
+  }
+
+  void _redirectToDetailScreen(
+    BuildContext context, {
+    String? mediaType = ApiKey.movie,
+    String? movieId = "609681",
+  }) {
+    context.goNamed(
+      mediaType ?? RouteName.movie,
+      pathParameters: {RouteParam.id: movieId ?? ""},
+    );
   }
 }

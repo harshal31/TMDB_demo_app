@@ -366,6 +366,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A Review By {user}'**
   String aReviewBy(Object user);
+
+  /// No description provided for @noKeywords.
+  ///
+  /// In en, this message translates to:
+  /// **'No keywords have been added.'**
+  String get noKeywords;
+
+  /// No description provided for @noReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'We don\'t have any reviews for {name}.'**
+  String noReviews(Object name);
+
+  /// No description provided for @noRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'We don\'t have enough data to suggest any movies based on {name}. You can help by rating movies you\'ve seen.'**
+  String noRecommendation(Object name);
+
+  /// No description provided for @noVideos.
+  ///
+  /// In en, this message translates to:
+  /// **'No Videos have been present.'**
+  String get noVideos;
+
+  /// No description provided for @noBackdrops.
+  ///
+  /// In en, this message translates to:
+  /// **'No Backdrops have been present.'**
+  String get noBackdrops;
+
+  /// No description provided for @noPosters.
+  ///
+  /// In en, this message translates to:
+  /// **'No Posters have been present'**
+  String get noPosters;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

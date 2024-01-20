@@ -1,6 +1,6 @@
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_network/image_network.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
 
 class TmdbCastList extends StatelessWidget {
@@ -21,33 +21,14 @@ class TmdbCastList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final models = model ?? [];
+    final models = model?.take(10).toList() ?? [];
     return SizedBox(
       height: height ?? 245,
       child: ListView.builder(
-        itemCount: models.isNotEmpty ? (models.length + 1) : 0,
+        itemCount: models.length,
         padding: EdgeInsets.zero,
-        physics: ClampingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
         itemBuilder: (ctx, index) {
-          if (index == models.length) {
-            return Container(
-              key: ValueKey(index),
-              alignment: Alignment.center,
-              width: width ?? 138,
-              height: height ?? 245,
-              child: IconButton(
-                icon: Icon(
-                  Icons.keyboard_double_arrow_right_sharp,
-                  size: 40,
-                ),
-                onPressed: () {
-                  onViewAllClick?.call();
-                },
-              ),
-            );
-          }
           return Padding(
             key: ValueKey(index),
             padding: const EdgeInsets.only(right: 16),
@@ -67,18 +48,11 @@ class TmdbCastList extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      ExtendedImage.network(
-                        models[index].getImage(),
+                      ImageNetwork(
+                        image: models[index].getImage(),
                         width: width ?? 138,
                         height: 175,
-                        fit: BoxFit.cover,
-                        cache: true,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10.0),
-                          topRight: Radius.circular(10.0),
-                        ),
-                        cacheMaxAge: Duration(minutes: 30),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 4),

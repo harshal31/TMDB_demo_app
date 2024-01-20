@@ -1,51 +1,43 @@
+import 'package:common_widgets/localizations/localized_extension.dart';
+import 'package:common_widgets/theme/app_theme.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommendations.dart';
 
 class TmdbRecomendations extends StatelessWidget {
-  TmdbRecomendations({super.key});
+  final MediaDetail? detail;
+  final List<RecommendationResults> recommendations;
 
-  final imageUrls = [
-    "https://image.tmdb.org/t/p/original/Ag3D9qXjhJ2FUkrlJ0Cv1pgxqYQ.jpg",
-    "https://image.tmdb.org/t/p/original/3b8VyzOHZKBTnbLGR7PriCV1C06.jpg",
-    "https://image.tmdb.org/t/p/original/vpuuFM032yiX8tox4L84Wl9MGjG.jpg",
-    "https://image.tmdb.org/t/p/original/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg",
-    "https://image.tmdb.org/t/p/original/Ag3D9qXjhJ2FUkrlJ0Cv1pgxqYQ.jpg",
-    "https://image.tmdb.org/t/p/original/3b8VyzOHZKBTnbLGR7PriCV1C06.jpg",
-    "https://image.tmdb.org/t/p/original/vpuuFM032yiX8tox4L84Wl9MGjG.jpg",
-    "https://image.tmdb.org/t/p/original/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg",
-  ];
+  TmdbRecomendations({
+    super.key,
+    required this.recommendations,
+    required this.detail,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (recommendations.isEmpty) {
+      return Text(
+        context.tr.noRecommendation(detail?.originalTitle ?? ""),
+        style: context.textTheme.titleMedium,
+        textAlign: TextAlign.center,
+      );
+    }
+
     return SizedBox(
       height: 141,
       child: ListView.builder(
-        itemCount: imageUrls.length + 1,
+        itemCount: recommendations.length,
         padding: EdgeInsets.zero,
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
-          if (index == imageUrls.length) {
-            return Container(
-              key: ValueKey(index),
-              alignment: Alignment.center,
-              width: 250,
-              height: 141,
-              child: IconButton(
-                icon: Icon(
-                  Icons.keyboard_double_arrow_right_sharp,
-                  size: 40,
-                ),
-                onPressed: () {},
-              ),
-            );
-          }
-
           return Padding(
             padding: const EdgeInsets.only(right: 16),
             child: ExtendedImage.network(
-              imageUrls[index],
+              recommendations[index].backDropImage,
               width: 250,
               height: 141,
               fit: BoxFit.fill,

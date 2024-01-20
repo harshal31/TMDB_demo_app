@@ -60,7 +60,7 @@ class TmdbHorizontalList extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
                 ),
-                cacheMaxAge: Duration(days: 2),
+                cacheMaxAge: Duration(hours: 4),
               ),
             ),
           );

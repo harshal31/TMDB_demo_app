@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tmdb_app/constants/app_constant.dart';
+
 part 'media_recommendations.g.dart';
 
 @JsonSerializable()
@@ -6,7 +8,7 @@ class MediaRecommendations {
   @JsonKey(name: 'page')
   int? page;
   @JsonKey(name: 'results')
-  List<Results>? results;
+  List<RecommendationResults>? results;
   @JsonKey(name: 'total_pages')
   int? totalPages;
   @JsonKey(name: 'total_results')
@@ -26,7 +28,7 @@ class MediaRecommendations {
 
   MediaRecommendations copyWith({
     int? page,
-    List<Results>? results,
+    List<RecommendationResults>? results,
     int? totalPages,
     int? totalResults,
   }) {
@@ -40,7 +42,7 @@ class MediaRecommendations {
 }
 
 @JsonSerializable()
-class Results {
+class RecommendationResults {
   @JsonKey(name: 'adult')
   bool? adult;
   @JsonKey(name: 'backdrop_path')
@@ -72,7 +74,7 @@ class Results {
   @JsonKey(name: 'vote_count')
   int? voteCount;
 
-  Results({
+  RecommendationResults({
     this.adult,
     this.backdropPath,
     this.id,
@@ -90,12 +92,20 @@ class Results {
     this.voteCount,
   });
 
-  factory Results.fromJson(Map<String, dynamic> json) =>
-      _$ResultsFromJson(json);
+  String get posterImage {
+    return AppConstant.imageBaseUrl + (posterPath ?? "");
+  }
 
-  Map<String, dynamic> toJson() => _$ResultsToJson(this);
+  String get backDropImage {
+    return AppConstant.originalImageBaseUrl + (backdropPath ?? "");
+  }
 
-  Results copyWith({
+  factory RecommendationResults.fromJson(Map<String, dynamic> json) =>
+      _$RecommendationResultsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RecommendationResultsToJson(this);
+
+  RecommendationResults copyWith({
     bool? adult,
     String? backdropPath,
     int? id,
@@ -112,7 +122,7 @@ class Results {
     double? voteAverage,
     int? voteCount,
   }) {
-    return Results(
+    return RecommendationResults(
       adult: adult ?? this.adult,
       backdropPath: backdropPath ?? this.backdropPath,
       id: id ?? this.id,

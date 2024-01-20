@@ -1,4 +1,5 @@
 import "dart:async";
+import "package:common_widgets/widgets/youtube_video.dart";
 import "package:flutter/material.dart";
 import "package:get_it/get_it.dart";
 import "package:go_router/go_router.dart";
@@ -40,7 +41,17 @@ class AppRouter {
               final movieId = state.pathParameters[RouteParam.id] ?? "";
               return MovieDetailScreen(movieId: movieId);
             },
-          )
+            routes: [
+              GoRoute(
+                name: RouteName.youtubeVideo,
+                path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                builder: (ctx, state) {
+                  final id = state.pathParameters[RouteParam.videoId] ?? "";
+                  return YoutubeVideo(id: id);
+                },
+              )
+            ],
+          ),
         ],
       ),
     ],

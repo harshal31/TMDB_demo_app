@@ -47,4 +47,24 @@ class MediaExternalId {
       twitterId: twitterId ?? this.twitterId,
     );
   }
+
+  bool get isFidAvailable {
+    return facebookId?.isNotEmpty ?? false;
+  }
+
+  bool get isInstaIdAvailable {
+    return instagramId?.isNotEmpty ?? false;
+  }
+
+  bool get isTwitIdAvailable {
+    return twitterId?.isNotEmpty ?? false;
+  }
+
+  bool get isWikiIdAvailable {
+    return wikidataId?.isNotEmpty ?? false;
+  }
+
+  bool get isImdbIdAvailable {
+    return imdbId?.isNotEmpty ?? false;
+  }
 }

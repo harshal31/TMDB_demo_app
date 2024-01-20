@@ -1,4 +1,3 @@
-import 'package:fpdart/fpdart.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_account_state.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';

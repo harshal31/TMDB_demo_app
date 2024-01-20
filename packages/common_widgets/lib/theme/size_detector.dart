@@ -32,7 +32,7 @@ class SizeDetector extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         duration: Duration(milliseconds: 400),
         child: widget,
-        curve: Curves.easeInOut,
+        curve: Curves.linear,
       ),
     );
   }

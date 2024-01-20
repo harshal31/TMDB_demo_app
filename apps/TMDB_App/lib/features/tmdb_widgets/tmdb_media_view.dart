@@ -1,87 +1,128 @@
+import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/youtube/youtube_thumbnail.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
+import 'package:tmdb_app/routes/route_name.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 
 class TmdbMediaView extends StatelessWidget {
   final int pos;
+  final String movieId;
+  final List<Videos> videos;
+  final MediaImages? images;
+  final double? height;
 
   const TmdbMediaView({
     super.key,
     required this.pos,
+    required this.videos,
+    required this.images,
+    required this.movieId,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 300,
+      height: height ?? 300,
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: pos == 0 ? _TmdbVideos() : ((pos == 1) ? _TmdbBackdrops() : _TmdbPosters()),
+      child: pos == 0
+          ? _TmdbVideos(
+              videos: videos,
+              movieId: movieId,
+              height: height,
+            )
+          : ((pos == 1)
+              ? _TmdbBackdrops(
+                  backDrops: images?.backdrops?.take(10).toList() ?? [],
+                  height: height,
+                )
+              : _TmdbPosters(
+                  posters: images?.posters?.take(10).toList() ?? [],
+                  height: height,
+                )),
     );
   }
 }
 
 class _TmdbVideos extends StatelessWidget {
-  final imageUrls = ["6TGg0_xtLoA", "8fTfj5pWU7Y", "B4JVbM"];
+  final List<Videos> videos;
+  final String movieId;
+  final double? height;
+
+  const _TmdbVideos({required this.videos, required this.movieId, this.height});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: imageUrls.length,
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      padding: EdgeInsets.zero,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (ctx, index) {
-        return Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: _getBorderRadius(index),
-          ),
-          child: Stack(
-            children: [
-              ImageNetwork(
-                image: YoutubeThumbnail.hd(imageUrls[index]),
-                width: 533,
-                height: 300,
-                duration: 500,
-                curve: Curves.easeIn,
-                fitAndroidIos: BoxFit.cover,
-                fitWeb: BoxFitWeb.cover,
-                onLoading: CircularProgressIndicator(
-                  color: context.colorTheme.primary,
-                ),
-                onError: Center(
-                  child: Text(
-                    "Failed to load image",
-                    style: context.textTheme.titleMedium,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
+    return Visibility(
+      visible: videos.isNotEmpty,
+      child: ListView.builder(
+        itemCount: videos.length,
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        padding: EdgeInsets.zero,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (ctx, index) {
+          return Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: _getBorderRadius(index),
+            ),
+            child: Stack(
+              children: [
+                ImageNetwork(
+                  image: YoutubeThumbnail.hd(videos[index].key),
                   width: 533,
-                  height: 300,
+                  height: height ?? 300,
+                  duration: 400,
+                  borderRadius: _getBorderRadius(index),
+                  curve: Curves.easeIn,
+                  fullScreen: false,
+                ),
+                Align(
                   alignment: Alignment.center,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.play_circle_outline_sharp,
-                      size: 40,
+                  child: Container(
+                    width: 533,
+                    height: 300,
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.play_circle_outline_sharp,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        context.goNamed(
+                          RouteName.youtubeVideo,
+                          pathParameters: {
+                            RouteParam.videoId: videos[index].key ?? "",
+                            RouteParam.id: movieId
+                          },
+                        );
+                      },
                     ),
-                    onPressed: () {},
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
+      replacement: Center(
+        child: Text(
+          context.tr.noVideos,
+          style: context.textTheme.titleMedium,
+        ),
+      ),
     );
   }
 
@@ -90,7 +131,7 @@ class _TmdbVideos extends StatelessWidget {
       return BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
     }
 
-    if (index == (imageUrls.length - 1)) {
+    if (index == (videos.length - 1)) {
       return BorderRadius.only(topRight: Radius.circular(15), bottomRight: Radius.circular(15));
     }
 
@@ -99,62 +140,40 @@ class _TmdbVideos extends StatelessWidget {
 }
 
 class _TmdbBackdrops extends StatelessWidget {
-  final imageUrls = ["8fTfj5pWU7Y"];
+  final List<Backdrops> backDrops;
+  final double? height;
+
+  const _TmdbBackdrops({required this.backDrops, this.height});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: imageUrls.length,
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      padding: EdgeInsets.zero,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (ctx, index) {
-        return Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
+    return Visibility(
+      visible: backDrops.isNotEmpty,
+      child: ListView.builder(
+        itemCount: backDrops.length,
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        padding: EdgeInsets.zero,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (ctx, index) {
+          return ExtendedImage.network(
+            backDrops[index].getImage(),
+            width: 533,
+            height: height ?? 300,
+            fit: BoxFit.cover,
+            cache: true,
+            shape: BoxShape.rectangle,
             borderRadius: _getBorderRadius(index),
-          ),
-          child: Stack(
-            children: [
-              ImageNetwork(
-                image: YoutubeThumbnail.hd(imageUrls[index]),
-                width: 533,
-                height: 300,
-                duration: 500,
-                curve: Curves.easeIn,
-                fitAndroidIos: BoxFit.cover,
-                fitWeb: BoxFitWeb.cover,
-                onLoading: CircularProgressIndicator(
-                  color: context.colorTheme.primary,
-                ),
-                onError: Center(
-                  child: Text(
-                    "Failed to load image",
-                    style: context.textTheme.titleMedium,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: 533,
-                  height: 300,
-                  alignment: Alignment.center,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.play_circle_outline_sharp,
-                      size: 40,
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+            cacheMaxAge: Duration(minutes: 30),
+          );
+        },
+      ),
+      replacement: Center(
+        child: Text(
+          context.tr.noBackdrops,
+          style: context.textTheme.titleMedium,
+        ),
+      ),
     );
   }
 
@@ -163,7 +182,7 @@ class _TmdbBackdrops extends StatelessWidget {
       return BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
     }
 
-    if (index == (imageUrls.length - 1)) {
+    if (index == (backDrops.length - 1)) {
       return BorderRadius.only(topRight: Radius.circular(15), bottomRight: Radius.circular(15));
     }
 
@@ -172,62 +191,40 @@ class _TmdbBackdrops extends StatelessWidget {
 }
 
 class _TmdbPosters extends StatelessWidget {
-  final imageUrls = ["6TGg0_xtLoA", "8fTfj5pWU7Y"];
+  final List<Posters> posters;
+  final double? height;
+
+  const _TmdbPosters({required this.posters, this.height});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: imageUrls.length,
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      padding: EdgeInsets.zero,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (ctx, index) {
-        return Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
+    return Visibility(
+      visible: posters.isNotEmpty,
+      child: ListView.builder(
+        itemCount: posters.length,
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        padding: EdgeInsets.zero,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (ctx, index) {
+          return ExtendedImage.network(
+            posters[index].getImage(),
+            width: 160,
+            height: height ?? 300,
+            fit: BoxFit.cover,
+            cache: true,
+            shape: BoxShape.rectangle,
             borderRadius: _getBorderRadius(index),
-          ),
-          child: Stack(
-            children: [
-              ImageNetwork(
-                image: YoutubeThumbnail.hd(imageUrls[index]),
-                width: 533,
-                height: 300,
-                duration: 500,
-                curve: Curves.easeIn,
-                fitAndroidIos: BoxFit.cover,
-                fitWeb: BoxFitWeb.cover,
-                onLoading: CircularProgressIndicator(
-                  color: context.colorTheme.primary,
-                ),
-                onError: Center(
-                  child: Text(
-                    "Failed to load image",
-                    style: context.textTheme.titleMedium,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: 533,
-                  height: 300,
-                  alignment: Alignment.center,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.play_circle_outline_sharp,
-                      size: 40,
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+            cacheMaxAge: Duration(minutes: 30),
+          );
+        },
+      ),
+      replacement: Center(
+        child: Text(
+          context.tr.noPosters,
+          style: context.textTheme.titleMedium,
+        ),
+      ),
     );
   }
 
@@ -236,7 +233,7 @@ class _TmdbPosters extends StatelessWidget {
       return BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
     }
 
-    if (index == (imageUrls.length - 1)) {
+    if (index == (posters.length - 1)) {
       return BorderRadius.only(topRight: Radius.circular(15), bottomRight: Radius.circular(15));
     }
 

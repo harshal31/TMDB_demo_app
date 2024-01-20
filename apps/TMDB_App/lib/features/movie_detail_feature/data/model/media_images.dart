@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tmdb_app/constants/app_constant.dart';
+
 part 'media_images.g.dart';
 
 @JsonSerializable()
@@ -19,8 +21,7 @@ class MediaImages {
     this.posters,
   });
 
-  factory MediaImages.fromJson(Map<String, dynamic> json) =>
-      _$MediaImagesFromJson(json);
+  factory MediaImages.fromJson(Map<String, dynamic> json) => _$MediaImagesFromJson(json);
 
   Map<String, dynamic> toJson() => _$MediaImagesToJson(this);
 
@@ -66,8 +67,11 @@ class Backdrops {
     this.width,
   });
 
-  factory Backdrops.fromJson(Map<String, dynamic> json) =>
-      _$BackdropsFromJson(json);
+  String getImage() {
+    return AppConstant.originalImageBaseUrl + (this.filePath ?? "");
+  }
+
+  factory Backdrops.fromJson(Map<String, dynamic> json) => _$BackdropsFromJson(json);
 
   Map<String, dynamic> toJson() => _$BackdropsToJson(this);
 
@@ -171,8 +175,7 @@ class Posters {
     this.width,
   });
 
-  factory Posters.fromJson(Map<String, dynamic> json) =>
-      _$PostersFromJson(json);
+  factory Posters.fromJson(Map<String, dynamic> json) => _$PostersFromJson(json);
 
   Map<String, dynamic> toJson() => _$PostersToJson(this);
 
@@ -194,5 +197,9 @@ class Posters {
       voteCount: voteCount ?? this.voteCount,
       width: width ?? this.width,
     );
+  }
+
+  String getImage() {
+    return AppConstant.imageBaseUrl + (this.filePath ?? "");
   }
 }

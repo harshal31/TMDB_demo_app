@@ -11,7 +11,8 @@ MediaRecommendations _$MediaRecommendationsFromJson(
     MediaRecommendations(
       page: json['page'] as int?,
       results: (json['results'] as List<dynamic>?)
-          ?.map((e) => Results.fromJson(e as Map<String, dynamic>))
+          ?.map(
+              (e) => RecommendationResults.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalPages: json['total_pages'] as int?,
       totalResults: json['total_results'] as int?,
@@ -26,7 +27,9 @@ Map<String, dynamic> _$MediaRecommendationsToJson(
       'total_results': instance.totalResults,
     };
 
-Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
+RecommendationResults _$RecommendationResultsFromJson(
+        Map<String, dynamic> json) =>
+    RecommendationResults(
       adult: json['adult'] as bool?,
       backdropPath: json['backdrop_path'] as String?,
       id: json['id'] as int?,
@@ -45,7 +48,9 @@ Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
       voteCount: json['vote_count'] as int?,
     );
 
-Map<String, dynamic> _$ResultsToJson(Results instance) => <String, dynamic>{
+Map<String, dynamic> _$RecommendationResultsToJson(
+        RecommendationResults instance) =>
+    <String, dynamic>{
       'adult': instance.adult,
       'backdrop_path': instance.backdropPath,
       'id': instance.id,

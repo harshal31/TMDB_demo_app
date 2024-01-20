@@ -1,6 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_account_state.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommendations.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_translations.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/movie_detail_model.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/movie_detail_api_service.dart';
 import 'package:tmdb_app/network/error_response.dart';
@@ -20,56 +30,32 @@ class MovieDetailUseCase {
     int page = 1,
   }) async {
     MovieDetailModel model = MovieDetailModel();
-    final movieDetail = await apiCall(
-      () => _movieDetailApiService.fetchMediaDetail(mediaType, typeId, language),
-    );
-    final movieAccountState = await apiCall(
-      () => _movieDetailApiService.fetchMediaAccountStates(mediaType, typeId, sessionId),
-    );
-
-    final movieCredits = await apiCall(
-      () => _movieDetailApiService.fetchMediaCredits(mediaType, typeId, language),
-    );
-
-    final mediaExternalIds = await apiCall(
-      () => _movieDetailApiService.fetchMediaExternalIds(mediaType, typeId, language),
-    );
-
-    final mediaImages = await apiCall(
-      () => _movieDetailApiService.fetchMediaImages(mediaType, typeId, language),
-    );
-
-    final mediaKeywords = await apiCall(
-      () => _movieDetailApiService.fetchMediaKeywords(mediaType, typeId),
-    );
-
-    final mediaRecommendations = await apiCall(
-      () => _movieDetailApiService.fetchMediaRecommendations(mediaType, typeId, language, page),
-    );
-
-    final mediaReviews = await apiCall(
-      () => _movieDetailApiService.fetchMediaReviews(mediaType, typeId, language, page),
-    );
-
-    final mediaTranslations = await apiCall(
-      () => _movieDetailApiService.fetchMediaTranslations(mediaType, typeId),
-    );
-
-    final mediaVideos = await apiCall(
-      () => _movieDetailApiService.fetchMediaVideos(mediaType, typeId, language),
-    );
+    final responses = await Future.wait([
+      apiCall(() => _movieDetailApiService.fetchMediaDetail(mediaType, typeId, language)),
+      apiCall(() => _movieDetailApiService.fetchMediaAccountStates(mediaType, typeId, sessionId)),
+      apiCall(() => _movieDetailApiService.fetchMediaCredits(mediaType, typeId, language)),
+      apiCall(() => _movieDetailApiService.fetchMediaExternalIds(mediaType, typeId, language)),
+      apiCall(() => _movieDetailApiService.fetchMediaImages(mediaType, typeId, "")),
+      apiCall(() => _movieDetailApiService.fetchMediaKeywords(mediaType, typeId)),
+      apiCall(() =>
+          _movieDetailApiService.fetchMediaRecommendations(mediaType, typeId, language, page)),
+      apiCall(() => _movieDetailApiService.fetchMediaReviews(mediaType, typeId, language, page)),
+      apiCall(() => _movieDetailApiService.fetchMediaTranslations(mediaType, typeId)),
+      apiCall(() => _movieDetailApiService.fetchMediaVideos(mediaType, typeId, "")),
+    ]);
 
     model = model.copyWith(
-      mediaDetail: movieDetail.getRightOrNull,
-      mediaAccountState: movieAccountState.getRightOrNull,
-      mediaCredits: movieCredits.getRightOrNull,
-      mediaExternalId: mediaExternalIds.getRightOrNull,
-      mediaImages: mediaImages.getRightOrNull,
-      mediaKeywords: mediaKeywords.getRightOrNull,
-      mediaRecommendations: mediaRecommendations.getRightOrNull,
-      mediaReviews: mediaReviews.getRightOrNull,
-      mediaTranslations: mediaTranslations.getRightOrNull,
-      mediaVideos: mediaVideos.getRightOrNull,
+      mediaDetail: (responses[0] as Either<ErrorResponse, MediaDetail?>).getRightOrNull,
+      mediaAccountState: (responses[1] as Either<ErrorResponse, MediaAccountState?>).getRightOrNull,
+      mediaCredits: (responses[2] as Either<ErrorResponse, MediaCredits?>).getRightOrNull,
+      mediaExternalId: (responses[3] as Either<ErrorResponse, MediaExternalId?>).getRightOrNull,
+      mediaImages: (responses[4] as Either<ErrorResponse, MediaImages?>).getRightOrNull,
+      mediaKeywords: (responses[5] as Either<ErrorResponse, MediaKeywords?>).getRightOrNull,
+      mediaRecommendations:
+          (responses[6] as Either<ErrorResponse, MediaRecommendations?>).getRightOrNull,
+      mediaReviews: (responses[7] as Either<ErrorResponse, MediaReviews?>).getRightOrNull,
+      mediaTranslations: (responses[8] as Either<ErrorResponse, MediaTranslations?>).getRightOrNull,
+      mediaVideos: (responses[9] as Either<ErrorResponse, MediaVideos?>).getRightOrNull,
     );
 
     if (model.shouldReturnFailure()) {

@@ -51,7 +51,6 @@ class MovieDetailWebScreen extends StatelessWidget {
 
         return CustomScrollView(
           scrollBehavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          physics: ClampingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: Container(
@@ -114,24 +113,22 @@ class MovieDetailWebScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "${state.movieDetailModel.mediaDetail?.originalTitle ?? ""} ",
+                                      RichText(
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text:
+                                                "${state.movieDetailModel.mediaDetail?.originalTitle ?? ""} ",
                                             style: context.textTheme.headlineLarge?.copyWith(
                                               fontWeight: FontWeight.w900,
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Text(
-                                              "(${state.movieDetailModel.getReleaseYear()})",
-                                              style: context.textTheme.headlineLarge?.copyWith(
-                                                fontWeight: FontWeight.w100,
-                                              ),
+                                          TextSpan(
+                                            text: "(${state.movieDetailModel.getReleaseYear()})",
+                                            style: context.textTheme.headlineLarge?.copyWith(
+                                              fontWeight: FontWeight.w100,
                                             ),
-                                          )
-                                        ],
+                                          ),
+                                        ]),
                                       ),
                                       RichText(
                                         text: TextSpan(
@@ -280,9 +277,9 @@ class MovieDetailWebScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
@@ -328,12 +325,16 @@ class MovieDetailWebScreen extends StatelessWidget {
                                       ?.copyWith(fontWeight: FontWeight.w800),
                                 ),
                               ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.keyboard_double_arrow_right_sharp,
-                                  size: 40,
+                              Visibility(
+                                visible: state.movieDetailModel.mediaReviews?.results?.isNotEmpty ??
+                                    false,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.keyboard_double_arrow_right_sharp,
+                                    size: 40,
+                                  ),
+                                  onPressed: () {},
                                 ),
-                                onPressed: () {},
                               ),
                             ],
                           ),
@@ -342,6 +343,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                           ),
                           TmdbReview(
                             result: state.movieDetailModel.mediaReviews?.results?.firstOrNull,
+                            mediaDetail: state.movieDetailModel.mediaDetail,
                           ),
                           const SizedBox(
                             height: 16,
@@ -396,9 +398,12 @@ class MovieDetailWebScreen extends StatelessWidget {
                             height: 16,
                           ),
                           BlocBuilder<PositionCubit, int>(
-                            builder: (context, state) {
+                            builder: (context, s) {
                               return TmdbMediaView(
-                                pos: state,
+                                movieId: state.movieDetailModel.mediaDetail?.id.toString() ?? "",
+                                pos: s,
+                                videos: state.movieDetailModel.mediaVideos?.results ?? [],
+                                images: state.movieDetailModel.mediaImages,
                               );
                             },
                           ),
@@ -413,28 +418,19 @@ class MovieDetailWebScreen extends StatelessWidget {
                           const SizedBox(
                             height: 16,
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  context.tr.recommendations,
-                                  style: context.textTheme.headlineLarge
-                                      ?.copyWith(fontWeight: FontWeight.w800),
-                                ),
-                              ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.keyboard_double_arrow_right_sharp,
-                                  size: 40,
-                                ),
-                                onPressed: () {},
-                              ),
-                            ],
+                          Text(
+                            context.tr.recommendations,
+                            style: context.textTheme.headlineLarge
+                                ?.copyWith(fontWeight: FontWeight.w800),
                           ),
                           const SizedBox(
                             height: 16,
                           ),
-                          TmdbRecomendations(),
+                          TmdbRecomendations(
+                            recommendations:
+                                state.movieDetailModel.mediaRecommendations?.results ?? [],
+                            detail: state.movieDetailModel.mediaDetail,
+                          ),
                           const SizedBox(
                             height: 16,
                           ),
@@ -450,17 +446,12 @@ class MovieDetailWebScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            TmdbShare(
-                              tmdbShareModel: TmdbShareModel(
-                                imdbId: "tt10676048",
-                                wikiId: "Q89474225",
-                                facebookId: "CaptainMarvelOfficial",
-                                instaId: "captainmarvelofficial",
-                                twitterId: "captainmarvel",
-                              ),
-                            ),
+                            TmdbShare(tmdbShareModel: state.movieDetailModel.mediaExternalId),
                             const SizedBox(height: 16),
-                            TmdbSideView(),
+                            TmdbSideView(
+                              mediaDetail: state.movieDetailModel.mediaDetail,
+                              keywords: state.movieDetailModel.mediaKeywords?.keywords ?? [],
+                            ),
                           ],
                         ),
                       ),

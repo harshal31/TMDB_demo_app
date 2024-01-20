@@ -44,5 +44,11 @@
   "readMore": "Read More",
   "readLess": "Read Less",
   "writtenBy": "Written by {user} on {date}",
-  "aReviewBy": "A Review By {user}"
+  "aReviewBy": "A Review By {user}",
+  "noKeywords": "No keywords have been added.",
+  "noReviews": "We don't have any reviews for {name}.",
+  "noRecommendation": "We don't have enough data to suggest any movies based on {name}. You can help by rating movies you've seen.",
+  "noVideos": "No Videos have been present.",
+  "noBackdrops": "No Backdrops have been present.",
+  "noPosters": "No Posters have been present"
 }

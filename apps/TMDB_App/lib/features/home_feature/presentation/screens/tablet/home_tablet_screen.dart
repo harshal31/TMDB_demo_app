@@ -3,6 +3,7 @@ import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/switch_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/free_to_watch_sec_cubit/free_to_watch_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/latest_sec_cubit/latest_cubit.dart';
@@ -13,6 +14,8 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_horizontal_list.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/latest_use_case.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart';
+import 'package:tmdb_app/routes/route_name.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 
 class HomeTabletScreen extends StatelessWidget {
   const HomeTabletScreen({super.key});
@@ -95,6 +98,13 @@ class HomeTabletScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
+                          onItemClick: (i) {
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: state.trendingResult?.results?[i].mediaType,
+                              movieId: state.trendingResult?.results?[i].id.toString(),
+                            );
+                          },
                         ),
                       ),
                     );
@@ -177,6 +187,13 @@ class HomeTabletScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
+                          onItemClick: (i) {
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: ApiKey.movie,
+                              movieId: state.results[i].id.toString(),
+                            );
+                          },
                         ),
                       ),
                     );
@@ -226,7 +243,13 @@ class HomeTabletScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
-                          onItemClick: (i) {},
+                          onItemClick: (i) {
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: state.pos == 0 ? ApiKey.movie : ApiKey.tv,
+                              movieId: state.results[i].id.toString(),
+                            );
+                          },
                         ),
                       ),
                     );
@@ -317,5 +340,16 @@ class HomeTabletScreen extends StatelessWidget {
       );
       return;
     }
+  }
+
+  void _redirectToDetailScreen(
+    BuildContext context, {
+    String? mediaType = ApiKey.movie,
+    String? movieId = "609681",
+  }) {
+    context.goNamed(
+      mediaType ?? RouteName.movie,
+      pathParameters: {RouteParam.id: movieId ?? ""},
+    );
   }
 }

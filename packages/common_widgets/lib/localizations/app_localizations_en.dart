@@ -145,4 +145,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String aReviewBy(Object user) {
     return 'A Review By $user';
   }
+
+  @override
+  String get noKeywords => 'No keywords have been added.';
+
+  @override
+  String noReviews(Object name) {
+    return 'We don\'t have any reviews for $name.';
+  }
+
+  @override
+  String noRecommendation(Object name) {
+    return 'We don\'t have enough data to suggest any movies based on $name. You can help by rating movies you\'ve seen.';
+  }
+
+  @override
+  String get noVideos => 'No Videos have been present.';
+
+  @override
+  String get noBackdrops => 'No Backdrops have been present.';
+
+  @override
+  String get noPosters => 'No Posters have been present';
 }

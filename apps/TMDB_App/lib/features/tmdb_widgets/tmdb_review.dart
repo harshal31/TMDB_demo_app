@@ -4,18 +4,28 @@ import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/read_more_text.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 
 class TmdbReview extends StatelessWidget {
   final ReviewResults? result;
+  final MediaDetail? mediaDetail;
 
   const TmdbReview({
     super.key,
     required this.result,
+    required this.mediaDetail,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (result == null) {
+      return Text(
+        context.tr.noReviews(mediaDetail?.originalTitle ?? ""),
+        style: context.textTheme.titleMedium,
+      );
+    }
+
     return Card(
       color: context.colorTheme.surface,
       margin: EdgeInsets.zero,

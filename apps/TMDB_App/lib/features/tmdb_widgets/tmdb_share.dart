@@ -3,9 +3,10 @@ import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/url_util/url_util.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/constants/social_url_constants.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
 
 class TmdbShare extends StatelessWidget {
-  final TmdbShareModel? tmdbShareModel;
+  final MediaExternalId? tmdbShareModel;
 
   const TmdbShare({
     super.key,
@@ -43,7 +44,7 @@ class TmdbShare extends StatelessWidget {
               child: IconButton(
                 onPressed: () {
                   UrlUtil.launchInBrowser(
-                    SocialUrlConstants.instaUrl(tmdbShareModel?.instaId),
+                    SocialUrlConstants.instaUrl(tmdbShareModel?.twitterId),
                   );
                 },
                 icon: ImageIcon(
@@ -75,7 +76,7 @@ class TmdbShare extends StatelessWidget {
               child: IconButton(
                 onPressed: () {
                   UrlUtil.launchInBrowser(
-                    SocialUrlConstants.wikiUrl(tmdbShareModel?.wikiId),
+                    SocialUrlConstants.wikiUrl(tmdbShareModel?.wikidataId),
                   );
                 },
                 icon: ImageIcon(
@@ -105,41 +106,5 @@ class TmdbShare extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class TmdbShareModel {
-  final String? imdbId;
-  final String? wikiId;
-  final String? facebookId;
-  final String? instaId;
-  final String? twitterId;
-
-  TmdbShareModel({
-    this.imdbId,
-    this.wikiId,
-    this.facebookId,
-    this.instaId,
-    this.twitterId,
-  });
-
-  bool get isFidAvailable {
-    return facebookId?.isNotEmpty ?? false;
-  }
-
-  bool get isInstaIdAvailable {
-    return instaId?.isNotEmpty ?? false;
-  }
-
-  bool get isTwitIdAvailable {
-    return twitterId?.isNotEmpty ?? false;
-  }
-
-  bool get isWikiIdAvailable {
-    return wikiId?.isNotEmpty ?? false;
-  }
-
-  bool get isImdbIdAvailable {
-    return imdbId?.isNotEmpty ?? false;
   }
 }

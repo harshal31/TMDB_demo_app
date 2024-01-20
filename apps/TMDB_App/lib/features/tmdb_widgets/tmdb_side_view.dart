@@ -1,20 +1,21 @@
+import 'package:common_widgets/common_utils/currency_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
 
 class TmdbSideView extends StatelessWidget {
-  final tags = [
-    'hero',
-    'space travel',
-    'sequel',
-    'superhero',
-    'based on comic',
-    'teenage girl',
-    'aftercreditsstinger',
-    'duringcreditsstinger',
-    'marvel cinematic universe (mcu)',
-    'space adventure',
-  ];
+  final MediaDetail? mediaDetail;
+  final List<Keywords> keywords;
+  final double? keywordSpacing;
+
+  const TmdbSideView({
+    super.key,
+    this.mediaDetail,
+    required this.keywords,
+    this.keywordSpacing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class TmdbSideView extends StatelessWidget {
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
           Text(
-            "Released",
+            mediaDetail?.status ?? "",
             style: context.textTheme.titleMedium,
           ),
           const SizedBox(height: 16),
@@ -38,7 +39,7 @@ class TmdbSideView extends StatelessWidget {
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
           Text(
-            "En",
+            mediaDetail?.originalLanguage ?? "",
             style: context.textTheme.titleMedium,
           ),
           const SizedBox(height: 16),
@@ -47,7 +48,7 @@ class TmdbSideView extends StatelessWidget {
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
           Text(
-            "\$2000",
+            mediaDetail?.budget?.formatCurrencyInDollar ?? "-",
             style: context.textTheme.titleMedium,
           ),
           const SizedBox(height: 16),
@@ -56,7 +57,7 @@ class TmdbSideView extends StatelessWidget {
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
           Text(
-            "\$1000",
+            mediaDetail?.revenue?.formatCurrencyInDollar ?? "-",
             style: context.textTheme.titleMedium,
           ),
           const SizedBox(height: 16),
@@ -65,19 +66,29 @@ class TmdbSideView extends StatelessWidget {
             style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w900),
           ),
           const SizedBox(height: 8),
-          Wrap(
-            spacing: 8.0, // gap between adjacent chips
-            runSpacing: 8.0, // gap between lines
-            children: List<Widget>.generate(tags.length, (int index) {
-              return ActionChip(
-                onPressed: () {},
-                label: Text(
-                  tags[index],
-                  style: context.textTheme.titleSmall,
-                ),
-                backgroundColor: context.colorTheme.surface,
-              );
-            }),
+          Visibility(
+            visible: keywords.isNotEmpty,
+            child: Wrap(
+              spacing: 8.0, // gap between adjacent chips
+              runSpacing: keywordSpacing ?? 8.0, // gap between lines
+              children: List<Widget>.generate(
+                keywords.length,
+                (int index) {
+                  return ActionChip(
+                    onPressed: () {},
+                    label: Text(
+                      keywords[index].name ?? "",
+                      style: context.textTheme.titleSmall,
+                    ),
+                    backgroundColor: context.colorTheme.surface,
+                  );
+                },
+              ),
+            ),
+            replacement: Text(
+              context.tr.noKeywords,
+              style: context.textTheme.titleSmall,
+            ),
           ),
         ],
       ),

@@ -100,9 +100,10 @@ class HomeWebScreen extends StatelessWidget {
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
                           onItemClick: (i) {
-                            context.goNamed(
-                              RouteName.movie,
-                              pathParameters: {RouteParam.id: "609681"},
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: state.trendingResult?.results?[i].mediaType,
+                              movieId: state.trendingResult?.results?[i].id.toString(),
                             );
                           },
                         ),
@@ -186,6 +187,13 @@ class HomeWebScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
+                          onItemClick: (i) {
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: ApiKey.movie,
+                              movieId: state.results[i].id.toString(),
+                            );
+                          },
                         ),
                       ),
                     );
@@ -235,7 +243,13 @@ class HomeWebScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
-                          onItemClick: (i) {},
+                          onItemClick: (i) {
+                            _redirectToDetailScreen(
+                              context,
+                              mediaType: state.pos == 0 ? ApiKey.movie : ApiKey.tv,
+                              movieId: state.results[i].id.toString(),
+                            );
+                          },
                         ),
                       ),
                     );
@@ -326,5 +340,16 @@ class HomeWebScreen extends StatelessWidget {
       );
       return;
     }
+  }
+
+  void _redirectToDetailScreen(
+    BuildContext context, {
+    String? mediaType = ApiKey.movie,
+    String? movieId = "609681",
+  }) {
+    context.goNamed(
+      mediaType ?? RouteName.movie,
+      pathParameters: {RouteParam.id: movieId ?? ""},
+    );
   }
 }
