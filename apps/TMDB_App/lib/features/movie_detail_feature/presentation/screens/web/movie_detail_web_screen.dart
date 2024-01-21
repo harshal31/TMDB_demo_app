@@ -8,6 +8,7 @@ import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/movie_detail_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/use_cases/movie_detail_use_case.dart';
@@ -24,6 +25,7 @@ class MovieDetailWebScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final positionCubit = context.read<PositionCubit>();
+    final movieDetailCubit = context.read<MovieDetailCubit>();
 
     return BlocBuilder<MovieDetailCubit, MovieDetailState>(
       builder: (context, state) {
@@ -31,8 +33,8 @@ class MovieDetailWebScreen extends StatelessWidget {
             state.movieDetailState is MovieDetailNone) {
           return Center(
             child: SizedBox(
-              width: 180,
-              height: 180,
+              width: 80,
+              height: 80,
               child: CircularProgressIndicator(),
             ),
           );
@@ -50,6 +52,7 @@ class MovieDetailWebScreen extends StatelessWidget {
         }
 
         return CustomScrollView(
+          physics: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
           scrollBehavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           slivers: [
             SliverToBoxAdapter(
@@ -104,161 +107,181 @@ class MovieDetailWebScreen extends StatelessWidget {
                             ),
                             SizedBox(width: 18),
                             Expanded(
-                              child: ScrollConfiguration(
-                                behavior:
-                                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                            text:
-                                                "${state.movieDetailModel.mediaDetail?.originalTitle ?? ""} ",
-                                            style: context.textTheme.headlineLarge?.copyWith(
-                                              fontWeight: FontWeight.w900,
-                                            ),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text:
+                                              "${state.movieDetailModel.mediaDetail?.originalTitle ?? ""} ",
+                                          style: context.textTheme.headlineLarge?.copyWith(
+                                            fontWeight: FontWeight.w900,
                                           ),
-                                          TextSpan(
-                                            text: "(${state.movieDetailModel.getReleaseYear()})",
-                                            style: context.textTheme.headlineLarge?.copyWith(
-                                              fontWeight: FontWeight.w100,
-                                            ),
-                                          ),
-                                        ]),
-                                      ),
-                                      RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text: state.movieDetailModel.mediaDetail?.releaseDate
-                                                  .formatDateInMDYFormat,
-                                              style: context.textTheme.titleMedium,
-                                            ),
-                                            TextSpan(
-                                              text: " . ",
-                                              style: context.textTheme.headlineLarge,
-                                            ),
-                                            TextSpan(
-                                              text: state.movieDetailModel.genres(),
-                                              style: context.textTheme.titleMedium,
-                                            ),
-                                            TextSpan(
-                                              text: " . ",
-                                              style: context.textTheme.headlineLarge,
-                                            ),
-                                            TextSpan(
-                                              text: state.movieDetailModel.mediaDetail?.runtime
-                                                  .formatTimeInHM,
-                                              style: context.textTheme.titleMedium,
-                                            )
-                                          ],
                                         ),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        TextSpan(
+                                          text: "(${state.movieDetailModel.getReleaseYear()})",
+                                          style: context.textTheme.headlineLarge?.copyWith(
+                                            fontWeight: FontWeight.w100,
+                                          ),
+                                        ),
+                                      ]),
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
                                         children: [
-                                          TmdbIcon(
-                                            iconSize: 20,
-                                            icons: (Icons.favorite, Icons.favorite_outline_sharp),
-                                            isSelected: false,
-                                            selectedColor: Colors.red,
-                                            onSelection: (s) {},
-                                            hoverMessage: context.tr.markAsFavorite,
+                                          TextSpan(
+                                            text: state.movieDetailModel.mediaDetail?.releaseDate
+                                                .formatDateInMDYFormat,
+                                            style: context.textTheme.titleMedium,
                                           ),
-                                          const SizedBox(width: 30),
-                                          TmdbIcon(
-                                            iconSize: 20,
-                                            icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
-                                            isSelected: false,
-                                            selectedColor: Colors.red,
-                                            onSelection: (s) {},
-                                            hoverMessage: context.tr.addToWatchlist,
+                                          TextSpan(
+                                            text: " . ",
+                                            style: context.textTheme.headlineLarge,
                                           ),
-                                          const SizedBox(width: 30),
-                                          TooltipRating(
-                                            rating: 0,
-                                            iconSize: 20,
-                                            hoverMessage: context.tr.addToWatchlist,
-                                            onRatingUpdate: (rating) {},
+                                          TextSpan(
+                                            text: state.movieDetailModel.genres(),
+                                            style: context.textTheme.titleMedium,
                                           ),
+                                          TextSpan(
+                                            text: " . ",
+                                            style: context.textTheme.headlineLarge,
+                                          ),
+                                          TextSpan(
+                                            text: state.movieDetailModel.mediaDetail?.runtime
+                                                .formatTimeInHM,
+                                            style: context.textTheme.titleMedium,
+                                          )
                                         ],
                                       ),
-                                      const SizedBox(height: 16),
-                                      Text(
-                                        state.movieDetailModel.mediaDetail?.tagline ?? "",
-                                        style: context.textTheme.titleMedium?.copyWith(
-                                            fontStyle: FontStyle.italic,
-                                            fontWeight: FontWeight.w100,
-                                            color:
-                                                context.colorTheme.onBackground.withOpacity(0.6)),
-                                      ),
-                                      SizedBox(height: 16),
-                                      Text(
-                                        context.tr.overview,
-                                        style: context.textTheme.titleLarge?.copyWith(
-                                          fontWeight: FontWeight.w900,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        TmdbIcon(
+                                          iconSize: 20,
+                                          icons: (Icons.favorite, Icons.favorite_outline_sharp),
+                                          isSelected:
+                                              state.movieDetailModel.mediaAccountState?.favorite ??
+                                                  false,
+                                          selectedColor: Colors.red,
+                                          onSelection: (s) {
+                                            movieDetailCubit.saveUserPreference(
+                                              ApiKey.movie,
+                                              state.movieDetailModel.mediaDetail?.id,
+                                              ApiKey.favorite,
+                                              s,
+                                            );
+                                          },
+                                          hoverMessage: context.tr.markAsFavorite,
                                         ),
-                                      ),
-                                      SizedBox(height: 16),
-                                      Text(
-                                        state.movieDetailModel.mediaDetail?.overview ?? "",
-                                        style: context.textTheme.titleSmall,
-                                      ),
-                                      SizedBox(height: 16),
-                                      SizedBox(
-                                        height: 100,
-                                        child: ListView.separated(
-                                          separatorBuilder: (ctx, index) =>
-                                              const Divider(indent: 80),
-                                          itemCount: state.movieDetailModel
-                                              .getWriterDirectorMapping()
-                                              .$1
-                                              .length,
-                                          padding: EdgeInsets.zero,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (ctx, index) {
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    state.movieDetailModel
-                                                        .getWriterDirectorMapping()
-                                                        .$1[index],
-                                                    style: context.textTheme.bodyLarge?.copyWith(
-                                                      fontWeight: FontWeight.w900,
-                                                    ),
-                                                    maxLines: 1,
-                                                    softWrap: true,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    state.movieDetailModel
-                                                        .getWriterDirectorMapping()
-                                                        .$2[index],
-                                                    style: context.textTheme.bodyMedium,
-                                                    maxLines: 1,
-                                                    softWrap: true,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                Spacer(),
-                                                Spacer()
-                                              ],
+                                        const SizedBox(width: 30),
+                                        TmdbIcon(
+                                          iconSize: 20,
+                                          icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
+                                          isSelected:
+                                              state.movieDetailModel.mediaAccountState?.watchlist ??
+                                                  false,
+                                          selectedColor: Colors.red,
+                                          onSelection: (s) {
+                                            movieDetailCubit.saveUserPreference(
+                                              ApiKey.movie,
+                                              state.movieDetailModel.mediaDetail?.id,
+                                              ApiKey.watchList,
+                                              s,
+                                            );
+                                          },
+                                          hoverMessage: context.tr.addToWatchlist,
+                                        ),
+                                        const SizedBox(width: 30),
+                                        TooltipRating(
+                                          rating: state.movieDetailModel.mediaAccountState?.rated
+                                                  ?.value ??
+                                              0.0,
+                                          iconSize: 20,
+                                          hoverMessage: context.tr.addToWatchlist,
+                                          onRatingUpdate: (rating) {
+                                            movieDetailCubit.addMediaRating(
+                                              ApiKey.movie,
+                                              state.movieDetailModel.mediaDetail?.id,
+                                              rating,
                                             );
                                           },
                                         ),
-                                      )
-                                    ],
-                                  ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      state.movieDetailModel.mediaDetail?.tagline ?? "",
+                                      style: context.textTheme.titleMedium?.copyWith(
+                                          fontStyle: FontStyle.italic,
+                                          fontWeight: FontWeight.w100,
+                                          color: context.colorTheme.onBackground.withOpacity(0.6)),
+                                    ),
+                                    SizedBox(height: 16),
+                                    Text(
+                                      context.tr.overview,
+                                      style: context.textTheme.titleLarge?.copyWith(
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                                    SizedBox(height: 16),
+                                    Text(
+                                      state.movieDetailModel.mediaDetail?.overview ?? "",
+                                      style: context.textTheme.titleSmall,
+                                    ),
+                                    SizedBox(height: 16),
+                                    SizedBox(
+                                      height: 100,
+                                      child: ListView.separated(
+                                        separatorBuilder: (ctx, index) => const Divider(indent: 80),
+                                        itemCount: state.movieDetailModel
+                                            .getWriterDirectorMapping()
+                                            .$1
+                                            .length,
+                                        padding: EdgeInsets.zero,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (ctx, index) {
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  state.movieDetailModel
+                                                      .getWriterDirectorMapping()
+                                                      .$1[index],
+                                                  style: context.textTheme.bodyLarge?.copyWith(
+                                                    fontWeight: FontWeight.w900,
+                                                  ),
+                                                  maxLines: 1,
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  state.movieDetailModel
+                                                      .getWriterDirectorMapping()
+                                                      .$2[index],
+                                                  style: context.textTheme.bodyMedium,
+                                                  maxLines: 1,
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              Spacer(),
+                                              Spacer()
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             )

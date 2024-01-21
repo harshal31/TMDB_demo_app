@@ -28,7 +28,7 @@ class _TooltipRatingState extends State<TooltipRating> {
   @override
   void initState() {
     super.initState();
-    rating = rating;
+    rating = widget.rating;
   }
 
   @override
@@ -61,7 +61,7 @@ class _TooltipRatingState extends State<TooltipRating> {
             padding: EdgeInsets.all(8.0),
             child: RatingBar.builder(
               itemSize: (widget.iconSize ?? 20) + 10,
-              initialRating: rating,
+              initialRating: rating != 0 ? rating / 2 : rating,
               direction: Axis.horizontal,
               allowHalfRating: true,
               tapOnlyMode: true,
@@ -72,9 +72,9 @@ class _TooltipRatingState extends State<TooltipRating> {
                 color: Colors.amber,
               ),
               onRatingUpdate: (rating) {
-                widget.onRatingUpdate?.call(rating);
+                widget.onRatingUpdate?.call(rating * 2);
                 setState(() {
-                  this.rating = rating;
+                  this.rating = rating * 2;
                 });
               },
             ),

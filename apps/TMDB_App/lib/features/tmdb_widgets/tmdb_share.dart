@@ -15,95 +15,122 @@ class TmdbShare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Visibility(
-              visible: tmdbShareModel?.isFidAvailable ?? false,
-              child: IconButton(
-                onPressed: () {
-                  UrlUtil.launchInBrowser(
-                    SocialUrlConstants.facebookUrl(tmdbShareModel?.facebookId),
-                  );
-                },
-                icon: ImageIcon(
-                  AppAsset.images.facebook.provider(package: "common_widgets"),
-                  size: 30,
-                  color: context.colorTheme.primary,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Visibility(
+            visible: tmdbShareModel?.isFidAvailable ?? false,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    UrlUtil.launchInBrowser(
+                      SocialUrlConstants.facebookUrl(tmdbShareModel?.facebookId),
+                    );
+                  },
+                  icon: ImageIcon(
+                    AppAsset.images.facebook.provider(package: "common_widgets"),
+                    size: 30,
+                    color: context.colorTheme.primary,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 16),
+              ],
             ),
-            const SizedBox(width: 16),
-            Visibility(
-              visible: tmdbShareModel?.isInstaIdAvailable ?? false,
-              child: IconButton(
-                onPressed: () {
-                  UrlUtil.launchInBrowser(
-                    SocialUrlConstants.instaUrl(tmdbShareModel?.twitterId),
-                  );
-                },
-                icon: ImageIcon(
-                  AppAsset.images.instagram.provider(package: "common_widgets"),
-                  size: 30,
-                  color: context.colorTheme.primary,
+          ),
+          Visibility(
+            visible: tmdbShareModel?.isInstaIdAvailable ?? false,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    UrlUtil.launchInBrowser(
+                      SocialUrlConstants.instaUrl(tmdbShareModel?.twitterId),
+                    );
+                  },
+                  icon: ImageIcon(
+                    AppAsset.images.instagram.provider(package: "common_widgets"),
+                    size: 30,
+                    color: context.colorTheme.primary,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 16),
+              ],
             ),
-            const SizedBox(width: 16),
-            Visibility(
-              visible: tmdbShareModel?.isTwitIdAvailable ?? false,
-              child: IconButton(
-                onPressed: () {
-                  UrlUtil.launchInBrowser(
-                    SocialUrlConstants.twitterUrl(tmdbShareModel?.twitterId),
-                  );
-                },
-                icon: ImageIcon(
-                  AppAsset.images.twitter.provider(package: "common_widgets"),
-                  size: 30,
-                  color: context.colorTheme.primary,
+          ),
+          Visibility(
+            visible: tmdbShareModel?.isTwitIdAvailable ?? false,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    UrlUtil.launchInBrowser(
+                      SocialUrlConstants.twitterUrl(tmdbShareModel?.twitterId),
+                    );
+                  },
+                  icon: ImageIcon(
+                    AppAsset.images.twitter.provider(package: "common_widgets"),
+                    size: 30,
+                    color: context.colorTheme.primary,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 16),
+              ],
             ),
-            const SizedBox(width: 16),
-            Visibility(
-              visible: tmdbShareModel?.isWikiIdAvailable ?? false,
-              child: IconButton(
-                onPressed: () {
-                  UrlUtil.launchInBrowser(
-                    SocialUrlConstants.wikiUrl(tmdbShareModel?.wikidataId),
-                  );
-                },
-                icon: ImageIcon(
-                  AppAsset.images.wiki.provider(package: "common_widgets"),
-                  size: 30,
-                  color: context.colorTheme.primary,
+          ),
+          Visibility(
+            visible: tmdbShareModel?.isWikiIdAvailable ?? false,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    UrlUtil.launchInBrowser(
+                      SocialUrlConstants.wikiUrl(tmdbShareModel?.wikidataId),
+                    );
+                  },
+                  icon: ImageIcon(
+                    AppAsset.images.wiki.provider(package: "common_widgets"),
+                    size: 30,
+                    color: context.colorTheme.primary,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 16),
+              ],
             ),
-            const SizedBox(width: 16),
-            Visibility(
-              visible: tmdbShareModel?.isImdbIdAvailable ?? false,
-              child: IconButton(
-                onPressed: () {
-                  UrlUtil.launchInBrowser(
-                    SocialUrlConstants.imdbUrl(tmdbShareModel?.imdbId),
-                  );
-                },
-                icon: ImageIcon(
-                  AppAsset.images.imdb.provider(package: "common_widgets"),
-                  size: 30,
-                  color: context.colorTheme.primary,
+          ),
+          Visibility(
+            visible: tmdbShareModel?.isImdbIdAvailable ?? false,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    UrlUtil.launchInBrowser(
+                      SocialUrlConstants.imdbUrl(tmdbShareModel?.imdbId),
+                    );
+                  },
+                  icon: ImageIcon(
+                    AppAsset.images.imdb.provider(package: "common_widgets"),
+                    size: 30,
+                    color: context.colorTheme.primary,
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

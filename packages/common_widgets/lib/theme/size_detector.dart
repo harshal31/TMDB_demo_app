@@ -30,6 +30,10 @@ class SizeDetector extends StatelessWidget {
       child: AnimatedContainer(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width,
+          maxHeight: MediaQuery.of(context).size.height,
+        ),
         duration: Duration(milliseconds: 400),
         child: widget,
         curve: Curves.linear,

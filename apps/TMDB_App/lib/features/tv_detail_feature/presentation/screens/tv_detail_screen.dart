@@ -2,18 +2,18 @@ import 'package:common_widgets/theme/size_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/movie_detail_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/screens/mobile/movie_detail_mobile_screen.dart';
-import 'package:tmdb_app/features/movie_detail_feature/presentation/screens/tablet/movie_detail_tablet_screen.dart';
-import 'package:tmdb_app/features/movie_detail_feature/presentation/screens/web/movie_detail_web_screen.dart';
+import 'package:tmdb_app/features/tv_detail_feature/presentation/cubits/tv_detail_cubit.dart';
+import 'package:tmdb_app/features/tv_detail_feature/presentation/screens/tablet/tv_detail_tablet_screen.dart';
+import 'package:tmdb_app/features/tv_detail_feature/presentation/screens/web/tv_detail_web_screen.dart';
 
-class MovieDetailScreen extends StatelessWidget {
-  final String movieId;
+class TvDetailScreen extends StatelessWidget {
+  final String seriesId;
 
-  const MovieDetailScreen({
+  const TvDetailScreen({
     super.key,
-    required this.movieId,
+    required this.seriesId,
   });
 
   @override
@@ -21,7 +21,7 @@ class MovieDetailScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (c) => GetIt.instance.get<MovieDetailCubit>()..fetchMovieDetails(movieId),
+          create: (c) => GetIt.instance.get<TvDetailCubit>()..fetchTvSeriesDetails(seriesId),
         ),
         BlocProvider(
           create: (c) => GetIt.instance.get<PositionCubit>(),
@@ -31,8 +31,8 @@ class MovieDetailScreen extends StatelessWidget {
         child: Scaffold(
           body: SizeDetector(
             mobileBuilder: () => TvDetailMobileScreen(),
-            tabletBuilder: () => MovieDetailTabletScreen(),
-            desktopBuilder: () => MovieDetailWebScreen(),
+            tabletBuilder: () => TvDetailTabletScreen(),
+            desktopBuilder: () => TvDetailWebScreen(),
           ),
         ),
       ),

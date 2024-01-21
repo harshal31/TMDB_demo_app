@@ -16,6 +16,7 @@ class TmdbMediaView extends StatelessWidget {
   final List<Videos> videos;
   final MediaImages? images;
   final double? height;
+  final double? width;
 
   const TmdbMediaView({
     super.key,
@@ -24,6 +25,7 @@ class TmdbMediaView extends StatelessWidget {
     required this.images,
     required this.movieId,
     this.height,
+    this.width,
   });
 
   @override
@@ -40,11 +42,13 @@ class TmdbMediaView extends StatelessWidget {
               videos: videos,
               movieId: movieId,
               height: height,
+              width: width,
             )
           : ((pos == 1)
               ? _TmdbBackdrops(
                   backDrops: images?.backdrops?.take(10).toList() ?? [],
                   height: height,
+                  width: width,
                 )
               : _TmdbPosters(
                   posters: images?.posters?.take(10).toList() ?? [],
@@ -58,8 +62,14 @@ class _TmdbVideos extends StatelessWidget {
   final List<Videos> videos;
   final String movieId;
   final double? height;
+  final double? width;
 
-  const _TmdbVideos({required this.videos, required this.movieId, this.height});
+  const _TmdbVideos({
+    required this.videos,
+    required this.movieId,
+    this.height,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +92,10 @@ class _TmdbVideos extends StatelessWidget {
               children: [
                 ImageNetwork(
                   image: YoutubeThumbnail.hd(videos[index].key),
-                  width: 533,
+                  width: width ?? 533,
                   height: height ?? 300,
                   duration: 400,
+                  fitAndroidIos: BoxFit.cover,
                   borderRadius: _getBorderRadius(index),
                   curve: Curves.easeIn,
                   fullScreen: false,
@@ -92,13 +103,14 @@ class _TmdbVideos extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Container(
-                    width: 533,
-                    height: 300,
+                    width: width ?? 533,
+                    height: height ?? 300,
                     alignment: Alignment.center,
                     child: IconButton(
                       icon: Icon(
                         Icons.play_circle_outline_sharp,
                         size: 40,
+                        color: context.colorTheme.primaryContainer,
                       ),
                       onPressed: () {
                         context.goNamed(
@@ -142,8 +154,13 @@ class _TmdbVideos extends StatelessWidget {
 class _TmdbBackdrops extends StatelessWidget {
   final List<Backdrops> backDrops;
   final double? height;
+  final double? width;
 
-  const _TmdbBackdrops({required this.backDrops, this.height});
+  const _TmdbBackdrops({
+    required this.backDrops,
+    this.height,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +175,7 @@ class _TmdbBackdrops extends StatelessWidget {
         itemBuilder: (ctx, index) {
           return ExtendedImage.network(
             backDrops[index].getImage(),
-            width: 533,
+            width: width ?? 533,
             height: height ?? 300,
             fit: BoxFit.cover,
             cache: true,

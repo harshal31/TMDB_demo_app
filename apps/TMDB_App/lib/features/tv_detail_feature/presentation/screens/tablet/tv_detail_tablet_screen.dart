@@ -19,8 +19,8 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
 
-class MovieDetailTabletScreen extends StatelessWidget {
-  const MovieDetailTabletScreen({super.key});
+class TvDetailTabletScreen extends StatelessWidget {
+  const TvDetailTabletScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -17,10 +17,10 @@ import 'package:tmdb_app/network/error_response.dart';
 import 'package:tmdb_app/network/safe_api_call.dart';
 import 'package:tmdb_app/utils/either_extensions.dart';
 
-class MovieDetailUseCase {
+class TvDetailUseCase {
   final MediaDetailApiService _movieDetailApiService;
 
-  MovieDetailUseCase(this._movieDetailApiService);
+  TvDetailUseCase(this._movieDetailApiService);
 
   Future<Either<ErrorResponse, MovieDetailModel>> fetchMovieDetails(
     String typeId,
@@ -60,7 +60,10 @@ class MovieDetailUseCase {
 
     if (model.shouldReturnFailure()) {
       return left(
-        ErrorResponse(errorCode: -1, errorMessage: "Not able to fetch movie details for $typeId"),
+        ErrorResponse(
+          errorCode: -1,
+          errorMessage: "Not able to fetch tv series details for $typeId",
+        ),
       );
     }
 
@@ -68,24 +71,24 @@ class MovieDetailUseCase {
   }
 }
 
-class MovieDetailState with EquatableMixin {
+class TvDetailState with EquatableMixin {
   final MovieDetailModel movieDetailModel;
-  final MovieDetailStatus movieDetailState;
+  final TvDetailStatus movieDetailState;
 
-  MovieDetailState(this.movieDetailModel, this.movieDetailState);
+  TvDetailState(this.movieDetailModel, this.movieDetailState);
 
-  factory MovieDetailState.initial() {
-    return MovieDetailState(
+  factory TvDetailState.initial() {
+    return TvDetailState(
       MovieDetailModel(),
-      MovieDetailNone(),
+      TvDetailNone(),
     );
   }
 
-  MovieDetailState copyWith({
+  TvDetailState copyWith({
     MovieDetailModel? movieDetailModel,
-    MovieDetailStatus? movieDetailState,
+    TvDetailStatus? movieDetailState,
   }) {
-    return MovieDetailState(
+    return TvDetailState(
       movieDetailModel ?? this.movieDetailModel,
       movieDetailState ?? this.movieDetailState,
     );
@@ -95,21 +98,21 @@ class MovieDetailState with EquatableMixin {
   List<Object?> get props => [movieDetailModel, movieDetailState];
 }
 
-sealed class MovieDetailStatus with EquatableMixin {
+sealed class TvDetailStatus with EquatableMixin {
   @override
   List<Object?> get props => [];
 }
 
-class MovieDetailNone extends MovieDetailStatus {}
+class TvDetailNone extends TvDetailStatus {}
 
-class MovieDetailLoading extends MovieDetailStatus {}
+class TvDetailLoading extends TvDetailStatus {}
 
-class MovieDetailSuccess extends MovieDetailStatus {}
+class TvDetailSuccess extends TvDetailStatus {}
 
-class MovieDetailFailure extends MovieDetailStatus {
+class TvDetailFailure extends TvDetailStatus {
   final ErrorResponse errorResponse;
 
-  MovieDetailFailure(this.errorResponse);
+  TvDetailFailure(this.errorResponse);
 
   @override
   List<Object?> get props => [errorResponse];

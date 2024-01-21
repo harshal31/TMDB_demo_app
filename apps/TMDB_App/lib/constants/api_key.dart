@@ -75,4 +75,6 @@ class ApiKey {
   static const String with_status = "with_status";
   static const String with_type = "with_type";
   static const String with_networks = "with_networks";
+  static const String favorite = "favorite";
+  static const String watchList = "watchlist";
 }

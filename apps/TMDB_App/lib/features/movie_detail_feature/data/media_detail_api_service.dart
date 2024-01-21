@@ -14,11 +14,11 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_translations.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 
-part 'movie_detail_api_service.g.dart';
+part 'media_detail_api_service.g.dart';
 
 @RestApi()
-abstract class MovieDetailApiService {
-  factory MovieDetailApiService(Dio dio) = _MovieDetailApiService;
+abstract class MediaDetailApiService {
+  factory MediaDetailApiService(Dio dio) = _MediaDetailApiService;
 
   @GET(Endpoint.mediaDetailApi)
   Future<HttpResponse<MediaDetail?>> fetchMediaDetail(
@@ -91,9 +91,16 @@ abstract class MovieDetailApiService {
   );
 
   @POST(Endpoint.mediaRating)
-  Future<HttpResponse<MediaAddRating?>> fetchMediaAddRating(
+  Future<HttpResponse<MediaAddRating?>> addMediaRating(
     @Path(ApiKey.mediaType) String mediaType,
-    @Path(ApiKey.typeId) String typeId,
+    @Path(ApiKey.typeId) int typeId,
+    @Query(ApiKey.sessionId) String sessionId,
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST(Endpoint.saveUserPref)
+  Future<HttpResponse<MediaAddRating?>> saveUserPref(
+    @Path(ApiKey.dynamicPath) String dynamicPath,
     @Query(ApiKey.sessionId) String sessionId,
     @Body() Map<String, dynamic> body,
   );

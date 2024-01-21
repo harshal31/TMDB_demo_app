@@ -52,17 +52,20 @@ class TmdbCastList extends StatelessWidget {
                         image: models[index].getImage(),
                         width: width ?? 138,
                         height: 175,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Expanded(
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
                             models[index].originalName ?? "",
                             style: context.textTheme.labelMedium?.copyWith(
                               fontWeight: FontWeight.w800,
                             ),
-                            maxLines: 2,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             softWrap: true,
                             textAlign: TextAlign.center,
@@ -70,13 +73,13 @@ class TmdbCastList extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Expanded(
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
                           child: Text(
                             models[index].character ?? "",
                             style: context.textTheme.labelMedium,
-                            maxLines: 2,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             softWrap: true,
                             textAlign: TextAlign.center,

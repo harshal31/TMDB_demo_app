@@ -7,6 +7,7 @@ import "package:tmdb_app/app_level_provider/app_provider.dart";
 import "package:tmdb_app/constants/app_constant.dart";
 import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
+import "package:tmdb_app/network/cache_interceptor.dart";
 import "package:tmdb_app/routes/app_router.dart";
 import "package:flutter_web_plugins/url_strategy.dart";
 
@@ -50,6 +51,7 @@ class MainApp extends StatelessWidget {
 }
 
 Future<void> initializeDependencies() async {
+  CacheManager.clearCache();
   usePathUrlStrategy();
   await HiveManager.createHiveManager().initialize(HiveKey.appBoxName);
   AppProviders.registerAppLevelProviders();
