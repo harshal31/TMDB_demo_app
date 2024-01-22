@@ -3,6 +3,7 @@ import 'package:common_widgets/common_utils/time_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
+import 'package:common_widgets/widgets/donmiant_color_from_image.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:extended_image/extended_image.dart';
@@ -75,16 +76,10 @@ class MovieDetailTabletScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              context.colorTheme.primaryContainer.withOpacity(0.2),
-                              context.colorTheme.primaryContainer.withOpacity(0.8),
-                            ],
-                          ),
+                      child: DominantColorFromImage(
+                        imageProvider: ExtendedNetworkImageProvider(
+                          state.mediaDetailModel.getBackdropImage(),
+                          cache: true,
                         ),
                       ),
                     ),
@@ -105,7 +100,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                               ),
                               cacheMaxAge: const Duration(minutes: 30),
                             ),
-                            const SizedBox(width: 18),
+                            const SizedBox(width: 16),
                             Expanded(
                               child: ScrollConfiguration(
                                 behavior:
@@ -217,14 +212,21 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(height: 16),
-                                      Text(
-                                        state.mediaDetailModel.mediaDetail?.tagline ?? "",
-                                        style: context.textTheme.titleMedium?.copyWith(
-                                            fontStyle: FontStyle.italic,
-                                            fontWeight: FontWeight.w100,
-                                            color:
-                                                context.colorTheme.onBackground.withOpacity(0.6)),
+                                      Visibility(
+                                        visible: state.mediaDetailModel.mediaDetail?.tagline
+                                                ?.isNotEmpty ??
+                                            false,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 16),
+                                          child: Text(
+                                            state.mediaDetailModel.mediaDetail?.tagline ?? "",
+                                            style: context.textTheme.titleMedium?.copyWith(
+                                                fontStyle: FontStyle.italic,
+                                                fontWeight: FontWeight.w100,
+                                                color: context.colorTheme.onBackground
+                                                    .withOpacity(0.6)),
+                                          ),
+                                        ),
                                       ),
                                       const SizedBox(height: 16),
                                       Text(
@@ -239,51 +241,61 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                         style: context.textTheme.titleSmall,
                                       ),
                                       const SizedBox(height: 16),
-                                      SizedBox(
-                                        height: 100,
-                                        child: ListView.separated(
-                                          separatorBuilder: (ctx, index) =>
-                                              const Divider(indent: 80),
-                                          itemCount: state.mediaDetailModel
-                                              .getWriterDirectorMapping()
-                                              .$1
-                                              .length,
-                                          padding: EdgeInsets.zero,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (ctx, index) {
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    state.mediaDetailModel
-                                                        .getWriterDirectorMapping()
-                                                        .$1[index],
-                                                    style: context.textTheme.bodyLarge?.copyWith(
-                                                      fontWeight: FontWeight.w900,
+                                      Visibility(
+                                        visible: state.mediaDetailModel
+                                            .getWriterDirectorMapping()
+                                            .$1
+                                            .isNotEmpty,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 16),
+                                          child: SizedBox(
+                                            height: 100,
+                                            child: ListView.separated(
+                                              separatorBuilder: (ctx, index) =>
+                                                  const Divider(indent: 80),
+                                              itemCount: state.mediaDetailModel
+                                                  .getWriterDirectorMapping()
+                                                  .$1
+                                                  .length,
+                                              padding: EdgeInsets.zero,
+                                              scrollDirection: Axis.horizontal,
+                                              itemBuilder: (ctx, index) {
+                                                return Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        state.mediaDetailModel
+                                                            .getWriterDirectorMapping()
+                                                            .$1[index],
+                                                        style:
+                                                            context.textTheme.bodyLarge?.copyWith(
+                                                          fontWeight: FontWeight.w900,
+                                                        ),
+                                                        maxLines: 1,
+                                                        softWrap: true,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
                                                     ),
-                                                    maxLines: 1,
-                                                    softWrap: true,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    state.mediaDetailModel
-                                                        .getWriterDirectorMapping()
-                                                        .$2[index],
-                                                    style: context.textTheme.bodyMedium,
-                                                    maxLines: 1,
-                                                    softWrap: true,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                const Spacer()
-                                              ],
-                                            );
-                                          },
+                                                    Expanded(
+                                                      child: Text(
+                                                        state.mediaDetailModel
+                                                            .getWriterDirectorMapping()
+                                                            .$2[index],
+                                                        style: context.textTheme.bodyMedium,
+                                                        maxLines: 1,
+                                                        softWrap: true,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                    ),
+                                                    const Spacer(),
+                                                    const Spacer()
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                          ),
                                         ),
                                       )
                                     ],

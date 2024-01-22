@@ -52,6 +52,7 @@ class TmdbCastList extends StatelessWidget {
                         models[index].getImage(),
                         width: width ?? 138,
                         height: 175,
+                        fit: BoxFit.cover,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
