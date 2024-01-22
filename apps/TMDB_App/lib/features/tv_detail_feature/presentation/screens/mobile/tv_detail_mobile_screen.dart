@@ -1,13 +1,13 @@
+import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/custom_tab_bar.dart';
+import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
-import 'package:common_widgets/localizations/localized_extension.dart';
-import 'package:common_widgets/widgets/custom_tab_bar.dart';
-import 'package:common_widgets/widgets/tmdb_icon.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_cast_list.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_current_season_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_view.dart';
@@ -29,7 +29,7 @@ class TvDetailMobileScreen extends StatelessWidget {
     return BlocBuilder<TvDetailCubit, TvDetailState>(
       builder: (context, state) {
         if (state.tvDetailState is TvDetailLoading || state.tvDetailState is TvDetailNone) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -62,7 +62,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                           cache: true,
                           fit: BoxFit.cover,
                           shape: BoxShape.rectangle,
-                          cacheMaxAge: Duration(minutes: 30),
+                          cacheMaxAge: const Duration(minutes: 30),
                         ),
                       ),
                     ),
@@ -100,7 +100,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                                   cache: true,
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(10),
-                                  cacheMaxAge: Duration(minutes: 30),
+                                  cacheMaxAge: const Duration(minutes: 30),
                                 ),
                               ],
                             ),
@@ -172,7 +172,8 @@ class TvDetailMobileScreen extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 16),
                                           TooltipRating(
-                                            rating: state.mediaDetailModel.mediaAccountState?.getSafeRating() ??
+                                            rating: state.mediaDetailModel.mediaAccountState
+                                                    ?.getSafeRating() ??
                                                 0.0,
                                             iconSize: 20,
                                             hoverMessage: context.tr.addToWatchlist,
@@ -196,7 +197,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w100,
                                         color: context.colorTheme.onBackground.withOpacity(0.6)),
                                   ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   SizedBox(
                                     height: 40,
                                     child: ListView.separated(
@@ -242,7 +243,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: SizedBox(height: 8)),
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -256,7 +257,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       state.mediaDetailModel.mediaDetail?.overview ?? "",
                       style: context.textTheme.titleSmall,
@@ -265,7 +266,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: const SizedBox(height: 16)),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -276,7 +277,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: const SizedBox(height: 8)),
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -479,7 +480,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: const SizedBox(height: 16)),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -490,10 +491,10 @@ class TvDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: const SizedBox(height: 8)),
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

@@ -148,7 +148,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
                   cache: true,
                   fit: BoxFit.cover,
                   shape: BoxShape.rectangle,
-                  cacheMaxAge: Duration(minutes: 30),
+                  cacheMaxAge: const Duration(minutes: 30),
                 );
               },
             ),

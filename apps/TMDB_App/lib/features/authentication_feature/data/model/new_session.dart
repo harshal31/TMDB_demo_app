@@ -1,5 +1,4 @@
 import "package:json_annotation/json_annotation.dart";
-import "package:tmdb_app/features/authentication_feature/data/model/new_request_token.dart";
 
 part "new_session.g.dart";
 

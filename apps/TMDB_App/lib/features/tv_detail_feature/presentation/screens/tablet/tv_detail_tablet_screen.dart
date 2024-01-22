@@ -1,13 +1,13 @@
+import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/custom_tab_bar.dart';
+import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
-import 'package:common_widgets/localizations/localized_extension.dart';
-import 'package:common_widgets/widgets/custom_tab_bar.dart';
-import 'package:common_widgets/widgets/tmdb_icon.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_cast_list.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_current_season_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_view.dart';
@@ -29,7 +29,7 @@ class TvDetailTabletScreen extends StatelessWidget {
     return BlocBuilder<TvDetailCubit, TvDetailState>(
       builder: (context, state) {
         if (state.tvDetailState is TvDetailLoading || state.tvDetailState is TvDetailNone) {
-          return Center(
+          return const Center(
             child: SizedBox(
               width: 80,
               height: 80,
@@ -68,7 +68,7 @@ class TvDetailTabletScreen extends StatelessWidget {
                           shape: BoxShape.rectangle,
                           clipBehavior: Clip.hardEdge,
                           borderRadius: BorderRadius.zero,
-                          cacheMaxAge: Duration(minutes: 30),
+                          cacheMaxAge: const Duration(minutes: 30),
                         ),
                       ),
                     ),
@@ -98,12 +98,12 @@ class TvDetailTabletScreen extends StatelessWidget {
                               fit: BoxFit.cover,
                               cache: true,
                               shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10.0),
                               ),
-                              cacheMaxAge: Duration(minutes: 30),
+                              cacheMaxAge: const Duration(minutes: 30),
                             ),
-                            SizedBox(width: 18),
+                            const SizedBox(width: 18),
                             Expanded(
                               child: ScrollConfiguration(
                                 behavior:
@@ -200,19 +200,19 @@ class TvDetailTabletScreen extends StatelessWidget {
                                             color:
                                                 context.colorTheme.onBackground.withOpacity(0.6)),
                                       ),
-                                      SizedBox(height: 16),
+                                      const SizedBox(height: 16),
                                       Text(
                                         context.tr.overview,
                                         style: context.textTheme.titleLarge?.copyWith(
                                           fontWeight: FontWeight.w900,
                                         ),
                                       ),
-                                      SizedBox(height: 16),
+                                      const SizedBox(height: 16),
                                       Text(
                                         state.mediaDetailModel.mediaDetail?.overview ?? "",
                                         style: context.textTheme.titleSmall,
                                       ),
-                                      SizedBox(height: 16),
+                                      const SizedBox(height: 16),
                                       SizedBox(
                                         height: 100,
                                         child: ListView.separated(
@@ -251,7 +251,7 @@ class TvDetailTabletScreen extends StatelessWidget {
                                                     overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                               ],
                                             );
                                           },

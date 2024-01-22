@@ -1,4 +1,5 @@
 import "dart:async";
+
 import "package:common_widgets/widgets/youtube_video.dart";
 import "package:flutter/material.dart";
 import "package:get_it/get_it.dart";
@@ -32,7 +33,7 @@ class AppRouter {
               GoRoute(
                 path: RouteName.home,
                 builder: (ctx, state) {
-                  return HomeScreen();
+                  return const HomeScreen();
                 },
                 routes: [
                   GoRoute(

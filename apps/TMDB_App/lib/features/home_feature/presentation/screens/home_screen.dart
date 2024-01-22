@@ -42,9 +42,9 @@ class HomeScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: SizeDetector(
-            mobileBuilder: () => HomeMobileScreen(),
-            tabletBuilder: () => HomeTabletScreen(),
-            desktopBuilder: () => HomeWebScreen(),
+            mobileBuilder: () => const HomeMobileScreen(),
+            tabletBuilder: () => const HomeTabletScreen(),
+            desktopBuilder: () => const HomeWebScreen(),
           ),
         ),
       ),

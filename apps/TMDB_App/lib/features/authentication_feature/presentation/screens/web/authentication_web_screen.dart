@@ -65,8 +65,8 @@ class AuthenticationWebScreen extends StatelessWidget {
                                   authenticationCubit.passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                          border: OutlineInputBorder(),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                          border: const OutlineInputBorder(),
                           hintText: context.tr.userName,
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -76,7 +76,7 @@ class AuthenticationWebScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       TextFormField(
                         controller: authenticationCubit.passwordController,
                         textAlignVertical: TextAlignVertical.center,
@@ -113,9 +113,7 @@ class AuthenticationWebScreen extends StatelessWidget {
                                 authenticationCubit.shouldSkipUserNameError = false;
                               }
 
-                              context
-                                  .read<AuthenticationCubit>()
-                                  .updatePasswordVisibility();
+                              context.read<AuthenticationCubit>().updatePasswordVisibility();
                             },
                             icon: Icon(
                               state.shouldObscure
@@ -124,20 +122,20 @@ class AuthenticationWebScreen extends StatelessWidget {
                               size: 20,
                             ),
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                          border: OutlineInputBorder(),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                          border: const OutlineInputBorder(),
                           hintText: context.tr.password,
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       AnimatedSwitcher(
-                        duration: Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 200),
                         child: state.status is LoginLoading
                             ? Container(
                                 key: UniqueKey(),
                                 width: double.infinity,
                                 alignment: Alignment.center,
-                                child: CircularProgressIndicator(),
+                                child: const CircularProgressIndicator(),
                               )
                             : BlocBuilder<ButtonStateCubit, bool>(
                                 key: UniqueKey(),
@@ -147,8 +145,7 @@ class AuthenticationWebScreen extends StatelessWidget {
                                     height: 50,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            context.colorTheme.primaryContainer,
+                                        backgroundColor: context.colorTheme.primaryContainer,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(6),
                                         ),
@@ -156,16 +153,13 @@ class AuthenticationWebScreen extends StatelessWidget {
                                       onPressed: state
                                           ? null
                                           : () {
-                                              authenticationCubit
-                                                  .shouldSkipUserNameError = false;
+                                              authenticationCubit.shouldSkipUserNameError = false;
                                               if (authenticationCubit.formKey.currentState
                                                       ?.validate() ??
                                                   false) {
                                                 context.read<AuthenticationCubit>().login(
-                                                      authenticationCubit
-                                                          .userNameController.text,
-                                                      authenticationCubit
-                                                          .passwordController.text,
+                                                      authenticationCubit.userNameController.text,
+                                                      authenticationCubit.passwordController.text,
                                                     );
                                               }
                                             },
@@ -190,12 +184,14 @@ class AuthenticationWebScreen extends StatelessWidget {
   }
 
   void repositionScrollPositionAtCenter(AuthenticationCubit authenticationCubit) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (authenticationCubit.scrollController.positions.isNotEmpty) {
-        authenticationCubit.scrollController.jumpTo(
-          authenticationCubit.scrollController.position.maxScrollExtent,
-        );
-      }
-    },);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        if (authenticationCubit.scrollController.positions.isNotEmpty) {
+          authenticationCubit.scrollController.jumpTo(
+            authenticationCubit.scrollController.position.maxScrollExtent,
+          );
+        }
+      },
+    );
   }
 }

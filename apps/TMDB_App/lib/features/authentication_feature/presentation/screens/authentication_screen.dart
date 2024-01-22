@@ -27,9 +27,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       ],
       child: Scaffold(
         body: SizeDetector(
-          mobileBuilder: () => AuthenticationMobileScreen(),
-          tabletBuilder: () => AuthenticationTabletScreen(),
-          desktopBuilder: () => AuthenticationWebScreen(),
+          mobileBuilder: () => const AuthenticationMobileScreen(),
+          tabletBuilder: () => const AuthenticationTabletScreen(),
+          desktopBuilder: () => const AuthenticationWebScreen(),
         ),
       ),
     );

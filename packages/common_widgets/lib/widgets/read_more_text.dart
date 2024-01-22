@@ -1,352 +1,304 @@
-library readmore;
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-enum TrimMode {
-  Length,
-  Line,
-}
+/// A Flutter widget for displaying text with an optional "Read more/Read less" button.
+///
+/// The `AnimatedReadMoreText` widget allows you to present text with a maximum
+/// number of lines and provides a button to expand or collapse the content for
+/// improved readability.
+///
+/// ## Usage
+///
+/// To use this widget, provide the required `text` parameter with the content you
+/// want to display. Customize the appearance and behavior by adjusting various
+/// optional parameters such as `maxLines`, `readMoreText`, `readLessText`,
+/// `textStyle`, and more.
+class AnimatedReadMoreText extends StatefulWidget {
+  /// Creates an AnimatedReadMoreText widget.
+  ///
+  /// This widget is designed for displaying text with optional "Read more/Read less"
+  /// functionality. It provides a convenient way to present content with a maximum
+  /// number of visible lines and offers a button to expand or collapse the text for
+  /// improved user interaction.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// AnimatedReadMoreText(
+  ///   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  ///   maxLines: 3,
+  ///   readMoreText: 'Show more', // default: 'Read more'
+  ///   readLessText: 'Show less', // default: 'Read less'
+  /// )
+  /// ```
+  const AnimatedReadMoreText(
+    this.text, {
+    super.key,
+    this.maxLines = 3,
+    this.readMoreText = 'Read more',
+    this.readLessText = 'Read less',
+    this.textStyle,
+    this.buttonTextStyle,
+    this.isSuffixButton = true,
+    this.allowCollapse = true,
+    this.expandOnTextTap = true,
+    this.animationCurve = Curves.easeOutBack,
+    this.animationDuration = const Duration(milliseconds: 300),
+  })  : assert(maxLines > 1, 'maxLines must be greater than 1'),
+        assert(text.length > 0, 'text cannot be empty'),
+        assert(readMoreText.length > 0, 'readMoreText cannot be empty'),
+        assert(readLessText.length > 0, 'readLessText cannot be empty');
 
-class ReadMoreText extends StatefulWidget {
-  const ReadMoreText(
-      this.data, {
-        Key? key,
-        this.preDataText,
-        this.postDataText,
-        this.preDataTextStyle,
-        this.postDataTextStyle,
-        this.trimExpandedText = 'show less',
-        this.trimCollapsedText = 'read more',
-        this.colorClickableText,
-        this.trimLength = 240,
-        this.trimLines = 2,
-        this.trimMode = TrimMode.Length,
-        this.style,
-        this.textAlign,
-        this.textDirection,
-        this.locale,
-        this.textScaleFactor,
-        this.semanticsLabel,
-        this.moreStyle,
-        this.lessStyle,
-        this.delimiter = _kEllipsis + ' ',
-        this.delimiterStyle,
-        this.callback,
-        this.onLinkPressed,
-        this.linkTextStyle,
-      }) : super(key: key);
+  /// The text to be displayed in the widget.
+  final String text;
 
-  /// Used on TrimMode.Length
-  final int trimLength;
+  /// The maximum number of lines to display before collapsing the text.
+  /// Must be greater than 1.
+  final int maxLines;
 
-  /// Used on TrimMode.Lines
-  final int trimLines;
+  /// The text to display for the "Read more" button.
+  /// Must not be an empty string.
+  final String readMoreText;
 
-  /// Determines the type of trim. TrimMode.Length takes into account
-  /// the number of letters, while TrimMode.Lines takes into account
-  /// the number of lines
-  final TrimMode trimMode;
+  /// The text to display for the "Read less" button.
+  /// Must not be an empty string.
+  final String readLessText;
 
-  /// TextStyle for expanded text
-  final TextStyle? moreStyle;
+  /// The style to apply to the "Read more/Read less" button.
+  final TextStyle? buttonTextStyle;
 
-  /// TextStyle for compressed text
-  final TextStyle? lessStyle;
+  /// The style to apply to the displayed text.
+  final TextStyle? textStyle;
 
-  /// Textspan used before the data any heading or somthing
-  final String? preDataText;
+  /// Determines if the "Read more/Read less" button is displayed as a suffix.
+  final bool isSuffixButton;
 
-  /// Textspan used after the data end or before the more/less
-  final String? postDataText;
+  /// Controls whether the text can be collapsed.
+  final bool allowCollapse;
 
-  /// Textspan used before the data any heading or somthing
-  final TextStyle? preDataTextStyle;
+  /// Enables text expansion when tapped.
+  final bool expandOnTextTap;
 
-  /// Textspan used after the data end or before the more/less
-  final TextStyle? postDataTextStyle;
+  /// The animation curve for expanding and collapsing the text.
+  final Curve animationCurve;
 
-  ///Called when state change between expanded/compress
-  final Function(bool val)? callback;
-
-  final ValueChanged<String>? onLinkPressed;
-
-  final TextStyle? linkTextStyle;
-
-  final String delimiter;
-  final String data;
-  final String trimExpandedText;
-  final String trimCollapsedText;
-  final Color? colorClickableText;
-  final TextStyle? style;
-  final TextAlign? textAlign;
-  final TextDirection? textDirection;
-  final Locale? locale;
-  final double? textScaleFactor;
-  final String? semanticsLabel;
-  final TextStyle? delimiterStyle;
+  /// The duration of the animation.
+  final Duration animationDuration;
 
   @override
-  ReadMoreTextState createState() => ReadMoreTextState();
+  State<AnimatedReadMoreText> createState() => _AnimatedReadMoreTextState();
 }
 
-const String _kEllipsis = '\u2026';
-
-const String _kLineSeparator = '\u2028';
-
-class ReadMoreTextState extends State<ReadMoreText> {
-  bool _readMore = true;
-
-  void _onTapLink() {
-    setState(() {
-      _readMore = !_readMore;
-      widget.callback?.call(_readMore);
-    });
-  }
+class _AnimatedReadMoreTextState extends State<AnimatedReadMoreText> {
+  /// Whether the text is expanded.
+  bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
-    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
-    TextStyle? effectiveTextStyle = widget.style;
-    if (widget.style?.inherit ?? false) {
-      effectiveTextStyle = defaultTextStyle.style.merge(widget.style);
-    }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        assert(constraints.hasBoundedWidth,
+            'The parent widget must provide bounded width constraints');
 
-    final textAlign =
-        widget.textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start;
-    final textDirection = widget.textDirection ?? Directionality.of(context);
-    final textScaleFactor =
-        widget.textScaleFactor ?? MediaQuery.textScaleFactorOf(context);
-    final overflow = defaultTextStyle.overflow;
-    final locale = widget.locale ?? Localizations.maybeLocaleOf(context);
+        // Obtain the text style that will be used for rendering. If the widget doesn't provide a specific style,
+        // use the default style of the current text context.
+        final style = widget.textStyle ?? DefaultTextStyle.of(context).style;
+        final fontSize = style.fontSize ?? DefaultTextStyle.of(context).style.fontSize!;
 
-    final colorClickableText =
-        widget.colorClickableText ?? Theme.of(context).colorScheme.secondary;
-    final _defaultLessStyle = widget.lessStyle ??
-        effectiveTextStyle?.copyWith(color: colorClickableText);
-    final _defaultMoreStyle = widget.moreStyle ??
-        effectiveTextStyle?.copyWith(color: colorClickableText);
-    final _defaultDelimiterStyle = widget.delimiterStyle ?? effectiveTextStyle;
+        // Form a TextSpan object representing the text to be displayed, along with its associated style.
+        final textSpan = TextSpan(text: widget.text, style: style);
 
-    TextSpan link = TextSpan(
-      text: _readMore ? widget.trimCollapsedText : widget.trimExpandedText,
-      style: _readMore ? _defaultMoreStyle : _defaultLessStyle,
-      recognizer: TapGestureRecognizer()..onTap = _onTapLink,
-    );
+        // Initialize a TextPainter to measure and layout the text. Set constraints such as the maximum number
+        // of lines and text direction.
+        final textPainter = TextPainter(
+          text: textSpan,
+          maxLines: widget.maxLines,
+          textDirection: TextDirection.ltr,
+        )..layout(maxWidth: constraints.maxWidth);
 
-    TextSpan _delimiter = TextSpan(
-      text: _readMore
-          ? widget.trimCollapsedText.isNotEmpty
-          ? widget.delimiter
-          : ''
-          : '',
-      style: _defaultDelimiterStyle,
-      recognizer: TapGestureRecognizer()..onTap = _onTapLink,
-    );
+        final bool showButton =
+            textPainter.didExceedMaxLines && (widget.allowCollapse || !_isExpanded);
 
-    Widget result = LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        assert(constraints.hasBoundedWidth);
-        final double maxWidth = constraints.maxWidth;
+        // Find the position of the last character within the available width and considering the maximum number of lines.
+        final endPosition = textPainter.getPositionForOffset(Offset(
+          constraints.maxWidth,
+          // Determine whether the text should be truncated based on the current expansion state.
+          // If not expanded, create a substring of the text up to the calculated end position;
+          // otherwise, use the full text.
+          fontSize * widget.maxLines,
+        ));
 
-        TextSpan? preTextSpan;
-        TextSpan? postTextSpan;
-        if (widget.preDataText != null)
-          preTextSpan = TextSpan(
-            text: widget.preDataText! + " ",
-            style: widget.preDataTextStyle ?? effectiveTextStyle,
-          );
-        if (widget.postDataText != null)
-          postTextSpan = TextSpan(
-            text: " " + widget.postDataText!,
-            style: widget.postDataTextStyle ?? effectiveTextStyle,
-          );
+        // Determine the truncated text based on the current expansion state.
+        final truncatedText =
+            !_isExpanded ? widget.text.substring(0, endPosition.offset) : widget.text;
 
-        // Create a TextSpan with data
-        final text = TextSpan(
-          children: [
-            if (preTextSpan != null) preTextSpan,
-            TextSpan(text: widget.data, style: effectiveTextStyle),
-            if (postTextSpan != null) postTextSpan
-          ],
-        );
-
-        // Layout and measure link
-        TextPainter textPainter = TextPainter(
-          text: link,
-          textAlign: textAlign,
-          textDirection: textDirection,
-          textScaleFactor: textScaleFactor,
-          maxLines: widget.trimLines,
-          ellipsis: overflow == TextOverflow.ellipsis ? widget.delimiter : null,
-          locale: locale,
-        );
-        textPainter.layout(minWidth: 0, maxWidth: maxWidth);
-        final linkSize = textPainter.size;
-
-        // Layout and measure delimiter
-        textPainter.text = _delimiter;
-        textPainter.layout(minWidth: 0, maxWidth: maxWidth);
-        final delimiterSize = textPainter.size;
-
-        // Layout and measure text
-        textPainter.text = text;
-        textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
-        final textSize = textPainter.size;
-
-        // Get the endIndex of data
-        bool linkLongerThanLine = false;
-        int endIndex;
-
-        if (linkSize.width < maxWidth) {
-          final readMoreSize = linkSize.width + delimiterSize.width;
-          final pos = textPainter.getPositionForOffset(Offset(
-            textDirection == TextDirection.rtl
-                ? readMoreSize
-                : textSize.width - readMoreSize,
-            textSize.height,
-          ));
-          endIndex = textPainter.getOffsetBefore(pos.offset) ?? 0;
-        } else {
-          var pos = textPainter.getPositionForOffset(
-            textSize.bottomLeft(Offset.zero),
-          );
-          endIndex = pos.offset;
-          linkLongerThanLine = true;
-        }
-
-        var textSpan;
-        switch (widget.trimMode) {
-          case TrimMode.Length:
-            if (widget.trimLength < widget.data.length) {
-              textSpan = _buildData(
-                data: _readMore
-                    ? widget.data.substring(0, widget.trimLength)
-                    : widget.data,
-                textStyle: effectiveTextStyle,
-                linkTextStyle: effectiveTextStyle?.copyWith(
-                  decoration: TextDecoration.underline,
-                  color: Colors.blue,
-                ),
-                onPressed: widget.onLinkPressed,
-                children: [_delimiter, link],
-              );
-            } else {
-              textSpan = _buildData(
-                data: widget.data,
-                textStyle: effectiveTextStyle,
-                linkTextStyle: effectiveTextStyle?.copyWith(
-                  decoration: TextDecoration.underline,
-                  color: Colors.blue,
-                ),
-                onPressed: widget.onLinkPressed,
-                children: [],
-              );
+        return GestureDetector(
+          onTap: () {
+            if (widget.expandOnTextTap && (widget.allowCollapse || !_isExpanded)) {
+              _toggleExpanded();
             }
-            break;
-          case TrimMode.Line:
-            if (textPainter.didExceedMaxLines) {
-              textSpan = _buildData(
-                data: _readMore
-                    ? widget.data.substring(0, endIndex) +
-                    (linkLongerThanLine ? _kLineSeparator : '')
-                    : widget.data,
-                textStyle: effectiveTextStyle,
-                linkTextStyle: effectiveTextStyle?.copyWith(
-                  decoration: TextDecoration.underline,
-                  color: Colors.blue,
-                ),
-                onPressed: widget.onLinkPressed,
-                children: [_delimiter, link],
-              );
-            } else {
-              textSpan = _buildData(
-                data: widget.data,
-                textStyle: effectiveTextStyle,
-                linkTextStyle: effectiveTextStyle?.copyWith(
-                  decoration: TextDecoration.underline,
-                  color: Colors.blue,
-                ),
-                onPressed: widget.onLinkPressed,
-                children: [],
-              );
-            }
-            break;
-          default:
-            throw Exception(
-                'TrimMode type: ${widget.trimMode} is not supported');
-        }
-
-        return Text.rich(
-          TextSpan(
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (preTextSpan != null) preTextSpan,
-              textSpan,
-              if (postTextSpan != null) postTextSpan,
+              AnimatedCrossFade(
+                firstChild: _ExpandableTextSpan(
+                  showButton: showButton,
+                  text: truncatedText,
+                  style: widget.textStyle,
+                  buttonTextStyle: widget.buttonTextStyle,
+                  readMoreLessText: widget.readMoreText,
+                  isSuffixButton: true,
+                  // isSuffixButton: widget.isSuffixButton,
+                  onPressed: _toggleExpanded,
+                ),
+                secondChild: _ExpandableTextSpan(
+                  showButton: showButton,
+                  text: widget.text,
+                  style: widget.textStyle,
+                  buttonTextStyle: widget.buttonTextStyle,
+                  readMoreLessText: widget.readLessText,
+                  isSuffixButton: true,
+                  // isSuffixButton: widget.isSuffixButton && widget.allowCollapse,
+                  onPressed: _toggleExpanded,
+                ),
+                crossFadeState: _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                duration: widget.animationDuration,
+                sizeCurve: widget.animationCurve,
+              ),
+              if (!widget.isSuffixButton && (widget.allowCollapse || !_isExpanded) && showButton)
+                ReadMoreButton(
+                  isExpanded: _isExpanded,
+                  readMoreText: widget.readMoreText,
+                  readLessText: widget.readLessText,
+                  onPressed: _toggleExpanded,
+                ),
             ],
           ),
-          textAlign: textAlign,
-          textDirection: textDirection,
-          softWrap: true,
-          overflow: TextOverflow.clip,
-          textScaleFactor: textScaleFactor,
         );
       },
     );
-    if (widget.semanticsLabel != null) {
-      result = Semantics(
-        textDirection: widget.textDirection,
-        label: widget.semanticsLabel,
-        child: ExcludeSemantics(
-          child: result,
-        ),
-      );
-    }
-    return result;
   }
 
-  TextSpan _buildData({
-    required String data,
-    TextStyle? textStyle,
-    TextStyle? linkTextStyle,
-    ValueChanged<String>? onPressed,
-    required List<TextSpan> children,
-  }) {
-    RegExp exp = RegExp(r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
+  /// Toggles the expansion state of the widget.
+  ///
+  /// This method flips the value of [_isExpanded] and triggers a widget rebuild
+  /// to reflect the updated state.
+  void _toggleExpanded() => setState(() => _isExpanded = !_isExpanded);
+}
 
-    List<TextSpan> contents = [];
+/// A widget that creates an expandable text span with an optional "Read more/Read less" button.
+///
+/// The `ExpandableTextSpan` widget allows you to present a portion of text with an optional
+/// button to expand or collapse the content for improved readability.
+class _ExpandableTextSpan extends StatelessWidget {
+  /// Creates an ExpandableTextSpan widget.
+  ///
+  /// To use this widget, provide the required parameters such as `text`,
+  /// `readMoreLessText`, `isSuffixButton`, and `onPressed`. Customize the
+  /// appearance and behavior by adjusting optional parameters like `style` and
+  /// `buttonTextStyle`.
+  const _ExpandableTextSpan({
+    required this.showButton,
+    required this.text,
+    this.style,
+    this.buttonTextStyle,
+    required this.readMoreLessText,
+    required this.isSuffixButton,
+    required this.onPressed,
+  });
 
-    while (exp.hasMatch(data)) {
-      final match = exp.firstMatch(data);
+  /// A boolean indicating whether the button should be displayed.
+  final bool showButton;
 
-      final firstTextPart = data.substring(0, match!.start);
-      final linkTextPart = data.substring(match.start, match.end);
+  /// The text to be displayed in the widget.
+  final String text;
 
-      contents.add(
-        TextSpan(
-          text: firstTextPart,
-        ),
-      );
-      contents.add(
-        TextSpan(
-          text: linkTextPart,
-          style: linkTextStyle,
-          recognizer: TapGestureRecognizer()
-            ..onTap = () => onPressed?.call(
-              linkTextPart.trim(),
-            ),
-        ),
-      );
-      data = data.substring(match.end, data.length);
-    }
-    contents.add(
+  /// The style to apply to the displayed text.
+  final TextStyle? style;
+
+  /// The style to apply to the "Read more/Read less" button.
+  final TextStyle? buttonTextStyle;
+
+  /// The text to display for the "Read more/Read less" button.
+  final String readMoreLessText;
+
+  /// Determines if the button is displayed as a suffix.
+  final bool isSuffixButton;
+
+  /// The callback function executed when the button is tapped.
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(
       TextSpan(
-        text: data,
+        text: text,
+        style: style,
+        children: [
+          if (isSuffixButton && showButton) _buildExpandCollapseTextSpan(' $readMoreLessText'),
+        ],
       ),
     );
+  }
+
+  /// Builds a [TextSpan] for the "Read more/Read less" button.
+  ///
+  /// This method constructs a [TextSpan] with the provided `text`, `buttonTextStyle`,
+  /// and an [onPressed] action using a [TapGestureRecognizer].
+  TextSpan _buildExpandCollapseTextSpan(String text) {
     return TextSpan(
-      children: contents..addAll(children),
-      style: textStyle,
+      text: text,
+      style: buttonTextStyle ??
+          const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+      recognizer: TapGestureRecognizer()..onTap = onPressed,
+    );
+  }
+}
+
+/// A widget that represents a "Read more/Read less" button.
+///
+/// The `ReadMoreButton` widget provides a button that changes its text based
+/// on whether the associated content is expanded or collapsed.
+class ReadMoreButton extends StatelessWidget {
+  /// Creates a ReadMoreButton widget.
+  ///
+  /// To use this widget, provide the required parameters such as `isExpanded`,
+  /// `readMoreText`, `readLessText`, and `onPressed`.
+  const ReadMoreButton({
+    super.key,
+    required this.isExpanded,
+    required this.readMoreText,
+    required this.readLessText,
+    required this.onPressed,
+  });
+
+  /// A boolean indicating whether the associated content is expanded.
+  final bool isExpanded;
+
+  /// The text to display when the content is collapsed.
+  final String readMoreText;
+
+  /// The text to display when the content is expanded.
+  final String readLessText;
+
+  /// The callback function executed when the button is tapped.
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+        child: TextButton(
+          onPressed: onPressed,
+          child: Text(
+            isExpanded ? readLessText : readMoreText,
+          ),
+        ),
+      ),
     );
   }
 }

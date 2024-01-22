@@ -29,7 +29,7 @@ class TvDetailWebScreen extends StatelessWidget {
     return BlocBuilder<TvDetailCubit, TvDetailState>(
       builder: (context, state) {
         if (state.tvDetailState is TvDetailLoading || state.tvDetailState is TvDetailNone) {
-          return Center(
+          return const Center(
             child: SizedBox(
               width: 80,
               height: 80,
@@ -50,7 +50,7 @@ class TvDetailWebScreen extends StatelessWidget {
         }
 
         return CustomScrollView(
-          physics: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
+          physics: const BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
           scrollBehavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           slivers: [
             SliverToBoxAdapter(
@@ -67,10 +67,10 @@ class TvDetailWebScreen extends StatelessWidget {
                           cache: true,
                           fit: BoxFit.cover,
                           shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.all(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(10.0),
                           ),
-                          cacheMaxAge: Duration(minutes: 30),
+                          cacheMaxAge: const Duration(minutes: 30),
                         ),
                       ),
                     ),
@@ -98,12 +98,12 @@ class TvDetailWebScreen extends StatelessWidget {
                               fit: BoxFit.cover,
                               cache: true,
                               shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10.0),
                               ),
-                              cacheMaxAge: Duration(minutes: 30),
+                              cacheMaxAge: const Duration(minutes: 30),
                             ),
-                            SizedBox(width: 18),
+                            const SizedBox(width: 18),
                             Expanded(
                               child: SingleChildScrollView(
                                 child: Column(
@@ -195,19 +195,19 @@ class TvDetailWebScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w100,
                                           color: context.colorTheme.onBackground.withOpacity(0.6)),
                                     ),
-                                    SizedBox(height: 16),
+                                    const SizedBox(height: 16),
                                     Text(
                                       context.tr.overview,
                                       style: context.textTheme.titleLarge?.copyWith(
                                         fontWeight: FontWeight.w900,
                                       ),
                                     ),
-                                    SizedBox(height: 16),
+                                    const SizedBox(height: 16),
                                     Text(
                                       state.mediaDetailModel.mediaDetail?.overview ?? "",
                                       style: context.textTheme.titleSmall,
                                     ),
-                                    SizedBox(height: 16),
+                                    const SizedBox(height: 16),
                                     SizedBox(
                                       height: 100,
                                       child: ListView.separated(
@@ -245,7 +245,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                                   overflow: TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              Spacer(),
+                                              const Spacer(),
                                             ],
                                           );
                                         },

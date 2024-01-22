@@ -1,6 +1,6 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_network/image_network.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
 
 class TmdbCastList extends StatelessWidget {
@@ -40,7 +40,7 @@ class TmdbCastList extends StatelessWidget {
                 },
                 child: Card(
                   elevation: 5,
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10.0),
                     ),
@@ -48,14 +48,15 @@ class TmdbCastList extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      ImageNetwork(
-                        image: models[index].getImage(),
+                      ExtendedImage.network(
+                        models[index].getImage(),
                         width: width ?? 138,
                         height: 175,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
+                        cache: true,
                       ),
                       Expanded(
                         child: Padding(

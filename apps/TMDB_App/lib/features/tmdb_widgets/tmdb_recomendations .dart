@@ -38,7 +38,7 @@ class TmdbRecomendations extends StatelessWidget {
         itemCount: recommendations.length,
         padding: EdgeInsets.zero,
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           return Padding(
@@ -59,10 +59,10 @@ class TmdbRecomendations extends StatelessWidget {
                 fit: BoxFit.fill,
                 cache: true,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(10.0),
                 ),
-                cacheMaxAge: Duration(minutes: 30),
+                cacheMaxAge: const Duration(minutes: 30),
               ),
             ),
           );

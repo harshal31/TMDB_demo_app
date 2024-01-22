@@ -30,9 +30,9 @@ class MovieDetailScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: SizeDetector(
-            mobileBuilder: () => MovieDetailMobileScreen(),
-            tabletBuilder: () => MovieDetailTabletScreen(),
-            desktopBuilder: () => MovieDetailWebScreen(),
+            mobileBuilder: () => const MovieDetailMobileScreen(),
+            tabletBuilder: () => const MovieDetailTabletScreen(),
+            desktopBuilder: () => const MovieDetailWebScreen(),
           ),
         ),
       ),

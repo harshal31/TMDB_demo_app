@@ -30,7 +30,7 @@ class TmdbReview extends StatelessWidget {
       color: context.colorTheme.surface,
       margin: EdgeInsets.zero,
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +48,7 @@ class TmdbReview extends StatelessWidget {
                           fit: BoxFit.cover,
                           cache: true,
                           shape: BoxShape.circle,
-                          cacheMaxAge: Duration(minutes: 30),
+                          cacheMaxAge: const Duration(minutes: 30),
                         )
                       : Text(
                           'P',
@@ -58,7 +58,7 @@ class TmdbReview extends StatelessWidget {
                           ),
                         ),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -116,16 +116,13 @@ class TmdbReview extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16.0),
-            ReadMoreText(
+            const SizedBox(height: 16.0),
+            AnimatedReadMoreText(
               result?.content ?? "",
-              colorClickableText: context.colorTheme.primary,
-              style: context.textTheme.bodyMedium,
-              moreStyle: context.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-              trimCollapsedText: context.tr.readMore,
-              trimExpandedText: context.tr.readLess,
-              trimLines: 5,
-              trimMode: TrimMode.Line,
+              maxLines: 5,
+              readMoreText: context.tr.readMore,
+              readLessText: context.tr.readLess,
+              textStyle: context.textTheme.bodyMedium,
             ),
           ],
         ),

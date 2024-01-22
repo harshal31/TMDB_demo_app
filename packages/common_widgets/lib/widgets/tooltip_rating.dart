@@ -49,7 +49,7 @@ class _TooltipRatingState extends State<TooltipRating> {
             shape: const CircleBorder(),
             elevation: 4.0,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Icon(
                 Icons.star,
                 color: rating != 0 ? Colors.amber : context.colorTheme.onBackground,
@@ -58,7 +58,7 @@ class _TooltipRatingState extends State<TooltipRating> {
             ),
           ),
           content: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: RatingBar.builder(
               itemSize: (widget.iconSize ?? 20) + 10,
               initialRating: rating != 0 ? rating / 2 : rating,
@@ -66,8 +66,8 @@ class _TooltipRatingState extends State<TooltipRating> {
               allowHalfRating: true,
               tapOnlyMode: true,
               itemCount: 5,
-              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => Icon(
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: Colors.amber,
               ),

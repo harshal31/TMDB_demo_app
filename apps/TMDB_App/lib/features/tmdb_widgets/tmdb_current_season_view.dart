@@ -27,7 +27,7 @@ class TmdbCurrentSeasonView extends StatelessWidget {
             width: 130,
             height: 195,
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
             fit: BoxFit.cover,
             clipBehavior: Clip.hardEdge,
             cache: true,
@@ -85,12 +85,12 @@ class TmdbCurrentSeasonView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     season?.overview ?? "",
                     style: context.textTheme.titleSmall,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -104,7 +104,7 @@ class TmdbCurrentSeasonView extends StatelessWidget {
                         Visibility(
                           visible: lastEpisodeToAir?.episodeType?.isNotEmpty ?? false,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               vertical: 4.0,
                               horizontal: 6.0,
                             ),
@@ -158,7 +158,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
                 width: 130,
                 height: 195,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 fit: BoxFit.cover,
                 clipBehavior: Clip.hardEdge,
                 cache: true,
@@ -216,7 +216,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Text(
                         season?.overview ?? "",
                         style: context.textTheme.titleSmall,
@@ -235,7 +235,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
           Visibility(
             visible: lastEpisodeToAir?.episodeType?.isNotEmpty ?? false,
             child: Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 4.0,
                 horizontal: 6.0,
               ),

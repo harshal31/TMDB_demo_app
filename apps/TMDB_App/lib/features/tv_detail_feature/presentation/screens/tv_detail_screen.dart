@@ -30,9 +30,9 @@ class TvDetailScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: SizeDetector(
-            mobileBuilder: () => TvDetailMobileScreen(),
-            tabletBuilder: () => TvDetailTabletScreen(),
-            desktopBuilder: () => TvDetailWebScreen(),
+            mobileBuilder: () => const TvDetailMobileScreen(),
+            tabletBuilder: () => const TvDetailTabletScreen(),
+            desktopBuilder: () => const TvDetailWebScreen(),
           ),
         ),
       ),

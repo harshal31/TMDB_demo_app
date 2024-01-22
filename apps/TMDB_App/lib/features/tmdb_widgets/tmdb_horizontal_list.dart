@@ -33,7 +33,7 @@ class TmdbHorizontalList extends StatelessWidget {
               width: width ?? 150,
               height: height ?? 225,
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.keyboard_double_arrow_right_sharp,
                   size: 40,
                 ),
@@ -57,10 +57,10 @@ class TmdbHorizontalList extends StatelessWidget {
                 fit: BoxFit.fill,
                 cache: true,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(10.0),
                 ),
-                cacheMaxAge: Duration(hours: 4),
+                cacheMaxAge: const Duration(hours: 4),
               ),
             ),
           );

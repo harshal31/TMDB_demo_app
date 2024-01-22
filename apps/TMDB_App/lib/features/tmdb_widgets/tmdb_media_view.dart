@@ -84,7 +84,7 @@ class _TmdbVideos extends StatelessWidget {
       child: ListView.builder(
         itemCount: videos.length,
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
@@ -148,11 +148,12 @@ class _TmdbVideos extends StatelessWidget {
 
   BorderRadius _getBorderRadius(int index) {
     if (index == 0) {
-      return BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
+      return const BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
     }
 
     if (index == (videos.length - 1)) {
-      return BorderRadius.only(topRight: Radius.circular(15), bottomRight: Radius.circular(15));
+      return const BorderRadius.only(
+          topRight: Radius.circular(15), bottomRight: Radius.circular(15));
     }
 
     return BorderRadius.zero;
@@ -177,7 +178,7 @@ class _TmdbBackdrops extends StatelessWidget {
       child: ListView.builder(
         itemCount: backDrops.length,
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
@@ -189,7 +190,7 @@ class _TmdbBackdrops extends StatelessWidget {
             cache: true,
             shape: BoxShape.rectangle,
             borderRadius: _getBorderRadius(index),
-            cacheMaxAge: Duration(minutes: 30),
+            cacheMaxAge: const Duration(minutes: 30),
           );
         },
       ),
@@ -204,11 +205,12 @@ class _TmdbBackdrops extends StatelessWidget {
 
   BorderRadius _getBorderRadius(int index) {
     if (index == 0) {
-      return BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
+      return const BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
     }
 
     if (index == (backDrops.length - 1)) {
-      return BorderRadius.only(topRight: Radius.circular(15), bottomRight: Radius.circular(15));
+      return const BorderRadius.only(
+          topRight: Radius.circular(15), bottomRight: Radius.circular(15));
     }
 
     return BorderRadius.zero;
@@ -228,7 +230,7 @@ class _TmdbPosters extends StatelessWidget {
       child: ListView.builder(
         itemCount: posters.length,
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
@@ -240,7 +242,7 @@ class _TmdbPosters extends StatelessWidget {
             cache: true,
             shape: BoxShape.rectangle,
             borderRadius: _getBorderRadius(index),
-            cacheMaxAge: Duration(minutes: 30),
+            cacheMaxAge: const Duration(minutes: 30),
           );
         },
       ),
@@ -255,11 +257,12 @@ class _TmdbPosters extends StatelessWidget {
 
   BorderRadius _getBorderRadius(int index) {
     if (index == 0) {
-      return BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
+      return const BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
     }
 
     if (index == (posters.length - 1)) {
-      return BorderRadius.only(topRight: Radius.circular(15), bottomRight: Radius.circular(15));
+      return const BorderRadius.only(
+          topRight: Radius.circular(15), bottomRight: Radius.circular(15));
     }
 
     return BorderRadius.zero;
