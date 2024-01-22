@@ -11,7 +11,7 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommen
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_translations.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
-import 'package:tmdb_app/features/movie_detail_feature/data/model/movie_detail_model.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail_model.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/media_detail_api_service.dart';
 import 'package:tmdb_app/network/error_response.dart';
 import 'package:tmdb_app/network/safe_api_call.dart';
@@ -22,14 +22,14 @@ class MovieDetailUseCase {
 
   MovieDetailUseCase(this._movieDetailApiService);
 
-  Future<Either<ErrorResponse, MovieDetailModel>> fetchMovieDetails(
+  Future<Either<ErrorResponse, MediaDetailModel>> fetchMovieDetails(
     String typeId,
     String mediaType,
     String sessionId, {
     String language = ApiKey.defaultLanguage,
     int page = 1,
   }) async {
-    MovieDetailModel model = MovieDetailModel();
+    MediaDetailModel model = MediaDetailModel();
     final responses = await Future.wait([
       apiCall(() => _movieDetailApiService.fetchMediaDetail(mediaType, typeId, language)),
       apiCall(() => _movieDetailApiService.fetchMediaAccountStates(mediaType, typeId, sessionId)),
@@ -69,30 +69,30 @@ class MovieDetailUseCase {
 }
 
 class MovieDetailState with EquatableMixin {
-  final MovieDetailModel movieDetailModel;
+  final MediaDetailModel mediaDetailModel;
   final MovieDetailStatus movieDetailState;
 
-  MovieDetailState(this.movieDetailModel, this.movieDetailState);
+  MovieDetailState(this.mediaDetailModel, this.movieDetailState);
 
   factory MovieDetailState.initial() {
     return MovieDetailState(
-      MovieDetailModel(),
+      MediaDetailModel(),
       MovieDetailNone(),
     );
   }
 
   MovieDetailState copyWith({
-    MovieDetailModel? movieDetailModel,
+    MediaDetailModel? mediaDetailModel,
     MovieDetailStatus? movieDetailState,
   }) {
     return MovieDetailState(
-      movieDetailModel ?? this.movieDetailModel,
+      mediaDetailModel ?? this.mediaDetailModel,
       movieDetailState ?? this.movieDetailState,
     );
   }
 
   @override
-  List<Object?> get props => [movieDetailModel, movieDetailState];
+  List<Object?> get props => [mediaDetailModel, movieDetailState];
 }
 
 sealed class MovieDetailStatus with EquatableMixin {

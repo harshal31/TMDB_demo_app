@@ -65,7 +65,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                       child: Opacity(
                         opacity: 0.3,
                         child: ExtendedImage.network(
-                          state.movieDetailModel.getBackdropImage(),
+                          state.mediaDetailModel.getBackdropImage(),
                           cache: true,
                           fit: BoxFit.cover,
                           shape: BoxShape.rectangle,
@@ -94,7 +94,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             ExtendedImage.network(
-                              state.movieDetailModel.getPosterPath(),
+                              state.mediaDetailModel.getPosterPath(),
                               width: 300,
                               height: 450,
                               fit: BoxFit.cover,
@@ -117,13 +117,13 @@ class MovieDetailWebScreen extends StatelessWidget {
                                       text: TextSpan(children: [
                                         TextSpan(
                                           text:
-                                              "${state.movieDetailModel.mediaDetail?.originalTitle ?? ""} ",
+                                              "${state.mediaDetailModel.mediaDetail?.originalTitle ?? ""} ",
                                           style: context.textTheme.headlineLarge?.copyWith(
                                             fontWeight: FontWeight.w900,
                                           ),
                                         ),
                                         TextSpan(
-                                          text: "(${state.movieDetailModel.getReleaseYear()})",
+                                          text: "(${state.mediaDetailModel.getReleaseYear()})",
                                           style: context.textTheme.headlineLarge?.copyWith(
                                             fontWeight: FontWeight.w100,
                                           ),
@@ -134,7 +134,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                       text: TextSpan(
                                         children: [
                                           TextSpan(
-                                            text: state.movieDetailModel.mediaDetail?.releaseDate
+                                            text: state.mediaDetailModel.mediaDetail?.releaseDate
                                                 .formatDateInMDYFormat,
                                             style: context.textTheme.titleMedium,
                                           ),
@@ -143,7 +143,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                             style: context.textTheme.headlineLarge,
                                           ),
                                           TextSpan(
-                                            text: state.movieDetailModel.genres(),
+                                            text: state.mediaDetailModel.genres(),
                                             style: context.textTheme.titleMedium,
                                           ),
                                           TextSpan(
@@ -151,7 +151,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                             style: context.textTheme.headlineLarge,
                                           ),
                                           TextSpan(
-                                            text: state.movieDetailModel.mediaDetail?.runtime
+                                            text: state.mediaDetailModel.mediaDetail?.runtime
                                                 .formatTimeInHM,
                                             style: context.textTheme.titleMedium,
                                           )
@@ -166,13 +166,13 @@ class MovieDetailWebScreen extends StatelessWidget {
                                           iconSize: 20,
                                           icons: (Icons.favorite, Icons.favorite_outline_sharp),
                                           isSelected:
-                                              state.movieDetailModel.mediaAccountState?.favorite ??
+                                              state.mediaDetailModel.mediaAccountState?.favorite ??
                                                   false,
                                           selectedColor: Colors.red,
                                           onSelection: (s) {
                                             movieDetailCubit.saveUserPreference(
                                               ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
+                                              state.mediaDetailModel.mediaDetail?.id,
                                               ApiKey.favorite,
                                               s,
                                             );
@@ -184,13 +184,13 @@ class MovieDetailWebScreen extends StatelessWidget {
                                           iconSize: 20,
                                           icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
                                           isSelected:
-                                              state.movieDetailModel.mediaAccountState?.watchlist ??
+                                              state.mediaDetailModel.mediaAccountState?.watchlist ??
                                                   false,
                                           selectedColor: Colors.red,
                                           onSelection: (s) {
                                             movieDetailCubit.saveUserPreference(
                                               ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
+                                              state.mediaDetailModel.mediaDetail?.id,
                                               ApiKey.watchList,
                                               s,
                                             );
@@ -199,7 +199,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 30),
                                         TooltipRating(
-                                          rating: state.movieDetailModel.mediaAccountState?.rated
+                                          rating: state.mediaDetailModel.mediaAccountState?.rated
                                                   ?.value ??
                                               0.0,
                                           iconSize: 20,
@@ -207,7 +207,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                           onRatingUpdate: (rating) {
                                             movieDetailCubit.addMediaRating(
                                               ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
+                                              state.mediaDetailModel.mediaDetail?.id,
                                               rating,
                                             );
                                           },
@@ -216,7 +216,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 16),
                                     Text(
-                                      state.movieDetailModel.mediaDetail?.tagline ?? "",
+                                      state.mediaDetailModel.mediaDetail?.tagline ?? "",
                                       style: context.textTheme.titleMedium?.copyWith(
                                           fontStyle: FontStyle.italic,
                                           fontWeight: FontWeight.w100,
@@ -231,7 +231,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 16),
                                     Text(
-                                      state.movieDetailModel.mediaDetail?.overview ?? "",
+                                      state.mediaDetailModel.mediaDetail?.overview ?? "",
                                       style: context.textTheme.titleSmall,
                                     ),
                                     SizedBox(height: 16),
@@ -239,7 +239,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                       height: 100,
                                       child: ListView.separated(
                                         separatorBuilder: (ctx, index) => const Divider(indent: 80),
-                                        itemCount: state.movieDetailModel
+                                        itemCount: state.mediaDetailModel
                                             .getWriterDirectorMapping()
                                             .$1
                                             .length,
@@ -252,7 +252,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  state.movieDetailModel
+                                                  state.mediaDetailModel
                                                       .getWriterDirectorMapping()
                                                       .$1[index],
                                                   style: context.textTheme.bodyLarge?.copyWith(
@@ -265,7 +265,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  state.movieDetailModel
+                                                  state.mediaDetailModel
                                                       .getWriterDirectorMapping()
                                                       .$2[index],
                                                   style: context.textTheme.bodyMedium,
@@ -326,7 +326,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                             height: 16,
                           ),
                           TmdbCastList(
-                            model: state.movieDetailModel.mediaCredits?.cast,
+                            model: state.mediaDetailModel.mediaCredits?.cast,
                           ),
                           const SizedBox(
                             height: 16,
@@ -349,7 +349,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                 ),
                               ),
                               Visibility(
-                                visible: state.movieDetailModel.mediaReviews?.results?.isNotEmpty ??
+                                visible: state.mediaDetailModel.mediaReviews?.results?.isNotEmpty ??
                                     false,
                                 child: IconButton(
                                   icon: const Icon(
@@ -365,8 +365,8 @@ class MovieDetailWebScreen extends StatelessWidget {
                             height: 16,
                           ),
                           TmdbReview(
-                            result: state.movieDetailModel.mediaReviews?.results?.firstOrNull,
-                            mediaDetail: state.movieDetailModel.mediaDetail,
+                            result: state.mediaDetailModel.mediaReviews?.getSafeReview(),
+                            mediaDetail: state.mediaDetailModel.mediaDetail,
                           ),
                           const SizedBox(
                             height: 16,
@@ -423,10 +423,10 @@ class MovieDetailWebScreen extends StatelessWidget {
                           BlocBuilder<PositionCubit, int>(
                             builder: (context, s) {
                               return TmdbMediaView(
-                                movieId: state.movieDetailModel.mediaDetail?.id.toString() ?? "",
+                                mediaId: state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
                                 pos: s,
-                                videos: state.movieDetailModel.mediaVideos?.results ?? [],
-                                images: state.movieDetailModel.mediaImages,
+                                videos: state.mediaDetailModel.mediaVideos?.results ?? [],
+                                images: state.mediaDetailModel.mediaImages,
                               );
                             },
                           ),
@@ -451,8 +451,9 @@ class MovieDetailWebScreen extends StatelessWidget {
                           ),
                           TmdbRecomendations(
                             recommendations:
-                                state.movieDetailModel.mediaRecommendations?.results ?? [],
-                            detail: state.movieDetailModel.mediaDetail,
+                                state.mediaDetailModel.mediaRecommendations?.results ?? [],
+                            detail: state.mediaDetailModel.mediaDetail,
+                            mediaType: ApiKey.movie,
                           ),
                           const SizedBox(
                             height: 16,
@@ -469,11 +470,11 @@ class MovieDetailWebScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            TmdbShare(tmdbShareModel: state.movieDetailModel.mediaExternalId),
+                            TmdbShare(tmdbShareModel: state.mediaDetailModel.mediaExternalId),
                             const SizedBox(height: 16),
                             TmdbSideView(
-                              mediaDetail: state.movieDetailModel.mediaDetail,
-                              keywords: state.movieDetailModel.mediaKeywords?.keywords ?? [],
+                              mediaDetail: state.mediaDetailModel.mediaDetail,
+                              keywords: state.mediaDetailModel.mediaKeywords?.keywords ?? [],
                             ),
                           ],
                         ),

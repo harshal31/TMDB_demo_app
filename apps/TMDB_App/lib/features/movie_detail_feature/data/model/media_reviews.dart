@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
+
 part 'media_reviews.g.dart';
 
 @JsonSerializable()
@@ -23,8 +24,7 @@ class MediaReviews {
     this.totalResults,
   });
 
-  factory MediaReviews.fromJson(Map<String, dynamic> json) =>
-      _$MediaReviewsFromJson(json);
+  factory MediaReviews.fromJson(Map<String, dynamic> json) => _$MediaReviewsFromJson(json);
 
   Map<String, dynamic> toJson() => _$MediaReviewsToJson(this);
 
@@ -42,6 +42,14 @@ class MediaReviews {
       totalPages: totalPages ?? this.totalPages,
       totalResults: totalResults ?? this.totalResults,
     );
+  }
+
+  ReviewResults? getSafeReview() {
+    try {
+      return this.results?.firstWhere((element) => element.authorDetails?.rating != null);
+    } catch (e) {
+      return null;
+    }
   }
 }
 
@@ -72,8 +80,7 @@ class ReviewResults {
     this.url,
   });
 
-  factory ReviewResults.fromJson(Map<String, dynamic> json) =>
-      _$ReviewResultsFromJson(json);
+  factory ReviewResults.fromJson(Map<String, dynamic> json) => _$ReviewResultsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewResultsToJson(this);
 
@@ -119,8 +126,8 @@ class AuthorDetails {
   String getAvatar() {
     return AppConstant.originalImageBaseUrl + (this.avatarPath ?? "");
   }
-  factory AuthorDetails.fromJson(Map<String, dynamic> json) =>
-      _$AuthorDetailsFromJson(json);
+
+  factory AuthorDetails.fromJson(Map<String, dynamic> json) => _$AuthorDetailsFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthorDetailsToJson(this);
 

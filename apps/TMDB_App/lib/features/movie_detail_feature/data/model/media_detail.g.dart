@@ -43,6 +43,35 @@ MediaDetail _$MediaDetailFromJson(Map<String, dynamic> json) => MediaDetail(
       video: json['video'] as bool?,
       voteAverage: (json['vote_average'] as num?)?.toDouble(),
       voteCount: json['vote_count'] as int?,
+      createdBy: (json['created_by'] as List<dynamic>?)
+          ?.map((e) => CreatedBy.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      episodeRunTime: json['episode_run_time'] as List<dynamic>?,
+      firstAirDate: json['first_air_date'] as String?,
+      inProduction: json['in_production'] as bool?,
+      languages: (json['languages'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      lastAirDate: json['last_air_date'] as String?,
+      lastEpisodeToAir: json['last_episode_to_air'] == null
+          ? null
+          : LastEpisodeToAir.fromJson(
+              json['last_episode_to_air'] as Map<String, dynamic>),
+      name: json['name'] as String?,
+      nextEpisodeToAir: json['next_episode_to_air'],
+      networks: (json['networks'] as List<dynamic>?)
+          ?.map((e) => Network.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      numberOfEpisodes: json['number_of_episodes'] as int?,
+      numberOfSeasons: json['number_of_seasons'] as int?,
+      originCountry: (json['origin_country'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      originalName: json['original_name'] as String?,
+      seasons: (json['seasons'] as List<dynamic>?)
+          ?.map((e) => Season.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$MediaDetailToJson(MediaDetail instance) =>
@@ -72,6 +101,22 @@ Map<String, dynamic> _$MediaDetailToJson(MediaDetail instance) =>
       'video': instance.video,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'created_by': instance.createdBy,
+      'episode_run_time': instance.episodeRunTime,
+      'first_air_date': instance.firstAirDate,
+      'in_production': instance.inProduction,
+      'languages': instance.languages,
+      'last_air_date': instance.lastAirDate,
+      'last_episode_to_air': instance.lastEpisodeToAir,
+      'name': instance.name,
+      'next_episode_to_air': instance.nextEpisodeToAir,
+      'networks': instance.networks,
+      'number_of_episodes': instance.numberOfEpisodes,
+      'number_of_seasons': instance.numberOfSeasons,
+      'origin_country': instance.originCountry,
+      'original_name': instance.originalName,
+      'seasons': instance.seasons,
+      'type': instance.type,
     };
 
 BelongsToCollection _$BelongsToCollectionFromJson(Map<String, dynamic> json) =>
@@ -143,4 +188,90 @@ Map<String, dynamic> _$SpokenLanguagesToJson(SpokenLanguages instance) =>
       'english_name': instance.englishName,
       'iso_639_1': instance.iso6391,
       'name': instance.name,
+    };
+
+CreatedBy _$CreatedByFromJson(Map<String, dynamic> json) => CreatedBy(
+      id: json['id'] as int?,
+      creditId: json['credit_id'] as String?,
+      name: json['name'] as String?,
+      gender: json['gender'] as int?,
+      profilePath: json['profile_path'] as String?,
+    );
+
+Map<String, dynamic> _$CreatedByToJson(CreatedBy instance) => <String, dynamic>{
+      'id': instance.id,
+      'credit_id': instance.creditId,
+      'name': instance.name,
+      'gender': instance.gender,
+      'profile_path': instance.profilePath,
+    };
+
+LastEpisodeToAir _$LastEpisodeToAirFromJson(Map<String, dynamic> json) =>
+    LastEpisodeToAir(
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      overview: json['overview'] as String?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
+      voteCount: json['vote_count'] as int?,
+      airDate: json['air_date'] as String?,
+      episodeNumber: json['episode_number'] as int?,
+      episodeType: json['episode_type'] as String?,
+      productionCode: json['production_code'] as String?,
+      runtime: json['runtime'] as int?,
+      seasonNumber: json['season_number'] as int?,
+      showId: json['show_id'] as int?,
+      stillPath: json['still_path'] as String?,
+    );
+
+Map<String, dynamic> _$LastEpisodeToAirToJson(LastEpisodeToAir instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'overview': instance.overview,
+      'vote_average': instance.voteAverage,
+      'vote_count': instance.voteCount,
+      'air_date': instance.airDate,
+      'episode_number': instance.episodeNumber,
+      'episode_type': instance.episodeType,
+      'production_code': instance.productionCode,
+      'runtime': instance.runtime,
+      'season_number': instance.seasonNumber,
+      'show_id': instance.showId,
+      'still_path': instance.stillPath,
+    };
+
+Network _$NetworkFromJson(Map<String, dynamic> json) => Network(
+      id: json['id'] as int?,
+      logoPath: json['logo_path'] as String?,
+      name: json['name'] as String?,
+      originCountry: json['origin_country'] as String?,
+    );
+
+Map<String, dynamic> _$NetworkToJson(Network instance) => <String, dynamic>{
+      'id': instance.id,
+      'logo_path': instance.logoPath,
+      'name': instance.name,
+      'origin_country': instance.originCountry,
+    };
+
+Season _$SeasonFromJson(Map<String, dynamic> json) => Season(
+      airDate: json['air_date'] as String?,
+      episodeCount: json['episode_count'] as int?,
+      id: json['id'] as int?,
+      name: json['name'] as String?,
+      overview: json['overview'] as String?,
+      posterPath: json['poster_path'] as String?,
+      seasonNumber: json['season_number'] as int?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$SeasonToJson(Season instance) => <String, dynamic>{
+      'air_date': instance.airDate,
+      'episode_count': instance.episodeCount,
+      'id': instance.id,
+      'name': instance.name,
+      'overview': instance.overview,
+      'poster_path': instance.posterPath,
+      'season_number': instance.seasonNumber,
+      'vote_average': instance.voteAverage,
     };

@@ -8,6 +8,7 @@ import "package:tmdb_app/data_storage/hive_manager.dart";
 import 'package:tmdb_app/features/authentication_feature/presentation/screens/authentication_screen.dart';
 import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.dart";
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
+import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
 import "package:tmdb_app/routes/route_param.dart";
 
@@ -45,6 +46,24 @@ class AppRouter {
                       GoRoute(
                         name: RouteName.youtubeVideo,
                         path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                        builder: (ctx, state) {
+                          final id = state.pathParameters[RouteParam.videoId] ?? "";
+                          return YoutubeVideo(id: id);
+                        },
+                      )
+                    ],
+                  ),
+                  GoRoute(
+                    name: RouteName.tv,
+                    path: "${RouteName.tv}/:${RouteParam.id}",
+                    builder: (ctx, state) {
+                      final seriesId = state.pathParameters[RouteParam.id] ?? "";
+                      return TvDetailScreen(key: ValueKey(seriesId), seriesId: seriesId);
+                    },
+                    routes: [
+                      GoRoute(
+                        name: RouteName.tvSeriesYoutubeVideo,
+                        path: "${RouteName.tvSeriesYoutubeVideo}/:${RouteParam.videoId}",
                         builder: (ctx, state) {
                           final id = state.pathParameters[RouteParam.videoId] ?? "";
                           return YoutubeVideo(id: id);

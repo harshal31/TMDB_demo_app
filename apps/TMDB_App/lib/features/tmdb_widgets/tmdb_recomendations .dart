@@ -12,12 +12,14 @@ import 'package:tmdb_app/routes/route_param.dart';
 
 class TmdbRecomendations extends StatelessWidget {
   final MediaDetail? detail;
+  final String? mediaType;
   final List<RecommendationResults> recommendations;
 
   TmdbRecomendations({
     super.key,
     required this.recommendations,
     required this.detail,
+    this.mediaType,
   });
 
   @override
@@ -45,7 +47,7 @@ class TmdbRecomendations extends StatelessWidget {
               onTap: () {
                 _redirectToDetailScreen(
                   context,
-                  mediaType: recommendations[index].mediaType,
+                  mediaType: mediaType,
                   mediaId: recommendations[index].id.toString(),
                 );
               },

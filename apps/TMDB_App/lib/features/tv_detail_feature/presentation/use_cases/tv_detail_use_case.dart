@@ -11,7 +11,7 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommen
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_translations.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
-import 'package:tmdb_app/features/movie_detail_feature/data/model/movie_detail_model.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail_model.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/media_detail_api_service.dart';
 import 'package:tmdb_app/network/error_response.dart';
 import 'package:tmdb_app/network/safe_api_call.dart';
@@ -22,14 +22,14 @@ class TvDetailUseCase {
 
   TvDetailUseCase(this._movieDetailApiService);
 
-  Future<Either<ErrorResponse, MovieDetailModel>> fetchMovieDetails(
+  Future<Either<ErrorResponse, MediaDetailModel>> fetchTvSeriesDetail(
     String typeId,
     String mediaType,
     String sessionId, {
     String language = ApiKey.defaultLanguage,
     int page = 1,
   }) async {
-    MovieDetailModel model = MovieDetailModel();
+    MediaDetailModel model = MediaDetailModel();
     final responses = await Future.wait([
       apiCall(() => _movieDetailApiService.fetchMediaDetail(mediaType, typeId, language)),
       apiCall(() => _movieDetailApiService.fetchMediaAccountStates(mediaType, typeId, sessionId)),
@@ -72,30 +72,30 @@ class TvDetailUseCase {
 }
 
 class TvDetailState with EquatableMixin {
-  final MovieDetailModel movieDetailModel;
-  final TvDetailStatus movieDetailState;
+  final MediaDetailModel mediaDetailModel;
+  final TvDetailStatus tvDetailState;
 
-  TvDetailState(this.movieDetailModel, this.movieDetailState);
+  TvDetailState(this.mediaDetailModel, this.tvDetailState);
 
   factory TvDetailState.initial() {
     return TvDetailState(
-      MovieDetailModel(),
+      MediaDetailModel(),
       TvDetailNone(),
     );
   }
 
   TvDetailState copyWith({
-    MovieDetailModel? movieDetailModel,
-    TvDetailStatus? movieDetailState,
+    MediaDetailModel? mediaDetailModel,
+    TvDetailStatus? tvDetailState,
   }) {
     return TvDetailState(
-      movieDetailModel ?? this.movieDetailModel,
-      movieDetailState ?? this.movieDetailState,
+      mediaDetailModel ?? this.mediaDetailModel,
+      tvDetailState ?? this.tvDetailState,
     );
   }
 
   @override
-  List<Object?> get props => [movieDetailModel, movieDetailState];
+  List<Object?> get props => [mediaDetailModel, tvDetailState];
 }
 
 sealed class TvDetailStatus with EquatableMixin {

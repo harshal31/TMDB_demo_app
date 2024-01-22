@@ -10,7 +10,7 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_translations.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 
-class MovieDetailModel {
+class MediaDetailModel {
   final MediaDetail? mediaDetail;
   final MediaAccountState? mediaAccountState;
   final MediaCredits? mediaCredits;
@@ -22,7 +22,7 @@ class MovieDetailModel {
   final MediaTranslations? mediaTranslations;
   final MediaVideos? mediaVideos;
 
-  MovieDetailModel({
+  MediaDetailModel({
     this.mediaDetail,
     this.mediaAccountState,
     this.mediaCredits,
@@ -35,7 +35,7 @@ class MovieDetailModel {
     this.mediaVideos,
   });
 
-  MovieDetailModel copyWith({
+  MediaDetailModel copyWith({
     MediaDetail? mediaDetail,
     MediaAccountState? mediaAccountState,
     MediaCredits? mediaCredits,
@@ -47,7 +47,7 @@ class MovieDetailModel {
     MediaTranslations? mediaTranslations,
     MediaVideos? mediaVideos,
   }) {
-    return MovieDetailModel(
+    return MediaDetailModel(
       mediaDetail: mediaDetail ?? this.mediaDetail,
       mediaAccountState: mediaAccountState ?? this.mediaAccountState,
       mediaCredits: mediaCredits ?? this.mediaCredits,
@@ -93,6 +93,10 @@ class MovieDetailModel {
     return int.parse(mediaDetail?.releaseDate?.split("-").firstOrNull ?? "1993");
   }
 
+  int getTvSeriesYear() {
+    return int.parse(mediaDetail?.firstAirDate?.split("-").firstOrNull ?? "1993");
+  }
+
   String genres() {
     return mediaDetail?.genres?.map((e) => e.name).join(",") ?? "";
   }
@@ -102,12 +106,17 @@ class MovieDetailModel {
     mediaCredits?.crew
         ?.where((element) => element.job == "Director" || element.job == "Writer")
         .forEach((e) {
-
       final re = (e.job?.isNotEmpty ?? false) ? "," : "";
 
       map.update((e.originalName ?? ""), (value) => value + re + (e.job ?? ""),
           ifAbsent: () => (e.job ?? ""));
     });
     return (map.keys.toList(), map.values.toList());
+  }
+
+  (List<String>, List<String>) getTvSeriesMapping() {
+    final l1 = mediaDetail?.createdBy?.map((e) => e.name ?? "").toList() ?? [];
+
+    return (List.generate(l1.length, (index) => "Creator"), l1);
   }
 }

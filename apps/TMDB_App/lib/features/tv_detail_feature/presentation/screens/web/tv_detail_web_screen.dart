@@ -1,5 +1,3 @@
-import 'package:common_widgets/common_utils/date_util.dart';
-import 'package:common_widgets/common_utils/time_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
@@ -9,15 +7,16 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
-import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/movie_detail_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
-import 'package:tmdb_app/features/movie_detail_feature/presentation/use_cases/movie_detail_use_case.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_cast_list.dart';
+import 'package:tmdb_app/features/tmdb_widgets/tmdb_current_season_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_recomendations%20.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
+import 'package:tmdb_app/features/tv_detail_feature/presentation/cubits/tv_detail_cubit.dart';
+import 'package:tmdb_app/features/tv_detail_feature/presentation/use_cases/tv_detail_use_case.dart';
 
 class TvDetailWebScreen extends StatelessWidget {
   const TvDetailWebScreen({super.key});
@@ -25,12 +24,11 @@ class TvDetailWebScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final positionCubit = context.read<PositionCubit>();
-    final movieDetailCubit = context.read<MovieDetailCubit>();
+    final tvDetailCubit = context.read<TvDetailCubit>();
 
-    return BlocBuilder<MovieDetailCubit, MovieDetailState>(
+    return BlocBuilder<TvDetailCubit, TvDetailState>(
       builder: (context, state) {
-        if (state.movieDetailState is MovieDetailLoading ||
-            state.movieDetailState is MovieDetailNone) {
+        if (state.tvDetailState is TvDetailLoading || state.tvDetailState is TvDetailNone) {
           return Center(
             child: SizedBox(
               width: 80,
@@ -40,10 +38,10 @@ class TvDetailWebScreen extends StatelessWidget {
           );
         }
 
-        if (state.movieDetailState is MovieDetailFailure) {
+        if (state.tvDetailState is TvDetailFailure) {
           return Center(
             child: Text(
-              (state.movieDetailState as MovieDetailFailure).errorResponse.errorMessage,
+              (state.tvDetailState as TvDetailFailure).errorResponse.errorMessage,
               style: context.textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -65,7 +63,7 @@ class TvDetailWebScreen extends StatelessWidget {
                       child: Opacity(
                         opacity: 0.3,
                         child: ExtendedImage.network(
-                          state.movieDetailModel.getBackdropImage(),
+                          state.mediaDetailModel.getBackdropImage(),
                           cache: true,
                           fit: BoxFit.cover,
                           shape: BoxShape.rectangle,
@@ -94,7 +92,7 @@ class TvDetailWebScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             ExtendedImage.network(
-                              state.movieDetailModel.getPosterPath(),
+                              state.mediaDetailModel.getPosterPath(),
                               width: 300,
                               height: 450,
                               fit: BoxFit.cover,
@@ -117,106 +115,84 @@ class TvDetailWebScreen extends StatelessWidget {
                                       text: TextSpan(children: [
                                         TextSpan(
                                           text:
-                                              "${state.movieDetailModel.mediaDetail?.originalTitle ?? ""} ",
+                                              "${state.mediaDetailModel.mediaDetail?.originalName ?? ""} ",
                                           style: context.textTheme.headlineLarge?.copyWith(
                                             fontWeight: FontWeight.w900,
                                           ),
                                         ),
                                         TextSpan(
-                                          text: "(${state.movieDetailModel.getReleaseYear()})",
+                                          text: "(${state.mediaDetailModel.getTvSeriesYear()})",
                                           style: context.textTheme.headlineLarge?.copyWith(
                                             fontWeight: FontWeight.w100,
                                           ),
                                         ),
                                       ]),
                                     ),
-                                    RichText(
-                                      text: TextSpan(
+                                    Text(
+                                      state.mediaDetailModel.genres(),
+                                      style: context.textTheme.titleMedium,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    SingleChildScrollView(
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          TextSpan(
-                                            text: state.movieDetailModel.mediaDetail?.releaseDate
-                                                .formatDateInMDYFormat,
-                                            style: context.textTheme.titleMedium,
+                                          TmdbIcon(
+                                            iconSize: 20,
+                                            icons: (Icons.favorite, Icons.favorite_outline_sharp),
+                                            isSelected: state
+                                                    .mediaDetailModel.mediaAccountState?.favorite ??
+                                                false,
+                                            selectedColor: Colors.red,
+                                            onSelection: (s) {
+                                              tvDetailCubit.saveUserPreference(
+                                                ApiKey.movie,
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                ApiKey.favorite,
+                                                s,
+                                              );
+                                            },
+                                            hoverMessage: context.tr.markAsFavorite,
                                           ),
-                                          TextSpan(
-                                            text: " . ",
-                                            style: context.textTheme.headlineLarge,
+                                          const SizedBox(width: 30),
+                                          TmdbIcon(
+                                            iconSize: 20,
+                                            icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
+                                            isSelected: state.mediaDetailModel.mediaAccountState
+                                                    ?.watchlist ??
+                                                false,
+                                            selectedColor: Colors.red,
+                                            onSelection: (s) {
+                                              tvDetailCubit.saveUserPreference(
+                                                ApiKey.movie,
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                ApiKey.watchList,
+                                                s,
+                                              );
+                                            },
+                                            hoverMessage: context.tr.addToWatchlist,
                                           ),
-                                          TextSpan(
-                                            text: state.movieDetailModel.genres(),
-                                            style: context.textTheme.titleMedium,
+                                          const SizedBox(width: 30),
+                                          TooltipRating(
+                                            rating: state.mediaDetailModel.mediaAccountState?.rated
+                                                    ?.value ??
+                                                0.0,
+                                            iconSize: 20,
+                                            hoverMessage: context.tr.addToWatchlist,
+                                            onRatingUpdate: (rating) {
+                                              tvDetailCubit.addMediaRating(
+                                                ApiKey.movie,
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                rating,
+                                              );
+                                            },
                                           ),
-                                          TextSpan(
-                                            text: " . ",
-                                            style: context.textTheme.headlineLarge,
-                                          ),
-                                          TextSpan(
-                                            text: state.movieDetailModel.mediaDetail?.runtime
-                                                .formatTimeInHM,
-                                            style: context.textTheme.titleMedium,
-                                          )
                                         ],
                                       ),
                                     ),
                                     const SizedBox(height: 16),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        TmdbIcon(
-                                          iconSize: 20,
-                                          icons: (Icons.favorite, Icons.favorite_outline_sharp),
-                                          isSelected:
-                                              state.movieDetailModel.mediaAccountState?.favorite ??
-                                                  false,
-                                          selectedColor: Colors.red,
-                                          onSelection: (s) {
-                                            movieDetailCubit.saveUserPreference(
-                                              ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
-                                              ApiKey.favorite,
-                                              s,
-                                            );
-                                          },
-                                          hoverMessage: context.tr.markAsFavorite,
-                                        ),
-                                        const SizedBox(width: 30),
-                                        TmdbIcon(
-                                          iconSize: 20,
-                                          icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
-                                          isSelected:
-                                              state.movieDetailModel.mediaAccountState?.watchlist ??
-                                                  false,
-                                          selectedColor: Colors.red,
-                                          onSelection: (s) {
-                                            movieDetailCubit.saveUserPreference(
-                                              ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
-                                              ApiKey.watchList,
-                                              s,
-                                            );
-                                          },
-                                          hoverMessage: context.tr.addToWatchlist,
-                                        ),
-                                        const SizedBox(width: 30),
-                                        TooltipRating(
-                                          rating: state.movieDetailModel.mediaAccountState?.rated
-                                                  ?.value ??
-                                              0.0,
-                                          iconSize: 20,
-                                          hoverMessage: context.tr.addToWatchlist,
-                                          onRatingUpdate: (rating) {
-                                            movieDetailCubit.addMediaRating(
-                                              ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
-                                              rating,
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 16),
                                     Text(
-                                      state.movieDetailModel.mediaDetail?.tagline ?? "",
+                                      state.mediaDetailModel.mediaDetail?.tagline ?? "",
                                       style: context.textTheme.titleMedium?.copyWith(
                                           fontStyle: FontStyle.italic,
                                           fontWeight: FontWeight.w100,
@@ -231,7 +207,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 16),
                                     Text(
-                                      state.movieDetailModel.mediaDetail?.overview ?? "",
+                                      state.mediaDetailModel.mediaDetail?.overview ?? "",
                                       style: context.textTheme.titleSmall,
                                     ),
                                     SizedBox(height: 16),
@@ -239,10 +215,8 @@ class TvDetailWebScreen extends StatelessWidget {
                                       height: 100,
                                       child: ListView.separated(
                                         separatorBuilder: (ctx, index) => const Divider(indent: 80),
-                                        itemCount: state.movieDetailModel
-                                            .getWriterDirectorMapping()
-                                            .$1
-                                            .length,
+                                        itemCount:
+                                            state.mediaDetailModel.getTvSeriesMapping().$1.length,
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (ctx, index) {
@@ -252,8 +226,8 @@ class TvDetailWebScreen extends StatelessWidget {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  state.movieDetailModel
-                                                      .getWriterDirectorMapping()
+                                                  state.mediaDetailModel
+                                                      .getTvSeriesMapping()
                                                       .$1[index],
                                                   style: context.textTheme.bodyLarge?.copyWith(
                                                     fontWeight: FontWeight.w900,
@@ -265,8 +239,8 @@ class TvDetailWebScreen extends StatelessWidget {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  state.movieDetailModel
-                                                      .getWriterDirectorMapping()
+                                                  state.mediaDetailModel
+                                                      .getTvSeriesMapping()
                                                       .$2[index],
                                                   style: context.textTheme.bodyMedium,
                                                   maxLines: 1,
@@ -275,7 +249,6 @@ class TvDetailWebScreen extends StatelessWidget {
                                                 ),
                                               ),
                                               Spacer(),
-                                              Spacer()
                                             ],
                                           );
                                         },
@@ -308,7 +281,7 @@ class TvDetailWebScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  context.tr.topBilledCast,
+                                  context.tr.seriesCast,
                                   style: context.textTheme.headlineLarge
                                       ?.copyWith(fontWeight: FontWeight.w800),
                                 ),
@@ -326,7 +299,43 @@ class TvDetailWebScreen extends StatelessWidget {
                             height: 16,
                           ),
                           TmdbCastList(
-                            model: state.movieDetailModel.mediaCredits?.cast,
+                            model: state.mediaDetailModel.mediaCredits?.cast,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Divider(
+                            color: context.colorTheme.onBackground.withOpacity(0.6),
+                            thickness: 2.0,
+                            height: 1.0,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  context.tr.currentSeason,
+                                  style: context.textTheme.headlineLarge
+                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.keyboard_double_arrow_right_sharp,
+                                  size: 40,
+                                ),
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          TmdbCurrentSeasonView(
+                            season: state.mediaDetailModel.mediaDetail?.seasons?.lastOrNull,
+                            lastEpisodeToAir: state.mediaDetailModel.mediaDetail?.lastEpisodeToAir,
                           ),
                           const SizedBox(
                             height: 16,
@@ -349,7 +358,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                 ),
                               ),
                               Visibility(
-                                visible: state.movieDetailModel.mediaReviews?.results?.isNotEmpty ??
+                                visible: state.mediaDetailModel.mediaReviews?.results?.isNotEmpty ??
                                     false,
                                 child: IconButton(
                                   icon: const Icon(
@@ -365,8 +374,8 @@ class TvDetailWebScreen extends StatelessWidget {
                             height: 16,
                           ),
                           TmdbReview(
-                            result: state.movieDetailModel.mediaReviews?.results?.firstOrNull,
-                            mediaDetail: state.movieDetailModel.mediaDetail,
+                            result: state.mediaDetailModel.mediaReviews?.getSafeReview(),
+                            mediaDetail: state.mediaDetailModel.mediaDetail,
                           ),
                           const SizedBox(
                             height: 16,
@@ -423,10 +432,11 @@ class TvDetailWebScreen extends StatelessWidget {
                           BlocBuilder<PositionCubit, int>(
                             builder: (context, s) {
                               return TmdbMediaView(
-                                movieId: state.movieDetailModel.mediaDetail?.id.toString() ?? "",
+                                mediaId: state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
                                 pos: s,
-                                videos: state.movieDetailModel.mediaVideos?.results ?? [],
-                                images: state.movieDetailModel.mediaImages,
+                                videos: state.mediaDetailModel.mediaVideos?.results ?? [],
+                                images: state.mediaDetailModel.mediaImages,
+                                mediaType: ApiKey.tv,
                               );
                             },
                           ),
@@ -451,8 +461,9 @@ class TvDetailWebScreen extends StatelessWidget {
                           ),
                           TmdbRecomendations(
                             recommendations:
-                                state.movieDetailModel.mediaRecommendations?.results ?? [],
-                            detail: state.movieDetailModel.mediaDetail,
+                                state.mediaDetailModel.mediaRecommendations?.results ?? [],
+                            detail: state.mediaDetailModel.mediaDetail,
+                            mediaType: ApiKey.tv,
                           ),
                           const SizedBox(
                             height: 16,
@@ -469,11 +480,11 @@ class TvDetailWebScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            TmdbShare(tmdbShareModel: state.movieDetailModel.mediaExternalId),
+                            TmdbShare(tmdbShareModel: state.mediaDetailModel.mediaExternalId),
                             const SizedBox(height: 16),
-                            TmdbSideView(
-                              mediaDetail: state.movieDetailModel.mediaDetail,
-                              keywords: state.movieDetailModel.mediaKeywords?.keywords ?? [],
+                            TmdbTvSeriesSideView(
+                              mediaDetail: state.mediaDetailModel.mediaDetail,
+                              keywords: state.mediaDetailModel.mediaKeywords?.keywords ?? [],
                             ),
                           ],
                         ),

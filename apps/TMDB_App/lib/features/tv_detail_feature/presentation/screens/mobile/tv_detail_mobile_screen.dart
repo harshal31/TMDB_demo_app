@@ -3,21 +3,20 @@ import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
-import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/movie_detail_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
-import 'package:tmdb_app/features/movie_detail_feature/presentation/use_cases/movie_detail_use_case.dart';
-import 'package:common_widgets/common_utils/date_util.dart';
-import 'package:common_widgets/common_utils/time_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_cast_list.dart';
+import 'package:tmdb_app/features/tmdb_widgets/tmdb_current_season_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_recomendations%20.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
+import 'package:tmdb_app/features/tv_detail_feature/presentation/cubits/tv_detail_cubit.dart';
+import 'package:tmdb_app/features/tv_detail_feature/presentation/use_cases/tv_detail_use_case.dart';
 
 class TvDetailMobileScreen extends StatelessWidget {
   const TvDetailMobileScreen({super.key});
@@ -25,21 +24,20 @@ class TvDetailMobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final positionCubit = context.read<PositionCubit>();
-    final movieDetailCubit = context.read<MovieDetailCubit>();
+    final tvDetailCubit = context.read<TvDetailCubit>();
 
-    return BlocBuilder<MovieDetailCubit, MovieDetailState>(
+    return BlocBuilder<TvDetailCubit, TvDetailState>(
       builder: (context, state) {
-        if (state.movieDetailState is MovieDetailLoading ||
-            state.movieDetailState is MovieDetailNone) {
+        if (state.tvDetailState is TvDetailLoading || state.tvDetailState is TvDetailNone) {
           return Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        if (state.movieDetailState is MovieDetailFailure) {
+        if (state.tvDetailState is TvDetailFailure) {
           return Center(
             child: Text(
-              (state.movieDetailState as MovieDetailFailure).errorResponse.errorMessage,
+              (state.tvDetailState as TvDetailFailure).errorResponse.errorMessage,
               style: context.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -60,7 +58,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       child: Opacity(
                         opacity: 0.3,
                         child: ExtendedImage.network(
-                          state.movieDetailModel.getBackdropImage(),
+                          state.mediaDetailModel.getBackdropImage(),
                           cache: true,
                           fit: BoxFit.cover,
                           shape: BoxShape.rectangle,
@@ -95,7 +93,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ExtendedImage.network(
-                                  state.movieDetailModel.getPosterPath(),
+                                  state.mediaDetailModel.getPosterPath(),
                                   width: 150,
                                   height: 225,
                                   fit: BoxFit.cover,
@@ -109,98 +107,94 @@ class TvDetailMobileScreen extends StatelessWidget {
                             Expanded(
                               child: ListView(
                                 children: [
+                                  const SizedBox(height: 4),
                                   Text(
-                                    "${state.movieDetailModel.mediaDetail?.originalTitle ?? ""} ",
+                                    "${state.mediaDetailModel.mediaDetail?.originalName ?? ""} ",
+                                    textAlign: TextAlign.center,
                                     style: context.textTheme.titleLarge?.copyWith(
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),
                                   Text(
-                                    "(${state.movieDetailModel.getReleaseYear()})",
+                                    "(${state.mediaDetailModel.getTvSeriesYear()})",
+                                    textAlign: TextAlign.center,
                                     style: context.textTheme.titleLarge?.copyWith(
                                       fontWeight: FontWeight.w100,
                                     ),
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
-                                    state.movieDetailModel.mediaDetail?.releaseDate
-                                            .formatDateInMDYFormat ??
-                                        "",
+                                    textAlign: TextAlign.center,
+                                    state.mediaDetailModel.genres(),
                                     style: context.textTheme.titleSmall,
                                   ),
                                   const SizedBox(height: 2),
-                                  Text(
-                                    state.movieDetailModel.genres(),
-                                    style: context.textTheme.titleSmall,
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    state.movieDetailModel.mediaDetail?.runtime.formatTimeInHM ??
-                                        "",
-                                    style: context.textTheme.titleSmall,
-                                  ),
-                                  const SizedBox(height: 2),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        TmdbIcon(
-                                          iconSize: 20,
-                                          icons: (Icons.favorite, Icons.favorite_outline_sharp),
-                                          isSelected:
-                                              state.movieDetailModel.mediaAccountState?.favorite ??
-                                                  false,
-                                          selectedColor: Colors.red,
-                                          onSelection: (s) {
-                                            movieDetailCubit.saveUserPreference(
-                                              ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
-                                              ApiKey.favorite,
-                                              s,
-                                            );
-                                          },
-                                          hoverMessage: context.tr.markAsFavorite,
-                                        ),
-                                        const SizedBox(width: 16),
-                                        TmdbIcon(
-                                          iconSize: 20,
-                                          icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
-                                          isSelected:
-                                              state.movieDetailModel.mediaAccountState?.watchlist ??
-                                                  false,
-                                          selectedColor: Colors.red,
-                                          onSelection: (s) {
-                                            movieDetailCubit.saveUserPreference(
-                                              ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
-                                              ApiKey.watchList,
-                                              s,
-                                            );
-                                          },
-                                          hoverMessage: context.tr.addToWatchlist,
-                                        ),
-                                        const SizedBox(width: 16),
-                                        TooltipRating(
-                                          rating: state.movieDetailModel.mediaAccountState?.rated
-                                                  ?.value ??
-                                              0.0,
-                                          iconSize: 20,
-                                          hoverMessage: context.tr.addToWatchlist,
-                                          onRatingUpdate: (rating) {
-                                            movieDetailCubit.addMediaRating(
-                                              ApiKey.movie,
-                                              state.movieDetailModel.mediaDetail?.id,
-                                              rating,
-                                            );
-                                          },
-                                        ),
-                                      ],
+                                  Center(
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          TmdbIcon(
+                                            iconSize: 20,
+                                            icons: (Icons.favorite, Icons.favorite_outline_sharp),
+                                            isSelected: state
+                                                    .mediaDetailModel.mediaAccountState?.favorite ??
+                                                false,
+                                            selectedColor: Colors.red,
+                                            onSelection: (s) {
+                                              tvDetailCubit.saveUserPreference(
+                                                ApiKey.movie,
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                ApiKey.favorite,
+                                                s,
+                                              );
+                                            },
+                                            hoverMessage: context.tr.markAsFavorite,
+                                          ),
+                                          const SizedBox(width: 16),
+                                          TmdbIcon(
+                                            iconSize: 20,
+                                            icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
+                                            isSelected: state.mediaDetailModel.mediaAccountState
+                                                    ?.watchlist ??
+                                                false,
+                                            selectedColor: Colors.red,
+                                            onSelection: (s) {
+                                              tvDetailCubit.saveUserPreference(
+                                                ApiKey.movie,
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                ApiKey.watchList,
+                                                s,
+                                              );
+                                            },
+                                            hoverMessage: context.tr.addToWatchlist,
+                                          ),
+                                          const SizedBox(width: 16),
+                                          TooltipRating(
+                                            rating: state.mediaDetailModel.mediaAccountState?.rated
+                                                    ?.value ??
+                                                0.0,
+                                            iconSize: 20,
+                                            hoverMessage: context.tr.addToWatchlist,
+                                            onRatingUpdate: (rating) {
+                                              tvDetailCubit.addMediaRating(
+                                                ApiKey.movie,
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                rating,
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    state.movieDetailModel.mediaDetail?.tagline ?? "",
+                                    state.mediaDetailModel.mediaDetail?.tagline ?? "",
+                                    textAlign: TextAlign.center,
                                     style: context.textTheme.titleSmall?.copyWith(
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.w100,
@@ -211,10 +205,8 @@ class TvDetailMobileScreen extends StatelessWidget {
                                     height: 40,
                                     child: ListView.separated(
                                       separatorBuilder: (ctx, index) => const Divider(indent: 20),
-                                      itemCount: state.movieDetailModel
-                                          .getWriterDirectorMapping()
-                                          .$1
-                                          .length,
+                                      itemCount:
+                                          state.mediaDetailModel.getTvSeriesMapping().$1.length,
                                       padding: EdgeInsets.zero,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (ctx, index) {
@@ -223,9 +215,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              state.movieDetailModel
-                                                  .getWriterDirectorMapping()
-                                                  .$1[index],
+                                              state.mediaDetailModel.getTvSeriesMapping().$1[index],
                                               style: context.textTheme.bodySmall?.copyWith(
                                                 fontWeight: FontWeight.w900,
                                               ),
@@ -234,9 +224,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
-                                              state.movieDetailModel
-                                                  .getWriterDirectorMapping()
-                                                  .$2[index],
+                                              state.mediaDetailModel.getTvSeriesMapping().$2[index],
                                               style: context.textTheme.bodySmall,
                                               maxLines: 1,
                                               softWrap: true,
@@ -274,7 +262,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      state.movieDetailModel.mediaDetail?.overview ?? "",
+                      state.mediaDetailModel.mediaDetail?.overview ?? "",
                       style: context.textTheme.titleSmall,
                     ),
                   ],
@@ -304,7 +292,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            context.tr.topBilledCast,
+                            context.tr.seriesCast,
                             style:
                                 context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
                           ),
@@ -322,7 +310,43 @@ class TvDetailMobileScreen extends StatelessWidget {
                       height: 4,
                     ),
                     TmdbCastList(
-                      model: state.movieDetailModel.mediaCredits?.cast,
+                      model: state.mediaDetailModel.mediaCredits?.cast,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Divider(
+                      color: context.colorTheme.onBackground.withOpacity(0.6),
+                      thickness: 2.0,
+                      height: 1.0,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            context.tr.currentSeason,
+                            style: context.textTheme.headlineLarge
+                                ?.copyWith(fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.keyboard_double_arrow_right_sharp,
+                            size: 40,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    TmdbCurrentSeasonMobileView(
+                      season: state.mediaDetailModel.mediaDetail?.seasons?.lastOrNull,
+                      lastEpisodeToAir: state.mediaDetailModel.mediaDetail?.lastEpisodeToAir,
                     ),
                     const SizedBox(
                       height: 16,
@@ -346,7 +370,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                         ),
                         Visibility(
                           visible:
-                              state.movieDetailModel.mediaReviews?.results?.isNotEmpty ?? false,
+                              state.mediaDetailModel.mediaReviews?.results?.isNotEmpty ?? false,
                           child: IconButton(
                             icon: const Icon(
                               Icons.keyboard_double_arrow_right_sharp,
@@ -361,8 +385,8 @@ class TvDetailMobileScreen extends StatelessWidget {
                       height: 16,
                     ),
                     TmdbReview(
-                      result: state.movieDetailModel.mediaReviews?.results?.firstOrNull,
-                      mediaDetail: state.movieDetailModel.mediaDetail,
+                      result: state.mediaDetailModel.mediaReviews?.getSafeReview(),
+                      mediaDetail: state.mediaDetailModel.mediaDetail,
                     ),
                     const SizedBox(
                       height: 16,
@@ -421,10 +445,11 @@ class TvDetailMobileScreen extends StatelessWidget {
                         return TmdbMediaView(
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: 200,
-                          movieId: state.movieDetailModel.mediaDetail?.id.toString() ?? "",
+                          mediaId: state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
                           pos: s,
-                          videos: state.movieDetailModel.mediaVideos?.results ?? [],
-                          images: state.movieDetailModel.mediaImages,
+                          videos: state.mediaDetailModel.mediaVideos?.results ?? [],
+                          images: state.mediaDetailModel.mediaImages,
+                          mediaType: ApiKey.tv,
                         );
                       },
                     ),
@@ -447,8 +472,9 @@ class TvDetailMobileScreen extends StatelessWidget {
                       height: 8,
                     ),
                     TmdbRecomendations(
-                      recommendations: state.movieDetailModel.mediaRecommendations?.results ?? [],
-                      detail: state.movieDetailModel.mediaDetail,
+                      recommendations: state.mediaDetailModel.mediaRecommendations?.results ?? [],
+                      detail: state.mediaDetailModel.mediaDetail,
+                      mediaType: ApiKey.tv,
                     ),
                     const SizedBox(
                       height: 8,
@@ -477,12 +503,12 @@ class TvDetailMobileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    TmdbShare(tmdbShareModel: state.movieDetailModel.mediaExternalId),
+                    TmdbShare(tmdbShareModel: state.mediaDetailModel.mediaExternalId),
                     const SizedBox(height: 16),
-                    TmdbSideView(
+                    TmdbTvSeriesSideView(
                       keywordSpacing: 2.0,
-                      mediaDetail: state.movieDetailModel.mediaDetail,
-                      keywords: state.movieDetailModel.mediaKeywords?.keywords ?? [],
+                      mediaDetail: state.mediaDetailModel.mediaDetail,
+                      keywords: state.mediaDetailModel.mediaKeywords?.keywords ?? [],
                     ),
                   ],
                 ),

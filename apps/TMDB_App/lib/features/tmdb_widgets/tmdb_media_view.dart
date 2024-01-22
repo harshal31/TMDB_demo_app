@@ -5,6 +5,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
+import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 import 'package:tmdb_app/routes/route_name.dart';
@@ -12,9 +13,10 @@ import 'package:tmdb_app/routes/route_param.dart';
 
 class TmdbMediaView extends StatelessWidget {
   final int pos;
-  final String movieId;
+  final String mediaId;
   final List<Videos> videos;
   final MediaImages? images;
+  final String? mediaType;
   final double? height;
   final double? width;
 
@@ -23,9 +25,10 @@ class TmdbMediaView extends StatelessWidget {
     required this.pos,
     required this.videos,
     required this.images,
-    required this.movieId,
+    required this.mediaId,
     this.height,
     this.width,
+    this.mediaType,
   });
 
   @override
@@ -40,9 +43,10 @@ class TmdbMediaView extends StatelessWidget {
       child: pos == 0
           ? _TmdbVideos(
               videos: videos,
-              movieId: movieId,
+              mediaId: mediaId,
               height: height,
               width: width,
+              mediaType: mediaType,
             )
           : ((pos == 1)
               ? _TmdbBackdrops(
@@ -60,15 +64,17 @@ class TmdbMediaView extends StatelessWidget {
 
 class _TmdbVideos extends StatelessWidget {
   final List<Videos> videos;
-  final String movieId;
+  final String mediaId;
   final double? height;
   final double? width;
+  final String? mediaType;
 
   const _TmdbVideos({
     required this.videos,
-    required this.movieId,
+    required this.mediaId,
     this.height,
     this.width,
+    this.mediaType,
   });
 
   @override
@@ -114,10 +120,12 @@ class _TmdbVideos extends StatelessWidget {
                       ),
                       onPressed: () {
                         context.goNamed(
-                          RouteName.youtubeVideo,
+                          (this.mediaType == ApiKey.movie
+                              ? RouteName.youtubeVideo
+                              : RouteName.tvSeriesYoutubeVideo),
                           pathParameters: {
                             RouteParam.videoId: videos[index].key ?? "",
-                            RouteParam.id: movieId
+                            RouteParam.id: mediaId
                           },
                         );
                       },

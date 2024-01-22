@@ -50,5 +50,11 @@
   "noRecommendation": "We don't have enough data to suggest any movies based on {name}. You can help by rating movies you've seen.",
   "noVideos": "No Videos have been present.",
   "noBackdrops": "No Backdrops have been present.",
-  "noPosters": "No Posters have been present"
+  "noPosters": "No Posters have been present",
+  "facts": "Facts",
+  "network": "Network",
+  "type": "Type",
+  "season": "Season {number}",
+  "seriesCast": "Series Cast",
+  "currentSeason": "Current Season"
 }

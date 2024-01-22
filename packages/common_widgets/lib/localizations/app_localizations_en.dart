@@ -167,4 +167,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noPosters => 'No Posters have been present';
+
+  @override
+  String get facts => 'Facts';
+
+  @override
+  String get network => 'Network';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String season(Object number) {
+    return 'Season $number';
+  }
+
+  @override
+  String get seriesCast => 'Series Cast';
+
+  @override
+  String get currentSeason => 'Current Season';
 }

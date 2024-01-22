@@ -402,6 +402,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Posters have been present'**
   String get noPosters;
+
+  /// No description provided for @facts.
+  ///
+  /// In en, this message translates to:
+  /// **'Facts'**
+  String get facts;
+
+  /// No description provided for @network.
+  ///
+  /// In en, this message translates to:
+  /// **'Network'**
+  String get network;
+
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// No description provided for @season.
+  ///
+  /// In en, this message translates to:
+  /// **'Season {number}'**
+  String season(Object number);
+
+  /// No description provided for @seriesCast.
+  ///
+  /// In en, this message translates to:
+  /// **'Series Cast'**
+  String get seriesCast;
+
+  /// No description provided for @currentSeason.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Season'**
+  String get currentSeason;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

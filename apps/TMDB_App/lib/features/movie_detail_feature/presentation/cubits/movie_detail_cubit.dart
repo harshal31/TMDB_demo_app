@@ -23,7 +23,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
     result.fold((l) {
       emit(state.copyWith(movieDetailState: MovieDetailFailure(l)));
     }, (r) {
-      emit(state.copyWith(movieDetailModel: r, movieDetailState: MovieDetailSuccess()));
+      emit(state.copyWith(mediaDetailModel: r, movieDetailState: MovieDetailSuccess()));
     });
   }
 
