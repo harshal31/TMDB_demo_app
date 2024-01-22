@@ -9,7 +9,7 @@ class MediaAccountState {
   @JsonKey(name: 'favorite')
   bool? favorite;
   @JsonKey(name: 'rated')
-  Rated? rated;
+  dynamic rated;
   @JsonKey(name: 'watchlist')
   bool? watchlist;
 
@@ -37,6 +37,14 @@ class MediaAccountState {
       rated: rated ?? this.rated,
       watchlist: watchlist ?? this.watchlist,
     );
+  }
+
+  double getSafeRating() {
+    if (this.rated is bool) {
+      return 0.0;
+    } else {
+      return Rated.fromJson(this.rated).value ?? 0.0;
+    }
   }
 }
 

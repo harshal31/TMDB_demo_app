@@ -171,7 +171,6 @@ class MovieDetailWebScreen extends StatelessWidget {
                                           selectedColor: Colors.red,
                                           onSelection: (s) {
                                             movieDetailCubit.saveUserPreference(
-                                              ApiKey.movie,
                                               state.mediaDetailModel.mediaDetail?.id,
                                               ApiKey.favorite,
                                               s,
@@ -189,7 +188,6 @@ class MovieDetailWebScreen extends StatelessWidget {
                                           selectedColor: Colors.red,
                                           onSelection: (s) {
                                             movieDetailCubit.saveUserPreference(
-                                              ApiKey.movie,
                                               state.mediaDetailModel.mediaDetail?.id,
                                               ApiKey.watchList,
                                               s,
@@ -199,14 +197,13 @@ class MovieDetailWebScreen extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 30),
                                         TooltipRating(
-                                          rating: state.mediaDetailModel.mediaAccountState?.rated
-                                                  ?.value ??
+                                          rating: state.mediaDetailModel.mediaAccountState
+                                                  ?.getSafeRating() ??
                                               0.0,
                                           iconSize: 20,
                                           hoverMessage: context.tr.addToWatchlist,
                                           onRatingUpdate: (rating) {
                                             movieDetailCubit.addMediaRating(
-                                              ApiKey.movie,
                                               state.mediaDetailModel.mediaDetail?.id,
                                               rating,
                                             );

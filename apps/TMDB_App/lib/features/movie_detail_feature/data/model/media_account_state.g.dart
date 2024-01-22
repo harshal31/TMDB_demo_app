@@ -10,9 +10,7 @@ MediaAccountState _$MediaAccountStateFromJson(Map<String, dynamic> json) =>
     MediaAccountState(
       id: json['id'] as int?,
       favorite: json['favorite'] as bool?,
-      rated: json['rated'] == null
-          ? null
-          : Rated.fromJson(json['rated'] as Map<String, dynamic>),
+      rated: json['rated'],
       watchlist: json['watchlist'] as bool?,
     );
 

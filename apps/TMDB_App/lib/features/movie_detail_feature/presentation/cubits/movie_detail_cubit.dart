@@ -28,17 +28,16 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
   }
 
   void saveUserPreference(
-    String mediaType,
     int? mediaId,
     String userKey,
     bool prefValue,
   ) async {
     final sessionId = await GetIt.instance.get<HiveManager>().getString(HiveKey.sessionId);
-    _userPrefUseCase.saveUserPref(sessionId, mediaType, mediaId ?? 0, userKey, prefValue);
+    _userPrefUseCase.saveUserPref(sessionId, ApiKey.movie, mediaId ?? 0, userKey, prefValue);
   }
 
-  void addMediaRating(String mediaType, int? mediaId, double rating) async {
+  void addMediaRating(int? mediaId, double rating) async {
     final sessionId = await GetIt.instance.get<HiveManager>().getString(HiveKey.sessionId);
-    _userPrefUseCase.addRating(sessionId, mediaType, rating, mediaId ?? 0);
+    _userPrefUseCase.addRating(sessionId, ApiKey.movie, rating, mediaId ?? 0);
   }
 }

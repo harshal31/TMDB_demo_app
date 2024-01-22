@@ -1,9 +1,9 @@
 import 'package:tmdb_app/features/movie_detail_feature/data/media_detail_api_service.dart';
 
 class UserPrefUseCase {
-  final MediaDetailApiService _movieDetailApiService;
+  final MediaDetailApiService _mediaDetailApiService;
 
-  UserPrefUseCase(this._movieDetailApiService);
+  const UserPrefUseCase(this._mediaDetailApiService);
 
   void saveUserPref(
     String sessionId,
@@ -18,11 +18,11 @@ class UserPrefUseCase {
       "$userKey": prefValue,
     };
 
-    await _movieDetailApiService.saveUserPref(userKey, sessionId, map);
+    await _mediaDetailApiService.saveUserPref(userKey, sessionId, map);
   }
 
   void addRating(String sessionId, String mediaType, double rating, int mediaId) async {
     final map = {"value": rating};
-    await _movieDetailApiService.addMediaRating(mediaType, mediaId, sessionId, map);
+    await _mediaDetailApiService.addMediaRating(mediaType, mediaId, sessionId, map);
   }
 }

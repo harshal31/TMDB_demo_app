@@ -20,7 +20,7 @@ import 'package:tmdb_app/utils/either_extensions.dart';
 class TvDetailUseCase {
   final MediaDetailApiService _movieDetailApiService;
 
-  TvDetailUseCase(this._movieDetailApiService);
+  const TvDetailUseCase(this._movieDetailApiService);
 
   Future<Either<ErrorResponse, MediaDetailModel>> fetchTvSeriesDetail(
     String typeId,
