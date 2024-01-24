@@ -11,7 +11,7 @@ class ApiKey {
   static const String sessionId = "session_id";
   static const String creditType = "creditType";
 
-  static const String defaultLanguage = "en-US";
+  static const String defaultLanguage = "en";
   static const String week = "week";
   static const String day = "day";
   static const String mediaTypePerson = "person";
@@ -81,4 +81,8 @@ class ApiKey {
   static const String with_networks = "with_networks";
   static const String favorite = "favorite";
   static const String watchList = "watchlist";
+  static const String append_to_response_key = "append_to_response";
+
+  static const String appendToMediaResponse =
+      "account_states,credits,external_ids,images,keywords,recommendations,reviews,translations,videos";
 }

@@ -1,5 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_account_state.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommendations.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_translations.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 
 part 'media_detail.g.dart';
 
@@ -87,6 +96,24 @@ class MediaDetail {
   List<Season>? seasons;
   @JsonKey(name: 'type')
   String? type;
+  @JsonKey(name: 'account_states')
+  MediaAccountState? accountStates;
+  @JsonKey(name: 'credits')
+  MediaCredits? credits;
+  @JsonKey(name: 'external_ids')
+  MediaExternalId? externalIds;
+  @JsonKey(name: 'images')
+  MediaImages? images;
+  @JsonKey(name: 'keywords')
+  MediaKeywords? keywords;
+  @JsonKey(name: 'recommendations')
+  MediaRecommendations? recommendations;
+  @JsonKey(name: 'reviews')
+  MediaReviews? reviews;
+  @JsonKey(name: 'translations')
+  MediaTranslations? translations;
+  @JsonKey(name: 'videos')
+  MediaVideos? videos;
 
   MediaDetail({
     this.adult,
@@ -130,6 +157,15 @@ class MediaDetail {
     this.originalName,
     this.seasons,
     this.type,
+    this.accountStates,
+    this.credits,
+    this.externalIds,
+    this.images,
+    this.keywords,
+    this.recommendations,
+    this.reviews,
+    this.translations,
+    this.videos,
   });
 
   factory MediaDetail.fromJson(Map<String, dynamic> json) => _$MediaDetailFromJson(json);
@@ -178,6 +214,15 @@ class MediaDetail {
     String? originalName,
     List<Season>? seasons,
     String? type,
+    MediaAccountState? accountStates,
+    MediaCredits? credits,
+    MediaExternalId? externalIds,
+    MediaImages? images,
+    MediaKeywords? keywords,
+    MediaRecommendations? recommendations,
+    MediaReviews? reviews,
+    MediaTranslations? translations,
+    MediaVideos? videos,
   }) {
     return MediaDetail(
       adult: adult ?? this.adult,
@@ -221,6 +266,15 @@ class MediaDetail {
       originalName: originalName ?? this.originalName,
       seasons: seasons ?? this.seasons,
       type: type ?? this.type,
+      accountStates: accountStates ?? this.accountStates,
+      credits: credits ?? this.credits,
+      externalIds: externalIds ?? this.externalIds,
+      images: images ?? this.images,
+      keywords: keywords ?? this.keywords,
+      recommendations: recommendations ?? this.recommendations,
+      reviews: reviews ?? this.reviews,
+      translations: translations ?? this.translations,
+      videos: videos ?? this.videos,
     );
   }
 }

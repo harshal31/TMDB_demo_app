@@ -72,6 +72,37 @@ MediaDetail _$MediaDetailFromJson(Map<String, dynamic> json) => MediaDetail(
           ?.map((e) => Season.fromJson(e as Map<String, dynamic>))
           .toList(),
       type: json['type'] as String?,
+      accountStates: json['account_states'] == null
+          ? null
+          : MediaAccountState.fromJson(
+              json['account_states'] as Map<String, dynamic>),
+      credits: json['credits'] == null
+          ? null
+          : MediaCredits.fromJson(json['credits'] as Map<String, dynamic>),
+      externalIds: json['external_ids'] == null
+          ? null
+          : MediaExternalId.fromJson(
+              json['external_ids'] as Map<String, dynamic>),
+      images: json['images'] == null
+          ? null
+          : MediaImages.fromJson(json['images'] as Map<String, dynamic>),
+      keywords: json['keywords'] == null
+          ? null
+          : MediaKeywords.fromJson(json['keywords'] as Map<String, dynamic>),
+      recommendations: json['recommendations'] == null
+          ? null
+          : MediaRecommendations.fromJson(
+              json['recommendations'] as Map<String, dynamic>),
+      reviews: json['reviews'] == null
+          ? null
+          : MediaReviews.fromJson(json['reviews'] as Map<String, dynamic>),
+      translations: json['translations'] == null
+          ? null
+          : MediaTranslations.fromJson(
+              json['translations'] as Map<String, dynamic>),
+      videos: json['videos'] == null
+          ? null
+          : MediaVideos.fromJson(json['videos'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MediaDetailToJson(MediaDetail instance) =>
@@ -117,6 +148,15 @@ Map<String, dynamic> _$MediaDetailToJson(MediaDetail instance) =>
       'original_name': instance.originalName,
       'seasons': instance.seasons,
       'type': instance.type,
+      'account_states': instance.accountStates,
+      'credits': instance.credits,
+      'external_ids': instance.externalIds,
+      'images': instance.images,
+      'keywords': instance.keywords,
+      'recommendations': instance.recommendations,
+      'reviews': instance.reviews,
+      'translations': instance.translations,
+      'videos': instance.videos,
     };
 
 BelongsToCollection _$BelongsToCollectionFromJson(Map<String, dynamic> json) =>
