@@ -438,6 +438,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Current Season'**
   String get currentSeason;
+
+  /// No description provided for @biography.
+  ///
+  /// In en, this message translates to:
+  /// **'Biography'**
+  String get biography;
+
+  /// No description provided for @knownFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Known For'**
+  String get knownFor;
+
+  /// No description provided for @personalInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Info'**
+  String get personalInfo;
+
+  /// No description provided for @knownCredits.
+  ///
+  /// In en, this message translates to:
+  /// **'Known Credits'**
+  String get knownCredits;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @birthday.
+  ///
+  /// In en, this message translates to:
+  /// **'Birthday'**
+  String get birthday;
+
+  /// No description provided for @placeOfBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Place of Birth'**
+  String get placeOfBirth;
+
+  /// No description provided for @alsoKnownAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Also Known As'**
+  String get alsoKnownAs;
+
+  /// No description provided for @acting.
+  ///
+  /// In en, this message translates to:
+  /// **'Acting'**
+  String get acting;
+
+  /// No description provided for @yearOld.
+  ///
+  /// In en, this message translates to:
+  /// **'{year} years old'**
+  String yearOld(Object year);
+
+  /// No description provided for @asCharacter.
+  ///
+  /// In en, this message translates to:
+  /// **'as {name}'**
+  String asCharacter(Object name);
+
+  /// No description provided for @episodeMapping.
+  ///
+  /// In en, this message translates to:
+  /// **'({episode} Episodes) '**
+  String episodeMapping(Object episode);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -4,6 +4,6 @@ class RouteName {
   static const String movie = "movie";
   static const String youtubeVideo = "youtubeVideo";
   static const String tvSeriesYoutubeVideo = "tvSeriesYoutubeVideo";
-
   static const String tv = "tv";
+  static const String person = "person";
 }

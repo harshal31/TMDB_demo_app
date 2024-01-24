@@ -100,7 +100,7 @@ class HomeTabletScreen extends StatelessWidget {
                             CommonNavigation.redirectToDetailScreen(
                               context,
                               mediaType: state.trendingResult?.results?[i].mediaType,
-                              movieId: state.trendingResult?.results?[i].id.toString(),
+                              mediaId: state.trendingResult?.results?[i].id.toString(),
                             );
                           },
                         ),
@@ -189,7 +189,7 @@ class HomeTabletScreen extends StatelessWidget {
                             CommonNavigation.redirectToDetailScreen(
                               context,
                               mediaType: ApiKey.movie,
-                              movieId: state.results[i].id.toString(),
+                              mediaId: state.results[i].id.toString(),
                             );
                           },
                         ),
@@ -245,7 +245,7 @@ class HomeTabletScreen extends StatelessWidget {
                             CommonNavigation.redirectToDetailScreen(
                               context,
                               mediaType: state.pos == 0 ? ApiKey.movie : ApiKey.tv,
-                              movieId: state.results[i].id.toString(),
+                              mediaId: state.results[i].id.toString(),
                             );
                           },
                         ),

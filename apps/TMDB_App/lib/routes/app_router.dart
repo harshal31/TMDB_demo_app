@@ -9,6 +9,7 @@ import "package:tmdb_app/data_storage/hive_manager.dart";
 import 'package:tmdb_app/features/authentication_feature/presentation/screens/authentication_screen.dart';
 import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.dart";
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
+import 'package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart';
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
 import "package:tmdb_app/routes/route_param.dart";
@@ -71,6 +72,14 @@ class AppRouter {
                         },
                       )
                     ],
+                  ),
+                  GoRoute(
+                    name: RouteName.person,
+                    path: "${RouteName.person}/:${RouteParam.id}",
+                    builder: (ctx, state) {
+                      final personId = state.pathParameters[RouteParam.id] ?? "";
+                      return PersonDetailScreen(key: ValueKey(personId), personId: personId);
+                    },
                   ),
                 ],
               ),

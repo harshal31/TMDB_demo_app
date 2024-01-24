@@ -4,7 +4,10 @@ import 'package:common_widgets/theme/app_theme.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
+import 'package:tmdb_app/features/person_detail_feature/data/model/person_detail.dart';
+import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 
 class TmdbSideView extends StatelessWidget {
   final MediaDetail? mediaDetail;
@@ -202,6 +205,145 @@ class TmdbTvSeriesSideView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+class TmdbSidePersonView extends StatelessWidget {
+  final PersonDetail? personDetail;
+  final MediaExternalId? tmdbShare;
+
+  const TmdbSidePersonView({
+    super.key,
+    this.personDetail,
+    this.tmdbShare,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TmdbShare(
+            tmdbShareModel: tmdbShare,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.tr.personalInfo,
+            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Visibility(
+            visible: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.knownFor,
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  personDetail?.knownForDepartment ?? "",
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.knownCredits,
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "60",
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.gender,
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  personDetail?.genderString ?? "",
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.birthday,
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${personDetail?.birthday ?? ""} ${personDetail?.getYearsOld(context) ?? ""}",
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.placeOfBirth,
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  personDetail?.placeOfBirth ?? "",
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.alsoKnownAs,
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  personDetail?.alsoKnownAsString ?? "",
+                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
         ],
       ),
     );

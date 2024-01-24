@@ -187,4 +187,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get currentSeason => 'Current Season';
+
+  @override
+  String get biography => 'Biography';
+
+  @override
+  String get knownFor => 'Known For';
+
+  @override
+  String get personalInfo => 'Personal Info';
+
+  @override
+  String get knownCredits => 'Known Credits';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get birthday => 'Birthday';
+
+  @override
+  String get placeOfBirth => 'Place of Birth';
+
+  @override
+  String get alsoKnownAs => 'Also Known As';
+
+  @override
+  String get acting => 'Acting';
+
+  @override
+  String yearOld(Object year) {
+    return '$year years old';
+  }
+
+  @override
+  String asCharacter(Object name) {
+    return 'as $name';
+  }
+
+  @override
+  String episodeMapping(Object episode) {
+    return '($episode Episodes) ';
+  }
 }

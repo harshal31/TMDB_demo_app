@@ -56,5 +56,17 @@
   "type": "Type",
   "season": "Season {number}",
   "seriesCast": "Series Cast",
-  "currentSeason": "Current Season"
+  "currentSeason": "Current Season",
+  "biography": "Biography",
+  "knownFor": "Known For",
+  "personalInfo": "Personal Info",
+  "knownCredits": "Known Credits",
+  "gender": "Gender",
+  "birthday": "Birthday",
+  "placeOfBirth": "Place of Birth",
+  "alsoKnownAs": "Also Known As",
+  "acting": "Acting",
+  "yearOld": "{year} years old",
+  "asCharacter": "as {name}",
+  "episodeMapping": "({episode} Episodes) "
 }

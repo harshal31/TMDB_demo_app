@@ -9,6 +9,7 @@ class ApiKey {
   static const String mediaType = "mediaType";
   static const String typeId = "typeId";
   static const String sessionId = "session_id";
+  static const String creditType = "creditType";
 
   static const String defaultLanguage = "en-US";
   static const String week = "week";
@@ -18,6 +19,9 @@ class ApiKey {
   static const String movie = "movie";
   static const String person = "person";
   static const String tv = "tv";
+  static const String movieCredits = "movie_credits";
+  static const String tvCredits = "tv_credits";
+  static const String combineCredits = "combined_credits";
   static const String nowPlaying = "now_playing";
   static const String popular = "popular";
   static const String topRated = "top_rated";

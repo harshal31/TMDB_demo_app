@@ -25,4 +25,6 @@ class Endpoint {
   static const String mediaVideos = "/{${ApiKey.mediaType}}/{${ApiKey.typeId}}/videos";
   static const String mediaRating = "/{${ApiKey.mediaType}}/{${ApiKey.typeId}}/rating";
   static const String saveUserPref = "/account/account_id/{${ApiKey.dynamicPath}}";
+  static const String personCredits = "/person/{${ApiKey.typeId}}/{${ApiKey.creditType}}";
+  static const String personDetail = "/person/{${ApiKey.typeId}}";
 }

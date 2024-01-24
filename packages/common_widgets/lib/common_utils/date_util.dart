@@ -22,4 +22,24 @@ extension FormatDate on String? {
       return "";
     }
   }
+
+  String get yearFromDate {
+    try {
+      DateTime parsedDate = DateTime.parse(this ?? "");
+
+      final currentYear = DateTime.now().year;
+      return "${currentYear - parsedDate.year}";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  DateTime? get getDateTime {
+    try {
+      DateTime parsedDate = DateTime.parse(this ?? "");
+      return parsedDate;
+    } catch (e) {
+      return null;
+    }
+  }
 }

@@ -8,11 +8,11 @@ class CommonNavigation {
   static void redirectToDetailScreen(
     BuildContext context, {
     String? mediaType = ApiKey.movie,
-    String? movieId = "609681",
+    String? mediaId = "609681",
   }) {
     context.goNamed(
       mediaType ?? RouteName.movie,
-      pathParameters: {RouteParam.id: movieId ?? ""},
+      pathParameters: {RouteParam.id: mediaId ?? ""},
     );
   }
 }
