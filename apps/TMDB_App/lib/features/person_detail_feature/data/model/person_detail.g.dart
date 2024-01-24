@@ -23,6 +23,14 @@ PersonDetail _$PersonDetailFromJson(Map<String, dynamic> json) => PersonDetail(
       placeOfBirth: json['place_of_birth'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
       profilePath: json['profile_path'] as String?,
+      mediaExternalIds: json['external_ids'] == null
+          ? null
+          : MediaExternalId.fromJson(
+              json['external_ids'] as Map<String, dynamic>),
+      credits: json['combined_credits'] == null
+          ? null
+          : PersonCredit.fromJson(
+              json['combined_credits'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PersonDetailToJson(PersonDetail instance) =>
@@ -41,4 +49,6 @@ Map<String, dynamic> _$PersonDetailToJson(PersonDetail instance) =>
       'place_of_birth': instance.placeOfBirth,
       'popularity': instance.popularity,
       'profile_path': instance.profilePath,
+      'external_ids': instance.mediaExternalIds,
+      'combined_credits': instance.credits,
     };

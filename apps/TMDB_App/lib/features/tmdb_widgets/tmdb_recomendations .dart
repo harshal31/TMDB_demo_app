@@ -56,7 +56,7 @@ class TmdbRecomendations extends StatelessWidget {
                 recommendations[index].backDropImage,
                 width: 250,
                 height: 141,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 cache: true,
                 shape: BoxShape.rectangle,
                 borderRadius: const BorderRadius.all(

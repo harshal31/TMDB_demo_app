@@ -2,6 +2,8 @@ import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
+import 'package:tmdb_app/features/person_detail_feature/data/model/person_credit.dart';
 
 part 'person_detail.g.dart';
 
@@ -35,6 +37,10 @@ class PersonDetail {
   double? popularity;
   @JsonKey(name: 'profile_path')
   String? profilePath;
+  @JsonKey(name: 'external_ids')
+  MediaExternalId? mediaExternalIds;
+  @JsonKey(name: 'combined_credits')
+  PersonCredit? credits;
 
   PersonDetail({
     this.adult,
@@ -51,6 +57,8 @@ class PersonDetail {
     this.placeOfBirth,
     this.popularity,
     this.profilePath,
+    this.mediaExternalIds,
+    this.credits,
   });
 
   factory PersonDetail.fromJson(Map<String, dynamic> json) => _$PersonDetailFromJson(json);
@@ -72,6 +80,8 @@ class PersonDetail {
     String? placeOfBirth,
     double? popularity,
     String? profilePath,
+    MediaExternalId? mediaExternalIds,
+    PersonCredit? credits,
   }) {
     return PersonDetail(
       adult: adult ?? this.adult,
@@ -88,6 +98,8 @@ class PersonDetail {
       placeOfBirth: placeOfBirth ?? this.placeOfBirth,
       popularity: popularity ?? this.popularity,
       profilePath: profilePath ?? this.profilePath,
+      mediaExternalIds: mediaExternalIds ?? this.mediaExternalIds,
+      credits: credits ?? this.credits,
     );
   }
 
@@ -113,6 +125,6 @@ class PersonDetail {
   }
 
   String get alsoKnownAsString {
-    return this.alsoKnownAs?.join(",") ?? "";
+    return this.alsoKnownAs?.join(", ") ?? "";
   }
 }

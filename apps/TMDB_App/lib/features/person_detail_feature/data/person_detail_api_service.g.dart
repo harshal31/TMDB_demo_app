@@ -19,77 +19,16 @@ class _PersonDetailApiService implements PersonDetailApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<MediaExternalId>> fetchMediaExternalIds(
-    String mediaType,
-    String typeId,
-    String language,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'language': language};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<MediaExternalId>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/${mediaType}/${typeId}/external_ids',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = MediaExternalId.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<PersonCredit?>> fetchPersonCredits(
-    String typeId,
-    String creditType,
-    String language,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'language': language};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>?>(
-        _setStreamType<HttpResponse<PersonCredit>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/person/${typeId}/${creditType}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value =
-        _result.data == null ? null : PersonCredit.fromJson(_result.data!);
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
   Future<HttpResponse<PersonDetail?>> fetchPersonDetail(
     String typeId,
     String language,
+    String appendToResponse,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'language': language};
+    final queryParameters = <String, dynamic>{
+      r'language': language,
+      r'append_to_response': appendToResponse,
+    };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>?>(

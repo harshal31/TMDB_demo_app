@@ -83,6 +83,7 @@ class ApiKey {
   static const String watchList = "watchlist";
   static const String append_to_response_key = "append_to_response";
 
+  static const String personDetailAppendToMediaResponse = "external_ids,combined_credits";
   static const String appendToMediaResponse =
       "account_states,credits,external_ids,images,keywords,recommendations,reviews,translations,videos";
 }
