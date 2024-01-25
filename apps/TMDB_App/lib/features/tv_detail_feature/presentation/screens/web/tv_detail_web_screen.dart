@@ -124,6 +124,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 16),
                                     SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
                                       child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [

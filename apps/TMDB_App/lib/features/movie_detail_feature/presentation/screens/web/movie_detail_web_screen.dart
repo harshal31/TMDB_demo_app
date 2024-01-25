@@ -155,57 +155,60 @@ class MovieDetailWebScreen extends StatelessWidget {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 16),
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          TmdbIcon(
-                                            iconSize: 20,
-                                            icons: (Icons.favorite, Icons.favorite_outline_sharp),
-                                            isSelected: state
-                                                    .mediaDetailModel.mediaAccountState?.favorite ??
-                                                false,
-                                            selectedColor: Colors.red,
-                                            onSelection: (s) {
-                                              movieDetailCubit.saveUserPreference(
-                                                state.mediaDetailModel.mediaDetail?.id,
-                                                ApiKey.favorite,
-                                                s,
-                                              );
-                                            },
-                                            hoverMessage: context.tr.markAsFavorite,
-                                          ),
-                                          const SizedBox(width: 30),
-                                          TmdbIcon(
-                                            iconSize: 20,
-                                            icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
-                                            isSelected: state.mediaDetailModel.mediaAccountState
-                                                    ?.watchlist ??
-                                                false,
-                                            selectedColor: Colors.red,
-                                            onSelection: (s) {
-                                              movieDetailCubit.saveUserPreference(
-                                                state.mediaDetailModel.mediaDetail?.id,
-                                                ApiKey.watchList,
-                                                s,
-                                              );
-                                            },
-                                            hoverMessage: context.tr.addToWatchlist,
-                                          ),
-                                          const SizedBox(width: 30),
-                                          TooltipRating(
-                                            rating: state.mediaDetailModel.mediaAccountState
-                                                    ?.getSafeRating() ??
-                                                0.0,
-                                            iconSize: 20,
-                                            hoverMessage: context.tr.addToWatchlist,
-                                            onRatingUpdate: (rating) {
-                                              movieDetailCubit.addMediaRating(
-                                                state.mediaDetailModel.mediaDetail?.id,
-                                                rating,
-                                              );
-                                            },
-                                          ),
-                                        ],
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            TmdbIcon(
+                                              iconSize: 20,
+                                              icons: (Icons.favorite, Icons.favorite_outline_sharp),
+                                              isSelected: state.mediaDetailModel.mediaAccountState
+                                                      ?.favorite ??
+                                                  false,
+                                              selectedColor: Colors.red,
+                                              onSelection: (s) {
+                                                movieDetailCubit.saveUserPreference(
+                                                  state.mediaDetailModel.mediaDetail?.id,
+                                                  ApiKey.favorite,
+                                                  s,
+                                                );
+                                              },
+                                              hoverMessage: context.tr.markAsFavorite,
+                                            ),
+                                            const SizedBox(width: 30),
+                                            TmdbIcon(
+                                              iconSize: 20,
+                                              icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
+                                              isSelected: state.mediaDetailModel.mediaAccountState
+                                                      ?.watchlist ??
+                                                  false,
+                                              selectedColor: Colors.red,
+                                              onSelection: (s) {
+                                                movieDetailCubit.saveUserPreference(
+                                                  state.mediaDetailModel.mediaDetail?.id,
+                                                  ApiKey.watchList,
+                                                  s,
+                                                );
+                                              },
+                                              hoverMessage: context.tr.addToWatchlist,
+                                            ),
+                                            const SizedBox(width: 30),
+                                            TooltipRating(
+                                              rating: state.mediaDetailModel.mediaAccountState
+                                                      ?.getSafeRating() ??
+                                                  0.0,
+                                              iconSize: 20,
+                                              hoverMessage: context.tr.addToWatchlist,
+                                              onRatingUpdate: (rating) {
+                                                movieDetailCubit.addMediaRating(
+                                                  state.mediaDetailModel.mediaDetail?.id,
+                                                  rating,
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Visibility(
