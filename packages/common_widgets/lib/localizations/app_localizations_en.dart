@@ -232,4 +232,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noNetworkForTvSeriesAvailable => 'Not network for tv series available';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get search => 'Search';
 }

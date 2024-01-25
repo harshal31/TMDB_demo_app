@@ -188,7 +188,9 @@ class HomeWebScreen extends StatelessWidget {
                           onItemClick: (i) {
                             CommonNavigation.redirectToDetailScreen(
                               context,
-                              mediaType: ApiKey.movie,
+                              mediaType: latestPosCubit.state.currentSwitchState
+                                  ? ApiKey.movie
+                                  : ApiKey.tv,
                               mediaId: state.results[i].id.toString(),
                             );
                           },

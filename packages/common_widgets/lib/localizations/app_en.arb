@@ -69,5 +69,8 @@
   "yearOld": "{year} years old",
   "asCharacter": "as {name}",
   "episodeMapping": "({episode} Episodes) ",
-  "noNetworkForTvSeriesAvailable": "Not network for tv series available"
+  "noNetworkForTvSeriesAvailable": "Not network for tv series available",
+  "home": "Home",
+  "profile": "Profile",
+  "search": "Search"
 }

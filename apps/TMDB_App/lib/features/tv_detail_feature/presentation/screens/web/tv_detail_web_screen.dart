@@ -68,6 +68,7 @@ class TvDetailWebScreen extends StatelessWidget {
                           imageUrl: state.mediaDetailModel.getBackdropImage(),
                           fit: BoxFit.cover,
                           shouldDisplayErrorImage: false,
+                          borderRadius: BorderRadius.zero,
                         ),
                       ),
                     ),

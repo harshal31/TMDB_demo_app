@@ -415,7 +415,6 @@ class TmdbSidePersonView extends StatelessWidget {
                   personDetail?.alsoKnownAsString ?? "",
                   style: context.textTheme.titleSmall,
                 ),
-                const SizedBox(height: 16),
               ],
             ),
           ),

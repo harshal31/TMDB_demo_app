@@ -1,5 +1,6 @@
 import "dart:async";
 
+import "package:common_widgets/localizations/localized_extension.dart";
 import "package:common_widgets/widgets/youtube_video.dart";
 import "package:flutter/material.dart";
 import "package:get_it/get_it.dart";
@@ -111,8 +112,6 @@ class AppRouter {
   }
 }
 
-// Stateful navigation based on:
-// https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
 class ScaffoldWithNestedNavigation extends StatelessWidget {
   const ScaffoldWithNestedNavigation({
     Key? key,
@@ -123,10 +122,6 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   void _goBranch(int index) {
     navigationShell.goBranch(
       index,
-      // A common pattern when using bottom navigation bars is to support
-      // navigating to the initial location when tapping the item that is
-      // already active. This example demonstrates how to support this behavior,
-      // using the initialLocation parameter of goBranch.
       initialLocation: index == navigationShell.currentIndex,
     );
   }
@@ -169,9 +164,15 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
       body: body,
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex,
-        destinations: const [
-          NavigationDestination(label: 'Section A', icon: Icon(Icons.home)),
-          NavigationDestination(label: 'Section B', icon: Icon(Icons.settings)),
+        destinations: [
+          NavigationDestination(
+            label: context.tr.home,
+            icon: const Icon(Icons.home_filled),
+          ),
+          NavigationDestination(
+            label: context.tr.profile,
+            icon: const Icon(Icons.person_pin),
+          ),
         ],
         onDestinationSelected: onDestinationSelected,
       ),
@@ -200,14 +201,14 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
             selectedIndex: selectedIndex,
             onDestinationSelected: onDestinationSelected,
             labelType: NavigationRailLabelType.all,
-            destinations: const <NavigationRailDestination>[
+            destinations: const [
               NavigationRailDestination(
                 label: Text(""),
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home_filled),
               ),
               NavigationRailDestination(
                 label: Text(""),
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.person_pin),
               ),
             ],
           ),

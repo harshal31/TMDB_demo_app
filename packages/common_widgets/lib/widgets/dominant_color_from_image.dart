@@ -31,8 +31,8 @@ class _DominantColorState extends State<DominantColorFromImage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            currentColorScheme.primaryContainer.withOpacity(0.5),
-            currentColorScheme.primaryContainer.withOpacity(0.1),
+            currentColorScheme.primary.withOpacity(0.5),
+            currentColorScheme.primary.withOpacity(0.1),
           ],
         ),
       ),
