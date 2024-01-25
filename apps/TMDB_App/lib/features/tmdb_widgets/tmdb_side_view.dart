@@ -165,6 +165,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
             context.tr.facts,
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
+          const SizedBox(height: 16),
           Visibility(
             visible: mediaDetail?.budget?.formatCurrencyInDollar.isNotEmpty ?? false,
             child: Column(
