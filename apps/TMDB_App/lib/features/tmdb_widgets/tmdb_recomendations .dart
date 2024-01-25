@@ -1,12 +1,12 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommendations.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';
 
@@ -52,17 +52,11 @@ class TmdbRecomendations extends StatelessWidget {
                 );
               },
               borderRadius: BorderRadius.circular(10),
-              child: ExtendedImage.network(
-                recommendations[index].backDropImage,
+              child: ExtendedImageCreator(
+                imageUrl: recommendations[index].backDropImage,
                 width: 250,
                 height: 141,
                 fit: BoxFit.cover,
-                cache: true,
-                shape: BoxShape.rectangle,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0),
-                ),
-                cacheMaxAge: const Duration(minutes: 30),
               ),
             ),
           );

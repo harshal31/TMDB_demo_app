@@ -1,9 +1,9 @@
 import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 
 class TmdbCurrentSeasonView extends StatelessWidget {
   final Season? season;
@@ -22,15 +22,11 @@ class TmdbCurrentSeasonView extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ExtendedImage.network(
-            season?.getSeasonImage() ?? "",
+          ExtendedImageCreator(
+            imageUrl: season?.getSeasonImage() ?? "",
             width: 130,
             height: 195,
-            shape: BoxShape.rectangle,
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
             fit: BoxFit.cover,
-            clipBehavior: Clip.hardEdge,
-            cache: true,
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -153,15 +149,11 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ExtendedImage.network(
-                season?.getSeasonImage() ?? "",
+              ExtendedImageCreator(
+                imageUrl: season?.getSeasonImage() ?? "",
                 width: 130,
                 height: 195,
-                shape: BoxShape.rectangle,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 fit: BoxFit.cover,
-                clipBehavior: Clip.hardEdge,
-                cache: true,
               ),
               const SizedBox(width: 16),
               Expanded(

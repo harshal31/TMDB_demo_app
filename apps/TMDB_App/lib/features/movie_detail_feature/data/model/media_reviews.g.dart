@@ -55,7 +55,7 @@ AuthorDetails _$AuthorDetailsFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       username: json['username'] as String?,
       avatarPath: json['avatar_path'] as String?,
-      rating: json['rating'] as int?,
+      rating: (json['rating'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$AuthorDetailsToJson(AuthorDetails instance) =>

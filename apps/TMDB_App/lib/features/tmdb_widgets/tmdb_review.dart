@@ -2,10 +2,10 @@ import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/read_more_text.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 
 class TmdbReview extends StatelessWidget {
   final ReviewResults? result;
@@ -43,12 +43,10 @@ class TmdbReview extends StatelessWidget {
                   backgroundColor: context.colorTheme.primary,
                   // Replace with actual image or initial
                   child: result?.authorDetails?.avatarPath?.isNotEmpty ?? false
-                      ? ExtendedImage.network(
-                          result?.authorDetails?.getAvatar() ?? "",
+                      ? ExtendedImageCreator(
+                          imageUrl: result?.authorDetails?.getAvatar() ?? "",
                           fit: BoxFit.cover,
-                          cache: true,
                           shape: BoxShape.circle,
-                          cacheMaxAge: const Duration(minutes: 30),
                         )
                       : Text(
                           'P',

@@ -1,11 +1,12 @@
 import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:extended_image/extended_image.dart';
+import 'package:common_widgets/widgets/read_more_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/cubits/person_detail_cubit.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/use_cases/person_detail_use_case.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
@@ -47,11 +48,10 @@ class PersonDetailWebScreen extends StatelessWidget {
                   height: 570,
                   child: Row(
                     children: [
-                      ExtendedImage.network(
-                        state.personDetailModel.profilePathImageUrl,
+                      ExtendedImageCreator(
+                        imageUrl: state.personDetailModel.profilePathImageUrl,
                         width: 300,
                         height: 450,
-                        cache: true,
                         fit: BoxFit.cover,
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(10),
@@ -76,9 +76,12 @@ class PersonDetailWebScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Text(
+                              AnimatedReadMoreText(
                                 state.personDetailModel.personDetail?.biography ?? "",
-                                style: context.textTheme.bodyLarge,
+                                maxLines: 10,
+                                readMoreText: context.tr.readMore,
+                                readLessText: context.tr.readLess,
+                                textStyle: context.textTheme.bodyLarge,
                               ),
                               const SizedBox(height: 16),
                               Text(
@@ -95,11 +98,11 @@ class PersonDetailWebScreen extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: 3,
                                   itemBuilder: (ctx, i) {
-                                    return ExtendedImage.network(
-                                      "https://image.tmdb.org/t/p/w500/nCcvpJFHWYHfu5oPxTOyA1uSdqA.jpg",
+                                    return ExtendedImageCreator(
+                                      imageUrl:
+                                          "https://image.tmdb.org/t/p/w500/nCcvpJFHWYHfu5oPxTOyA1uSdqA.jpg",
                                       width: 130,
                                       height: 195,
-                                      cache: true,
                                       fit: BoxFit.cover,
                                       shape: BoxShape.rectangle,
                                       borderRadius: BorderRadius.circular(10),

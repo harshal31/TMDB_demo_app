@@ -1,12 +1,12 @@
 import 'package:common_widgets/common_utils/currency_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
 import 'package:tmdb_app/features/person_detail_feature/data/model/person_detail.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 
 class TmdbSideView extends StatelessWidget {
@@ -145,13 +145,10 @@ class TmdbTvSeriesSideView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: mediaDetail?.networks?.length ?? 0,
               itemBuilder: (ctx, index) {
-                return ExtendedImage.network(
-                  mediaDetail?.networks?[index].getNetworkImage() ?? "",
+                return ExtendedImageCreator(
+                  imageUrl: mediaDetail?.networks?[index].getNetworkImage() ?? "",
                   height: 30,
-                  cache: true,
                   fit: BoxFit.cover,
-                  shape: BoxShape.rectangle,
-                  cacheMaxAge: const Duration(minutes: 30),
                 );
               },
             ),

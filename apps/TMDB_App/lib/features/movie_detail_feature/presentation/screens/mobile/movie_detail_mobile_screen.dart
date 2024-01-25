@@ -3,7 +3,7 @@ import 'package:common_widgets/common_utils/time_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
-import 'package:common_widgets/widgets/donmiant_color_from_image.dart';
+import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:extended_image/extended_image.dart';
@@ -13,6 +13,7 @@ import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/movie_detail_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/use_cases/movie_detail_use_case.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_cast_list.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_recomendations%20.dart';
@@ -60,12 +61,12 @@ class MovieDetailMobileScreen extends StatelessWidget {
                       alignment: Alignment.topCenter,
                       child: Opacity(
                         opacity: 0.3,
-                        child: ExtendedImage.network(
-                          state.mediaDetailModel.getBackdropImage(),
-                          cache: true,
+                        child: ExtendedImageCreator(
+                          imageUrl: state.mediaDetailModel.getBackdropImage(),
+                          fallbackUrl: state.mediaDetailModel.getPosterPath(),
                           fit: BoxFit.cover,
                           shape: BoxShape.rectangle,
-                          cacheMaxAge: const Duration(minutes: 30),
+                          shouldDisplayErrorImage: false,
                         ),
                       ),
                     ),
@@ -89,15 +90,14 @@ class MovieDetailMobileScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                ExtendedImage.network(
-                                  state.mediaDetailModel.getPosterPath(),
+                                ExtendedImageCreator(
+                                  imageUrl: state.mediaDetailModel.getPosterPath(),
                                   width: 150,
                                   height: 225,
+                                  shouldDisplayErrorImage: true,
                                   fit: BoxFit.cover,
-                                  cache: true,
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(10),
-                                  cacheMaxAge: const Duration(minutes: 30),
                                 ),
                               ],
                             ),
@@ -113,7 +113,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
-                                    "(${state.mediaDetailModel.getReleaseYear()})",
+                                    state.mediaDetailModel.getReleaseYear(),
                                     textAlign: TextAlign.center,
                                     style: context.textTheme.titleLarge?.copyWith(
                                       fontWeight: FontWeight.w100,
@@ -448,6 +448,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                           pos: s,
                           videos: state.mediaDetailModel.mediaVideos?.results ?? [],
                           images: state.mediaDetailModel.mediaImages,
+                          mediaType: ApiKey.movie,
                         );
                       },
                     ),

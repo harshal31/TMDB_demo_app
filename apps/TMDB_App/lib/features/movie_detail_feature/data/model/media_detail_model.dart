@@ -89,12 +89,22 @@ class MediaDetailModel {
     return AppConstant.originalImageBaseUrl + (mediaDetail?.posterPath ?? "");
   }
 
-  int getReleaseYear() {
-    return int.parse(mediaDetail?.releaseDate?.split("-").firstOrNull ?? "1993");
+  String getReleaseYear() {
+    try {
+      final value = mediaDetail?.releaseDate?.split("-").firstOrNull ?? "-";
+      return value.isNotEmpty ? "($value)" : value;
+    } catch (e) {
+      return "-";
+    }
   }
 
-  int getTvSeriesYear() {
-    return int.parse(mediaDetail?.firstAirDate?.split("-").firstOrNull ?? "1993");
+  String getTvSeriesYear() {
+    try {
+      final value = mediaDetail?.firstAirDate?.split("-").firstOrNull ?? "-";
+      return value.isNotEmpty ? "($value)" : value;
+    } catch (e) {
+      return "-";
+    }
   }
 
   String genres() {

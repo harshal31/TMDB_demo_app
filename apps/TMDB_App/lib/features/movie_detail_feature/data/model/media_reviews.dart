@@ -114,7 +114,7 @@ class AuthorDetails {
   @JsonKey(name: 'avatar_path')
   String? avatarPath;
   @JsonKey(name: 'rating')
-  int? rating;
+  double? rating;
 
   AuthorDetails({
     this.name,
@@ -135,7 +135,7 @@ class AuthorDetails {
     String? name,
     String? username,
     String? avatarPath,
-    int? rating,
+    double? rating,
   }) {
     return AuthorDetails(
       name: name ?? this.name,

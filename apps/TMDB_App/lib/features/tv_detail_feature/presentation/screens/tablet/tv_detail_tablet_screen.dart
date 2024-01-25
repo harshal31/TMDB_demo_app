@@ -1,7 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
-import 'package:common_widgets/widgets/donmiant_color_from_image.dart';
+import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:extended_image/extended_image.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_cast_list.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_current_season_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_view.dart';
@@ -62,14 +63,11 @@ class TvDetailTabletScreen extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: Opacity(
                         opacity: 0.3,
-                        child: ExtendedImage.network(
-                          state.mediaDetailModel.getBackdropImage(),
-                          cache: true,
+                        child: ExtendedImageCreator(
+                          imageUrl: state.mediaDetailModel.getBackdropImage(),
                           fit: BoxFit.cover,
-                          shape: BoxShape.rectangle,
-                          clipBehavior: Clip.hardEdge,
                           borderRadius: BorderRadius.zero,
-                          cacheMaxAge: const Duration(minutes: 30),
+                          shouldDisplayErrorImage: false,
                         ),
                       ),
                     ),
@@ -86,17 +84,11 @@ class TvDetailTabletScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(16),
                         child: Row(
                           children: [
-                            ExtendedImage.network(
-                              state.mediaDetailModel.getPosterPath(),
+                            ExtendedImageCreator(
+                              imageUrl: state.mediaDetailModel.getPosterPath(),
                               width: 300,
                               height: 450,
                               fit: BoxFit.cover,
-                              cache: true,
-                              shape: BoxShape.rectangle,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10.0),
-                              ),
-                              cacheMaxAge: const Duration(minutes: 30),
                             ),
                             const SizedBox(width: 18),
                             Expanded(
@@ -110,21 +102,23 @@ class TvDetailTabletScreen extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       RichText(
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                            text:
-                                                "${state.mediaDetailModel.mediaDetail?.originalName ?? ""} ",
-                                            style: context.textTheme.headlineLarge?.copyWith(
-                                              fontWeight: FontWeight.w900,
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                                  "${state.mediaDetailModel.mediaDetail?.originalName ?? ""} ",
+                                              style: context.textTheme.headlineLarge?.copyWith(
+                                                fontWeight: FontWeight.w900,
+                                              ),
                                             ),
-                                          ),
-                                          TextSpan(
-                                            text: "(${state.mediaDetailModel.getTvSeriesYear()})",
-                                            style: context.textTheme.headlineLarge?.copyWith(
-                                              fontWeight: FontWeight.w100,
+                                            TextSpan(
+                                              text: state.mediaDetailModel.getTvSeriesYear(),
+                                              style: context.textTheme.headlineLarge?.copyWith(
+                                                fontWeight: FontWeight.w100,
+                                              ),
                                             ),
-                                          ),
-                                        ]),
+                                          ],
+                                        ),
                                       ),
                                       Visibility(
                                         visible: state.mediaDetailModel.genres().isNotEmpty,

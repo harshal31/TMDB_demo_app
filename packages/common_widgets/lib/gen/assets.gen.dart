@@ -25,6 +25,9 @@ class $AssetsIconGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/error.png
+  AssetGenImage get error => const AssetGenImage('assets/images/error.png');
+
   /// File path: assets/images/facebook.png
   AssetGenImage get facebook =>
       const AssetGenImage('assets/images/facebook.png');
@@ -52,7 +55,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values =>
-      [facebook, imdb, instagram, tmdbLogo, trimTmdbLogo, twitter, wiki];
+      [error, facebook, imdb, instagram, tmdbLogo, trimTmdbLogo, twitter, wiki];
 }
 
 class Assets {

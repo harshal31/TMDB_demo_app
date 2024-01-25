@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
@@ -10,7 +11,15 @@ class CommonNavigation {
     String? mediaType = ApiKey.movie,
     String? mediaId = "609681",
   }) {
-    context.goNamed(
+    if (kIsWeb) {
+      context.goNamed(
+        mediaType ?? RouteName.movie,
+        pathParameters: {RouteParam.id: mediaId ?? ""},
+      );
+      return;
+    }
+
+    context.pushNamed(
       mediaType ?? RouteName.movie,
       pathParameters: {RouteParam.id: mediaId ?? ""},
     );

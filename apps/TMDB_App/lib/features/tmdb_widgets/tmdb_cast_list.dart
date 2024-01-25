@@ -1,14 +1,15 @@
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:tmdb_app/utils/common_navigation.dart';
 
 class TmdbCastList extends StatelessWidget {
   final List<Cast>? model;
   final double? height;
   final double? width;
   final Function()? onViewAllClick;
-  final Function(int)? onItemClick;
 
   const TmdbCastList({
     super.key,
@@ -16,7 +17,6 @@ class TmdbCastList extends StatelessWidget {
     this.height,
     this.width,
     this.onViewAllClick,
-    this.onItemClick,
   });
 
   @override
@@ -36,7 +36,11 @@ class TmdbCastList extends StatelessWidget {
               width: width ?? 138,
               child: GestureDetector(
                 onTap: () {
-                  onItemClick?.call(index);
+                  CommonNavigation.redirectToDetailScreen(
+                    context,
+                    mediaType: ApiKey.person,
+                    mediaId: model?[index].id?.toString() ?? "",
+                  );
                 },
                 child: Card(
                   elevation: 5,
@@ -48,16 +52,16 @@ class TmdbCastList extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      ExtendedImage.network(
-                        models[index].getImage(),
+                      ExtendedImageCreator(
+                        imageUrl: models[index].getImage(),
                         width: width ?? 138,
                         height: 175,
                         fit: BoxFit.cover,
+                        shape: BoxShape.rectangle,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
-                        cache: true,
                       ),
                       Expanded(
                         child: Padding(

@@ -1,13 +1,13 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/youtube/youtube_thumbnail.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';
 
@@ -28,7 +28,7 @@ class TmdbMediaView extends StatelessWidget {
     required this.mediaId,
     this.height,
     this.width,
-    this.mediaType,
+    required this.mediaType,
   });
 
   @override
@@ -182,15 +182,12 @@ class _TmdbBackdrops extends StatelessWidget {
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
-          return ExtendedImage.network(
-            backDrops[index].getImage(),
+          return ExtendedImageCreator(
+            imageUrl: backDrops[index].getImage(),
             width: width ?? 533,
             height: height ?? 300,
             fit: BoxFit.cover,
-            cache: true,
-            shape: BoxShape.rectangle,
             borderRadius: _getBorderRadius(index),
-            cacheMaxAge: const Duration(minutes: 30),
           );
         },
       ),
@@ -234,15 +231,12 @@ class _TmdbPosters extends StatelessWidget {
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
-          return ExtendedImage.network(
-            posters[index].getImage(),
+          return ExtendedImageCreator(
+            imageUrl: posters[index].getImage(),
             width: 160,
             height: height ?? 300,
             fit: BoxFit.cover,
-            cache: true,
-            shape: BoxShape.rectangle,
             borderRadius: _getBorderRadius(index),
-            cacheMaxAge: const Duration(minutes: 30),
           );
         },
       ),
