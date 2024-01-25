@@ -33,6 +33,7 @@ class ApiKey {
   static const String region = "region";
   static const String defaultSortOrder = "popularity.desc";
   static const String freeToWatchValue = "free|ads";
+  static const String vote_count_sort = "vote_count.desc";
 
   static const String certification = "certification";
   static const String certification_gte = "certification.gte";

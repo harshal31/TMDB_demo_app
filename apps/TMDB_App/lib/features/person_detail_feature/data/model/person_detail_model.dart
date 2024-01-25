@@ -14,9 +14,16 @@ class PersonDetailModel {
   final List<PersonCast>? casts;
   final MediaExternalId? tmdbShare;
   final Map<int, List<PersonCrew>> mapping;
+  final List<PersonCast>? knownFor;
 
-  PersonDetailModel(
-      {this.personDetail, this.crews, this.casts, this.tmdbShare, required this.mapping});
+  PersonDetailModel({
+    this.personDetail,
+    this.crews,
+    this.casts,
+    this.tmdbShare,
+    required this.mapping,
+    this.knownFor,
+  });
 
   PersonDetailModel copyWith({
     PersonDetail? personDetail,
@@ -24,6 +31,7 @@ class PersonDetailModel {
     List<PersonCast>? casts,
     MediaExternalId? tmdbShare,
     Map<int, List<PersonCrew>>? mapping,
+    List<PersonCast>? knownFor,
   }) {
     return PersonDetailModel(
       personDetail: personDetail ?? this.personDetail,
@@ -31,7 +39,12 @@ class PersonDetailModel {
       casts: casts ?? this.casts,
       tmdbShare: tmdbShare ?? this.tmdbShare,
       mapping: mapping ?? this.mapping,
+      knownFor: knownFor ?? this.knownFor,
     );
+  }
+
+  List<PersonCast> computeKnownFor() {
+    return this.casts?.sortWith((e) => e.voteAverage, Order.orderDouble) ?? [];
   }
 
   List<PersonCrew> transformCast() {

@@ -31,7 +31,10 @@ class PersonDetailUseCase {
         personDetail: r,
         tmdbShare: r?.mediaExternalIds,
       );
-      personDetailModel = personDetailModel.copyWith(mapping: personDetailModel.getMapping());
+      personDetailModel = personDetailModel.copyWith(
+        mapping: personDetailModel.getMapping(),
+        knownFor: personDetailModel.computeKnownFor(),
+      );
 
       return right(personDetailModel);
     });

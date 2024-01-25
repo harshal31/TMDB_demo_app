@@ -29,42 +29,82 @@ class TmdbSideView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            context.tr.status,
-            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+          Visibility(
+            visible: mediaDetail?.status?.isNotEmpty ?? false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.status,
+                  style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                Text(
+                  mediaDetail?.status ?? "",
+                  style: context.textTheme.titleSmall,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          Text(
-            mediaDetail?.status ?? "",
-            style: context.textTheme.titleMedium,
+          Visibility(
+            visible: mediaDetail?.originalLanguage?.isNotEmpty ?? false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.originalLanguage,
+                  style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                Text(
+                  mediaDetail?.originalLanguage ?? "",
+                  style: context.textTheme.titleMedium,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            context.tr.originalLanguage,
-            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+          Visibility(
+            visible: mediaDetail?.budget?.formatCurrencyInDollar.isNotEmpty ?? false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.budget,
+                  style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                Text(
+                  mediaDetail?.budget?.formatCurrencyInDollar ?? "-",
+                  style: context.textTheme.titleMedium,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          Text(
-            mediaDetail?.originalLanguage ?? "",
-            style: context.textTheme.titleMedium,
+          Visibility(
+            visible: mediaDetail?.revenue?.formatCurrencyInDollar.isNotEmpty ?? false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.revenue,
+                  style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                Text(
+                  mediaDetail?.revenue?.formatCurrencyInDollar ?? "-",
+                  style: context.textTheme.titleMedium,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            context.tr.budget,
-            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
-          ),
-          Text(
-            mediaDetail?.budget?.formatCurrencyInDollar ?? "-",
-            style: context.textTheme.titleMedium,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            context.tr.revenue,
-            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
-          ),
-          Text(
-            mediaDetail?.revenue?.formatCurrencyInDollar ?? "-",
-            style: context.textTheme.titleMedium,
-          ),
-          const SizedBox(height: 16),
           Text(
             context.tr.keywords,
             style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w900),
@@ -125,53 +165,109 @@ class TmdbTvSeriesSideView extends StatelessWidget {
             context.tr.facts,
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
-          const SizedBox(height: 16),
-          Text(
-            context.tr.status,
-            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+          Visibility(
+            visible: mediaDetail?.budget?.formatCurrencyInDollar.isNotEmpty ?? false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.budget,
+                  style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                Text(
+                  mediaDetail?.budget?.formatCurrencyInDollar ?? "-",
+                  style: context.textTheme.titleMedium,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          Text(
-            mediaDetail?.status ?? "",
-            style: context.textTheme.titleMedium,
+          Visibility(
+            visible: mediaDetail?.status?.isNotEmpty ?? false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.status,
+                  style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                Text(
+                  mediaDetail?.status ?? "",
+                  style: context.textTheme.titleMedium,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
           Text(
             context.tr.network,
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
-          SizedBox(
-            height: 30,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: mediaDetail?.networks?.length ?? 0,
-              itemBuilder: (ctx, index) {
-                return ExtendedImageCreator(
-                  imageUrl: mediaDetail?.networks?[index].getNetworkImage() ?? "",
-                  height: 30,
-                  fit: BoxFit.cover,
-                );
-              },
+          Visibility(
+            visible: mediaDetail?.networks?.isNotEmpty ?? false,
+            child: SizedBox(
+              height: 30,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: mediaDetail?.networks?.length ?? 0,
+                itemBuilder: (ctx, index) {
+                  return ExtendedImageCreator(
+                    imageUrl: mediaDetail?.networks?[index].getNetworkImage() ?? "",
+                    height: 30,
+                    fit: BoxFit.cover,
+                  );
+                },
+              ),
+            ),
+            replacement: Text(
+              context.tr.noNetworkForTvSeriesAvailable,
+              style: context.textTheme.titleLarge,
+              textAlign: TextAlign.center,
             ),
           ),
           const SizedBox(height: 16),
-          Text(
-            context.tr.originalLanguage,
-            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+          Visibility(
+            visible: mediaDetail?.originalLanguage?.isNotEmpty ?? false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.originalLanguage,
+                  style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                Text(
+                  mediaDetail?.originalLanguage ?? "",
+                  style: context.textTheme.titleMedium,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          Text(
-            mediaDetail?.originalLanguage ?? "",
-            style: context.textTheme.titleMedium,
+          Visibility(
+            visible: mediaDetail?.type?.isNotEmpty ?? false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.tr.type,
+                  style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                Text(
+                  mediaDetail?.type ?? "",
+                  style: context.textTheme.titleMedium,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            context.tr.type,
-            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
-          ),
-          Text(
-            mediaDetail?.type ?? "",
-            style: context.textTheme.titleMedium,
-          ),
-          const SizedBox(height: 16),
           Text(
             context.tr.keywords,
             style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w900),
@@ -245,25 +341,7 @@ class TmdbSidePersonView extends StatelessWidget {
                 ),
                 Text(
                   personDetail?.knownForDepartment ?? "",
-                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-              ],
-            ),
-          ),
-          Visibility(
-            visible: true,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  context.tr.knownCredits,
-                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "60",
-                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: context.textTheme.titleSmall,
                 ),
                 const SizedBox(height: 16),
               ],
@@ -281,7 +359,7 @@ class TmdbSidePersonView extends StatelessWidget {
                 ),
                 Text(
                   personDetail?.genderString ?? "",
-                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: context.textTheme.titleSmall,
                 ),
                 const SizedBox(height: 16),
               ],
@@ -299,7 +377,7 @@ class TmdbSidePersonView extends StatelessWidget {
                 ),
                 Text(
                   "${personDetail?.birthday ?? ""} ${personDetail?.getYearsOld(context) ?? ""}",
-                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: context.textTheme.titleSmall,
                 ),
                 const SizedBox(height: 16),
               ],
@@ -317,7 +395,7 @@ class TmdbSidePersonView extends StatelessWidget {
                 ),
                 Text(
                   personDetail?.placeOfBirth ?? "",
-                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: context.textTheme.titleSmall,
                 ),
                 const SizedBox(height: 16),
               ],
@@ -335,7 +413,7 @@ class TmdbSidePersonView extends StatelessWidget {
                 ),
                 Text(
                   personDetail?.alsoKnownAsString ?? "",
-                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: context.textTheme.titleSmall,
                 ),
                 const SizedBox(height: 16),
               ],

@@ -229,4 +229,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String episodeMapping(Object episode) {
     return '($episode Episodes) ';
   }
+
+  @override
+  String get noNetworkForTvSeriesAvailable => 'Not network for tv series available';
 }

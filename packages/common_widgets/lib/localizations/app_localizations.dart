@@ -510,6 +510,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'({episode} Episodes) '**
   String episodeMapping(Object episode);
+
+  /// No description provided for @noNetworkForTvSeriesAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not network for tv series available'**
+  String get noNetworkForTvSeriesAvailable;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

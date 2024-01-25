@@ -229,43 +229,46 @@ class MovieDetailMobileScreen extends StatelessWidget {
                                       padding: const EdgeInsets.only(top: 8.0),
                                       child: SizedBox(
                                         height: 40,
-                                        child: ListView.separated(
-                                          separatorBuilder: (ctx, index) =>
-                                              const Divider(indent: 20),
-                                          itemCount: state.mediaDetailModel
-                                              .getWriterDirectorMapping()
-                                              .$1
-                                              .length,
-                                          padding: EdgeInsets.zero,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (ctx, index) {
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  state.mediaDetailModel
-                                                      .getWriterDirectorMapping()
-                                                      .$1[index],
-                                                  style: context.textTheme.bodySmall?.copyWith(
-                                                    fontWeight: FontWeight.w900,
+                                        child: Center(
+                                          child: ListView.separated(
+                                            shrinkWrap: true,
+                                            separatorBuilder: (ctx, index) =>
+                                                const Divider(indent: 20),
+                                            itemCount: state.mediaDetailModel
+                                                .getWriterDirectorMapping()
+                                                .$1
+                                                .length,
+                                            padding: EdgeInsets.zero,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (ctx, index) {
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    state.mediaDetailModel
+                                                        .getWriterDirectorMapping()
+                                                        .$1[index],
+                                                    style: context.textTheme.bodySmall?.copyWith(
+                                                      fontWeight: FontWeight.w900,
+                                                    ),
+                                                    maxLines: 1,
+                                                    softWrap: true,
+                                                    overflow: TextOverflow.ellipsis,
                                                   ),
-                                                  maxLines: 1,
-                                                  softWrap: true,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                                Text(
-                                                  state.mediaDetailModel
-                                                      .getWriterDirectorMapping()
-                                                      .$2[index],
-                                                  style: context.textTheme.bodySmall,
-                                                  maxLines: 1,
-                                                  softWrap: true,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              ],
-                                            );
-                                          },
+                                                  Text(
+                                                    state.mediaDetailModel
+                                                        .getWriterDirectorMapping()
+                                                        .$2[index],
+                                                    style: context.textTheme.bodySmall,
+                                                    maxLines: 1,
+                                                    softWrap: true,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
                                     ),

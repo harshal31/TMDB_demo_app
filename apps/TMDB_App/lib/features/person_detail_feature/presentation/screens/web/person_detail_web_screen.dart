@@ -96,16 +96,15 @@ class PersonDetailWebScreen extends StatelessWidget {
                                 child: ListView.separated(
                                   separatorBuilder: (ctx, i) => const SizedBox(width: 16),
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: 3,
+                                  itemCount: state.personDetailModel.knownFor?.length ?? 0,
                                   itemBuilder: (ctx, i) {
                                     return ExtendedImageCreator(
                                       imageUrl:
-                                          "https://image.tmdb.org/t/p/w500/nCcvpJFHWYHfu5oPxTOyA1uSdqA.jpg",
+                                          state.personDetailModel.knownFor?[i].imagePosterPath ??
+                                              "",
                                       width: 130,
                                       height: 195,
                                       fit: BoxFit.cover,
-                                      shape: BoxShape.rectangle,
-                                      borderRadius: BorderRadius.circular(10),
                                     );
                                   },
                                 ),

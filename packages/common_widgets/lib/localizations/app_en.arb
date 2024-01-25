@@ -68,5 +68,6 @@
   "acting": "Acting",
   "yearOld": "{year} years old",
   "asCharacter": "as {name}",
-  "episodeMapping": "({episode} Episodes) "
+  "episodeMapping": "({episode} Episodes) ",
+  "noNetworkForTvSeriesAvailable": "Not network for tv series available"
 }

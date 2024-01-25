@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tmdb_app/constants/app_constant.dart';
 
 part 'person_credit.g.dart';
 
@@ -163,6 +164,14 @@ class PersonCast {
       name: name ?? this.name,
       episodeCount: episodeCount ?? this.episodeCount,
     );
+  }
+
+  String get imagePosterPath {
+    return AppConstant.imageBaseUrl + (this.posterPath ?? "");
+  }
+
+  String get imageBackdropPath {
+    return AppConstant.originalImageBaseUrl + (this.backdropPath ?? "");
   }
 }
 
