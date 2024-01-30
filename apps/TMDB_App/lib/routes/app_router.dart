@@ -39,7 +39,6 @@ class AppRouter {
                 },
                 routes: [
                   GoRoute(
-                    name: RouteName.movie,
                     path: "${RouteName.movie}/:${RouteParam.id}",
                     builder: (ctx, state) {
                       final movieId = state.pathParameters[RouteParam.id] ?? "";
@@ -47,7 +46,6 @@ class AppRouter {
                     },
                     routes: [
                       GoRoute(
-                        name: RouteName.youtubeVideo,
                         path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
                         builder: (ctx, state) {
                           final id = state.pathParameters[RouteParam.videoId] ?? "";
@@ -65,8 +63,7 @@ class AppRouter {
                     },
                     routes: [
                       GoRoute(
-                        name: RouteName.tvSeriesYoutubeVideo,
-                        path: "${RouteName.tvSeriesYoutubeVideo}/:${RouteParam.videoId}",
+                        path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
                         builder: (ctx, state) {
                           final id = state.pathParameters[RouteParam.videoId] ?? "";
                           return YoutubeVideo(id: id);
@@ -75,7 +72,6 @@ class AppRouter {
                     ],
                   ),
                   GoRoute(
-                    name: RouteName.person,
                     path: "${RouteName.person}/:${RouteParam.id}",
                     builder: (ctx, state) {
                       final personId = state.pathParameters[RouteParam.id] ?? "";

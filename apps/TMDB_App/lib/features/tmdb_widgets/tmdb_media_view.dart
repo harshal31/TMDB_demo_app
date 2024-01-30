@@ -4,12 +4,10 @@ import 'package:common_widgets/youtube/youtube_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
-import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/routes/route_name.dart';
-import 'package:tmdb_app/routes/route_param.dart';
 
 class TmdbMediaView extends StatelessWidget {
   final int pos;
@@ -119,14 +117,8 @@ class _TmdbVideos extends StatelessWidget {
                         color: context.colorTheme.primaryContainer,
                       ),
                       onPressed: () {
-                        context.goNamed(
-                          (this.mediaType == ApiKey.movie
-                              ? RouteName.youtubeVideo
-                              : RouteName.tvSeriesYoutubeVideo),
-                          pathParameters: {
-                            RouteParam.videoId: videos[index].key ?? "",
-                            RouteParam.id: mediaId
-                          },
+                        context.go(
+                          "${RouteName.home}/$mediaType/$mediaId/${RouteName.youtubeVideo}/${videos[index].key}/",
                         );
                       },
                     ),

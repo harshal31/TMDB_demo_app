@@ -8,7 +8,6 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.d
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommendations.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/routes/route_name.dart';
-import 'package:tmdb_app/routes/route_param.dart';
 
 class TmdbRecomendations extends StatelessWidget {
   final MediaDetail? detail;
@@ -71,15 +70,10 @@ class TmdbRecomendations extends StatelessWidget {
     String? mediaId = "609681",
   }) {
     if (kIsWeb) {
-      context.goNamed(
-        mediaType ?? RouteName.movie,
-        pathParameters: {RouteParam.id: mediaId ?? ""},
-      );
-    } else {
-      context.pushNamed(
-        mediaType ?? RouteName.movie,
-        pathParameters: {RouteParam.id: mediaId ?? ""},
-      );
+      context.go("${RouteName.home}/$mediaType/$mediaId");
+      return;
     }
+
+    context.push("${RouteName.home}/$mediaType/$mediaId");
   }
 }
