@@ -40,16 +40,24 @@ class AppRouter {
                 routes: [
                   GoRoute(
                     path: "${RouteName.movie}/:${RouteParam.id}",
-                    builder: (ctx, state) {
+                    pageBuilder: (ctx, state) {
                       final movieId = state.pathParameters[RouteParam.id] ?? "";
-                      return MovieDetailScreen(key: ValueKey(movieId), movieId: movieId);
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: MovieDetailScreen(key: ValueKey(movieId), movieId: movieId),
+                      );
                     },
                     routes: [
                       GoRoute(
                         path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
-                        builder: (ctx, state) {
+                        pageBuilder: (ctx, state) {
                           final id = state.pathParameters[RouteParam.videoId] ?? "";
-                          return YoutubeVideo(id: id);
+                          return animatedPage(
+                            ctx,
+                            state,
+                            widget: YoutubeVideo(id: id),
+                          );
                         },
                       )
                     ],
@@ -57,25 +65,37 @@ class AppRouter {
                   GoRoute(
                     name: RouteName.tv,
                     path: "${RouteName.tv}/:${RouteParam.id}",
-                    builder: (ctx, state) {
+                    pageBuilder: (ctx, state) {
                       final seriesId = state.pathParameters[RouteParam.id] ?? "";
-                      return TvDetailScreen(key: ValueKey(seriesId), seriesId: seriesId);
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: TvDetailScreen(key: ValueKey(seriesId), seriesId: seriesId),
+                      );
                     },
                     routes: [
                       GoRoute(
                         path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
-                        builder: (ctx, state) {
+                        pageBuilder: (ctx, state) {
                           final id = state.pathParameters[RouteParam.videoId] ?? "";
-                          return YoutubeVideo(id: id);
+                          return animatedPage(
+                            ctx,
+                            state,
+                            widget: YoutubeVideo(id: id),
+                          );
                         },
                       )
                     ],
                   ),
                   GoRoute(
                     path: "${RouteName.person}/:${RouteParam.id}",
-                    builder: (ctx, state) {
+                    pageBuilder: (ctx, state) {
                       final personId = state.pathParameters[RouteParam.id] ?? "";
-                      return PersonDetailScreen(key: ValueKey(personId), personId: personId);
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: PersonDetailScreen(key: ValueKey(personId), personId: personId),
+                      );
                     },
                   ),
                 ],
@@ -95,6 +115,19 @@ class AppRouter {
       ),
     ],
   );
+
+  static Page<dynamic> animatedPage(
+    BuildContext ctx,
+    GoRouterState state, {
+    required Widget widget,
+  }) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: widget,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
+    );
+  }
 
   static FutureOr<String?> shouldRedirectToHomeScreenIfLoggedIn(
     BuildContext c,

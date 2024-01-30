@@ -3,6 +3,7 @@ import "package:common_widgets/theme/app_theme.dart";
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_web_plugins/url_strategy.dart";
+import "package:go_router/go_router.dart";
 import "package:responsive_framework/responsive_framework.dart";
 import "package:tmdb_app/app_level_provider/app_provider.dart";
 import "package:tmdb_app/constants/app_constant.dart";
@@ -11,6 +12,7 @@ import "package:tmdb_app/data_storage/hive_manager.dart";
 import "package:tmdb_app/routes/app_router.dart";
 
 void main() async {
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   runApp(MainApp());
