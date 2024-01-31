@@ -241,4 +241,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get search => 'Search';
+
+  @override
+  String tvShowsCount(Object count) {
+    return 'TV Shows ($count)';
+  }
+
+  @override
+  String moviesCount(Object count) {
+    return 'Movies ($count)';
+  }
+
+  @override
+  String peopleCount(Object count) {
+    return 'People ($count)';
+  }
+
+  @override
+  String collectionsCount(Object count) {
+    return 'Collections ($count)';
+  }
+
+  @override
+  String keywordsCount(Object count) {
+    return 'Keywords ($count)';
+  }
+
+  @override
+  String networksCount(Object count) {
+    return 'Networks ($count)';
+  }
+
+  @override
+  String companiesCount(Object count) {
+    return 'Companies ($count)';
+  }
 }

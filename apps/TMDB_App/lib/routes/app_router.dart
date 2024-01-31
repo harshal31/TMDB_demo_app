@@ -11,6 +11,7 @@ import 'package:tmdb_app/features/authentication_feature/presentation/screens/au
 import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.dart";
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
 import 'package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart';
+import "package:tmdb_app/features/search_feature/presentation/screens/search_screen.dart";
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
 import "package:tmdb_app/routes/route_param.dart";
@@ -38,6 +39,38 @@ class AppRouter {
                   return const HomeScreen();
                 },
                 routes: [
+                  GoRoute(
+                    path: "${RouteName.search}/:${RouteParam.searchType}",
+                    pageBuilder: (ctx, state) {
+                      final path = state.pathParameters[RouteParam.searchType] ?? "";
+                      final searchQuery = state.pathParameters[RouteParam.query] ?? "";
+                      final page = state.pathParameters[RouteParam.page] ?? "1";
+
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: SearchScreen(
+                          key: ValueKey(path),
+                          searchType: path,
+                          query: searchQuery,
+                          page: int.parse(page),
+                        ),
+                      );
+                    },
+                    routes: [
+                      GoRoute(
+                        path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                        pageBuilder: (ctx, state) {
+                          final id = state.pathParameters[RouteParam.videoId] ?? "";
+                          return animatedPage(
+                            ctx,
+                            state,
+                            widget: YoutubeVideo(id: id),
+                          );
+                        },
+                      )
+                    ],
+                  ),
                   GoRoute(
                     path: "${RouteName.movie}/:${RouteParam.id}",
                     pageBuilder: (ctx, state) {
@@ -124,8 +157,11 @@ class AppRouter {
     return CustomTransitionPage<void>(
       key: state.pageKey,
       child: widget,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          FadeTransition(opacity: animation, child: child),
+      transitionDuration: const Duration(milliseconds: 200),
+      reverseTransitionDuration: const Duration(milliseconds: 200),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
     );
   }
 

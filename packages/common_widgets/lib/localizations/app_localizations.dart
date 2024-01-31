@@ -534,6 +534,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
+
+  /// No description provided for @tvShowsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'TV Shows ({count})'**
+  String tvShowsCount(Object count);
+
+  /// No description provided for @moviesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Movies ({count})'**
+  String moviesCount(Object count);
+
+  /// No description provided for @peopleCount.
+  ///
+  /// In en, this message translates to:
+  /// **'People ({count})'**
+  String peopleCount(Object count);
+
+  /// No description provided for @collectionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Collections ({count})'**
+  String collectionsCount(Object count);
+
+  /// No description provided for @keywordsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Keywords ({count})'**
+  String keywordsCount(Object count);
+
+  /// No description provided for @networksCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Networks ({count})'**
+  String networksCount(Object count);
+
+  /// No description provided for @companiesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Companies ({count})'**
+  String companiesCount(Object count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -72,5 +72,12 @@
   "noNetworkForTvSeriesAvailable": "Not network for tv series available",
   "home": "Home",
   "profile": "Profile",
-  "search": "Search"
+  "search": "Search",
+  "tvShowsCount": "TV Shows ({count})",
+  "moviesCount": "Movies ({count})",
+  "peopleCount": "People ({count})",
+  "collectionsCount": "Collections ({count})",
+  "keywordsCount": "Keywords ({count})",
+  "networksCount": "Networks ({count})",
+  "companiesCount": "Companies ({count})"
 }

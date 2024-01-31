@@ -14,4 +14,9 @@ class Endpoint {
   static const String saveUserPref = "/account/account_id/{${ApiKey.dynamicPath}}";
   static const String personCredits = "/person/{${ApiKey.typeId}}/{${ApiKey.creditType}}";
   static const String personDetail = "/person/{${ApiKey.typeId}}";
+  static const String searchCompany = "/search/company";
+  static const String searchKeyword = "/search/keyword";
+  static const String searchPerson = "/search/person";
+  static const String searchMovie = "/search/movie";
+  static const String searchTv = "/search/tv";
 }

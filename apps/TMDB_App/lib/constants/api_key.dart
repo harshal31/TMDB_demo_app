@@ -10,6 +10,7 @@ class ApiKey {
   static const String typeId = "typeId";
   static const String sessionId = "session_id";
   static const String creditType = "creditType";
+  static const String query = "query";
 
   static const String defaultLanguage = "en";
   static const String week = "week";
