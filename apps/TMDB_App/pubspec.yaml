@@ -21,7 +21,7 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.1.2
   get_it: ^7.6.7
-  go_router: ^13.1.0
+  go_router: ^12.1.3
   json_annotation: ^4.8.1
   fpdart: ^1.1.0
   equatable: ^2.0.5
@@ -31,7 +31,6 @@ dependencies:
   pretty_dio_logger: ^1.3.1
   image_network: ^2.5.4+1
   web_smooth_scroll: ^1.1.0
-  hydrated_bloc: ^9.1.3
   common_widgets:
     path: ../../packages/common_widgets
 

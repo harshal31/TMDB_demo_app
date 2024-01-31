@@ -117,7 +117,7 @@ class _TmdbVideos extends StatelessWidget {
                         color: context.colorTheme.primaryContainer,
                       ),
                       onPressed: () {
-                        context.go(
+                        context.push(
                           "${RouteName.home}/$mediaType/$mediaId/${RouteName.youtubeVideo}/${videos[index].key}/",
                         );
                       },

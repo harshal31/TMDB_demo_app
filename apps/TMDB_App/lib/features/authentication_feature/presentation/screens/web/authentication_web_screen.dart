@@ -50,15 +50,6 @@ class AuthenticationWebScreen extends StatelessWidget {
                       TextFormField(
                         controller: authenticationCubit.userNameController,
                         textAlignVertical: TextAlignVertical.center,
-                        validator: (s) {
-                          if (authenticationCubit.shouldSkipUserNameError) {
-                            return null;
-                          }
-                          if (s?.isEmpty ?? true) {
-                            return context.tr.invalidUserNameMessage;
-                          }
-                          return null;
-                        },
                         onChanged: (_) {
                           context.read<ButtonStateCubit>().updateButtonState(
                               authenticationCubit.userNameController.text.isEmpty ||
@@ -81,13 +72,6 @@ class AuthenticationWebScreen extends StatelessWidget {
                         controller: authenticationCubit.passwordController,
                         textAlignVertical: TextAlignVertical.center,
                         obscureText: state.shouldObscure,
-                        validator: (s) {
-                          if (s?.isEmpty ?? true) {
-                            return context.tr.invalidPasswordMessage;
-                          }
-
-                          return null;
-                        },
                         onChanged: (c) {
                           if (c.length == 1) {
                             authenticationCubit.formKey.currentState?.validate();
@@ -145,7 +129,7 @@ class AuthenticationWebScreen extends StatelessWidget {
                                     height: 50,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: context.colorTheme.primaryContainer,
+                                        backgroundColor: context.colorTheme.primary,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(6),
                                         ),
@@ -165,7 +149,12 @@ class AuthenticationWebScreen extends StatelessWidget {
                                             },
                                       child: Text(
                                         context.tr.login,
-                                        style: context.textTheme.titleMedium,
+                                        style: context.textTheme.titleMedium?.copyWith(
+                                          color: state
+                                              ? context.colorTheme.onSurface
+                                              : context.colorTheme.onPrimary,
+                                          fontWeight: state ? null : FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   );
