@@ -13,6 +13,7 @@ class CustomTabBar extends StatelessWidget {
   final double? width;
   final Function(int)? onSelectedTab;
   final int? initialIndex;
+  final TabController? controller;
 
   const CustomTabBar({
     super.key,
@@ -27,6 +28,7 @@ class CustomTabBar extends StatelessWidget {
     this.width,
     this.onSelectedTab,
     this.initialIndex,
+    this.controller,
   });
 
   @override
@@ -54,6 +56,7 @@ class CustomTabBar extends StatelessWidget {
             ),
           ),
           child: TabBar(
+            controller: controller,
             padding: EdgeInsets.zero,
             indicatorWeight: 0,
             dividerColor: Colors.transparent,
@@ -78,11 +81,11 @@ class CustomTabBar extends StatelessWidget {
             ),
             tabs: titles
                 .map((e) => Tab(
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(e),
-              ),
-            ))
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(e),
+                      ),
+                    ))
                 .toList(),
           ),
         ),

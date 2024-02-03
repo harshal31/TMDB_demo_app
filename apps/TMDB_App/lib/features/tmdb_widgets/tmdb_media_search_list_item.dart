@@ -8,8 +8,7 @@ class TmdbMediaSearchListItem extends StatelessWidget {
   final String subtitle;
   final String date;
   final String imageUrl;
-  final int index;
-  final Function(int index)? onItemClick;
+  final Function()? onItemClick;
 
   const TmdbMediaSearchListItem({
     super.key,
@@ -17,7 +16,6 @@ class TmdbMediaSearchListItem extends StatelessWidget {
     required this.subtitle,
     required this.date,
     required this.imageUrl,
-    required this.index,
     this.onItemClick,
   });
 
@@ -45,7 +43,7 @@ class TmdbMediaSearchListItem extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            onItemClick?.call(index);
+            onItemClick?.call();
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

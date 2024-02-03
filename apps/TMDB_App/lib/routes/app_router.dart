@@ -55,19 +55,6 @@ class AppRouter {
                         ),
                       );
                     },
-                    routes: [
-                      GoRoute(
-                        path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
-                        pageBuilder: (ctx, state) {
-                          final id = state.pathParameters[RouteParam.videoId] ?? "";
-                          return animatedPage(
-                            ctx,
-                            state,
-                            widget: YoutubeVideo(id: id),
-                          );
-                        },
-                      )
-                    ],
                   ),
                   GoRoute(
                     path: "${RouteName.movie}/:${RouteParam.id}",

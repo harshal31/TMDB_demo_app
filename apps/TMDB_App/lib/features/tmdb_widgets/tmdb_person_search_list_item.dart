@@ -6,13 +6,11 @@ import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 
 class TmdbPersonSearchListItem extends StatelessWidget {
   final Persons? person;
-  final int index;
-  final Function(int index)? onItemClick;
+  final Function()? onItemClick;
 
   const TmdbPersonSearchListItem({
     super.key,
     this.person,
-    required this.index,
     this.onItemClick,
   });
 
@@ -40,7 +38,7 @@ class TmdbPersonSearchListItem extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            onItemClick?.call(index);
+            onItemClick?.call();
           },
           child: Row(
             children: [

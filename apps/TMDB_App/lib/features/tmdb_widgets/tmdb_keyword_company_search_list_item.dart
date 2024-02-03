@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 
 class TmdbKeywordCompanySearchListItem extends StatelessWidget {
   final String name;
-  final int index;
-  final Function(int index)? onItemClick;
+  final Function()? onItemClick;
 
   const TmdbKeywordCompanySearchListItem({
     super.key,
     required this.name,
-    required this.index,
     this.onItemClick,
   });
 
@@ -36,7 +34,7 @@ class TmdbKeywordCompanySearchListItem extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            onItemClick?.call(index);
+            onItemClick?.call();
           },
           child: Padding(
             padding: const EdgeInsets.all(16.0),

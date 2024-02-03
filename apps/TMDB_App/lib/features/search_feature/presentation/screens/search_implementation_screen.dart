@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_company_model.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_keywords_model.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_movie_model.dart';
@@ -20,22 +21,23 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart'
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_person_search_list_item.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';
+import 'package:tmdb_app/utils/common_navigation.dart';
 
-class SearchWebScreen extends StatefulWidget {
+class SearchImplementationScreen extends StatefulWidget {
   final String searchType;
   final String query;
 
-  const SearchWebScreen({
+  const SearchImplementationScreen({
     super.key,
     required this.searchType,
     required this.query,
   });
 
   @override
-  State<SearchWebScreen> createState() => _SearchWebScreenState();
+  State<SearchImplementationScreen> createState() => _SearchImplementationScreenState();
 }
 
-class _SearchWebScreenState extends State<SearchWebScreen> {
+class _SearchImplementationScreenState extends State<SearchImplementationScreen> {
   late TextEditingController _textEditingController;
   late SearchManager _searchManager;
 
@@ -50,7 +52,7 @@ class _SearchWebScreenState extends State<SearchWebScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(50, 16, 50, 16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -90,29 +92,27 @@ class _SearchWebScreenState extends State<SearchWebScreen> {
           const SizedBox(height: 16),
           BlocBuilder<CombineCountCubit, CombineCountState>(
             builder: (context, state) {
-              return FittedBox(
-                child: CustomTabBar(
-                  initialIndex: _searchManager.getIndex(widget.searchType),
-                  isScrollable: true,
-                  tabAlignment: TabAlignment.start,
-                  selectedColor: context.colorTheme.primaryContainer,
-                  titles: [
-                    context.tr.moviesCount(state.movieCount),
-                    context.tr.tvShowsCount(state.tvShowsCount),
-                    context.tr.peopleCount(state.personCount),
-                    context.tr.keywordsCount(state.keywordsCount),
-                    context.tr.companiesCount(state.companyCount),
-                  ],
-                  onSelectedTab: (i) {
-                    context.push(
-                      Uri(
-                        path:
-                            "${RouteName.home}/${RouteName.search}/${_searchManager.getSearchType(i)}",
-                        queryParameters: {RouteParam.query: _textEditingController.text},
-                      ).toString(),
-                    );
-                  },
-                ),
+              return CustomTabBar(
+                initialIndex: _searchManager.getIndex(widget.searchType),
+                isScrollable: true,
+                tabAlignment: TabAlignment.start,
+                selectedColor: context.colorTheme.primaryContainer,
+                titles: [
+                  context.tr.moviesCount(state.movieCount),
+                  context.tr.tvShowsCount(state.tvShowsCount),
+                  context.tr.peopleCount(state.personCount),
+                  context.tr.keywordsCount(state.keywordsCount),
+                  context.tr.companiesCount(state.companyCount),
+                ],
+                onSelectedTab: (i) {
+                  context.push(
+                    Uri(
+                      path:
+                          "${RouteName.home}/${RouteName.search}/${_searchManager.getSearchType(i)}",
+                      queryParameters: {RouteParam.query: _textEditingController.text},
+                    ).toString(),
+                  );
+                },
               );
             },
           ),
@@ -143,46 +143,64 @@ class _SearchWebScreenState extends State<SearchWebScreen> {
                             if (item is Movies) {
                               return TmdbMediaSearchListItem(
                                 key: ValueKey(index),
-                                title: item.originalTitle ?? "",
+                                title: item.title ?? item.originalTitle ?? "",
                                 subtitle: item.overview ?? "",
                                 date: item.releaseDate ?? "",
                                 imageUrl: item.imageUrl,
-                                index: index,
+                                onItemClick: () {
+                                  CommonNavigation.redirectToDetailScreen(
+                                    context,
+                                    mediaType: ApiKey.movie,
+                                    mediaId: item.id?.toString() ?? "",
+                                  );
+                                },
                               );
                             }
 
                             if (item is TvShows) {
                               return TmdbMediaSearchListItem(
                                 key: ValueKey(index),
-                                title: item.name ?? "",
+                                title: item.name ?? item.originalName ?? "",
                                 subtitle: item.overview ?? "",
                                 date: item.firstAirDate ?? "",
                                 imageUrl: item.imageUrl,
-                                index: index,
+                                onItemClick: () {
+                                  CommonNavigation.redirectToDetailScreen(
+                                    context,
+                                    mediaType: ApiKey.tv,
+                                    mediaId: item.id?.toString() ?? "",
+                                  );
+                                },
                               );
                             }
 
                             if (item is Persons) {
                               return TmdbPersonSearchListItem(
                                 key: ValueKey(index),
-                                index: index,
                                 person: item,
+                                onItemClick: () {
+                                  CommonNavigation.redirectToDetailScreen(
+                                    context,
+                                    mediaType: ApiKey.person,
+                                    mediaId: item.id?.toString() ?? "",
+                                  );
+                                },
                               );
                             }
 
                             if (item is SearchKeywords) {
                               return TmdbKeywordCompanySearchListItem(
                                 key: ValueKey(index),
-                                index: index,
                                 name: item.name ?? "",
+                                onItemClick: () {},
                               );
                             }
 
                             if (item is Companies) {
                               return TmdbKeywordCompanySearchListItem(
                                 key: ValueKey(index),
-                                index: index,
                                 name: item.name ?? "",
+                                onItemClick: () {},
                               );
                             }
 

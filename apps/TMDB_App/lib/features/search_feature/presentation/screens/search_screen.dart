@@ -1,11 +1,10 @@
-import 'package:common_widgets/theme/size_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tmdb_app/features/search_feature/data/search_api_service.dart';
 import 'package:tmdb_app/features/search_feature/presentation/cubits/combine_count_cubit.dart';
 import 'package:tmdb_app/features/search_feature/presentation/cubits/search_cubit.dart';
-import 'package:tmdb_app/features/search_feature/presentation/screens/web/search_web_screen.dart';
+import 'package:tmdb_app/features/search_feature/presentation/screens/search_implementation_screen.dart';
 import 'package:tmdb_app/features/search_feature/presentation/use_case/combine_count_use_case.dart';
 import 'package:tmdb_app/features/search_feature/presentation/use_case/search_company_use_case.dart';
 import 'package:tmdb_app/features/search_feature/presentation/use_case/search_keywords_use_case%20copy.dart';
@@ -85,13 +84,9 @@ class SearchScreen extends StatelessWidget {
       ],
       child: SafeArea(
         child: Scaffold(
-          body: SizeDetector(
-            mobileBuilder: () => Container(),
-            tabletBuilder: () => Container(),
-            desktopBuilder: () => SearchWebScreen(
-              searchType: searchType,
-              query: query,
-            ),
+          body: SearchImplementationScreen(
+            searchType: searchType,
+            query: query,
           ),
         ),
       ),

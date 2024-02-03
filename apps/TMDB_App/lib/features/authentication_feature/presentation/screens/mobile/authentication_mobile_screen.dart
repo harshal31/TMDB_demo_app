@@ -129,7 +129,7 @@ class AuthenticationMobileScreen extends StatelessWidget {
                                     width: double.infinity,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: context.colorTheme.primaryContainer,
+                                        backgroundColor: context.colorTheme.primary,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(6),
                                         ),
@@ -149,7 +149,12 @@ class AuthenticationMobileScreen extends StatelessWidget {
                                             },
                                       child: Text(
                                         context.tr.login,
-                                        style: context.textTheme.titleMedium,
+                                        style: context.textTheme.titleMedium?.copyWith(
+                                          color: state
+                                              ? context.colorTheme.onSurface
+                                              : context.colorTheme.onPrimary,
+                                          fontWeight: state ? null : FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   );
