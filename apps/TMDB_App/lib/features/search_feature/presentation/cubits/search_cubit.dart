@@ -43,14 +43,11 @@ class SearchCubit extends Cubit<SearchState> {
       },
       (r) {
         final isLastPage = (r.movies?.length ?? 0) < _pageSize;
-        final newList = (state.searchMoviesState is SearchMoviesPaginationLoaded)
-            ? (state.searchMoviesState as SearchMoviesPaginationLoaded).items + (r.movies ?? [])
-            : (r.movies ?? []);
 
         emit(
           state.copyWith(
             searchMoviesState: SearchMoviesPaginationLoaded(
-              items: newList,
+              items: r.movies ?? [],
               hasReachedMax: isLastPage,
               model: r,
             ),
@@ -81,15 +78,11 @@ class SearchCubit extends Cubit<SearchState> {
       },
       (r) {
         final isLastPage = (r.companies?.length ?? 0) < _pageSize;
-        final newList = (state.searchCompaniesState is SearchCompaniesPaginationLoaded)
-            ? (state.searchCompaniesState as SearchCompaniesPaginationLoaded).items +
-                (r.companies ?? [])
-            : (r.companies ?? []);
 
         emit(
           state.copyWith(
             searchCompaniesState: SearchCompaniesPaginationLoaded(
-              items: newList,
+              items: r.companies ?? [],
               hasReachedMax: isLastPage,
               model: r,
             ),
@@ -120,15 +113,11 @@ class SearchCubit extends Cubit<SearchState> {
       },
       (r) {
         final isLastPage = (r.tvShows?.length ?? 0) < _pageSize;
-        final newList = (state.searchCompaniesState is SearchTvShowsPaginationLoaded)
-            ? (state.searchCompaniesState as SearchTvShowsPaginationLoaded).items +
-                (r.tvShows ?? [])
-            : (r.tvShows ?? []);
 
         emit(
           state.copyWith(
             searchTvShowsState: SearchTvShowsPaginationLoaded(
-              items: newList,
+              items: r.tvShows ?? [],
               hasReachedMax: isLastPage,
               model: r,
             ),
@@ -159,15 +148,11 @@ class SearchCubit extends Cubit<SearchState> {
       },
       (r) {
         final isLastPage = (r.searchKeywords?.length ?? 0) < _pageSize;
-        final newList = (state.searchKeywordsState is SearchKeywordsPaginationLoaded)
-            ? (state.searchKeywordsState as SearchKeywordsPaginationLoaded).items +
-                (r.searchKeywords ?? [])
-            : (r.searchKeywords ?? []);
 
         emit(
           state.copyWith(
             searchKeywordsState: SearchKeywordsPaginationLoaded(
-              items: newList,
+              items: r.searchKeywords ?? [],
               hasReachedMax: isLastPage,
               model: r,
             ),
@@ -198,14 +183,11 @@ class SearchCubit extends Cubit<SearchState> {
       },
       (r) {
         final isLastPage = (r.persons?.length ?? 0) < _pageSize;
-        final newList = (state.searchPersonsState is SearchPersonsPaginationLoaded)
-            ? (state.searchPersonsState as SearchPersonsPaginationLoaded).items + (r.persons ?? [])
-            : (r.persons ?? []);
 
         emit(
           state.copyWith(
             searchPersonsState: SearchPersonsPaginationLoaded(
-              items: newList,
+              items: r.persons ?? [],
               hasReachedMax: isLastPage,
               model: r,
             ),

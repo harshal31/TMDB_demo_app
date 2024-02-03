@@ -276,4 +276,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String companiesCount(Object count) {
     return 'Companies ($count)';
   }
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get searchFor => 'Search for a movie, tv show, person...';
+
+  @override
+  String actionFor(Object knownFor, Object name) {
+    return '$knownFor. $name';
+  }
 }

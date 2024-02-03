@@ -91,6 +91,11 @@ class HiveManager {
     return value is double ? value : 0.0;
   }
 
+  Future<void> delete(String key) async {
+    final Box<dynamic> box = Hive.box(boxName!);
+    return await box.delete(key);
+  }
+
   Future<int> clearBox() async {
     final Box<dynamic> box = Hive.box(boxName!);
     int value = await box.clear();

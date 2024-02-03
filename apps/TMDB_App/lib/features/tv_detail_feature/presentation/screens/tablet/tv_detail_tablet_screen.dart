@@ -59,15 +59,19 @@ class TvDetailTabletScreen extends StatelessWidget {
                 height: 570,
                 child: Stack(
                   children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Opacity(
-                        opacity: 0.3,
-                        child: ExtendedImageCreator(
-                          imageUrl: state.mediaDetailModel.getBackdropImage(),
-                          fit: BoxFit.cover,
-                          borderRadius: BorderRadius.zero,
-                          shouldDisplayErrorImage: false,
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Opacity(
+                          opacity: 0.3,
+                          child: ExtendedImageCreator(
+                            imageUrl: state.mediaDetailModel.getBackdropImage(),
+                            fit: BoxFit.cover,
+                            height: double.infinity,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.zero,
+                            shouldDisplayErrorImage: false,
+                          ),
                         ),
                       ),
                     ),

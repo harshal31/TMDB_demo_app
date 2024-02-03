@@ -79,5 +79,8 @@
   "collectionsCount": "Collections ({count})",
   "keywordsCount": "Keywords ({count})",
   "networksCount": "Networks ({count})",
-  "companiesCount": "Companies ({count})"
+  "companiesCount": "Companies ({count})",
+  "tryAgain": "Try Again",
+  "searchFor": "Search for a movie, tv show, person...",
+  "actionFor": "{knownFor}. {name}"
 }

@@ -38,8 +38,8 @@ Movies _$MoviesFromJson(Map<String, dynamic> json) => Movies(
       releaseDate: json['release_date'] as String?,
       title: json['title'] as String?,
       video: json['video'] as bool?,
-      voteAverage: json['vote_average'] as int?,
-      voteCount: json['vote_count'] as int?,
+      voteAverage: json['vote_average'],
+      voteCount: json['vote_count'],
     );
 
 Map<String, dynamic> _$MoviesToJson(Movies instance) => <String, dynamic>{

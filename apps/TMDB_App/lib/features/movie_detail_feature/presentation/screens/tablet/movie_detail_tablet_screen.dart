@@ -61,16 +61,19 @@ class MovieDetailTabletScreen extends StatelessWidget {
                 height: 570,
                 child: Stack(
                   children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Opacity(
-                        opacity: 0.3,
-                        child: ExtendedImageCreator(
-                          imageUrl: state.mediaDetailModel.getBackdropImage(),
-                          fit: BoxFit.cover,
-                          shouldDisplayErrorImage: false,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.zero,
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Opacity(
+                          opacity: 0.3,
+                          child: ExtendedImageCreator(
+                            imageUrl: state.mediaDetailModel.getBackdropImage(),
+                            fit: BoxFit.cover,
+                            height: double.infinity,
+                            shouldDisplayErrorImage: false,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.zero,
+                          ),
                         ),
                       ),
                     ),

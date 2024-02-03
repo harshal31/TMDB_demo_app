@@ -40,8 +40,8 @@ TvShows _$TvShowsFromJson(Map<String, dynamic> json) => TvShows(
       posterPath: json['poster_path'] as String?,
       firstAirDate: json['first_air_date'] as String?,
       name: json['name'] as String?,
-      voteAverage: (json['vote_average'] as num?)?.toDouble(),
-      voteCount: json['vote_count'] as int?,
+      voteAverage: json['vote_average'],
+      voteCount: json['vote_count'],
     );
 
 Map<String, dynamic> _$TvShowsToJson(TvShows instance) => <String, dynamic>{

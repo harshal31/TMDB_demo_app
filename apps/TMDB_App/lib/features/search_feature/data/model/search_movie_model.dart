@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tmdb_app/constants/app_constant.dart';
 
 part 'search_movie_model.g.dart';
 
@@ -66,9 +67,9 @@ class Movies {
   @JsonKey(name: 'video')
   bool? video;
   @JsonKey(name: 'vote_average')
-  int? voteAverage;
+  dynamic voteAverage;
   @JsonKey(name: 'vote_count')
-  int? voteCount;
+  dynamic voteCount;
 
   Movies({
     this.adult,
@@ -91,6 +92,8 @@ class Movies {
 
   Map<String, dynamic> toJson() => _$MoviesToJson(this);
 
+  String get imageUrl => AppConstant.originalImageBaseUrl + (this.posterPath ?? "");
+
   Movies copyWith({
     bool? adult,
     String? backdropPath,
@@ -104,8 +107,8 @@ class Movies {
     String? releaseDate,
     String? title,
     bool? video,
-    int? voteAverage,
-    int? voteCount,
+    dynamic voteAverage,
+    dynamic voteCount,
   }) {
     return Movies(
       adult: adult ?? this.adult,

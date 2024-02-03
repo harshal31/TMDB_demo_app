@@ -16,6 +16,7 @@ import "package:tmdb_app/features/home_feature/presentation/use_case/latest_use_
 import "package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart";
 import "package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart";
 import "package:tmdb_app/features/home_feature/presentation/use_case/tv_advance_filter_use_case.dart";
+import "package:tmdb_app/features/tmdb_widgets/tmdb_app_bar.dart";
 import "package:tmdb_app/network/dio_manager.dart";
 
 class HomeScreen extends StatelessWidget {
@@ -62,6 +63,7 @@ class HomeScreen extends StatelessWidget {
       ],
       child: SafeArea(
         child: Scaffold(
+          appBar: const TmdbAppBar(),
           body: SizeDetector(
             mobileBuilder: () => const HomeMobileScreen(),
             tabletBuilder: () => const HomeTabletScreen(),

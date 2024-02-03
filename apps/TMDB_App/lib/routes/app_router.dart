@@ -43,17 +43,15 @@ class AppRouter {
                     path: "${RouteName.search}/:${RouteParam.searchType}",
                     pageBuilder: (ctx, state) {
                       final path = state.pathParameters[RouteParam.searchType] ?? "";
-                      final searchQuery = state.pathParameters[RouteParam.query] ?? "";
-                      final page = state.pathParameters[RouteParam.page] ?? "1";
+                      final searchQuery = state.uri.queryParameters[RouteParam.query] ?? "";
 
                       return animatedPage(
                         ctx,
                         state,
                         widget: SearchScreen(
-                          key: ValueKey(path),
                           searchType: path,
+                          key: ValueKey(path + searchQuery),
                           query: searchQuery,
-                          page: int.parse(page),
                         ),
                       );
                     },

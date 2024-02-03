@@ -1,3 +1,4 @@
+import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_person_model.dart';
@@ -17,38 +18,72 @@ class TmdbPersonSearchListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        onItemClick?.call(index);
-      },
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        height: 70,
-        child: Row(
-          children: [
-            ExtendedImageCreator(
-              imageUrl: person?.imageUrl ?? "",
-              width: 94,
-              height: 141,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(person?.name ?? "", style: context.textTheme.titleLarge),
-                  const SizedBox(height: 2),
-                  Expanded(
-                    child: Text(
-                      "Acting. ${person?.knownFor?.map((e) => e.title).join(", ")}",
-                      style: context.textTheme.titleSmall,
-                    ),
-                  ),
-                ],
+    return Container(
+      key: key,
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(
+          color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
+          width: 1.0, // Border width
+        ),
+        borderRadius: BorderRadius.circular(10), // Border radius
+      ),
+      height: 90,
+      child: Card(
+        margin: EdgeInsets.zero,
+        surfaceTintColor: context.colorTheme.background,
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () {
+            onItemClick?.call(index);
+          },
+          child: Row(
+            children: [
+              ExtendedImageCreator(
+                imageUrl: person?.imageUrl ?? "",
+                fit: BoxFit.cover,
+                width: 70,
+                height: 90,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      person?.name ?? "",
+                      style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      context.tr.actionFor(
+                        person?.knownForDepartment ?? "",
+                        person?.knownFor?.map((e) => e.title).join(", ") ?? "",
+                      ),
+                      style: context.textTheme.titleSmall,
+                      maxLines: 1,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -15,27 +15,44 @@ class TmdbKeywordCompanySearchListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        onItemClick?.call(index);
-      },
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              name,
-              style: context.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w300,
-              ),
+    return Container(
+      key: key,
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(
+          color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
+          width: 1.0, // Border width
+        ),
+        borderRadius: BorderRadius.circular(10), // Border radius
+      ),
+      child: Card(
+        margin: EdgeInsets.zero,
+        surfaceTintColor: context.colorTheme.background,
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () {
+            onItemClick?.call(index);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w300,
+                  ),
+                )
+              ],
             ),
-            Divider(
-              color: context.colorTheme.onBackground.withOpacity(0.6),
-              thickness: 2.0,
-              height: 1.0,
-            ),
-          ],
+          ),
         ),
       ),
     );

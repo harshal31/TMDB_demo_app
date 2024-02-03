@@ -46,6 +46,31 @@ class SearchState with EquatableMixin {
     );
   }
 
+  bool get isMovieSearchState => (searchMoviesState is SearchMoviesPaginationNone ||
+      searchMoviesState is SearchMoviesPaginationLoading ||
+      searchMoviesState is SearchMoviesPaginationError ||
+      searchMoviesState is SearchMoviesPaginationLoaded);
+
+  bool get isTvShowsSearchState => (searchTvShowsState is SearchTvShowsPaginationNone ||
+      searchTvShowsState is SearchTvShowsPaginationLoading ||
+      searchTvShowsState is SearchTvShowsPaginationError ||
+      searchTvShowsState is SearchTvShowsPaginationLoaded);
+
+  bool get isSearchKeywordState => (searchKeywordsState is SearchKeywordsPaginationNone ||
+      searchKeywordsState is SearchKeywordsPaginationLoading ||
+      searchKeywordsState is SearchKeywordsPaginationError ||
+      searchKeywordsState is SearchKeywordsPaginationLoaded);
+
+  bool get isSearchCompaniesState => (searchCompaniesState is SearchCompaniesPaginationNone ||
+      searchCompaniesState is SearchCompaniesPaginationLoading ||
+      searchCompaniesState is SearchCompaniesPaginationError ||
+      searchCompaniesState is SearchCompaniesPaginationLoaded);
+
+  bool get isSearchPersonsState => (searchPersonsState is SearchPersonsPaginationNone ||
+      searchPersonsState is SearchPersonsPaginationLoading ||
+      searchPersonsState is SearchPersonsPaginationError ||
+      searchPersonsState is SearchPersonsPaginationLoaded);
+
   @override
   List<Object?> get props => [
         searchCompaniesState,

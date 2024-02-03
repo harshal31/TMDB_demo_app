@@ -576,6 +576,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Companies ({count})'**
   String companiesCount(Object count);
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get tryAgain;
+
+  /// No description provided for @searchFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for a movie, tv show, person...'**
+  String get searchFor;
+
+  /// No description provided for @actionFor.
+  ///
+  /// In en, this message translates to:
+  /// **'{knownFor}. {name}'**
+  String actionFor(Object knownFor, Object name);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
