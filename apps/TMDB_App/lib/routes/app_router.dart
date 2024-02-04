@@ -9,6 +9,8 @@ import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
 import 'package:tmdb_app/features/authentication_feature/presentation/screens/authentication_screen.dart';
 import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.dart";
+import "package:tmdb_app/features/keyword_media_screen/keyword_movie_screen.dart";
+import "package:tmdb_app/features/keyword_media_screen/keyword_tv_shows_screen.dart";
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
 import 'package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart';
 import "package:tmdb_app/features/search_feature/presentation/screens/search_screen.dart";
@@ -22,7 +24,7 @@ class AppRouter {
 
   static GoRouter goRouter = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteName.login,
+    initialLocation: RouteName.home,
     debugLogDiagnostics: true,
     routes: [
       StatefulShellRoute.indexedStack(
@@ -52,6 +54,42 @@ class AppRouter {
                           searchType: path,
                           key: ValueKey(path + searchQuery),
                           query: searchQuery,
+                        ),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path:
+                        "${RouteName.keywords}/:${RouteParam.keywordType}/${RouteParam.movie}/:${RouteParam.id}",
+                    pageBuilder: (ctx, state) {
+                      final keywordType = state.pathParameters[RouteParam.keywordType] ?? "";
+                      final keywordId = state.pathParameters[RouteParam.id] ?? "";
+
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: KeywordMoviesScreen(
+                          keywordName: keywordType,
+                          keywordId: keywordId,
+                          key: state.pageKey,
+                        ),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path:
+                        "${RouteName.keywords}/:${RouteParam.keywordType}/${RouteParam.tv}/:${RouteParam.id}",
+                    pageBuilder: (ctx, state) {
+                      final keywordType = state.pathParameters[RouteParam.keywordType] ?? "";
+                      final keywordId = state.pathParameters[RouteParam.id] ?? "";
+
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: KeywordTvShowsScreen(
+                          keywordName: keywordType,
+                          keywordId: keywordId,
+                          key: state.pageKey,
                         ),
                       );
                     },

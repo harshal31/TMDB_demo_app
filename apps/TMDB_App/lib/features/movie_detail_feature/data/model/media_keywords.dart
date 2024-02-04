@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'media_keywords.g.dart';
 
 @JsonSerializable()
@@ -7,24 +8,24 @@ class MediaKeywords {
   int? id;
   @JsonKey(name: 'keywords')
   List<Keywords>? keywords;
+  @JsonKey(name: 'results')
+  List<Keywords>? results;
 
-  MediaKeywords({
-    this.id,
-    this.keywords,
-  });
+  MediaKeywords({this.id, this.keywords, this.results});
 
-  factory MediaKeywords.fromJson(Map<String, dynamic> json) =>
-      _$MediaKeywordsFromJson(json);
+  factory MediaKeywords.fromJson(Map<String, dynamic> json) => _$MediaKeywordsFromJson(json);
 
   Map<String, dynamic> toJson() => _$MediaKeywordsToJson(this);
 
   MediaKeywords copyWith({
     int? id,
     List<Keywords>? keywords,
+    List<Keywords>? results,
   }) {
     return MediaKeywords(
       id: id ?? this.id,
       keywords: keywords ?? this.keywords,
+      results: results ?? this.results,
     );
   }
 }
@@ -41,8 +42,7 @@ class Keywords {
     this.name,
   });
 
-  factory Keywords.fromJson(Map<String, dynamic> json) =>
-      _$KeywordsFromJson(json);
+  factory Keywords.fromJson(Map<String, dynamic> json) => _$KeywordsFromJson(json);
 
   Map<String, dynamic> toJson() => _$KeywordsToJson(this);
 

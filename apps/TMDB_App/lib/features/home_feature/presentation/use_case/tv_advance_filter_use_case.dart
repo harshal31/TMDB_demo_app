@@ -10,7 +10,7 @@ class TvAdvanceFilterUseCase {
 
   TvAdvanceFilterUseCase(this._homeApiService);
 
-  Future<Either<ErrorResponse, List<LatestData>>> advanceTvFilter({
+  Future<Either<ErrorResponse, LatestResults>> advanceTvFilter({
     String? airDateGte,
     String? airDateLte,
     int? firstAirDateYear,
@@ -87,7 +87,7 @@ class TvAdvanceFilterUseCase {
 
     return result.fold(
       (l) => left(l),
-      (r) => right(r.latestData ?? []),
+      (r) => right(r),
     );
   }
 }

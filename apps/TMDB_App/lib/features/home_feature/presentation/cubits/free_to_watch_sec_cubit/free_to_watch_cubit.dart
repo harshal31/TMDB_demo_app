@@ -33,7 +33,7 @@ class FreeToWatchCubit extends Cubit<AdvanceFilterState> {
     }, (r) {
       emit(state.copyWith(
         latestStatus: AdvanceFilterStatusDone(generateUniqueKey()),
-        results: r,
+        results: r.latestData ?? [],
         pos: pos,
       ));
     });

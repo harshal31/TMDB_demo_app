@@ -13,7 +13,7 @@ class MoviesAdvanceFilterUseCase {
 
   MoviesAdvanceFilterUseCase(this._homeApiService);
 
-  Future<Either<ErrorResponse, List<LatestData>>> advanceMovieFilter({
+  Future<Either<ErrorResponse, LatestResults>> advanceMovieFilter({
     String? certification,
     String? certificationGte,
     String? certificationLte,
@@ -100,7 +100,7 @@ class MoviesAdvanceFilterUseCase {
 
     return result.fold(
       (l) => left(l),
-      (r) => right(r.latestData ?? []),
+      (r) => right(r),
     );
   }
 }
@@ -110,7 +110,11 @@ class AdvanceFilterState with EquatableMixin {
   final List<LatestData> results;
   final int pos;
 
-  AdvanceFilterState(this.latestStatus, this.results, this.pos);
+  AdvanceFilterState(
+    this.latestStatus,
+    this.results,
+    this.pos,
+  );
 
   factory AdvanceFilterState.initial() {
     return AdvanceFilterState(null, [], 0);
@@ -122,7 +126,10 @@ class AdvanceFilterState with EquatableMixin {
     int? pos,
   }) {
     return AdvanceFilterState(
-        latestStatus ?? this.latestStatus, results ?? this.results, pos ?? this.pos);
+      latestStatus ?? this.latestStatus,
+      results ?? this.results,
+      pos ?? this.pos,
+    );
   }
 
   List<String> get getImageUrls {
@@ -164,4 +171,71 @@ class AdvanceFilterStatusDone extends AdvanceFilterStatus {
 
   @override
   List<Object?> get props => [uniqueKey];
+}
+
+class AdvanceFilterPaginationState with EquatableMixin {
+  final AdvancePaginationState advancePaginationState;
+
+  AdvanceFilterPaginationState(this.advancePaginationState);
+
+  factory AdvanceFilterPaginationState.initial() {
+    return AdvanceFilterPaginationState(AdvanceFilterPaginationNone());
+  }
+
+  AdvanceFilterPaginationState copyWith({AdvancePaginationState? advancePaginationState}) {
+    return AdvanceFilterPaginationState(advancePaginationState ?? this.advancePaginationState);
+  }
+
+  @override
+  List<Object?> get props => [advancePaginationState];
+}
+
+sealed class AdvancePaginationState with EquatableMixin {
+  @override
+  List<Object?> get props => [];
+}
+
+class AdvanceFilterPaginationNone extends AdvancePaginationState {}
+
+class AdvanceFilterPaginationLoading extends AdvancePaginationState {}
+
+class AdvanceFilterPaginationLoaded extends AdvancePaginationState {
+  final LatestResults? latestResults;
+  final List<LatestData> results;
+  final bool hasReachedMax;
+
+  AdvanceFilterPaginationLoaded(this.latestResults, this.results, this.hasReachedMax);
+
+  factory AdvanceFilterPaginationLoaded.initial() {
+    return AdvanceFilterPaginationLoaded(null, [], false);
+  }
+
+  AdvanceFilterPaginationLoaded copyWith({
+    LatestResults? latestResults,
+    List<LatestData>? results,
+    bool? hasReachedMax,
+  }) {
+    return AdvanceFilterPaginationLoaded(
+      latestResults ?? this.latestResults,
+      results ?? this.results,
+      hasReachedMax ?? this.hasReachedMax,
+    );
+  }
+
+  List<String> get getImageUrls {
+    return this.results.map((e) => e.getImagePath()).toList();
+  }
+
+  @override
+  List<Object?> get props => [
+        results,
+        latestResults,
+        hasReachedMax,
+      ];
+}
+
+class AdvanceFilterPaginationError extends AdvancePaginationState {
+  final String error;
+
+  AdvanceFilterPaginationError(this.error);
 }

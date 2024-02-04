@@ -2,6 +2,8 @@ class RouteParam {
   static const String id = "id";
   static const String videoId = "videoId";
   static const String searchType = "searchType";
+  static const String mediaType = "mediaType";
+  static const String keywordType = "keywordType";
   static const String query = "query";
   static const String page = "page";
 

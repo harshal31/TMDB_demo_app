@@ -504,7 +504,7 @@ class TvDetailTabletScreen extends StatelessWidget {
                             const SizedBox(height: 16),
                             TmdbTvSeriesSideView(
                               mediaDetail: state.mediaDetailModel.mediaDetail,
-                              keywords: state.mediaDetailModel.mediaKeywords?.keywords ?? [],
+                              keywords: state.mediaDetailModel.mediaKeywords?.results ?? [],
                             ),
                           ],
                         ),

@@ -24,8 +24,7 @@ class LatestResults {
     this.totalResults,
   });
 
-  factory LatestResults.fromJson(Map<String, dynamic> json) =>
-      _$LatestResultsFromJson(json);
+  factory LatestResults.fromJson(Map<String, dynamic> json) => _$LatestResultsFromJson(json);
 
   Map<String, dynamic> toJson() => _$LatestResultsToJson(this);
 
@@ -103,6 +102,14 @@ class LatestData {
   double? voteAverage;
   @JsonKey(name: 'vote_count')
   int? voteCount;
+  @JsonKey(name: 'origin_country')
+  List<String>? originCountry;
+  @JsonKey(name: 'original_name')
+  String? originalName;
+  @JsonKey(name: 'first_air_date')
+  String? firstAirDate;
+  @JsonKey(name: 'name')
+  String? name;
 
   LatestData({
     this.adult,
@@ -119,6 +126,10 @@ class LatestData {
     this.video,
     this.voteAverage,
     this.voteCount,
+    this.originCountry,
+    this.originalName,
+    this.firstAirDate,
+    this.name,
   });
 
   factory LatestData.fromJson(Map<String, dynamic> json) => _$LatestDataFromJson(json);
@@ -140,6 +151,10 @@ class LatestData {
     bool? video,
     double? voteAverage,
     int? voteCount,
+    List<String>? originCountry,
+    String? originalName,
+    String? firstAirDate,
+    String? name,
   }) {
     return LatestData(
       adult: adult ?? this.adult,
@@ -156,6 +171,10 @@ class LatestData {
       video: video ?? this.video,
       voteAverage: voteAverage ?? this.voteAverage,
       voteCount: voteCount ?? this.voteCount,
+      originCountry: originCountry ?? this.originCountry,
+      originalName: originalName ?? this.originalName,
+      firstAirDate: firstAirDate ?? this.firstAirDate,
+      name: name ?? this.name,
     );
   }
 

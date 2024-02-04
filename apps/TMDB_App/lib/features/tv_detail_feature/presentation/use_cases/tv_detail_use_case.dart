@@ -21,7 +21,11 @@ class TvDetailUseCase {
     MediaDetailModel model = MediaDetailModel();
     final response = await apiCall(
       () => _movieDetailApiService.fetchMediaDetail(
-          mediaType, typeId, language, ApiKey.appendToMediaResponse),
+        mediaType,
+        typeId,
+        language,
+        ApiKey.appendToMediaResponse,
+      ),
     );
 
     return response.fold((l) => left(l), (r) {

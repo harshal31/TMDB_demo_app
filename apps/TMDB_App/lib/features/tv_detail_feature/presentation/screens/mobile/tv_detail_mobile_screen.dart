@@ -519,7 +519,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                     TmdbTvSeriesSideView(
                       keywordSpacing: 2.0,
                       mediaDetail: state.mediaDetailModel.mediaDetail,
-                      keywords: state.mediaDetailModel.mediaKeywords?.keywords ?? [],
+                      keywords: state.mediaDetailModel.mediaKeywords?.results ?? [],
                     ),
                   ],
                 ),

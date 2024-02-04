@@ -54,6 +54,12 @@ LatestData _$LatestDataFromJson(Map<String, dynamic> json) => LatestData(
       video: json['video'] as bool?,
       voteAverage: (json['vote_average'] as num?)?.toDouble(),
       voteCount: json['vote_count'] as int?,
+      originCountry: (json['origin_country'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      originalName: json['original_name'] as String?,
+      firstAirDate: json['first_air_date'] as String?,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$LatestDataToJson(LatestData instance) =>
@@ -72,4 +78,8 @@ Map<String, dynamic> _$LatestDataToJson(LatestData instance) =>
       'video': instance.video,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'origin_country': instance.originCountry,
+      'original_name': instance.originalName,
+      'first_air_date': instance.firstAirDate,
+      'name': instance.name,
     };
