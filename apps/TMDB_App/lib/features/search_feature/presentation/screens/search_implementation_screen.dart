@@ -26,11 +26,13 @@ import 'package:tmdb_app/utils/common_navigation.dart';
 class SearchImplementationScreen extends StatefulWidget {
   final String searchType;
   final String query;
+  final TextEditingController controller;
 
   const SearchImplementationScreen({
     super.key,
     required this.searchType,
     required this.query,
+    required this.controller,
   });
 
   @override
@@ -44,7 +46,7 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController(text: widget.query);
+    _textEditingController = widget.controller;
     _searchManager = SearchManager();
     _searchManager.listenPaginationChanges(context, widget.query);
   }
@@ -56,40 +58,6 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextField(
-            onSubmitted: (s) {
-              context.push(
-                Uri(
-                  path: "${RouteName.home}/${RouteName.search}/${widget.searchType}",
-                  queryParameters: {RouteParam.query: s},
-                ).toString(),
-              );
-            },
-            controller: _textEditingController,
-            textAlignVertical: TextAlignVertical.center,
-            onChanged: (_) {},
-            decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: context.colorTheme.primary,
-                  width: 2.0,
-                ),
-              ),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              border: const OutlineInputBorder(),
-              hintText: context.tr.searchFor,
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: IconButton(
-                  onPressed: () {
-                    _textEditingController.clear();
-                  },
-                  icon: const Icon(Icons.close),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
           BlocBuilder<CombineCountCubit, CombineCountState>(
             builder: (context, state) {
               return CustomTabBar(

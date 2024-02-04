@@ -7,8 +7,17 @@ import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';
 
 class TmdbAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final TextEditingController? controller;
+  final bool? shouldDisplaySearchBar;
+  final bool? shouldDisplayBack;
+  final Function(String)? onSubmitted;
+
   const TmdbAppBar({
     super.key,
+    this.controller,
+    this.shouldDisplaySearchBar,
+    this.onSubmitted,
+    this.shouldDisplayBack,
   });
 
   @override
@@ -19,14 +28,16 @@ class TmdbAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _TmdbAppBarState extends State<TmdbAppBar> {
-  bool shouldDisplaySearchBar = false;
-  final TextEditingController searchController = TextEditingController(text: "");
+  late bool shouldDisplaySearchBar = widget.shouldDisplaySearchBar ?? false;
+  late final TextEditingController searchController =
+      widget.controller ?? TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
+    final shouldBack = widget.shouldDisplayBack ?? false;
     return Container(
       height: 61,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.only(left: shouldBack ? 8 : 16, right: 16),
       decoration: BoxDecoration(
         color: context.colorTheme.background,
         border: Border(
@@ -38,11 +49,21 @@ class _TmdbAppBarState extends State<TmdbAppBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AppAsset.images.tmdbHorizontalLogo.image(
-            package: "common_widgets",
-            height: 30,
+          Visibility(
+            visible: widget.shouldDisplayBack ?? false,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                InkWell(
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                  },
+                  child: const Icon(Icons.arrow_back),
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
           ),
-          const SizedBox(width: 16),
           Expanded(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
@@ -52,6 +73,10 @@ class _TmdbAppBarState extends State<TmdbAppBar> {
                       autofocus: true,
                       controller: searchController,
                       onSubmitted: (s) {
+                        if (widget.onSubmitted != null) {
+                          widget.onSubmitted?.call(s);
+                          return;
+                        }
                         searchController.clear();
                         setState(() {
                           shouldDisplaySearchBar = false;
@@ -80,6 +105,9 @@ class _TmdbAppBarState extends State<TmdbAppBar> {
                                 searchController.clear();
                                 return;
                               }
+                              if (widget.onSubmitted != null) {
+                                return;
+                              }
 
                               setState(() {
                                 shouldDisplaySearchBar = false;
@@ -92,17 +120,23 @@ class _TmdbAppBarState extends State<TmdbAppBar> {
                         hintText: context.tr.searchFor,
                       ),
                     )
-                  : Align(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        key: UniqueKey(),
-                        onPressed: () {
-                          setState(() {
-                            shouldDisplaySearchBar = true;
-                          });
-                        },
-                        icon: const Icon(Icons.search),
-                      ),
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppAsset.images.tmdbHorizontalLogo.image(
+                          package: "common_widgets",
+                          height: 30,
+                        ),
+                        IconButton(
+                          key: UniqueKey(),
+                          onPressed: () {
+                            setState(() {
+                              shouldDisplaySearchBar = true;
+                            });
+                          },
+                          icon: const Icon(Icons.search),
+                        ),
+                      ],
                     ),
             ),
           ),

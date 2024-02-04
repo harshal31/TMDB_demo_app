@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/features/search_feature/data/search_api_service.dart';
 import 'package:tmdb_app/features/search_feature/presentation/cubits/combine_count_cubit.dart';
 import 'package:tmdb_app/features/search_feature/presentation/cubits/search_cubit.dart';
@@ -11,9 +12,12 @@ import 'package:tmdb_app/features/search_feature/presentation/use_case/search_ke
 import 'package:tmdb_app/features/search_feature/presentation/use_case/search_movies_use_case%20copy%203.dart';
 import 'package:tmdb_app/features/search_feature/presentation/use_case/search_persons_use_case%20copy%202.dart';
 import 'package:tmdb_app/features/search_feature/presentation/use_case/search_tv_shows_use_case%20copy%204.dart';
+import 'package:tmdb_app/features/tmdb_widgets/tmdb_app_bar.dart';
 import 'package:tmdb_app/network/dio_manager.dart';
+import 'package:tmdb_app/routes/route_name.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   final String searchType;
   final String query;
 
@@ -22,6 +26,13 @@ class SearchScreen extends StatelessWidget {
     required this.searchType,
     required this.query,
   });
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  late final TextEditingController _controller = TextEditingController(text: widget.query);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +81,7 @@ class SearchScreen extends StatelessWidget {
         BlocProvider(
           create: (c) => CombineCountCubit(
             c.read(),
-          )..fetchInitialCount(query),
+          )..fetchInitialCount(widget.query),
         ),
         BlocProvider(
           create: (c) => SearchCubit(
@@ -84,12 +95,32 @@ class SearchScreen extends StatelessWidget {
       ],
       child: SafeArea(
         child: Scaffold(
+          appBar: TmdbAppBar(
+            shouldDisplayBack: true,
+            controller: _controller,
+            shouldDisplaySearchBar: true,
+            onSubmitted: (s) {
+              context.push(
+                Uri(
+                  path: "${RouteName.home}/${RouteName.search}/${widget.searchType}",
+                  queryParameters: {RouteParam.query: s},
+                ).toString(),
+              );
+            },
+          ),
           body: SearchImplementationScreen(
-            searchType: searchType,
-            query: query,
+            searchType: widget.searchType,
+            query: widget.query,
+            controller: _controller,
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.clear();
   }
 }
