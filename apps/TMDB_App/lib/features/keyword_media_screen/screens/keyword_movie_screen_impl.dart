@@ -103,7 +103,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                         path:
                             "${RouteName.home}/${RouteName.keywords}/$mediaType/${widget.keywordId}",
                       ).toString(),
-                      extra: widget.keywordName ?? "",
+                      extra: widget.keywordName,
                     );
                   },
                   defaultSelectedItem: context.tr.movies,
