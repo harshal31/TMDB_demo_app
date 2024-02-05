@@ -6,29 +6,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/features/company_media_screen/cubits/company_media_cubit.dart';
 import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
-import 'package:tmdb_app/features/keyword_media_screen/cubits/keyword_media_cubit.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
-class KeywordMovieScreenMovieImpl extends StatefulWidget {
-  final String keywordName;
-  final String keywordId;
+class CompanyTvShowsScreenImpl extends StatefulWidget {
+  final String companyName;
+  final String companyId;
 
-  const KeywordMovieScreenMovieImpl({
+  const CompanyTvShowsScreenImpl({
     super.key,
-    required this.keywordName,
-    required this.keywordId,
+    required this.companyName,
+    required this.companyId,
   });
 
   @override
-  State<KeywordMovieScreenMovieImpl> createState() => _KeywordMovieScreenMovieImplState();
+  State<CompanyTvShowsScreenImpl> createState() => _CompanyTvShowsScreenImplState();
 }
 
-class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImpl> {
-  final PagingController<int, LatestData> movieController = PagingController(firstPageKey: 1);
+class _CompanyTvShowsScreenImplState extends State<CompanyTvShowsScreenImpl> {
+  final PagingController<int, LatestData> tvShowsController = PagingController(firstPageKey: 1);
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                     borderRadius: BorderRadius.circular(20), // Border radius
                   ),
                   child: Text(
-                    widget.keywordName,
+                    widget.companyName,
                     style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -71,7 +71,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                     ),
                     borderRadius: BorderRadius.circular(20), // Border radius
                   ),
-                  child: BlocBuilder<KeywordMediaCubit, AdvanceFilterPaginationState>(
+                  child: BlocBuilder<CompanyMediaCubit, AdvanceFilterPaginationState>(
                     buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
                     builder: (c, s) {
                       return Text(
@@ -101,26 +101,26 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                     context.push(
                       Uri(
                         path:
-                            "${RouteName.home}/${RouteName.keywords}/$mediaType/${widget.keywordId}",
+                            "${RouteName.home}/${RouteName.company}/$mediaType/${widget.companyId}",
                       ).toString(),
-                      extra: widget.keywordName,
+                      extra: widget.companyName,
                     );
                   },
-                  defaultSelectedItem: context.tr.movies,
+                  defaultSelectedItem: context.tr.tvSeries,
                 )
               ],
             ),
           ),
           const SliverPadding(padding: EdgeInsets.only(top: 16)),
           PagedSliverList(
-            pagingController: movieController,
+            pagingController: tvShowsController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
               firstPageProgressIndicatorBuilder: (context) => const Center(
                 child: CircularProgressIndicator(),
               ),
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
-                  onPressed: () => movieController.refresh(),
+                  onPressed: () => tvShowsController.refresh(),
                   child: Text(
                     context.tr.tryAgain,
                     style: context.textTheme.titleMedium,
@@ -130,14 +130,14 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
               animateTransitions: true,
               itemBuilder: (ctx, item, index) {
                 return TmdbMediaSearchListItem(
-                  title: item.title ?? item.originalTitle ?? "",
+                  title: item.name ?? item.originalName ?? "",
                   subtitle: item.overview ?? "",
-                  date: item.releaseDate ?? "",
+                  date: item.firstAirDate ?? "",
                   imageUrl: item.getImagePath(),
                   onItemClick: () {
                     CommonNavigation.redirectToDetailScreen(
                       context,
-                      mediaType: ApiKey.movie,
+                      mediaType: ApiKey.tv,
                       mediaId: item.id?.toString() ?? "",
                     );
                   },
@@ -150,28 +150,28 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
     );
   }
 
-  void _listenMoviesPaginationChanges(KeywordMediaCubit keywordMediaCubit) {
-    movieController.addPageRequestListener((pageKey) {
-      keywordMediaCubit.fetchKeywordMedias(widget.keywordId, pageKey, true);
+  void _listenMoviesPaginationChanges(CompanyMediaCubit companyMediaCubit) {
+    tvShowsController.addPageRequestListener((pageKey) {
+      companyMediaCubit.fetchKeywordMedias(widget.companyId, pageKey, false);
     });
 
-    keywordMediaCubit.stream.listen((state) {
+    companyMediaCubit.stream.listen((state) {
       if (state.advancePaginationState is AdvanceFilterPaginationLoaded) {
         final isLastPage =
             (state.advancePaginationState as AdvanceFilterPaginationLoaded).hasReachedMax;
         if (isLastPage) {
-          movieController.appendLastPage(
+          tvShowsController.appendLastPage(
             (state.advancePaginationState as AdvanceFilterPaginationLoaded).results,
           );
         } else {
-          final nextPageKey = movieController.nextPageKey! + 1;
-          movieController.appendPage(
+          final nextPageKey = tvShowsController.nextPageKey! + 1;
+          tvShowsController.appendPage(
             (state.advancePaginationState as AdvanceFilterPaginationLoaded).results,
             nextPageKey,
           );
         }
       } else if (state.advancePaginationState is AdvanceFilterPaginationError) {
-        movieController.error =
+        tvShowsController.error =
             (state.advancePaginationState as AdvanceFilterPaginationError).error;
       }
     });

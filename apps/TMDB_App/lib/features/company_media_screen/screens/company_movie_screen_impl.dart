@@ -6,28 +6,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/features/company_media_screen/cubits/company_media_cubit.dart';
 import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
-import 'package:tmdb_app/features/keyword_media_screen/cubits/keyword_media_cubit.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
-class KeywordMovieScreenMovieImpl extends StatefulWidget {
-  final String keywordName;
-  final String keywordId;
+class CompanyMovieScreenMovieImpl extends StatefulWidget {
+  final String companyName;
+  final String companyId;
 
-  const KeywordMovieScreenMovieImpl({
+  const CompanyMovieScreenMovieImpl({
     super.key,
-    required this.keywordName,
-    required this.keywordId,
+    required this.companyName,
+    required this.companyId,
   });
 
   @override
-  State<KeywordMovieScreenMovieImpl> createState() => _KeywordMovieScreenMovieImplState();
+  State<CompanyMovieScreenMovieImpl> createState() => _CompanyMovieScreenMovieImplState();
 }
 
-class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImpl> {
+class _CompanyMovieScreenMovieImplState extends State<CompanyMovieScreenMovieImpl> {
   final PagingController<int, LatestData> movieController = PagingController(firstPageKey: 1);
 
   @override
@@ -57,7 +57,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                     borderRadius: BorderRadius.circular(20), // Border radius
                   ),
                   child: Text(
-                    widget.keywordName,
+                    widget.companyName,
                     style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -71,7 +71,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                     ),
                     borderRadius: BorderRadius.circular(20), // Border radius
                   ),
-                  child: BlocBuilder<KeywordMediaCubit, AdvanceFilterPaginationState>(
+                  child: BlocBuilder<CompanyMediaCubit, AdvanceFilterPaginationState>(
                     buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
                     builder: (c, s) {
                       return Text(
@@ -101,9 +101,9 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                     context.push(
                       Uri(
                         path:
-                            "${RouteName.home}/${RouteName.keywords}/$mediaType/${widget.keywordId}",
+                            "${RouteName.home}/${RouteName.company}/$mediaType/${widget.companyId}",
                       ).toString(),
-                      extra: widget.keywordName,
+                      extra: widget.companyName,
                     );
                   },
                   defaultSelectedItem: context.tr.movies,
@@ -150,12 +150,12 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
     );
   }
 
-  void _listenMoviesPaginationChanges(KeywordMediaCubit keywordMediaCubit) {
+  void _listenMoviesPaginationChanges(CompanyMediaCubit companyMediaCubit) {
     movieController.addPageRequestListener((pageKey) {
-      keywordMediaCubit.fetchKeywordMedias(widget.keywordId, pageKey, true);
+      companyMediaCubit.fetchKeywordMedias(widget.companyId, pageKey, true);
     });
 
-    keywordMediaCubit.stream.listen((state) {
+    companyMediaCubit.stream.listen((state) {
       if (state.advancePaginationState is AdvanceFilterPaginationLoaded) {
         final isLastPage =
             (state.advancePaginationState as AdvanceFilterPaginationLoaded).hasReachedMax;

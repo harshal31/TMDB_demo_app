@@ -164,8 +164,9 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
                                   context.push(
                                     Uri(
                                       path:
-                                          "${RouteName.home}/${RouteName.keywords}/${item.name}/${RouteParam.movie}/${item.id}",
+                                          "${RouteName.home}/${RouteName.keywords}/${RouteParam.movie}/${item.id}",
                                     ).toString(),
+                                    extra: item.name,
                                   );
                                 },
                               );
@@ -175,7 +176,15 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
                               return TmdbKeywordCompanySearchListItem(
                                 key: ValueKey(index),
                                 name: item.name ?? "",
-                                onItemClick: () {},
+                                onItemClick: () {
+                                  context.push(
+                                    Uri(
+                                      path:
+                                          "${RouteName.home}/${RouteName.company}/${RouteParam.movie}/${item.id}",
+                                    ).toString(),
+                                    extra: item.name,
+                                  );
+                                },
                               );
                             }
 

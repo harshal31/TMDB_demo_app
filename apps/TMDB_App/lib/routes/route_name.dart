@@ -8,4 +8,5 @@ class RouteName {
   static const String person = "person";
   static const String search = "search";
   static const String keywords = "keywords";
+  static const String company = "company";
 }

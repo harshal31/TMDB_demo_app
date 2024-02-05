@@ -126,8 +126,9 @@ class TmdbSideView extends StatelessWidget {
                       context.push(
                         Uri(
                           path:
-                              "${RouteName.home}/${RouteName.keywords}/${keywords[index].name}/${RouteParam.movie}/${keywords[index].id}",
+                              "${RouteName.home}/${RouteName.keywords}/${RouteParam.movie}/${keywords[index].id}",
                         ).toString(),
+                        extra: keywords[index].name,
                       );
                     },
                     label: Text(
@@ -297,8 +298,9 @@ class TmdbTvSeriesSideView extends StatelessWidget {
                       context.push(
                         Uri(
                           path:
-                              "${RouteName.home}/${RouteName.keywords}/${keywords[index].name}/${RouteParam.tv}/${keywords[index].id}",
+                              "${RouteName.home}/${RouteName.keywords}/${RouteParam.tv}/${keywords[index].id}",
                         ).toString(),
+                        extra: keywords[index].name,
                       );
                     },
                     label: Text(

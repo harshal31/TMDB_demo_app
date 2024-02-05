@@ -8,6 +8,8 @@ import "package:go_router/go_router.dart";
 import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
 import 'package:tmdb_app/features/authentication_feature/presentation/screens/authentication_screen.dart';
+import "package:tmdb_app/features/company_media_screen/company_tv_shows_screen.dart";
+import "package:tmdb_app/features/company_media_screen/compnay_movie_screen.dart";
 import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.dart";
 import "package:tmdb_app/features/keyword_media_screen/keyword_movie_screen.dart";
 import "package:tmdb_app/features/keyword_media_screen/keyword_tv_shows_screen.dart";
@@ -59,10 +61,9 @@ class AppRouter {
                     },
                   ),
                   GoRoute(
-                    path:
-                        "${RouteName.keywords}/:${RouteParam.keywordType}/${RouteParam.movie}/:${RouteParam.id}",
+                    path: "${RouteName.keywords}/${RouteParam.movie}/:${RouteParam.id}",
                     pageBuilder: (ctx, state) {
-                      final keywordType = state.pathParameters[RouteParam.keywordType] ?? "";
+                      final keywordType = state.extra as String;
                       final keywordId = state.pathParameters[RouteParam.id] ?? "";
 
                       return animatedPage(
@@ -77,10 +78,9 @@ class AppRouter {
                     },
                   ),
                   GoRoute(
-                    path:
-                        "${RouteName.keywords}/:${RouteParam.keywordType}/${RouteParam.tv}/:${RouteParam.id}",
+                    path: "${RouteName.keywords}/${RouteParam.tv}/:${RouteParam.id}",
                     pageBuilder: (ctx, state) {
-                      final keywordType = state.pathParameters[RouteParam.keywordType] ?? "";
+                      final keywordType = state.extra as String;
                       final keywordId = state.pathParameters[RouteParam.id] ?? "";
 
                       return animatedPage(
@@ -89,6 +89,40 @@ class AppRouter {
                         widget: KeywordTvShowsScreen(
                           keywordName: keywordType,
                           keywordId: keywordId,
+                          key: state.pageKey,
+                        ),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: "${RouteName.company}/${RouteParam.movie}/:${RouteParam.id}",
+                    pageBuilder: (ctx, state) {
+                      final companyName = state.extra as String;
+                      final companyId = state.pathParameters[RouteParam.id] ?? "";
+
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: CompanyMoviesScreen(
+                          companyName: companyName,
+                          companyId: companyId,
+                          key: state.pageKey,
+                        ),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: "${RouteName.company}/${RouteParam.tv}/:${RouteParam.id}",
+                    pageBuilder: (ctx, state) {
+                      final companyName = state.extra as String;
+                      final companyId = state.pathParameters[RouteParam.id] ?? "";
+
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: CompanyTvShowsScreen(
+                          companyName: companyName,
+                          companyId: companyId,
                           key: state.pageKey,
                         ),
                       );

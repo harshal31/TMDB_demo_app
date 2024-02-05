@@ -101,8 +101,9 @@ class _KeywordTvShowsScreenImplState extends State<KeywordTvShowsScreenImpl> {
                     context.push(
                       Uri(
                         path:
-                            "${RouteName.home}/${RouteName.keywords}/${widget.keywordName}/$mediaType/${widget.keywordId}",
+                            "${RouteName.home}/${RouteName.keywords}/$mediaType/${widget.keywordId}",
                       ).toString(),
+                      extra: widget.keywordName,
                     );
                   },
                   defaultSelectedItem: context.tr.tvSeries,

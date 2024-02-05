@@ -4,6 +4,7 @@ class RouteParam {
   static const String searchType = "searchType";
   static const String mediaType = "mediaType";
   static const String keywordType = "keywordType";
+  static const String companyName = "companyName";
   static const String query = "query";
   static const String page = "page";
 

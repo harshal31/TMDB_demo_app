@@ -45,7 +45,6 @@ class AnimatedReadMoreText extends StatefulWidget {
     this.animationCurve = Curves.easeOutBack,
     this.animationDuration = const Duration(milliseconds: 300),
   })  : assert(maxLines > 1, 'maxLines must be greater than 1'),
-        assert(text.length > 0, 'text cannot be empty'),
         assert(readMoreText.length > 0, 'readMoreText cannot be empty'),
         assert(readLessText.length > 0, 'readLessText cannot be empty');
 
