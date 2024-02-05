@@ -41,21 +41,39 @@ class TmdbRecomendations extends StatelessWidget {
         itemBuilder: (ctx, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: InkWell(
-              onTap: () {
-                _redirectToDetailScreen(
-                  context,
-                  mediaType: mediaType,
-                  mediaId: recommendations[index].id.toString(),
-                );
-              },
-              borderRadius: BorderRadius.circular(10),
-              child: ExtendedImageCreator(
-                imageUrl: recommendations[index].backDropImage,
-                width: 250,
-                height: 141,
-                fit: BoxFit.cover,
-              ),
+            child: Stack(
+              children: [
+                Card(
+                  margin: EdgeInsets.zero,
+                  surfaceTintColor: context.colorTheme.background,
+                  elevation: 10,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: ExtendedImageCreator(
+                    imageUrl: recommendations[index].backDropImage,
+                    width: 250,
+                    height: 141,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned.fill(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      splashColor: context.colorTheme.primaryContainer.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {
+                        _redirectToDetailScreen(
+                          context,
+                          mediaType: mediaType,
+                          mediaId: recommendations[index].id.toString(),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },
