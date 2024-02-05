@@ -128,7 +128,7 @@ class TmdbSideView extends StatelessWidget {
                           path:
                               "${RouteName.home}/${RouteName.keywords}/${RouteParam.movie}/${keywords[index].id}",
                         ).toString(),
-                        extra: keywords[index].name,
+                        extra: keywords[index].name ?? "",
                       );
                     },
                     label: Text(
@@ -221,19 +221,41 @@ class TmdbTvSeriesSideView extends StatelessWidget {
           ),
           Visibility(
             visible: mediaDetail?.networks?.isNotEmpty ?? false,
-            child: SizedBox(
-              height: 30,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: mediaDetail?.networks?.length ?? 0,
-                itemBuilder: (ctx, index) {
-                  return ExtendedImageCreator(
-                    imageUrl: mediaDetail?.networks?[index].getNetworkImage() ?? "",
-                    height: 30,
-                    fit: BoxFit.cover,
-                  );
-                },
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 4),
+                SizedBox(
+                  height: 30,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: mediaDetail?.networks?.length ?? 0,
+                    itemBuilder: (ctx, index) {
+                      return Container(
+                        padding: const EdgeInsets.only(right: 4),
+                        child: InkWell(
+                          onTap: () {
+                            context.push(
+                              Uri(
+                                path:
+                                    "${RouteName.home}/${RouteName.network}/${RouteParam.tv}/${mediaDetail?.networks?[index].id}",
+                              ).toString(),
+                              extra: mediaDetail?.networks?[index].name ?? "",
+                            );
+                          },
+                          child: ExtendedImageCreator(
+                            imageUrl: mediaDetail?.networks?[index].getNetworkImage() ?? "",
+                            height: 30,
+                            fit: BoxFit.cover,
+                            imageColor: context.colorTheme.primary,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
             replacement: Text(
               context.tr.noNetworkForTvSeriesAvailable,
@@ -300,7 +322,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
                           path:
                               "${RouteName.home}/${RouteName.keywords}/${RouteParam.tv}/${keywords[index].id}",
                         ).toString(),
-                        extra: keywords[index].name,
+                        extra: keywords[index].name ?? "",
                       );
                     },
                     label: Text(

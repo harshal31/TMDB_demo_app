@@ -166,7 +166,7 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
                                       path:
                                           "${RouteName.home}/${RouteName.keywords}/${RouteParam.movie}/${item.id}",
                                     ).toString(),
-                                    extra: item.name,
+                                    extra: item.name ?? "",
                                   );
                                 },
                               );
@@ -182,7 +182,7 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
                                       path:
                                           "${RouteName.home}/${RouteName.company}/${RouteParam.movie}/${item.id}",
                                     ).toString(),
-                                    extra: item.name,
+                                    extra: item.name ?? "",
                                   );
                                 },
                               );

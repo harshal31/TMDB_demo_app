@@ -20,9 +20,7 @@ class _DominantColorState extends State<DominantColorFromImage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     currentColorScheme = context.colorTheme;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _updateImage(widget.imageProvider);
-    });
+    _updateImage(widget.imageProvider);
   }
 
   @override

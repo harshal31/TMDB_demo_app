@@ -11,6 +11,7 @@ class ExtendedImageCreator extends StatefulWidget {
   final BoxShape? shape;
   final BorderRadius? borderRadius;
   final bool shouldDisplayErrorImage;
+  final Color? imageColor;
 
   const ExtendedImageCreator({
     super.key,
@@ -22,6 +23,7 @@ class ExtendedImageCreator extends StatefulWidget {
     this.shape,
     this.borderRadius,
     this.shouldDisplayErrorImage = true,
+    this.imageColor,
   });
 
   @override
@@ -45,6 +47,7 @@ class _ExtendedImageCreatorState extends State<ExtendedImageCreator> {
       height: widget.height,
       fit: widget.fit ?? BoxFit.fill,
       clipBehavior: Clip.hardEdge,
+      color: widget.imageColor,
       loadStateChanged: (s) {
         if (s.extendedImageLoadState == LoadState.failed && widget.shouldDisplayErrorImage) {
           return Center(

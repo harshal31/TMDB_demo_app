@@ -103,7 +103,7 @@ class _CompanyTvShowsScreenImplState extends State<CompanyTvShowsScreenImpl> {
                         path:
                             "${RouteName.home}/${RouteName.company}/$mediaType/${widget.companyId}",
                       ).toString(),
-                      extra: widget.companyName,
+                      extra: widget.companyName ?? "",
                     );
                   },
                   defaultSelectedItem: context.tr.tvSeries,

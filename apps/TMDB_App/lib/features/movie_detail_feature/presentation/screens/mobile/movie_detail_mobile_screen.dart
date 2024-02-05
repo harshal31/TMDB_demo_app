@@ -57,15 +57,14 @@ class MovieDetailMobileScreen extends StatelessWidget {
                 height: 500,
                 child: Stack(
                   children: [
-                    Align(
-                      alignment: Alignment.topCenter,
+                    Positioned.fill(
                       child: Opacity(
                         opacity: 0.3,
                         child: ExtendedImageCreator(
                           imageUrl: state.mediaDetailModel.getBackdropImage(),
                           fallbackUrl: state.mediaDetailModel.getPosterPath(),
                           fit: BoxFit.cover,
-                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.zero,
                           shouldDisplayErrorImage: false,
                         ),
                       ),
@@ -108,7 +107,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                                     "${state.mediaDetailModel.mediaDetail?.originalTitle ?? ""} ",
                                     textAlign: TextAlign.center,
                                     style: context.textTheme.titleLarge?.copyWith(
-                                      fontWeight: FontWeight.w900,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   const SizedBox(height: 2),
@@ -116,7 +115,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                                     state.mediaDetailModel.getReleaseYear(),
                                     textAlign: TextAlign.center,
                                     style: context.textTheme.titleLarge?.copyWith(
-                                      fontWeight: FontWeight.w100,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   const SizedBox(height: 2),

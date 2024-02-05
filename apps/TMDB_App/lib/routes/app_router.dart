@@ -14,6 +14,7 @@ import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.
 import "package:tmdb_app/features/keyword_media_screen/keyword_movie_screen.dart";
 import "package:tmdb_app/features/keyword_media_screen/keyword_tv_shows_screen.dart";
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
+import "package:tmdb_app/features/network_media_screen/network_tv_shows_screen.dart";
 import 'package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart';
 import "package:tmdb_app/features/search_feature/presentation/screens/search_screen.dart";
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
@@ -63,7 +64,7 @@ class AppRouter {
                   GoRoute(
                     path: "${RouteName.keywords}/${RouteParam.movie}/:${RouteParam.id}",
                     pageBuilder: (ctx, state) {
-                      final keywordType = state.extra as String;
+                      final keywordType = (state.extra is String ? state.extra as String : "");
                       final keywordId = state.pathParameters[RouteParam.id] ?? "";
 
                       return animatedPage(
@@ -80,7 +81,7 @@ class AppRouter {
                   GoRoute(
                     path: "${RouteName.keywords}/${RouteParam.tv}/:${RouteParam.id}",
                     pageBuilder: (ctx, state) {
-                      final keywordType = state.extra as String;
+                      final keywordType = (state.extra is String ? state.extra as String : "");
                       final keywordId = state.pathParameters[RouteParam.id] ?? "";
 
                       return animatedPage(
@@ -97,7 +98,7 @@ class AppRouter {
                   GoRoute(
                     path: "${RouteName.company}/${RouteParam.movie}/:${RouteParam.id}",
                     pageBuilder: (ctx, state) {
-                      final companyName = state.extra as String;
+                      final companyName = (state.extra is String ? state.extra as String : "");
                       final companyId = state.pathParameters[RouteParam.id] ?? "";
 
                       return animatedPage(
@@ -114,7 +115,7 @@ class AppRouter {
                   GoRoute(
                     path: "${RouteName.company}/${RouteParam.tv}/:${RouteParam.id}",
                     pageBuilder: (ctx, state) {
-                      final companyName = state.extra as String;
+                      final companyName = (state.extra is String ? state.extra as String : "");
                       final companyId = state.pathParameters[RouteParam.id] ?? "";
 
                       return animatedPage(
@@ -123,6 +124,23 @@ class AppRouter {
                         widget: CompanyTvShowsScreen(
                           companyName: companyName,
                           companyId: companyId,
+                          key: state.pageKey,
+                        ),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: "${RouteName.network}/${RouteParam.tv}/:${RouteParam.id}",
+                    pageBuilder: (ctx, state) {
+                      final networkName = (state.extra is String ? state.extra as String : "");
+                      final networkId = state.pathParameters[RouteParam.id] ?? "";
+
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: NetworkTvShowsScreen(
+                          networkName: networkName,
+                          networkId: networkId,
                           key: state.pageKey,
                         ),
                       );

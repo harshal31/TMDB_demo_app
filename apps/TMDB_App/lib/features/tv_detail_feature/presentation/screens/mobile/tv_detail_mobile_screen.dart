@@ -55,13 +55,13 @@ class TvDetailMobileScreen extends StatelessWidget {
                 height: 500,
                 child: Stack(
                   children: [
-                    Align(
-                      alignment: Alignment.topCenter,
+                    Positioned.fill(
                       child: Opacity(
                         opacity: 0.3,
                         child: ExtendedImageCreator(
                           imageUrl: state.mediaDetailModel.getBackdropImage(),
                           fit: BoxFit.cover,
+                          borderRadius: BorderRadius.zero,
                           shouldDisplayErrorImage: false,
                         ),
                       ),
@@ -102,15 +102,15 @@ class TvDetailMobileScreen extends StatelessWidget {
                                     "${state.mediaDetailModel.mediaDetail?.originalName ?? ""} ",
                                     textAlign: TextAlign.center,
                                     style: context.textTheme.titleLarge?.copyWith(
-                                      fontWeight: FontWeight.w900,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
-                                    "(${state.mediaDetailModel.getTvSeriesYear()})",
+                                    "${state.mediaDetailModel.getTvSeriesYear()}",
                                     textAlign: TextAlign.center,
                                     style: context.textTheme.titleLarge?.copyWith(
-                                      fontWeight: FontWeight.w100,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   Visibility(
