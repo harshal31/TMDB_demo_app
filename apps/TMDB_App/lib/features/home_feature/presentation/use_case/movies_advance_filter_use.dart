@@ -175,19 +175,26 @@ class AdvanceFilterStatusDone extends AdvanceFilterStatus {
 
 class AdvanceFilterPaginationState with EquatableMixin {
   final AdvancePaginationState advancePaginationState;
+  final int totalResults;
 
-  AdvanceFilterPaginationState(this.advancePaginationState);
+  AdvanceFilterPaginationState(this.advancePaginationState, this.totalResults);
 
   factory AdvanceFilterPaginationState.initial() {
-    return AdvanceFilterPaginationState(AdvanceFilterPaginationNone());
+    return AdvanceFilterPaginationState(AdvanceFilterPaginationNone(), 0);
   }
 
-  AdvanceFilterPaginationState copyWith({AdvancePaginationState? advancePaginationState}) {
-    return AdvanceFilterPaginationState(advancePaginationState ?? this.advancePaginationState);
+  AdvanceFilterPaginationState copyWith({
+    AdvancePaginationState? advancePaginationState,
+    int? totalResults,
+  }) {
+    return AdvanceFilterPaginationState(
+      advancePaginationState ?? this.advancePaginationState,
+      totalResults ?? this.totalResults,
+    );
   }
 
   @override
-  List<Object?> get props => [advancePaginationState];
+  List<Object?> get props => [advancePaginationState, totalResults];
 }
 
 sealed class AdvancePaginationState with EquatableMixin {

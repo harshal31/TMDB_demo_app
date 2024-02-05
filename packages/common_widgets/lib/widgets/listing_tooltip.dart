@@ -25,6 +25,8 @@ class _ListingTooltipState extends State<ListingTooltip> {
   Widget build(BuildContext context) {
     return SuperTooltip(
       controller: _controller,
+      borderColor: context.colorTheme.onBackground.withOpacity(0.3),
+      borderWidth: 1.0,
       hideTooltipOnTap: true,
       child: Material(
         color: context.colorTheme.background,
@@ -61,28 +63,26 @@ class _ListingTooltipState extends State<ListingTooltip> {
         mainAxisSize: MainAxisSize.min,
         children: [
           for (int index = 0; index < widget.items.length; ++index)
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IntrinsicWidth(
-                  child: InkWell(
-                    onTap: () {
-                      _controller.hideTooltip();
-                      widget.onItemClick(
-                        widget.items[index],
-                        index,
-                      );
-                    },
-                    child: Text(
-                      widget.items[index],
-                      style: context.textTheme.titleMedium,
-                      textAlign: TextAlign.center,
-                      softWrap: true,
-                    ),
+            InkWell(
+              onTap: () {
+                _controller.hideTooltip();
+                widget.onItemClick(
+                  widget.items[index],
+                  index,
+                );
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    widget.items[index],
+                    style: context.textTheme.titleMedium,
+                    textAlign: TextAlign.center,
+                    softWrap: true,
                   ),
-                ),
-                const SizedBox(height: 8),
-              ],
+                  const SizedBox(height: 8),
+                ],
+              ),
             )
         ],
       ),

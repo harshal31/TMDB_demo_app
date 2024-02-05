@@ -43,6 +43,7 @@ class KeywordMediaCubit extends Cubit<AdvanceFilterPaginationState> {
               r.latestData ?? [],
               isLastPage,
             ),
+            totalResults: r.totalResults,
           ),
         );
       },

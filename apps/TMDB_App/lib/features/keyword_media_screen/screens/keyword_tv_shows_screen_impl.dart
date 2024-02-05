@@ -61,32 +61,26 @@ class _KeywordTvShowsScreenImplState extends State<KeywordTvShowsScreenImpl> {
                     style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: context.colorTheme.onBackground.withOpacity(0.3),
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundColor: context.colorTheme.background,
-                    child: BlocBuilder<KeywordMediaCubit, AdvanceFilterPaginationState>(
-                      builder: (c, s) {
-                        if (s.advancePaginationState is AdvanceFilterPaginationLoaded) {
-                          return Text(
-                            ((s.advancePaginationState as AdvanceFilterPaginationLoaded)
-                                        .latestResults
-                                        ?.totalResults ??
-                                    0)
-                                .toString(),
-                            style:
-                                context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                          );
-                        }
-                        return Text(
-                          "0",
-                          style:
-                              context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                        );
-                      },
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
+                      width: 2.0, // Border width
                     ),
+                    borderRadius: BorderRadius.circular(20), // Border radius
+                  ),
+                  child: BlocBuilder<KeywordMediaCubit, AdvanceFilterPaginationState>(
+                    buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
+                    builder: (c, s) {
+                      return Text(
+                        "${(s.totalResults).toString()} ${context.tr.movies}",
+                        style: context.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
