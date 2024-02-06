@@ -1,4 +1,5 @@
 import 'package:common_widgets/theme/size_detector.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -8,6 +9,7 @@ import 'package:tmdb_app/features/person_detail_feature/presentation/screens/mob
 import 'package:tmdb_app/features/person_detail_feature/presentation/screens/tablet/person_detail_tablet_screen.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/screens/web/person_detail_web_screen.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/use_cases/person_detail_use_case.dart';
+import 'package:tmdb_app/features/tmdb_widgets/tmdb_app_bar.dart';
 import 'package:tmdb_app/network/dio_manager.dart';
 
 class PersonDetailScreen extends StatelessWidget {
@@ -34,6 +36,9 @@ class PersonDetailScreen extends StatelessWidget {
       ],
       child: SafeArea(
         child: Scaffold(
+          appBar: const TmdbAppBar(
+            shouldDisplayBack: !kIsWeb,
+          ),
           body: SizeDetector(
             mobileBuilder: () => const PersonDetailMobileScreen(),
             tabletBuilder: () => const PersonDetailTabletScreen(),
