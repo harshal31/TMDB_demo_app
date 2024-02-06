@@ -13,6 +13,7 @@ import "package:tmdb_app/features/company_media_screen/compnay_movie_screen.dart
 import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.dart";
 import "package:tmdb_app/features/keyword_media_screen/keyword_movie_screen.dart";
 import "package:tmdb_app/features/keyword_media_screen/keyword_tv_shows_screen.dart";
+import "package:tmdb_app/features/media_listing_feature/media_listing_screen.dart";
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
 import "package:tmdb_app/features/network_media_screen/network_tv_shows_screen.dart";
 import "package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart";
@@ -148,52 +149,75 @@ class AppRouter {
                     },
                   ),
                   GoRoute(
-                    path: "${RouteName.movie}/:${RouteParam.id}",
+                    path: RouteName.movie,
                     pageBuilder: (ctx, state) {
-                      final movieId = state.pathParameters[RouteParam.id] ?? "";
                       return animatedPage(
                         ctx,
                         state,
-                        widget: MovieDetailScreen(key: ValueKey(movieId), movieId: movieId),
+                        widget: const MediaListingScreen(isMovies: true),
                       );
                     },
                     routes: [
                       GoRoute(
-                        path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                        path: ":${RouteParam.id}",
                         pageBuilder: (ctx, state) {
-                          final id = state.pathParameters[RouteParam.videoId] ?? "";
+                          final movieId = state.pathParameters[RouteParam.id] ?? "";
                           return animatedPage(
                             ctx,
                             state,
-                            widget: YoutubeVideo(id: id),
+                            widget: MovieDetailScreen(key: ValueKey(movieId), movieId: movieId),
                           );
                         },
-                      )
+                        routes: [
+                          GoRoute(
+                            path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                            pageBuilder: (ctx, state) {
+                              final id = state.pathParameters[RouteParam.videoId] ?? "";
+                              return animatedPage(
+                                ctx,
+                                state,
+                                widget: YoutubeVideo(id: id),
+                              );
+                            },
+                          )
+                        ],
+                      ),
                     ],
                   ),
                   GoRoute(
-                    name: RouteName.tv,
-                    path: "${RouteName.tv}/:${RouteParam.id}",
+                    path: RouteName.tv,
                     pageBuilder: (ctx, state) {
-                      final seriesId = state.pathParameters[RouteParam.id] ?? "";
                       return animatedPage(
                         ctx,
                         state,
-                        widget: TvDetailScreen(key: ValueKey(seriesId), seriesId: seriesId),
+                        widget: const MediaListingScreen(isMovies: false),
                       );
                     },
                     routes: [
                       GoRoute(
-                        path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                        path: ":${RouteParam.id}",
                         pageBuilder: (ctx, state) {
-                          final id = state.pathParameters[RouteParam.videoId] ?? "";
+                          final seriesId = state.pathParameters[RouteParam.id] ?? "";
                           return animatedPage(
                             ctx,
                             state,
-                            widget: YoutubeVideo(id: id),
+                            widget: TvDetailScreen(key: ValueKey(seriesId), seriesId: seriesId),
                           );
                         },
-                      )
+                        routes: [
+                          GoRoute(
+                            path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                            pageBuilder: (ctx, state) {
+                              final id = state.pathParameters[RouteParam.videoId] ?? "";
+                              return animatedPage(
+                                ctx,
+                                state,
+                                widget: YoutubeVideo(id: id),
+                              );
+                            },
+                          )
+                        ],
+                      ),
                     ],
                   ),
                   GoRoute(

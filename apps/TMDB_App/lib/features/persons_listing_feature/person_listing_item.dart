@@ -19,55 +19,71 @@ class PersonListingItem extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: 315,
-            child: Stack(
-              children: [
-                ExtendedImageCreator(
-                  imageUrl: person.imageUrl,
-                  width: double.infinity,
-                  height: 315,
-                  fit: BoxFit.cover,
-                ),
-                Positioned.fill(
-                  child: InkWell(
-                    splashColor: context.colorTheme.primary.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(10),
-                    onTap: () {
-                      context.push("${RouteName.home}/${RouteName.person}/${person.id}");
-                    },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          border: Border.all(
+            color: context.colorTheme.onBackground.withOpacity(0.4), // Border color
+            width: 1.0, // Border width
+          ),
+          borderRadius: BorderRadius.circular(10), // Border radius
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 315,
+              child: Stack(
+                children: [
+                  ExtendedImageCreator(
+                    imageUrl: person.imageUrl,
+                    width: double.infinity,
+                    height: 315,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned.fill(
+                    child: InkWell(
+                      splashColor: context.colorTheme.primary.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {
+                        context.push("${RouteName.home}/${RouteName.person}/${person.id}");
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4.0),
+                child: Text(
+                  person.name ?? person.originalName ?? "",
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Text(
-              person.name ?? person.originalName ?? "",
-              style: context.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Text(
-              person.knownForWork,
-              style: context.textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.w200,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4.0),
+                child: Text(
+                  person.knownForWork,
+                  style: context.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w200,
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

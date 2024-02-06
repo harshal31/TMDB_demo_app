@@ -1,3 +1,4 @@
+import 'package:fpdart/fpdart.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
 
@@ -76,8 +77,13 @@ class Persons {
 
   String get imageUrl => AppConstant.originalImageBaseUrl + (this.profilePath ?? "");
 
-  String get knownForWork =>
-      knownFor?.map((e) => (e.title ?? e.originalTitle ?? "")).join(", ") ?? "";
+  String get knownForWork {
+    final list = knownFor
+        ?.map((e) => (e.title ?? e.originalTitle ?? ""))
+        .filter((e) => e.isNotEmpty)
+        .take(4);
+    return ((list?.isNotEmpty ?? false) ? list?.join(", ") : "") ?? "";
+  }
 
   factory Persons.fromJson(Map<String, dynamic> json) => _$PersonsFromJson(json);
 

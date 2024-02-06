@@ -49,4 +49,42 @@ class CompanyMediaCubit extends Cubit<AdvanceFilterPaginationState> {
       },
     );
   }
+
+  void fetchPaginatedMedia(int page, bool isMovies) async {
+    if (state.advancePaginationState is AdvanceFilterPaginationLoaded &&
+        (state.advancePaginationState as AdvanceFilterPaginationLoaded).hasReachedMax) {
+      return;
+    }
+
+    if (page == 1) {
+      emit(state.copyWith(advancePaginationState: AdvanceFilterPaginationLoading()));
+    }
+    final results = await (isMovies
+        ? moviesAdvanceFilterUseCase.advanceMovieFilter(page: page)
+        : tvAdvanceFilterUseCase.advanceTvFilter(page: page));
+
+    results.fold(
+      (l) {
+        emit(
+          state.copyWith(
+            advancePaginationState: AdvanceFilterPaginationError(l.errorMessage),
+          ),
+        );
+      },
+      (r) {
+        final isLastPage = (r.latestData?.length ?? 0) < _pageSize;
+
+        emit(
+          state.copyWith(
+            advancePaginationState: AdvanceFilterPaginationLoaded(
+              r,
+              r.latestData ?? [],
+              isLastPage,
+            ),
+            totalResults: r.totalResults,
+          ),
+        );
+      },
+    );
+  }
 }

@@ -100,6 +100,21 @@ class HomeWebScreen extends StatelessWidget {
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
                           onViewAllClick: () {
+                            if (trendingPosCubit.state.pos == 0) {
+                              context.push("${RouteName.home}/${RouteName.movie}");
+                              return;
+                            }
+
+                            if (trendingPosCubit.state.pos == 1) {
+                              context.push("${RouteName.home}/${RouteName.movie}");
+                              return;
+                            }
+
+                            if (trendingPosCubit.state.pos == 2) {
+                              context.push("${RouteName.home}/${RouteName.tv}");
+                              return;
+                            }
+
                             if (trendingPosCubit.state.pos == 3) {
                               context.push("${RouteName.home}/${RouteName.person}");
                               return;
@@ -193,6 +208,13 @@ class HomeWebScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
+                          onViewAllClick: () {
+                            if (latestPosCubit.state.currentSwitchState) {
+                              context.push("${RouteName.home}/${RouteName.movie}");
+                            } else {
+                              context.push("${RouteName.home}/${RouteName.tv}");
+                            }
+                          },
                           onItemClick: (i) {
                             CommonNavigation.redirectToDetailScreen(
                               context,
@@ -251,6 +273,17 @@ class HomeWebScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
+                          onViewAllClick: () {
+                            if (freeToWatchCubit.state.pos == 0) {
+                              context.push("${RouteName.home}/${RouteName.movie}");
+                              return;
+                            }
+
+                            if (freeToWatchCubit.state.pos == 1) {
+                              context.push("${RouteName.home}/${RouteName.tv}");
+                              return;
+                            }
+                          },
                           onItemClick: (i) {
                             CommonNavigation.redirectToDetailScreen(
                               context,

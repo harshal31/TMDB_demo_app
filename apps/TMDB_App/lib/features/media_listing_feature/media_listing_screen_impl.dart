@@ -4,25 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
-import 'package:tmdb_app/features/persons_listing_feature/cubits/persons_listing_cubit.dart';
-import 'package:tmdb_app/features/persons_listing_feature/cubits/persons_listing_use_case.dart';
-import 'package:tmdb_app/features/persons_listing_feature/person_listing_item.dart';
-import 'package:tmdb_app/features/search_feature/data/model/search_person_model.dart';
+import 'package:tmdb_app/features/company_media_screen/cubits/company_media_cubit.dart';
+import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
+import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
+import 'package:tmdb_app/features/media_listing_feature/media_listing_item.dart';
 
-class PersonListingScreenImpl extends StatefulWidget {
-  PersonListingScreenImpl();
+class MediaListingScreenImpl extends StatefulWidget {
+  final bool isMovies;
+
+  MediaListingScreenImpl(this.isMovies);
 
   @override
-  State<PersonListingScreenImpl> createState() => _PersonListingScreenImplState();
+  State<MediaListingScreenImpl> createState() => _MediaListingScreenImplState();
 }
 
-class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
-  final PagingController<int, Persons> personListingController = PagingController(firstPageKey: 1);
+class _MediaListingScreenImplState extends State<MediaListingScreenImpl> {
+  final PagingController<int, LatestData> mediaListingController =
+      PagingController(firstPageKey: 1);
 
   @override
   void initState() {
     super.initState();
-    _listenMoviesPaginationChanges(context.read());
+    _listenMediaPaginationChanges(context.read());
   }
 
   @override
@@ -46,7 +49,7 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
                     borderRadius: BorderRadius.circular(20), // Border radius
                   ),
                   child: Text(
-                    context.tr.people,
+                    widget.isMovies ? context.tr.movies : context.tr.tvSeries,
                     style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -60,7 +63,7 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
                     ),
                     borderRadius: BorderRadius.circular(20), // Border radius
                   ),
-                  child: BlocBuilder<PersonListingCubit, PersonListingState>(
+                  child: BlocBuilder<CompanyMediaCubit, AdvanceFilterPaginationState>(
                     buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
                     builder: (c, s) {
                       return Text(
@@ -82,13 +85,13 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               crossAxisCount: _getCrossAxisGridCount,
-              mainAxisExtent: 380,
+              mainAxisExtent: 400,
             ),
-            pagingController: personListingController,
-            builderDelegate: PagedChildBuilderDelegate<Persons>(
+            pagingController: mediaListingController,
+            builderDelegate: PagedChildBuilderDelegate<LatestData>(
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
-                  onPressed: () => personListingController.refresh(),
+                  onPressed: () => mediaListingController.refresh(),
                   child: Text(
                     context.tr.tryAgain,
                     style: context.textTheme.titleMedium,
@@ -97,9 +100,10 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
               ),
               animateTransitions: true,
               itemBuilder: (ctx, item, index) {
-                return PersonListingItem(
+                return MediaListingItem(
                   key: ValueKey(index),
-                  person: item,
+                  latestData: item,
+                  isMovies: widget.isMovies,
                 );
               },
             ),
@@ -109,29 +113,29 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
     );
   }
 
-  void _listenMoviesPaginationChanges(PersonListingCubit personListingCubit) {
-    personListingController.addPageRequestListener((pageKey) {
-      personListingCubit.fetchPopularPersons(pageKey);
+  void _listenMediaPaginationChanges(CompanyMediaCubit companyMediaCubit) {
+    mediaListingController.addPageRequestListener((pageKey) {
+      companyMediaCubit.fetchPaginatedMedia(pageKey, widget.isMovies);
     });
 
-    personListingCubit.stream.listen((state) {
-      if (state.personListingState is PersonListingPaginationLoaded) {
+    companyMediaCubit.stream.listen((state) {
+      if (state.advancePaginationState is AdvanceFilterPaginationLoaded) {
         final isLastPage =
-            (state.personListingState as PersonListingPaginationLoaded).hasReachedMax;
+            (state.advancePaginationState as AdvanceFilterPaginationLoaded).hasReachedMax;
         if (isLastPage) {
-          personListingController.appendLastPage(
-            (state.personListingState as PersonListingPaginationLoaded).items,
+          mediaListingController.appendLastPage(
+            (state.advancePaginationState as AdvanceFilterPaginationLoaded).results,
           );
         } else {
-          final nextPageKey = personListingController.nextPageKey! + 1;
-          personListingController.appendPage(
-            (state.personListingState as PersonListingPaginationLoaded).items,
+          final nextPageKey = mediaListingController.nextPageKey! + 1;
+          mediaListingController.appendPage(
+            (state.advancePaginationState as AdvanceFilterPaginationLoaded).results,
             nextPageKey,
           );
         }
-      } else if (state.personListingState is PersonListingPaginationError) {
-        personListingController.error =
-            (state.personListingState as PersonListingPaginationError).error;
+      } else if (state.advancePaginationState is AdvanceFilterPaginationError) {
+        mediaListingController.error =
+            (state.advancePaginationState as AdvanceFilterPaginationError).error;
       }
     });
   }
