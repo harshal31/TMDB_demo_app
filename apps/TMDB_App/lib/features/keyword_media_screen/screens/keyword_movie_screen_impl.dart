@@ -130,6 +130,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
               animateTransitions: true,
               itemBuilder: (ctx, item, index) {
                 return TmdbMediaSearchListItem(
+                  key: ValueKey(index),
                   title: item.title ?? item.originalTitle ?? "",
                   subtitle: item.overview ?? "",
                   date: item.releaseDate ?? "",

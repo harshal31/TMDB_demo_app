@@ -16,6 +16,7 @@ import "package:tmdb_app/features/keyword_media_screen/keyword_tv_shows_screen.d
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
 import "package:tmdb_app/features/network_media_screen/network_tv_shows_screen.dart";
 import "package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart";
+import "package:tmdb_app/features/persons_listing_feature/person_listing_screen.dart";
 import "package:tmdb_app/features/search_feature/presentation/screens/search_screen.dart";
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
@@ -27,7 +28,7 @@ class AppRouter {
 
   static GoRouter goRouter = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteName.login,
+    initialLocation: RouteName.home,
     debugLogDiagnostics: true,
     routes: [
       StatefulShellRoute.indexedStack(
@@ -196,15 +197,27 @@ class AppRouter {
                     ],
                   ),
                   GoRoute(
-                    path: "${RouteName.person}/:${RouteParam.id}",
+                    path: "${RouteName.person}",
                     pageBuilder: (ctx, state) {
-                      final personId = state.pathParameters[RouteParam.id] ?? "";
                       return animatedPage(
                         ctx,
                         state,
-                        widget: PersonDetailScreen(key: ValueKey(personId), personId: personId),
+                        widget: const PersonListingScreen(),
                       );
                     },
+                    routes: [
+                      GoRoute(
+                        path: ":${RouteParam.id}",
+                        pageBuilder: (ctx, state) {
+                          final personId = state.pathParameters[RouteParam.id] ?? "";
+                          return animatedPage(
+                            ctx,
+                            state,
+                            widget: PersonDetailScreen(key: ValueKey(personId), personId: personId),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -40,6 +40,7 @@ class TmdbRecomendations extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           return Padding(
+            key: ValueKey(index),
             padding: const EdgeInsets.only(right: 16),
             child: Stack(
               children: [

@@ -19,4 +19,5 @@ class Endpoint {
   static const String searchPerson = "/search/person";
   static const String searchMovie = "/search/movie";
   static const String searchTv = "/search/tv";
+  static const String popularPersons = "/person/popular";
 }

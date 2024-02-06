@@ -87,6 +87,7 @@ class _TmdbVideos extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           return Container(
+            key: ValueKey(index),
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               color: Colors.transparent,
@@ -175,6 +176,7 @@ class _TmdbBackdrops extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           return ExtendedImageCreator(
+            key: ValueKey(index),
             imageUrl: backDrops[index].getImage(),
             width: width ?? 533,
             height: height ?? 300,
@@ -224,6 +226,7 @@ class _TmdbPosters extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           return ExtendedImageCreator(
+            key: ValueKey(index),
             imageUrl: posters[index].getImage(),
             width: 160,
             height: height ?? 300,

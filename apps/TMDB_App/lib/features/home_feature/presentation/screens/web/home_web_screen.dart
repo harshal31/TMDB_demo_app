@@ -3,6 +3,7 @@ import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/switch_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/free_to_watch_sec_cubit/free_to_watch_cubit.dart';
 import 'package:tmdb_app/features/home_feature/presentation/cubits/latest_sec_cubit/latest_cubit.dart';
@@ -13,6 +14,7 @@ import 'package:tmdb_app/features/home_feature/presentation/use_case/latest_use_
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_horizontal_list.dart';
+import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
 class HomeWebScreen extends StatelessWidget {
@@ -97,6 +99,12 @@ class HomeWebScreen extends StatelessWidget {
                         height: 225,
                         child: TmdbHorizontalList(
                           imageUrls: state.getImageUrls,
+                          onViewAllClick: () {
+                            if (trendingPosCubit.state.pos == 3) {
+                              context.push("${RouteName.home}/${RouteName.person}");
+                              return;
+                            }
+                          },
                           onItemClick: (i) {
                             CommonNavigation.redirectToDetailScreen(
                               context,

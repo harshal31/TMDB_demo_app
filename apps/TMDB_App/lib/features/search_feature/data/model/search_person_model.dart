@@ -76,6 +76,9 @@ class Persons {
 
   String get imageUrl => AppConstant.originalImageBaseUrl + (this.profilePath ?? "");
 
+  String get knownForWork =>
+      knownFor?.map((e) => (e.title ?? e.originalTitle ?? "")).join(", ") ?? "";
+
   factory Persons.fromJson(Map<String, dynamic> json) => _$PersonsFromJson(json);
 
   Map<String, dynamic> toJson() => _$PersonsToJson(this);

@@ -3,29 +3,21 @@ import 'package:common_widgets/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tmdb_app/constants/api_key.dart';
-import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
-import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
-import 'package:tmdb_app/features/network_media_screen/cubits/network_media_cubit.dart';
-import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart';
-import 'package:tmdb_app/utils/common_navigation.dart';
+import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:tmdb_app/features/persons_listing_feature/cubits/persons_listing_cubit.dart';
+import 'package:tmdb_app/features/persons_listing_feature/cubits/persons_listing_use_case.dart';
+import 'package:tmdb_app/features/persons_listing_feature/person_listing_item.dart';
+import 'package:tmdb_app/features/search_feature/data/model/search_person_model.dart';
 
-class NetworkTvShowsScreenImpl extends StatefulWidget {
-  final String networkName;
-  final String networkId;
-
-  const NetworkTvShowsScreenImpl({
-    super.key,
-    required this.networkName,
-    required this.networkId,
-  });
+class PersonListingScreenImpl extends StatefulWidget {
+  PersonListingScreenImpl();
 
   @override
-  State<NetworkTvShowsScreenImpl> createState() => _NetworkTvShowsScreenImplState();
+  State<PersonListingScreenImpl> createState() => _PersonListingScreenImplState();
 }
 
-class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
-  final PagingController<int, LatestData> tvShowsController = PagingController(firstPageKey: 1);
+class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
+  final PagingController<int, Persons> personListingController = PagingController(firstPageKey: 1);
 
   @override
   void initState() {
@@ -54,7 +46,7 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
                     borderRadius: BorderRadius.circular(20), // Border radius
                   ),
                   child: Text(
-                    widget.networkName,
+                    context.tr.people,
                     style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -68,11 +60,11 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
                     ),
                     borderRadius: BorderRadius.circular(20), // Border radius
                   ),
-                  child: BlocBuilder<NetworkMediaCubit, AdvanceFilterPaginationState>(
+                  child: BlocBuilder<PersonListingCubit, PersonListingState>(
                     buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
                     builder: (c, s) {
                       return Text(
-                        "${(s.totalResults).toString()} ${context.tr.movies}",
+                        "${(s.totalResults).toString()}",
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -84,15 +76,19 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
             ),
           ),
           const SliverPadding(padding: EdgeInsets.only(top: 16)),
-          PagedSliverList(
-            pagingController: tvShowsController,
-            builderDelegate: PagedChildBuilderDelegate<LatestData>(
-              firstPageProgressIndicatorBuilder: (context) => const Center(
-                child: CircularProgressIndicator(),
-              ),
+          PagedSliverGrid(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: _calculateAspectRatio,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              crossAxisCount: _getCrossAxisGridCount,
+              mainAxisExtent: 400,
+            ),
+            pagingController: personListingController,
+            builderDelegate: PagedChildBuilderDelegate<Persons>(
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
-                  onPressed: () => tvShowsController.refresh(),
+                  onPressed: () => personListingController.refresh(),
                   child: Text(
                     context.tr.tryAgain,
                     style: context.textTheme.titleMedium,
@@ -101,19 +97,9 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
               ),
               animateTransitions: true,
               itemBuilder: (ctx, item, index) {
-                return TmdbMediaSearchListItem(
+                return PersonListingItem(
                   key: ValueKey(index),
-                  title: item.name ?? item.originalName ?? "",
-                  subtitle: item.overview ?? "",
-                  date: item.firstAirDate ?? "",
-                  imageUrl: item.getImagePath(),
-                  onItemClick: () {
-                    CommonNavigation.redirectToDetailScreen(
-                      context,
-                      mediaType: ApiKey.tv,
-                      mediaId: item.id?.toString() ?? "",
-                    );
-                  },
+                  person: item,
                 );
               },
             ),
@@ -123,30 +109,38 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
     );
   }
 
-  void _listenMoviesPaginationChanges(NetworkMediaCubit networkMediaCubit) {
-    tvShowsController.addPageRequestListener((pageKey) {
-      networkMediaCubit.fetchKeywordMedias(widget.networkId, pageKey);
+  void _listenMoviesPaginationChanges(PersonListingCubit personListingCubit) {
+    personListingController.addPageRequestListener((pageKey) {
+      personListingCubit.fetchPopularPersons(pageKey);
     });
 
-    networkMediaCubit.stream.listen((state) {
-      if (state.advancePaginationState is AdvanceFilterPaginationLoaded) {
+    personListingCubit.stream.listen((state) {
+      if (state.personListingState is PersonListingPaginationLoaded) {
         final isLastPage =
-            (state.advancePaginationState as AdvanceFilterPaginationLoaded).hasReachedMax;
+            (state.personListingState as PersonListingPaginationLoaded).hasReachedMax;
         if (isLastPage) {
-          tvShowsController.appendLastPage(
-            (state.advancePaginationState as AdvanceFilterPaginationLoaded).results,
+          personListingController.appendLastPage(
+            (state.personListingState as PersonListingPaginationLoaded).items,
           );
         } else {
-          final nextPageKey = tvShowsController.nextPageKey! + 1;
-          tvShowsController.appendPage(
-            (state.advancePaginationState as AdvanceFilterPaginationLoaded).results,
+          final nextPageKey = personListingController.nextPageKey! + 1;
+          personListingController.appendPage(
+            (state.personListingState as PersonListingPaginationLoaded).items,
             nextPageKey,
           );
         }
-      } else if (state.advancePaginationState is AdvanceFilterPaginationError) {
-        tvShowsController.error =
-            (state.advancePaginationState as AdvanceFilterPaginationError).error;
+      } else if (state.personListingState is PersonListingPaginationError) {
+        personListingController.error =
+            (state.personListingState as PersonListingPaginationError).error;
       }
     });
   }
+
+  int get _getCrossAxisGridCount =>
+      ResponsiveBreakpoints.of(context).isTablet || ResponsiveBreakpoints.of(context).isDesktop
+          ? 4
+          : 2;
+
+  double get _calculateAspectRatio =>
+      MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
 }

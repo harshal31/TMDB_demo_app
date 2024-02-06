@@ -7,7 +7,7 @@ class TrendingPositionCubit extends Cubit<TrendingPositionState> {
   TrendingPositionCubit() : super(TrendingPositionState.initial());
 
   void storePosition(int? pos, bool? switchState) {
-    emit(TrendingPositionState(pos ?? 0, switchState ?? true));
+    emit(state.copyWith(pos: pos ?? 0, switchState: switchState ?? true));
   }
 }
 
@@ -25,6 +25,16 @@ class TrendingPositionState with EquatableMixin {
     final tr = context.tr.trending;
     final result = this.switchState ? context.tr.today : context.tr.thisWeek;
     return "$tr $result";
+  }
+
+  TrendingPositionState copyWith({
+    int? pos,
+    bool? switchState,
+  }) {
+    return TrendingPositionState(
+      pos ?? this.pos,
+      switchState ?? this.switchState,
+    );
   }
 
   List<String> getTrendingTabTitles(BuildContext context) {

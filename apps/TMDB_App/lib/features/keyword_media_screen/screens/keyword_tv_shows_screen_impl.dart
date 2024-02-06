@@ -130,6 +130,7 @@ class _KeywordTvShowsScreenImplState extends State<KeywordTvShowsScreenImpl> {
               animateTransitions: true,
               itemBuilder: (ctx, item, index) {
                 return TmdbMediaSearchListItem(
+                  key: ValueKey(index),
                   title: item.name ?? item.originalName ?? "",
                   subtitle: item.overview ?? "",
                   date: item.firstAirDate ?? "",
