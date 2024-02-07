@@ -39,90 +39,70 @@ class _CompanyMovieScreenMovieImplState extends State<CompanyMovieScreenMovieImp
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: context.boxDecoration,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(
-                        color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
-                        width: 2.0, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(20), // Border radius
-                    ),
-                    child: Text(
-                      widget.companyName,
-                      style: context.dynamicTextStyle,
-                      maxLines: 2,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                    ),
+                Expanded(
+                  child: Text(
+                    widget.companyName,
+                    style: context.dynamicTextStyle,
+                    maxLines: 3,
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
                   ),
                 ),
-                const Spacer(),
-                Flexible(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(
-                        color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
-                        width: 2.0, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(20), // Border radius
-                    ),
-                    child: BlocBuilder<CompanyMediaCubit, AdvanceFilterPaginationState>(
-                      buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
-                      builder: (c, s) {
-                        return Text(
-                          "${(s.totalResults).toString()} ${context.tr.movies}",
-                          style: context.dynamicTextStyle,
-                          maxLines: 2,
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
-                        );
-                      },
-                    ),
+                Expanded(
+                  child: BlocBuilder<CompanyMediaCubit, AdvanceFilterPaginationState>(
+                    buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
+                    builder: (c, s) {
+                      return Text(
+                        "${(s.totalResults).toString()} ${context.tr.movies}",
+                        style: context.dynamicTextStyle,
+                        maxLines: 3,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                        textAlign: TextAlign.end,
+                      );
+                    },
                   ),
                 ),
               ],
             ),
           ),
-          const SliverPadding(padding: EdgeInsets.only(top: 16)),
-          SliverToBoxAdapter(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ListingTooltip(
-                  items: [
-                    context.tr.movies,
-                    context.tr.tvSeries,
-                  ],
-                  onItemClick: (data, index) {
-                    String mediaType = index == 0 ? ApiKey.movie : ApiKey.tv;
-                    context.push(
-                      Uri(
-                        path:
-                            "${RouteName.home}/${RouteName.company}/$mediaType/${widget.companyId}",
-                      ).toString(),
-                      extra: widget.companyName,
-                    );
-                  },
-                  defaultSelectedItem: context.tr.movies,
-                )
-              ],
-            ),
+        ),
+        const SliverPadding(padding: EdgeInsets.only(top: 16)),
+        SliverToBoxAdapter(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ListingTooltip(
+                items: [
+                  context.tr.movies,
+                  context.tr.tvSeries,
+                ],
+                onItemClick: (data, index) {
+                  String mediaType = index == 0 ? ApiKey.movie : ApiKey.tv;
+                  context.push(
+                    Uri(
+                      path: "${RouteName.home}/${RouteName.company}/$mediaType/${widget.companyId}",
+                    ).toString(),
+                    extra: widget.companyName,
+                  );
+                },
+                defaultSelectedItem: context.tr.movies,
+              )
+            ],
           ),
-          const SliverPadding(padding: EdgeInsets.only(top: 16)),
-          PagedSliverList(
+        ),
+        const SliverPadding(padding: EdgeInsets.only(top: 16)),
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          sliver: PagedSliverList(
             pagingController: movieController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
               firstPageProgressIndicatorBuilder: (context) => const Center(
@@ -155,9 +135,9 @@ class _CompanyMovieScreenMovieImplState extends State<CompanyMovieScreenMovieImp
                 );
               },
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 

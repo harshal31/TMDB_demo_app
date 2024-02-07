@@ -9,6 +9,7 @@ import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_adva
 import 'package:tmdb_app/features/network_media_screen/cubits/network_media_cubit.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
+import 'package:tmdb_app/utils/dynamic_text_style.dart';
 
 class NetworkTvShowsScreenImpl extends StatefulWidget {
   final String networkName;
@@ -35,61 +36,46 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: context.boxDecoration,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(
-                        color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
-                        width: 2.0, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(20), // Border radius
-                    ),
-                    child: Text(
-                      widget.networkName,
-                      style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                    ),
+                Expanded(
+                  child: Text(
+                    widget.networkName,
+                    style: context.dynamicTextStyle,
+                    maxLines: 3,
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
                   ),
                 ),
-                const Spacer(),
-                Flexible(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(
-                        color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
-                        width: 2.0, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(20), // Border radius
-                    ),
-                    child: BlocBuilder<NetworkMediaCubit, AdvanceFilterPaginationState>(
-                      buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
-                      builder: (c, s) {
-                        return Text(
-                          "${(s.totalResults).toString()} ${context.tr.movies}",
-                          style: context.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        );
-                      },
-                    ),
+                Expanded(
+                  child: BlocBuilder<NetworkMediaCubit, AdvanceFilterPaginationState>(
+                    buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
+                    builder: (c, s) {
+                      return Text(
+                        "${(s.totalResults).toString()} ${context.tr.movies}",
+                        style: context.dynamicTextStyle,
+                        maxLines: 3,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                        textAlign: TextAlign.end,
+                      );
+                    },
                   ),
                 ),
               ],
             ),
           ),
-          const SliverPadding(padding: EdgeInsets.only(top: 16)),
-          PagedSliverList(
+        ),
+        const SliverPadding(padding: EdgeInsets.only(top: 16)),
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          sliver: PagedSliverList(
             pagingController: tvShowsController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
               firstPageProgressIndicatorBuilder: (context) => const Center(
@@ -122,9 +108,9 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
                 );
               },
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
