@@ -1,4 +1,6 @@
-import 'package:common_widgets/theme/app_themetooltip.dart';
+import 'package:common_widgets/theme/app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:super_tooltip/super_tooltip.dart';
 
 class ListingTooltip extends StatefulWidget {
   final String defaultSelectedItem;
