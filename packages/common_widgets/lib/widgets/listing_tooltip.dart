@@ -1,4 +1,5 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 
@@ -20,6 +21,7 @@ class ListingTooltip extends StatefulWidget {
 
 class _ListingTooltipState extends State<ListingTooltip> {
   final SuperTooltipController _controller = SuperTooltipController();
+  bool isShow = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,34 +30,43 @@ class _ListingTooltipState extends State<ListingTooltip> {
       borderColor: context.colorTheme.onBackground.withOpacity(0.3),
       borderWidth: 1.0,
       hideTooltipOnTap: true,
-      child: Material(
-        color: context.colorTheme.background,
-        shape: const CircleBorder(),
-        elevation: 4.0,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextButton(
-            onPressed: () {
+      onShow: () {
+        isShow = false;
+      },
+      onHide: () {
+        isShow = true;
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextButton(
+          onPressed: () {
+            if (kIsWeb) {
               _controller.hideTooltip();
-            },
-            onHover: (s) async {
-              if (s) {
-                _controller.showTooltip();
-              }
-            },
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  widget.defaultSelectedItem,
-                  style: context.textTheme.titleMedium,
-                ),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: context.colorTheme.onBackground,
-                )
-              ],
-            ),
+              return;
+            }
+            if (isShow) {
+              _controller.showTooltip();
+            } else {
+              _controller.hideTooltip();
+            }
+          },
+          onHover: (s) async {
+            if (s) {
+              _controller.showTooltip();
+            }
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                widget.defaultSelectedItem,
+                style: context.textTheme.titleMedium,
+              ),
+              Icon(
+                Icons.arrow_drop_down,
+                color: context.colorTheme.onBackground,
+              )
+            ],
           ),
         ),
       ),
