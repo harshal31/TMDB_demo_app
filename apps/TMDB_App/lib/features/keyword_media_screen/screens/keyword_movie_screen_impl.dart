@@ -12,6 +12,7 @@ import 'package:tmdb_app/features/keyword_media_screen/cubits/keyword_media_cubi
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
+import 'package:tmdb_app/utils/dynamic_text_style.dart';
 
 class KeywordMovieScreenMovieImpl extends StatefulWidget {
   final String keywordName;
@@ -59,7 +60,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                     ),
                     child: Text(
                       widget.keywordName,
-                      style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                      style: context.dynamicTextStyle,
                       maxLines: 2,
                       softWrap: true,
                       overflow: TextOverflow.fade,
@@ -83,9 +84,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                       builder: (c, s) {
                         return Text(
                           "${(s.totalResults).toString()} ${context.tr.movies}",
-                          style: context.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: context.dynamicTextStyle,
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.fade,

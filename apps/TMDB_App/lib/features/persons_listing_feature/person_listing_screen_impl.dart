@@ -8,6 +8,7 @@ import 'package:tmdb_app/features/persons_listing_feature/cubits/persons_listing
 import 'package:tmdb_app/features/persons_listing_feature/cubits/persons_listing_use_case.dart';
 import 'package:tmdb_app/features/persons_listing_feature/person_listing_item.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_person_model.dart';
+import 'package:tmdb_app/utils/dynamic_text_style.dart';
 
 class PersonListingScreenImpl extends StatefulWidget {
   PersonListingScreenImpl();
@@ -35,41 +36,50 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(
-                      color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
-                      width: 2.0, // Border width
+                Flexible(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
+                        width: 2.0, // Border width
+                      ),
+                      borderRadius: BorderRadius.circular(20), // Border radius
                     ),
-                    borderRadius: BorderRadius.circular(20), // Border radius
-                  ),
-                  child: Text(
-                    context.tr.people,
-                    style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                    child: Text(
+                      context.tr.people,
+                      style: context.dynamicTextStyle,
+                      maxLines: 2,
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(
-                      color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
-                      width: 2.0, // Border width
+                const Spacer(),
+                Flexible(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
+                        width: 2.0, // Border width
+                      ),
+                      borderRadius: BorderRadius.circular(20), // Border radius
                     ),
-                    borderRadius: BorderRadius.circular(20), // Border radius
-                  ),
-                  child: BlocBuilder<PersonListingCubit, PersonListingState>(
-                    buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
-                    builder: (c, s) {
-                      return Text(
-                        "${(s.totalResults).toString()}",
-                        style: context.textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      );
-                    },
+                    child: BlocBuilder<PersonListingCubit, PersonListingState>(
+                      buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
+                      builder: (c, s) {
+                        return Text(
+                          "${(s.totalResults).toString()}",
+                          style: context.dynamicTextStyle,
+                          maxLines: 2,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

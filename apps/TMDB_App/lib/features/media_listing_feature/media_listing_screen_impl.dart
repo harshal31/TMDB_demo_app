@@ -8,6 +8,7 @@ import 'package:tmdb_app/features/company_media_screen/cubits/company_media_cubi
 import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
 import 'package:tmdb_app/features/media_listing_feature/media_listing_item.dart';
+import 'package:tmdb_app/utils/dynamic_text_style.dart';
 
 class MediaListingScreenImpl extends StatefulWidget {
   final bool isMovies;
@@ -51,7 +52,10 @@ class _MediaListingScreenImplState extends State<MediaListingScreenImpl> {
                     ),
                     child: Text(
                       widget.isMovies ? context.tr.movies : context.tr.tvSeries,
-                      style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                      style: context.dynamicTextStyle,
+                      maxLines: 2,
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                 ),
@@ -72,9 +76,10 @@ class _MediaListingScreenImplState extends State<MediaListingScreenImpl> {
                       builder: (c, s) {
                         return Text(
                           "${(s.totalResults).toString()}",
-                          style: context.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: context.dynamicTextStyle,
+                          maxLines: 2,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
                         );
                       },
                     ),

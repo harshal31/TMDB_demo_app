@@ -12,6 +12,7 @@ import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_adva
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
+import 'package:tmdb_app/utils/dynamic_text_style.dart';
 
 class CompanyMovieScreenMovieImpl extends StatefulWidget {
   final String companyName;
@@ -59,7 +60,7 @@ class _CompanyMovieScreenMovieImplState extends State<CompanyMovieScreenMovieImp
                     ),
                     child: Text(
                       widget.companyName,
-                      style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                      style: context.dynamicTextStyle,
                       maxLines: 2,
                       softWrap: true,
                       overflow: TextOverflow.fade,
@@ -83,9 +84,7 @@ class _CompanyMovieScreenMovieImplState extends State<CompanyMovieScreenMovieImp
                       builder: (c, s) {
                         return Text(
                           "${(s.totalResults).toString()} ${context.tr.movies}",
-                          style: context.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: context.dynamicTextStyle,
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.fade,
