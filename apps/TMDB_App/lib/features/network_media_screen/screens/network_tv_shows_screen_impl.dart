@@ -43,41 +43,46 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(
-                      color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
-                      width: 2.0, // Border width
+                Flexible(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
+                        width: 2.0, // Border width
+                      ),
+                      borderRadius: BorderRadius.circular(20), // Border radius
                     ),
-                    borderRadius: BorderRadius.circular(20), // Border radius
-                  ),
-                  child: Text(
-                    widget.networkName,
-                    style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                    child: Text(
+                      widget.networkName,
+                      style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(
-                      color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
-                      width: 2.0, // Border width
+                const Spacer(),
+                Flexible(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: context.colorTheme.onSurface.withOpacity(0.4), // Border color
+                        width: 2.0, // Border width
+                      ),
+                      borderRadius: BorderRadius.circular(20), // Border radius
                     ),
-                    borderRadius: BorderRadius.circular(20), // Border radius
-                  ),
-                  child: BlocBuilder<NetworkMediaCubit, AdvanceFilterPaginationState>(
-                    buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
-                    builder: (c, s) {
-                      return Text(
-                        "${(s.totalResults).toString()} ${context.tr.movies}",
-                        style: context.textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      );
-                    },
+                    child: BlocBuilder<NetworkMediaCubit, AdvanceFilterPaginationState>(
+                      buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
+                      builder: (c, s) {
+                        return Text(
+                          "${(s.totalResults).toString()} ${context.tr.movies}",
+                          style: context.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
