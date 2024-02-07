@@ -1,7 +1,4 @@
-import 'package:common_widgets/theme/app_theme.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:super_tooltip/super_tooltip.dart';
+import 'package:common_widgets/theme/app_themetooltip.dart';
 
 class ListingTooltip extends StatefulWidget {
   final String defaultSelectedItem;
@@ -40,10 +37,6 @@ class _ListingTooltipState extends State<ListingTooltip> {
         padding: const EdgeInsets.all(8.0),
         child: TextButton(
           onPressed: () {
-            if (kIsWeb) {
-              _controller.hideTooltip();
-              return;
-            }
             if (isShow) {
               _controller.showTooltip();
             } else {
