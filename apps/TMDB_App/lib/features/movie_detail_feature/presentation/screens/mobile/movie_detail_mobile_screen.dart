@@ -9,6 +9,7 @@ import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/movie_detail_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
@@ -20,6 +21,7 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_recomendations%20.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
+import 'package:tmdb_app/routes/route_name.dart';
 
 class MovieDetailMobileScreen extends StatelessWidget {
   const MovieDetailMobileScreen({super.key});
@@ -377,7 +379,16 @@ class MovieDetailMobileScreen extends StatelessWidget {
                               Icons.keyboard_double_arrow_right_sharp,
                               size: 40,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              final value = movieDetailCubit.state.mediaDetailModel.mediaDetail;
+                              context.push(
+                                Uri(
+                                  path:
+                                      "${RouteName.home}/${RouteName.movie}/${value?.id}/${RouteName.reviews}",
+                                ).toString(),
+                                extra: value,
+                              );
+                            },
                           ),
                         ),
                       ],

@@ -14,10 +14,12 @@ import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.
 import "package:tmdb_app/features/keyword_media_screen/keyword_movie_screen.dart";
 import "package:tmdb_app/features/keyword_media_screen/keyword_tv_shows_screen.dart";
 import "package:tmdb_app/features/media_listing_feature/media_listing_screen.dart";
+import "package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart";
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
 import "package:tmdb_app/features/network_media_screen/network_tv_shows_screen.dart";
 import "package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart";
 import "package:tmdb_app/features/persons_listing_feature/person_listing_screen.dart";
+import "package:tmdb_app/features/reviews_listing_feature/reviews_listing_screen.dart";
 import "package:tmdb_app/features/search_feature/presentation/screens/search_screen.dart";
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
@@ -29,7 +31,7 @@ class AppRouter {
 
   static GoRouter goRouter = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteName.login,
+    initialLocation: RouteName.home,
     debugLogDiagnostics: true,
     routes: [
       StatefulShellRoute.indexedStack(
@@ -179,7 +181,24 @@ class AppRouter {
                                 widget: YoutubeVideo(id: id),
                               );
                             },
-                          )
+                          ),
+                          GoRoute(
+                            path: RouteName.reviews,
+                            pageBuilder: (ctx, state) {
+                              final movieId = state.pathParameters[RouteParam.id] ?? "";
+                              final mediaDetail =
+                                  state.extra is MediaDetail ? (state.extra as MediaDetail) : null;
+                              return animatedPage(
+                                ctx,
+                                state,
+                                widget: ReviewsListingScreen(
+                                  mediaId: movieId,
+                                  isMovies: true,
+                                  mediaDetail: mediaDetail,
+                                ),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ],
@@ -213,6 +232,23 @@ class AppRouter {
                                 ctx,
                                 state,
                                 widget: YoutubeVideo(id: id),
+                              );
+                            },
+                          ),
+                          GoRoute(
+                            path: RouteName.reviews,
+                            pageBuilder: (ctx, state) {
+                              final movieId = state.pathParameters[RouteParam.id] ?? "";
+                              final mediaDetail =
+                                  state.extra is MediaDetail ? (state.extra as MediaDetail) : null;
+                              return animatedPage(
+                                ctx,
+                                state,
+                                widget: ReviewsListingScreen(
+                                  mediaId: movieId,
+                                  isMovies: false,
+                                  mediaDetail: mediaDetail,
+                                ),
                               );
                             },
                           )

@@ -49,7 +49,9 @@ class TmdbReview extends StatelessWidget {
                           shape: BoxShape.circle,
                         )
                       : Text(
-                          'P',
+                          (result?.author?.length ?? 0) > 0
+                              ? (result?.author?[0] ?? "").toUpperCase()
+                              : "A",
                           style: context.textTheme.titleMedium?.copyWith(
                             color: context.colorTheme.onPrimary,
                             fontWeight: FontWeight.w900,
@@ -63,7 +65,7 @@ class TmdbReview extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        context.tr.aReviewBy(result?.authorDetails?.name ?? ""),
+                        context.tr.aReviewBy(result?.author ?? ""),
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.w900,
                         ),
@@ -71,33 +73,41 @@ class TmdbReview extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(4.0),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: context.colorTheme.primary,
-                            ),
+                          Visibility(
+                            visible: result?.authorDetails?.rating != null,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
-                                  Icons.star,
-                                  color: context.colorTheme.onPrimary,
-                                  size: 15,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  result?.authorDetails?.rating.toString() ?? "",
-                                  style: context.textTheme.titleSmall?.copyWith(
-                                    color: context.colorTheme.onPrimary,
-                                    fontWeight: FontWeight.w800,
+                                Container(
+                                  padding: const EdgeInsets.all(4.0),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: context.colorTheme.primary,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: context.colorTheme.onPrimary,
+                                        size: 15,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        result?.authorDetails?.rating.toString() ?? "",
+                                        style: context.textTheme.titleSmall?.copyWith(
+                                          color: context.colorTheme.onPrimary,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                const SizedBox(width: 16),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 16),
                           Expanded(
                             child: Text(
                               context.tr.writtenBy(result?.authorDetails?.name ?? "",

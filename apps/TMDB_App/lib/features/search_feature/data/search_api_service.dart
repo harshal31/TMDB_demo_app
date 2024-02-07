@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/constants/endpoint.dart';
-import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_company_model.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_keywords_model.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_movie_model.dart';

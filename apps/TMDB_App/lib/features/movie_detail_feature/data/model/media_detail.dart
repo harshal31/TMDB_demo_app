@@ -168,6 +168,32 @@ class MediaDetail {
     this.videos,
   });
 
+  String getBackdropImage() {
+    return AppConstant.originalImageBaseUrl + (backdropPath ?? "");
+  }
+
+  String getPosterPath() {
+    return AppConstant.originalImageBaseUrl + (posterPath ?? "");
+  }
+
+  String getReleaseYear() {
+    try {
+      final value = releaseDate?.split("-").firstOrNull ?? "-";
+      return value.isNotEmpty ? "($value)" : value;
+    } catch (e) {
+      return "-";
+    }
+  }
+
+  String getTvSeriesYear() {
+    try {
+      final value = firstAirDate?.split("-").firstOrNull ?? "-";
+      return value.isNotEmpty ? "($value)" : value;
+    } catch (e) {
+      return "-";
+    }
+  }
+
   factory MediaDetail.fromJson(Map<String, dynamic> json) => _$MediaDetailFromJson(json);
 
   Map<String, dynamic> toJson() => _$MediaDetailToJson(this);

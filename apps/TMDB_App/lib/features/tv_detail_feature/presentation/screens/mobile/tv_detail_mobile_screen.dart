@@ -7,6 +7,7 @@ import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
@@ -19,6 +20,7 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
 import 'package:tmdb_app/features/tv_detail_feature/presentation/cubits/tv_detail_cubit.dart';
 import 'package:tmdb_app/features/tv_detail_feature/presentation/use_cases/tv_detail_use_case.dart';
+import 'package:tmdb_app/routes/route_name.dart';
 
 class TvDetailMobileScreen extends StatelessWidget {
   const TvDetailMobileScreen({super.key});
@@ -387,7 +389,16 @@ class TvDetailMobileScreen extends StatelessWidget {
                               Icons.keyboard_double_arrow_right_sharp,
                               size: 40,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              final value = tvDetailCubit.state.mediaDetailModel.mediaDetail;
+                              context.push(
+                                Uri(
+                                  path:
+                                      "${RouteName.home}/${RouteName.tv}/${value?.id}/${RouteName.reviews}",
+                                ).toString(),
+                                extra: value,
+                              );
+                            },
                           ),
                         ),
                       ],
