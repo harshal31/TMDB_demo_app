@@ -57,7 +57,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    height: 230,
+                    height: 232,
                     child: Stack(
                       children: [
                         Positioned(
