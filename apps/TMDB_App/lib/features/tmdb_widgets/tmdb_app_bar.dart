@@ -123,9 +123,18 @@ class _TmdbAppBarState extends State<TmdbAppBar> {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppAsset.images.tmdbHorizontalLogo.image(
-                          package: "common_widgets",
-                          height: 30,
+                        InkWell(
+                          onTap: () {
+                            final path =
+                                GoRouter.of(context).routeInformationProvider.value.uri.path;
+                            if (path != RouteName.home) {
+                              context.push(RouteName.home);
+                            }
+                          },
+                          child: AppAsset.images.tmdbHorizontalLogo.image(
+                            package: "common_widgets",
+                            height: 30,
+                          ),
                         ),
                         IconButton(
                           key: UniqueKey(),
