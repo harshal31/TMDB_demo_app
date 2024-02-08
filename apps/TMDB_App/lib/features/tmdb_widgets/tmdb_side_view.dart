@@ -304,7 +304,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
           ),
           Text(
             context.tr.keywords,
-            style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w900),
+            style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
           const SizedBox(height: 8),
           Visibility(

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class DominantColorFromImage extends StatefulWidget {
   final ImageProvider imageProvider;
+  final Widget? dominantChild;
 
   const DominantColorFromImage({
     super.key,
     required this.imageProvider,
+    this.dominantChild,
   });
 
   @override
@@ -34,6 +36,7 @@ class _DominantColorState extends State<DominantColorFromImage> {
           ],
         ),
       ),
+      child: widget.dominantChild,
     );
   }
 
