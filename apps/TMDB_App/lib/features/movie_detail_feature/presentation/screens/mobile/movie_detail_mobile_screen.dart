@@ -219,7 +219,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: context.textTheme.titleSmall?.copyWith(
                                   fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w100,
+                                  fontWeight: FontWeight.w300,
                                   color: context.colorTheme.onBackground.withOpacity(0.6)),
                             ),
                           ),
