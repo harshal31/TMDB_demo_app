@@ -71,7 +71,10 @@ class TvDetailMobileScreen extends StatelessWidget {
                               fit: BoxFit.cover,
                               height: double.infinity,
                               width: MediaQuery.of(context).size.width * 0.7,
-                              borderRadius: BorderRadius.zero,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(6),
+                                bottomLeft: Radius.circular(6),
+                              ),
                               shouldDisplayErrorImage: false,
                             ),
                           ),
