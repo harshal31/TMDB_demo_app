@@ -3,8 +3,8 @@
 ## Overview
 
 The TMDB Application is designed to showcase movies, TV shows, person details, and their
-filmographies, drawing inspiration from the existing TMDB App. It supports Android, iOS, and web
-platforms, providing a comprehensive and cross-platform experience for viewing entertainment
+filmographies. Drawing inspiration from the existing TMDB App, it supports Android, iOS, and web
+platforms, offering a comprehensive and cross-platform experience for accessing entertainment
 information.
 
 ## Getting Started
@@ -13,21 +13,21 @@ information.
 
 - **TMDB API Key:** Before you begin, ensure you have a valid TMDB API key to access the movie
   database. This key is crucial for fetching data and integrating it within the app.
-- **Melos Dependency:** It's important to add the Melos dependency before starting the project.
-  Melos is a tool that helps manage Dart and Flutter projects with multiple packages. For more
-  information on getting started with Melos, please refer to the following
-  site: [Melos Getting Started Guide](https://melos.invertase.dev/getting-started).
+
+- **Melos Dependency:** Add the Melos dependency before starting the project to manage Dart and
+  Flutter projects with multiple packages effectively. For more information on getting started with
+  Melos, please refer to
+  the [Melos Getting Started Guide](https://melos.invertase.dev/getting-started).
 
 ### Configuration
 
-To integrate your TMDB API key into the application, you need to modify the `AuthInterceptor` file.
-Locate the API key declaration and replace the placeholder with your actual TMDB API key as
-demonstrated below:
+To integrate your TMDB API key into the application, modify the `AuthInterceptor` file. Replace the
+API key declaration with your actual TMDB API key as shown below:
 
 - Find the line: `const String _token = "";`
 - Replace it with: `const String _token = "<your_api_key>";`
 
-This step is crucial for the application to authenticate and retrieve data from TMDB successfully.
+This step ensures the application can authenticate and retrieve data from TMDB successfully.
 
 ### Dependencies
 
@@ -57,11 +57,35 @@ This project utilizes the following dependencies:
 - `image_network: ^2.5.4+1`
 - `infinite_scroll_pagination: ^4.0.0`
 
+### Flutter Doctor Summary
+
+This project was created and developed using the following Flutter version:
+
+```
+$ flutter doctor
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, 3.16.9, on macOS 14.3 23D56 darwin-arm64, locale en-IN)
+[✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+[✓] Xcode - develop for iOS and macOS (Xcode 15.0.1)
+[✓] Chrome - develop for the web
+[✓] Android Studio (version 2023.1)
+[✓] IntelliJ IDEA Ultimate Edition (version 2023.3.3)
+[✓] VS Code (version 1.86.0)
+[✓] Connected device (4 available)
+[✓] Network resources
+• No issues found!
+```
+
+This information is essential for ensuring compatibility and understanding the development
+environment of the project.
+
 ### Platforms Supported
 
 - Android
 - iOS
 - Web
 
-By following these setup instructions, you'll be ready to explore a vast collection of entertainment
-data through the TMDB Application on your preferred platform.
+By following these setup instructions, including the Melos dependency setup, integrating the listed
+dependencies, and understanding the development environment through the Flutter Doctor summary,
+you'll be prepared to explore a vast collection of entertainment data through the TMDB Application
+on your preferred platform.
