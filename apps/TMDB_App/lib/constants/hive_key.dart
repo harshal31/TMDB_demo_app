@@ -6,4 +6,5 @@ class HiveKey {
   /// Hive box keys
   static const String requestToken = "requestToken";
   static const String sessionId = "sessionId";
+  static const String accountId = "accountId";
 }

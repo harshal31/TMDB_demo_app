@@ -21,4 +21,6 @@ class Endpoint {
   static const String searchTv = "/search/tv";
   static const String popularPersons = "/person/popular";
   static const String mediaReviews = "/{${ApiKey.mediaType}}/{${ApiKey.typeId}}/reviews";
+  static const String accountDetail = "/account/{${ApiKey.accountId}}";
+  static const String accountDetailWithoutAccountId = "/account";
 }

@@ -19,6 +19,9 @@ information.
   Melos, please refer to
   the [Melos Getting Started Guide](https://melos.invertase.dev/getting-started).
 
+- **Melos Bootstrap[Melos bs]:** After ensuring Melos is activated globally, run the following
+  command melos bs inside project root terminal to bootstrap the project
+
 ### Configuration
 
 To integrate your TMDB API key into the application, modify the `AuthInterceptor` file. Replace the

@@ -19,6 +19,7 @@ import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movi
 import "package:tmdb_app/features/network_media_screen/network_tv_shows_screen.dart";
 import "package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart";
 import "package:tmdb_app/features/persons_listing_feature/person_listing_screen.dart";
+import "package:tmdb_app/features/profile_feature/profile_screen.dart";
 import "package:tmdb_app/features/reviews_listing_feature/reviews_listing_screen.dart";
 import "package:tmdb_app/features/search_feature/presentation/screens/search_screen.dart";
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
@@ -28,6 +29,7 @@ import "package:tmdb_app/routes/route_param.dart";
 class AppRouter {
   static GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
   static GlobalKey<NavigatorState> _homeRouterKey = GlobalKey<NavigatorState>();
+  static GlobalKey<NavigatorState> _profileRouterKey = GlobalKey<NavigatorState>();
 
   static GoRouter goRouter = GoRouter(
     navigatorKey: _rootNavigatorKey,
@@ -282,7 +284,18 @@ class AppRouter {
                 ],
               ),
             ],
-          )
+          ),
+          StatefulShellBranch(
+            navigatorKey: _profileRouterKey,
+            routes: [
+              GoRoute(
+                path: RouteName.profile,
+                builder: (ctx, state) {
+                  return ProfileScreen();
+                },
+              ),
+            ],
+          ),
         ],
       ),
       GoRoute(

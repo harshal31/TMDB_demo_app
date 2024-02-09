@@ -287,4 +287,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String actionFor(Object knownFor, Object name) {
     return '$knownFor. $name';
   }
+
+  @override
+  String get country => 'Country';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get isAdultIncluded => 'Adult Content Included';
 }

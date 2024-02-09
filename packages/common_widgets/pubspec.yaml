@@ -26,6 +26,7 @@ dependencies:
   super_tooltip: ^2.0.7
   flutter_rating_bar: ^4.0.1
   url_launcher: ^6.2.4
+  country_flags: ^2.2.0
 
 
 dev_dependencies:

@@ -594,6 +594,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{knownFor}. {name}'**
   String actionFor(Object knownFor, Object name);
+
+  /// No description provided for @country.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @isAdultIncluded.
+  ///
+  /// In en, this message translates to:
+  /// **'Adult Content Included'**
+  String get isAdultIncluded;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

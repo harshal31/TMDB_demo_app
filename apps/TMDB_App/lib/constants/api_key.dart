@@ -7,6 +7,7 @@ class ApiKey {
   static const String dynamicPath = "dynamicPath";
   static const String dynamicPath2 = "dynamicPath2";
   static const String mediaType = "mediaType";
+  static const String accountId = "account_id";
   static const String typeId = "typeId";
   static const String sessionId = "session_id";
   static const String creditType = "creditType";

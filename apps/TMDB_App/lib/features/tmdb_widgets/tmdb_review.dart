@@ -50,7 +50,7 @@ class TmdbReview extends StatelessWidget {
                         )
                       : Text(
                           (result?.author?.length ?? 0) > 0
-                              ? (result?.author?[0] ?? "").toUpperCase()
+                              ? ((result?.author ?? "A")[0]).toUpperCase()
                               : "A",
                           style: context.textTheme.titleMedium?.copyWith(
                             color: context.colorTheme.onPrimary,

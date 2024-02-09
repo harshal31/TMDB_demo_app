@@ -18,11 +18,15 @@ class UserPrefUseCase {
       "$userKey": prefValue,
     };
 
-    await _mediaDetailApiService.saveUserPref(userKey, sessionId, map);
+    await sessionId.isEmpty
+        ? _mediaDetailApiService.saveUserPrefWithoutSessionId(userKey, map)
+        : _mediaDetailApiService.saveUserPref(userKey, sessionId, map);
   }
 
   void addRating(String sessionId, String mediaType, double rating, int mediaId) async {
     final map = {"value": rating};
-    await _mediaDetailApiService.addMediaRating(mediaType, mediaId, sessionId, map);
+    await sessionId.isEmpty
+        ? _mediaDetailApiService.addMediaRatingWithoutSessionId(mediaType, mediaId, map)
+        : _mediaDetailApiService.addMediaRating(mediaType, mediaId, sessionId, map);
   }
 }

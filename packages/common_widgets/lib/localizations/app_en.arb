@@ -82,5 +82,8 @@
   "companiesCount": "Companies ({count})",
   "tryAgain": "Try Again",
   "searchFor": "Search for a movie, tv show, person...",
-  "actionFor": "{knownFor}. {name}"
+  "actionFor": "{knownFor}. {name}",
+  "country": "Country",
+  "language": "Language",
+  "isAdultIncluded": "Adult Content Included"
 }

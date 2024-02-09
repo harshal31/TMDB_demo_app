@@ -33,4 +33,17 @@ abstract class MediaDetailApiService {
     @Query(ApiKey.sessionId) String sessionId,
     @Body() Map<String, dynamic> body,
   );
+
+  @POST(Endpoint.mediaRating)
+  Future<HttpResponse<MediaAddRating?>> addMediaRatingWithoutSessionId(
+    @Path(ApiKey.mediaType) String mediaType,
+    @Path(ApiKey.typeId) int typeId,
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST(Endpoint.saveUserPref)
+  Future<HttpResponse<MediaAddRating?>> saveUserPrefWithoutSessionId(
+    @Path(ApiKey.dynamicPath) String dynamicPath,
+    @Body() Map<String, dynamic> body,
+  );
 }
