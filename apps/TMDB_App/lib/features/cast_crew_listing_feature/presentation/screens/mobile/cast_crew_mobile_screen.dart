@@ -115,6 +115,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: casts.length,
                         itemBuilder: (ctx, index) {
@@ -150,6 +151,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: state.groupCrew.length,
                         itemBuilder: (ctx, index) {
@@ -167,6 +169,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 4),
                               ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: values.length,
                                 itemBuilder: (ctx, index) {

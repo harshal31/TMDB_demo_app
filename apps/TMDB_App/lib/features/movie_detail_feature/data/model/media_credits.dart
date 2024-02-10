@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
@@ -36,7 +38,10 @@ class MediaCredits {
   }
 
   Map<String, List<Crew>> groupByDepartment() {
-    return this.crew?.groupListsBy((element) => element.department ?? "") ?? {};
+    return SplayTreeMap.from(this
+            .crew
+            ?.groupListsBy((element) => element.knownForDepartment ?? element.department ?? "") ??
+        {});
   }
 }
 

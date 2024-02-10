@@ -117,6 +117,7 @@ class CastCrewWebTabScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 16),
                                 ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: casts.length,
                                   itemBuilder: (ctx, index) {
@@ -162,6 +163,7 @@ class CastCrewWebTabScreen extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 4),
                                         ListView.builder(
+                                          physics: const NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: values.length,
                                           itemBuilder: (ctx, index) {
@@ -203,6 +205,7 @@ class CastCrewWebTabScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 16),
                                     ListView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       itemCount: casts.length,
                                       itemBuilder: (ctx, index) {
@@ -256,6 +259,7 @@ class CastCrewWebTabScreen extends StatelessWidget {
                                                 ),
                                                 const SizedBox(height: 4),
                                                 ListView.builder(
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
                                                   itemCount: values.length,
                                                   itemBuilder: (ctx, index) {

@@ -40,20 +40,22 @@ class CastCrewListItem extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title,
-                  style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: context.textTheme.titleSmall,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: context.textTheme.titleSmall,
+                  ),
+                ],
+              ),
             )
           ],
         ),
