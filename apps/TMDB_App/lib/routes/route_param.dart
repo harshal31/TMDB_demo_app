@@ -14,4 +14,6 @@ class RouteParam {
   static const String keyword = "keyword";
   static const String network = "network";
   static const String company = "company";
+  static const String mediaName = "mediaName";
+  static const String mediaImage = "mediaImage";
 }

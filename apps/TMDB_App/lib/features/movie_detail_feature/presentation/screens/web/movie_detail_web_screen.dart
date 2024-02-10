@@ -340,9 +340,8 @@ class MovieDetailWebScreen extends StatelessWidget {
                                   context.push(
                                     Uri(
                                       path:
-                                          "${RouteName.home}/${RouteName.movie}/${detail?.id ?? ""}/${RouteName.cast}",
+                                          "${RouteName.home}/${RouteName.movie}/${detail?.id ?? ""}/${RouteName.cast}/${mediaName.encodeString()}/${imageUrl.encodeString()}",
                                     ).toString(),
-                                    extra: "$imageUrl|$mediaName",
                                   );
                                 },
                               ),

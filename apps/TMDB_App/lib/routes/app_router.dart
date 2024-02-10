@@ -1,5 +1,6 @@
 import "dart:async";
 
+import "package:common_widgets/common_utils/time_conversion.dart";
 import "package:common_widgets/localizations/localized_extension.dart";
 import "package:common_widgets/widgets/youtube_video.dart";
 import "package:flutter/material.dart";
@@ -34,7 +35,7 @@ class AppRouter {
 
   static GoRouter goRouter = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteName.login,
+    initialLocation: RouteName.home,
     debugLogDiagnostics: true,
     routes: [
       StatefulShellRoute.indexedStack(
@@ -203,18 +204,22 @@ class AppRouter {
                             },
                           ),
                           GoRoute(
-                            path: RouteName.cast,
+                            path:
+                                "${RouteName.cast}/:${RouteParam.mediaName}/:${RouteParam.mediaImage}",
                             pageBuilder: (ctx, state) {
-                              final movieId = state.pathParameters[RouteParam.id] ?? "";
-                              final split = state.extra.toString().split("|");
+                              final tvId = state.pathParameters[RouteParam.id] ?? "";
+                              final name =
+                                  state.pathParameters[RouteParam.mediaName]?.decodeString() ?? "";
+                              final image =
+                                  state.pathParameters[RouteParam.mediaImage]?.decodeString() ?? "";
                               return animatedPage(
                                 ctx,
                                 state,
                                 widget: CastCrewScreen(
                                   isMovies: true,
-                                  mediaId: movieId,
-                                  imageUrl: split[0],
-                                  mediaName: split[1],
+                                  mediaId: tvId,
+                                  imageUrl: image,
+                                  mediaName: name,
                                 ),
                               );
                             },
@@ -273,18 +278,22 @@ class AppRouter {
                             },
                           ),
                           GoRoute(
-                            path: RouteName.cast,
+                            path:
+                                "${RouteName.cast}/:${RouteParam.mediaName}/:${RouteParam.mediaImage}",
                             pageBuilder: (ctx, state) {
                               final tvId = state.pathParameters[RouteParam.id] ?? "";
-                              final split = state.extra.toString().split("|");
+                              final name =
+                                  state.pathParameters[RouteParam.mediaName]?.decodeString() ?? "";
+                              final image =
+                                  state.pathParameters[RouteParam.mediaImage]?.decodeString() ?? "";
                               return animatedPage(
                                 ctx,
                                 state,
                                 widget: CastCrewScreen(
                                   isMovies: false,
                                   mediaId: tvId,
-                                  imageUrl: split[0],
-                                  mediaName: split[1],
+                                  imageUrl: image,
+                                  mediaName: name,
                                 ),
                               );
                             },

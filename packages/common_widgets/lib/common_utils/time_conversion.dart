@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 extension FormatTime on int? {
   String get formatTimeInHM {
     try {
@@ -18,5 +20,15 @@ extension Unique<E, Id> on List<E> {
     var list = inplace ? this : List<E>.from(this);
     list.retainWhere((x) => ids.add(id != null ? id(x) : x as Id));
     return list;
+  }
+}
+
+extension EncodeAndDecodeData on String {
+  String encodeString() {
+    return base64Encode(utf8.encode(this));
+  }
+
+  String decodeString() {
+    return utf8.decode(base64Decode(this));
   }
 }

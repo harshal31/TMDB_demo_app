@@ -342,13 +342,12 @@ class MovieDetailMobileScreen extends StatelessWidget {
                           onPressed: () {
                             final detail = state.mediaDetailModel.mediaDetail;
                             final imageUrl = detail?.getBackdropImage() ?? "";
-                            final mediaName = detail?.getMediaName(true) ?? "";
+                            final mediaName = detail?.getMediaName(false) ?? "";
                             context.push(
                               Uri(
                                 path:
-                                    "${RouteName.home}/${RouteName.movie}/${detail?.id ?? ""}/${RouteName.cast}",
+                                    "${RouteName.home}/${RouteName.movie}/${detail?.id ?? ""}/${RouteName.cast}/${mediaName.encodeString()}/${imageUrl.encodeString()}",
                               ).toString(),
-                              extra: "$imageUrl|$mediaName",
                             );
                           },
                         ),
