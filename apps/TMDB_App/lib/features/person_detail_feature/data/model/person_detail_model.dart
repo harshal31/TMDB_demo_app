@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:collection/collection.dart';
 import 'package:common_widgets/common_utils/date_util.dart';
+import 'package:common_widgets/common_utils/time_conversion.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
@@ -44,7 +45,44 @@ class PersonDetailModel {
   }
 
   List<PersonCast> computeKnownFor() {
-    return this.casts?.sortWith((e) => e.voteAverage, Order.orderDouble) ?? [];
+    return (casts?.isEmpty ?? false)
+        ? transformCrewToCast()
+        : this.casts?.sortWith((e) => e.voteAverage, Order.orderDouble).take(10).toList() ?? [];
+  }
+
+  List<PersonCast> transformCrewToCast() {
+    return this
+            .crews
+            ?.map((e) {
+              return PersonCast(
+                adult: e.adult,
+                backdropPath: e.backdropPath,
+                genreIds: e.genreIds,
+                id: e.id,
+                originalLanguage: e.originalLanguage,
+                originalTitle: e.originalTitle ?? e.originalName ?? e.title ?? e.name,
+                overview: e.overview,
+                popularity: e.popularity,
+                posterPath: e.posterPath,
+                releaseDate: e.releaseDate ?? e.firstAirDate ?? "",
+                title: e.title,
+                video: e.video,
+                voteAverage: e.voteAverage,
+                voteCount: e.voteCount,
+                creditId: e.creditId,
+                mediaType: e.mediaType,
+                originCountry: e.originCountry,
+                originalName: e.originalName,
+                firstAirDate: e.firstAirDate,
+                name: e.name,
+                episodeCount: e.episodeCount,
+              );
+            })
+            .sortWith((t) => t.voteAverage, Order.orderDouble)
+            .unique((e) => e.id)
+            .take(10)
+            .toList() ??
+        [];
   }
 
   List<PersonCrew> transformCast() {

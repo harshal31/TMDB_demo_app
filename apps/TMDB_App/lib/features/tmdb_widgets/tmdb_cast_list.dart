@@ -9,14 +9,12 @@ class TmdbCastList extends StatelessWidget {
   final List<Cast>? model;
   final double? height;
   final double? width;
-  final Function()? onViewAllClick;
 
   const TmdbCastList({
     super.key,
     required this.model,
     this.height,
     this.width,
-    this.onViewAllClick,
   });
 
   @override

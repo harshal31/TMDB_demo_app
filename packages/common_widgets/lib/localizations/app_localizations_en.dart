@@ -186,6 +186,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get seriesCast => 'Series Cast';
 
   @override
+  String seriesCastNumber(Object total) {
+    return 'Series Cast $total';
+  }
+
+  @override
+  String seriesCrewNumber(Object total) {
+    return 'Series Crew $total';
+  }
+
+  @override
+  String castNumber(Object total) {
+    return 'Cast $total';
+  }
+
+  @override
+  String crewNumber(Object total) {
+    return 'Crew $total';
+  }
+
+  @override
   String get currentSeason => 'Current Season';
 
   @override

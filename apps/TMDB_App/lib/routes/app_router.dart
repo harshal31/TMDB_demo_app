@@ -8,6 +8,7 @@ import "package:go_router/go_router.dart";
 import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
 import 'package:tmdb_app/features/authentication_feature/presentation/screens/authentication_screen.dart';
+import "package:tmdb_app/features/cast_crew_listing_feature/presentation/cast_crew_screen.dart";
 import "package:tmdb_app/features/company_media_screen/company_tv_shows_screen.dart";
 import "package:tmdb_app/features/company_media_screen/compnay_movie_screen.dart";
 import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.dart";
@@ -33,7 +34,7 @@ class AppRouter {
 
   static GoRouter goRouter = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteName.login,
+    initialLocation: RouteName.home,
     debugLogDiagnostics: true,
     routes: [
       StatefulShellRoute.indexedStack(
@@ -201,6 +202,23 @@ class AppRouter {
                               );
                             },
                           ),
+                          GoRoute(
+                            path: RouteName.cast,
+                            pageBuilder: (ctx, state) {
+                              final movieId = state.pathParameters[RouteParam.id] ?? "";
+                              final split = state.extra.toString().split("|");
+                              return animatedPage(
+                                ctx,
+                                state,
+                                widget: CastCrewScreen(
+                                  isMovies: true,
+                                  mediaId: movieId,
+                                  imageUrl: split[0],
+                                  mediaName: split[1],
+                                ),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ],
@@ -253,7 +271,24 @@ class AppRouter {
                                 ),
                               );
                             },
-                          )
+                          ),
+                          GoRoute(
+                            path: RouteName.cast,
+                            pageBuilder: (ctx, state) {
+                              final tvId = state.pathParameters[RouteParam.id] ?? "";
+                              final split = state.extra.toString().split("|");
+                              return animatedPage(
+                                ctx,
+                                state,
+                                widget: CastCrewScreen(
+                                  isMovies: false,
+                                  mediaId: tvId,
+                                  imageUrl: split[0],
+                                  mediaName: split[1],
+                                ),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ],

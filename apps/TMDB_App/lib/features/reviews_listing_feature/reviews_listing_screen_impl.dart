@@ -71,7 +71,7 @@ class _ReviewsListingScreenImplState extends State<ReviewsListingScreenImpl> {
                           const SizedBox(width: 16),
                           Expanded(
                             child: Text(
-                              _getMediaName,
+                              widget.mediaDetail?.getMediaName(widget.isMovies) ?? "",
                               style: context.textTheme.titleLarge?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -121,26 +121,6 @@ class _ReviewsListingScreenImplState extends State<ReviewsListingScreenImpl> {
         )
       ],
     );
-  }
-
-  String get _getMediaName {
-    String value = widget.isMovies
-        ? (widget.mediaDetail?.title ?? widget.mediaDetail?.originalTitle ?? "")
-        : (widget.mediaDetail?.name ?? widget.mediaDetail?.originalName ?? "");
-    String year = widget.isMovies
-        ? (widget.mediaDetail?.getReleaseYear() ?? "")
-        : (widget.mediaDetail?.getTvSeriesYear() ?? "");
-
-    String result = "";
-    if (value.isNotEmpty) {
-      result = "$value ";
-    }
-
-    if (year.isNotEmpty) {
-      result += year;
-    }
-
-    return result;
   }
 
   void _listenMoviesPaginationChanges(ReviewsListingCubit reviewsListingCubit) {

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
 
@@ -32,6 +33,10 @@ class MediaCredits {
       cast: cast ?? this.cast,
       crew: crew ?? this.crew,
     );
+  }
+
+  Map<String, List<Crew>> groupByDepartment() {
+    return this.crew?.groupListsBy((element) => element.department ?? "") ?? {};
   }
 }
 
@@ -185,5 +190,9 @@ class Crew {
       department: department ?? this.department,
       job: job ?? this.job,
     );
+  }
+
+  String getImage() {
+    return AppConstant.originalImageBaseUrl + (this.profilePath ?? "");
   }
 }

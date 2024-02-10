@@ -96,45 +96,50 @@ class PersonDetailMobileScreen extends StatelessWidget {
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(
-                child: Text(
-                  context.tr.knownFor,
-                  style: context.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 16)),
-              SliverToBoxAdapter(
-                child: Center(
-                  child: SizedBox(
-                    height: 195,
-                    child: InkWell(
-                      child: ListView.separated(
-                        separatorBuilder: (ctx, i) => const SizedBox(width: 16),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: state.personDetailModel.knownFor?.length ?? 0,
-                        itemBuilder: (ctx, i) {
-                          return InkWell(
-                            borderRadius: BorderRadius.circular(10),
-                            onTap: () {
-                              CommonNavigation.redirectToDetailScreen(
-                                context,
-                                mediaType: state.personDetailModel.knownFor?[i].mediaType,
-                                mediaId: state.personDetailModel.knownFor?[i].id.toString(),
-                              );
-                            },
-                            child: ExtendedImageCreator(
-                              imageUrl: state.personDetailModel.knownFor?[i].imagePosterPath ?? "",
-                              width: 130,
-                              height: 195,
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.tr.knownFor,
+                      style: context.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 16),
+                    Center(
+                      child: SizedBox(
+                        height: 195,
+                        child: InkWell(
+                          child: ListView.separated(
+                            separatorBuilder: (ctx, i) => const SizedBox(width: 16),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: state.personDetailModel.knownFor?.length ?? 0,
+                            itemBuilder: (ctx, i) {
+                              return InkWell(
+                                borderRadius: BorderRadius.circular(10),
+                                onTap: () {
+                                  CommonNavigation.redirectToDetailScreen(
+                                    context,
+                                    mediaType: state.personDetailModel.knownFor?[i].mediaType,
+                                    mediaId: state.personDetailModel.knownFor?[i].id.toString(),
+                                  );
+                                },
+                                child: ExtendedImageCreator(
+                                  imageUrl:
+                                      state.personDetailModel.knownFor?[i].imagePosterPath ?? "",
+                                  width: 130,
+                                  height: 195,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),

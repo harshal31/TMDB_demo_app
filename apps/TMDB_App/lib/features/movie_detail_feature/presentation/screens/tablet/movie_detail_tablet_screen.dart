@@ -338,7 +338,18 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                   Icons.keyboard_double_arrow_right_sharp,
                                   size: 40,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  final detail = state.mediaDetailModel.mediaDetail;
+                                  final imageUrl = detail?.getBackdropImage() ?? "";
+                                  final mediaName = detail?.getMediaName(true) ?? "";
+                                  context.push(
+                                    Uri(
+                                      path:
+                                          "${RouteName.home}/${RouteName.movie}/${detail?.id ?? ""}/${RouteName.cast}",
+                                    ).toString(),
+                                    extra: "$imageUrl|$mediaName",
+                                  );
+                                },
                               ),
                             ],
                           ),

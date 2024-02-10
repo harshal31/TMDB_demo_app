@@ -433,6 +433,30 @@ abstract class AppLocalizations {
   /// **'Series Cast'**
   String get seriesCast;
 
+  /// No description provided for @seriesCastNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Series Cast {total}'**
+  String seriesCastNumber(Object total);
+
+  /// No description provided for @seriesCrewNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Series Crew {total}'**
+  String seriesCrewNumber(Object total);
+
+  /// No description provided for @castNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Cast {total}'**
+  String castNumber(Object total);
+
+  /// No description provided for @crewNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Crew {total}'**
+  String crewNumber(Object total);
+
   /// No description provided for @currentSeason.
   ///
   /// In en, this message translates to:

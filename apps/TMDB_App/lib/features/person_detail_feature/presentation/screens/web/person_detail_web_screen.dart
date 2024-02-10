@@ -84,45 +84,54 @@ class PersonDetailWebScreen extends StatelessWidget {
                                 textStyle: context.textTheme.bodyLarge,
                               ),
                               const SizedBox(height: 16),
-                              Text(
-                                context.tr.knownFor,
-                                style: context.textTheme.titleLarge?.copyWith(
-                                  fontWeight: FontWeight.bold,
+                              Visibility(
+                                visible: state.personDetailModel.knownFor?.isNotEmpty ?? false,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      context.tr.knownFor,
+                                      style: context.textTheme.titleLarge?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    SizedBox(
+                                      height: 195,
+                                      child: Scrollbar(
+                                        child: ListView.separated(
+                                          separatorBuilder: (ctx, i) => const SizedBox(width: 16),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: state.personDetailModel.knownFor?.length ?? 0,
+                                          itemBuilder: (ctx, i) {
+                                            return InkWell(
+                                              borderRadius: BorderRadius.circular(10),
+                                              onTap: () {
+                                                CommonNavigation.redirectToDetailScreen(
+                                                  context,
+                                                  mediaType: state
+                                                      .personDetailModel.knownFor?[i].mediaType,
+                                                  mediaId: state.personDetailModel.knownFor?[i].id
+                                                      .toString(),
+                                                );
+                                              },
+                                              child: ExtendedImageCreator(
+                                                imageUrl: state.personDetailModel.knownFor?[i]
+                                                        .imagePosterPath ??
+                                                    "",
+                                                width: 130,
+                                                height: 195,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                              const SizedBox(height: 16),
-                              SizedBox(
-                                height: 195,
-                                child: Scrollbar(
-                                  child: ListView.separated(
-                                    separatorBuilder: (ctx, i) => const SizedBox(width: 16),
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: state.personDetailModel.knownFor?.length ?? 0,
-                                    itemBuilder: (ctx, i) {
-                                      return InkWell(
-                                        borderRadius: BorderRadius.circular(10),
-                                        onTap: () {
-                                          CommonNavigation.redirectToDetailScreen(
-                                            context,
-                                            mediaType:
-                                                state.personDetailModel.knownFor?[i].mediaType,
-                                            mediaId:
-                                                state.personDetailModel.knownFor?[i].id.toString(),
-                                          );
-                                        },
-                                        child: ExtendedImageCreator(
-                                          imageUrl: state
-                                                  .personDetailModel.knownFor?[i].imagePosterPath ??
-                                              "",
-                                          width: 130,
-                                          height: 195,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         ),

@@ -125,6 +125,6 @@ class PersonDetail {
   }
 
   String get alsoKnownAsString {
-    return this.alsoKnownAs?.join(", ") ?? "";
+    return this.alsoKnownAs?.join(", \n") ?? "";
   }
 }

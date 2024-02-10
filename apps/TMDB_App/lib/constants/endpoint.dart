@@ -23,4 +23,5 @@ class Endpoint {
   static const String mediaReviews = "/{${ApiKey.mediaType}}/{${ApiKey.typeId}}/reviews";
   static const String accountDetail = "/account/{${ApiKey.accountId}}";
   static const String accountDetailWithoutAccountId = "/account";
+  static const String mediaCredit = "/{${ApiKey.mediaType}}/{${ApiKey.typeId}}/credits";
 }

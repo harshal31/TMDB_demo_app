@@ -320,7 +320,18 @@ class TvDetailMobileScreen extends StatelessWidget {
                             Icons.keyboard_double_arrow_right_sharp,
                             size: 30,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            final detail = state.mediaDetailModel.mediaDetail;
+                            final imageUrl = detail?.getBackdropImage() ?? "";
+                            final mediaName = detail?.getMediaName(false) ?? "";
+                            context.push(
+                              Uri(
+                                path:
+                                    "${RouteName.home}/${RouteName.tv}/${detail?.id ?? ""}/${RouteName.cast}",
+                              ).toString(),
+                              extra: "$imageUrl|$mediaName",
+                            );
+                          },
                         ),
                       ],
                     ),
