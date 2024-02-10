@@ -119,6 +119,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                         itemCount: casts.length,
                         itemBuilder: (ctx, index) {
                           return CastCrewListItem(
+                            key: ValueKey(index),
                             imageUrl: casts[index].getImage(),
                             title: casts[index].name ?? casts[index].originalName ?? "",
                             subtitle: casts[index].character ?? "",
@@ -155,6 +156,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                           final values =
                               state.groupCrew[state.groupCrew.keys.toList()[index]] ?? [];
                           return Column(
+                            key: ValueKey(index),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -169,6 +171,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                                 itemCount: values.length,
                                 itemBuilder: (ctx, index) {
                                   return CastCrewListItem(
+                                    key: ValueKey(index),
                                     imageUrl: values[index].getImage(),
                                     title: values[index].name ?? casts[index].originalName ?? "",
                                     subtitle: values[index].job ?? "",

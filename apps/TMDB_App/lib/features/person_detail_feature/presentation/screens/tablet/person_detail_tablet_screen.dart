@@ -157,6 +157,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
                         itemCount: state.personDetailModel.mapping.length,
                         itemBuilder: (ctx, index) {
                           return Column(
+                            key: ValueKey(index),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -174,6 +175,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                   itemCount: state.personDetailModel.mapping[index]?.length ?? 0,
                                   itemBuilder: (ctx, i) {
                                     return Padding(
+                                      key: ValueKey(i),
                                       padding: const EdgeInsets.all(16.0),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
