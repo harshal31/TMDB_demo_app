@@ -45,51 +45,54 @@ class CastCrewMobileScreen extends StatelessWidget {
         final crews = state.mediaDetail?.credits?.crew ?? [];
         return CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
-              child: SizedBox(
-                width: double.infinity,
-                height: 120,
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: DominantColorFromImage(
-                        imageProvider: ExtendedNetworkImageProvider(
-                          state.mediaDetail?.getBackdropImage() ?? "",
-                          cache: true,
-                        ),
-                      ),
-                    ),
-                    Positioned.fill(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            children: [
-                              ExtendedImageCreator(
-                                imageUrl: state.mediaDetail?.getBackdropImage() ?? "",
-                                width: 58,
-                                height: 87,
-                                fit: BoxFit.cover,
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  state.mediaDetail?.getMediaName(isMovies) ?? "",
-                                  style: context.textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.fade,
-                                  softWrap: true,
-                                ),
-                              )
-                            ],
+            SliverVisibility(
+              visible: state.mediaDetail != null,
+              sliver: SliverToBoxAdapter(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 120,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: DominantColorFromImage(
+                          imageProvider: ExtendedNetworkImageProvider(
+                            state.mediaDetail?.getBackdropImage() ?? "",
+                            cache: true,
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      Positioned.fill(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                ExtendedImageCreator(
+                                  imageUrl: state.mediaDetail?.getPosterPath() ?? "",
+                                  width: 58,
+                                  height: 87,
+                                  fit: BoxFit.cover,
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Text(
+                                    state.mediaDetail?.getMediaName(isMovies) ?? "",
+                                    style: context.textTheme.titleLarge?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.fade,
+                                    softWrap: true,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

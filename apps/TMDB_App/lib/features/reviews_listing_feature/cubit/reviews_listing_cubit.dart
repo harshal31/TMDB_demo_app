@@ -5,7 +5,9 @@ class ReviewsListingCubit extends Cubit<ReviewsListingState> {
   final ReviewsListingUseCase reviewsListingUseCase;
   final int _pageSize = 20;
 
-  ReviewsListingCubit(this.reviewsListingUseCase) : super(ReviewsListingState.initial());
+  ReviewsListingCubit(
+    this.reviewsListingUseCase,
+  ) : super(ReviewsListingState.initial());
 
   void fetchMediaReviews(String mediaId, bool isMovies, int page) async {
     if (state.reviewsListingState is ReviewsListingPaginationLoaded &&

@@ -5,7 +5,8 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
+import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/cubits/cast_crew_cubit.dart';
+import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 import 'package:tmdb_app/features/reviews_listing_feature/cubit/reviews_listing_cubit.dart';
 import 'package:tmdb_app/features/reviews_listing_feature/cubit/reviews_listing_use_case.dart';
@@ -15,13 +16,11 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 class ReviewsListingScreenImpl extends StatefulWidget {
   final String mediaId;
   final bool isMovies;
-  final MediaDetail? mediaDetail;
 
   const ReviewsListingScreenImpl({
     super.key,
     required this.mediaId,
     required this.isMovies,
-    this.mediaDetail,
   });
 
   @override
@@ -42,51 +41,58 @@ class _ReviewsListingScreenImplState extends State<ReviewsListingScreenImpl> {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: SizedBox(
-            width: double.infinity,
-            height: 120,
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: DominantColorFromImage(
-                    imageProvider: ExtendedNetworkImageProvider(
-                      widget.mediaDetail?.getBackdropImage() ?? "",
-                      cache: true,
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          ExtendedImageCreator(
-                            imageUrl: widget.mediaDetail?.getPosterPath(),
-                            width: 58,
-                            height: 87,
-                            fit: BoxFit.cover,
+          child: BlocBuilder<CastCrewCubit, CastCrewState>(
+            builder: (context, state) {
+              return Visibility(
+                visible: state.mediaDetail != null,
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 120,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: DominantColorFromImage(
+                          imageProvider: ExtendedNetworkImageProvider(
+                            state.mediaDetail?.getBackdropImage() ?? "",
+                            cache: true,
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Text(
-                              widget.mediaDetail?.getMediaName(widget.isMovies) ?? "",
-                              style: context.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.fade,
-                              softWrap: true,
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
+                      Positioned.fill(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                ExtendedImageCreator(
+                                  imageUrl: state.mediaDetail?.getPosterPath(),
+                                  width: 58,
+                                  height: 87,
+                                  fit: BoxFit.cover,
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Text(
+                                    state.mediaDetail?.getMediaName(widget.isMovies) ?? "",
+                                    style: context.textTheme.titleLarge?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.fade,
+                                    softWrap: true,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              );
+            },
           ),
         ),
         const SliverPadding(padding: EdgeInsets.only(top: 16)),
@@ -113,7 +119,6 @@ class _ReviewsListingScreenImplState extends State<ReviewsListingScreenImpl> {
                 return TmdbReview(
                   key: ValueKey(index),
                   result: item,
-                  mediaDetail: widget.mediaDetail,
                 );
               },
             ),

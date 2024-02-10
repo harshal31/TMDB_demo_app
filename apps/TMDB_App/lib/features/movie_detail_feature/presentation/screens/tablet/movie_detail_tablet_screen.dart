@@ -392,7 +392,6 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                         path:
                                             "${RouteName.home}/${RouteName.movie}/${value?.id}/${RouteName.reviews}",
                                       ).toString(),
-                                      extra: value,
                                     );
                                   },
                                 ),

@@ -391,7 +391,6 @@ class TvDetailWebScreen extends StatelessWidget {
                                         path:
                                             "${RouteName.home}/${RouteName.tv}/${value?.id}/${RouteName.reviews}",
                                       ).toString(),
-                                      extra: value,
                                     );
                                   },
                                 ),

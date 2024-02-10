@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
 
 class CastCrewCubit extends Cubit<CastCrewState> {
@@ -6,12 +7,20 @@ class CastCrewCubit extends Cubit<CastCrewState> {
 
   CastCrewCubit(this.castCrewCubitUseCase) : super(CastCrewState.initial());
 
-  void fetchMediaCredits(bool isMovies, String mediaId) async {
+  void fetchMediaCredits(
+    bool isMovies,
+    String mediaId, {
+    String appendResponse = ApiKey.castCrewAppendToResponse,
+  }) async {
     emit(
       state.copyWith(castCrewStatus: CastCrewLoading()),
     );
 
-    final result = await castCrewCubitUseCase.fetchMediaCredits(isMovies, mediaId);
+    final result = await castCrewCubitUseCase.fetchMediaCredits(
+      isMovies,
+      mediaId,
+      appendResponse: appendResponse,
+    );
 
     result.fold((l) {
       emit(

@@ -15,7 +15,6 @@ import "package:tmdb_app/features/home_feature/presentation/screens/home_screen.
 import "package:tmdb_app/features/keyword_media_screen/keyword_movie_screen.dart";
 import "package:tmdb_app/features/keyword_media_screen/keyword_tv_shows_screen.dart";
 import "package:tmdb_app/features/media_listing_feature/media_listing_screen.dart";
-import "package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart";
 import "package:tmdb_app/features/movie_detail_feature/presentation/screens/movie_detail_screen.dart";
 import "package:tmdb_app/features/network_media_screen/network_tv_shows_screen.dart";
 import "package:tmdb_app/features/person_detail_feature/presentation/screens/person_detail_screen.dart";
@@ -189,15 +188,12 @@ class AppRouter {
                             path: RouteName.reviews,
                             pageBuilder: (ctx, state) {
                               final movieId = state.pathParameters[RouteParam.id] ?? "";
-                              final mediaDetail =
-                                  state.extra is MediaDetail ? (state.extra as MediaDetail) : null;
                               return animatedPage(
                                 ctx,
                                 state,
                                 widget: ReviewsListingScreen(
                                   mediaId: movieId,
                                   isMovies: true,
-                                  mediaDetail: mediaDetail,
                                 ),
                               );
                             },
@@ -256,15 +252,12 @@ class AppRouter {
                             path: RouteName.reviews,
                             pageBuilder: (ctx, state) {
                               final movieId = state.pathParameters[RouteParam.id] ?? "";
-                              final mediaDetail =
-                                  state.extra is MediaDetail ? (state.extra as MediaDetail) : null;
                               return animatedPage(
                                 ctx,
                                 state,
                                 widget: ReviewsListingScreen(
                                   mediaId: movieId,
                                   isMovies: false,
-                                  mediaDetail: mediaDetail,
                                 ),
                               );
                             },

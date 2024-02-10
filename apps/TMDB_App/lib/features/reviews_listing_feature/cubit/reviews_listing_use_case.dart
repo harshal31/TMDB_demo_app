@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 import 'package:tmdb_app/features/reviews_listing_feature/data/reviews_listing_api_service.dart';
 import 'package:tmdb_app/network/error_response.dart';
@@ -31,26 +32,31 @@ class ReviewsListingUseCase {
 class ReviewsListingState with EquatableMixin {
   final ReviewsListingPaginationState reviewsListingState;
   final int totalResults;
+  final MediaDetail? mediaDetail;
 
   ReviewsListingState({
     required this.reviewsListingState,
     required this.totalResults,
+    this.mediaDetail,
   });
 
   factory ReviewsListingState.initial() {
     return ReviewsListingState(
       reviewsListingState: ReviewsListingPaginationNone(),
       totalResults: 0,
+      mediaDetail: null,
     );
   }
 
   ReviewsListingState copyWith({
     ReviewsListingPaginationState? reviewsListingState,
     int? totalResults,
+    MediaDetail? mediaDetail,
   }) {
     return ReviewsListingState(
       reviewsListingState: reviewsListingState ?? this.reviewsListingState,
       totalResults: totalResults ?? this.totalResults,
+      mediaDetail: mediaDetail ?? this.mediaDetail,
     );
   }
 
@@ -58,6 +64,7 @@ class ReviewsListingState with EquatableMixin {
   List<Object?> get props => [
         reviewsListingState,
         totalResults,
+        mediaDetail,
       ];
 }
 

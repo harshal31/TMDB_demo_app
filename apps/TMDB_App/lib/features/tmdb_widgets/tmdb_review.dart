@@ -14,7 +14,7 @@ class TmdbReview extends StatelessWidget {
   const TmdbReview({
     super.key,
     required this.result,
-    required this.mediaDetail,
+    this.mediaDetail,
   });
 
   @override

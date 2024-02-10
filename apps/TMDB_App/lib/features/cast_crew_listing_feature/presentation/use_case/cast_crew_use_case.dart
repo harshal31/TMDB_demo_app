@@ -16,13 +16,14 @@ class CastCrewUseCase {
     bool isMovies,
     String mediaId, {
     String language = ApiKey.defaultLanguage,
+    String appendResponse = ApiKey.castCrewAppendToResponse,
   }) async {
     final response = await apiCall(
       () => castCrewListingApiService.fetchMediaDetail(
         isMovies ? ApiKey.movie : ApiKey.tv,
         mediaId,
         language,
-        ApiKey.castCrewAppendToResponse,
+        appendResponse,
       ),
     );
 
