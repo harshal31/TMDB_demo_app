@@ -34,7 +34,7 @@ class AppRouter {
 
   static GoRouter goRouter = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteName.home,
+    initialLocation: RouteName.login,
     debugLogDiagnostics: true,
     routes: [
       StatefulShellRoute.indexedStack(
