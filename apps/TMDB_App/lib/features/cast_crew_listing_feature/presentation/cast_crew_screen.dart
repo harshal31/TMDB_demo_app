@@ -14,15 +14,11 @@ import 'package:tmdb_app/network/dio_manager.dart';
 class CastCrewScreen extends StatelessWidget {
   final bool isMovies;
   final String mediaId;
-  final String imageUrl;
-  final String mediaName;
 
   const CastCrewScreen({
     super.key,
     required this.isMovies,
     required this.mediaId,
-    required this.imageUrl,
-    required this.mediaName,
   });
 
   @override
@@ -47,18 +43,12 @@ class CastCrewScreen extends StatelessWidget {
           body: SizeDetector(
             mobileBuilder: () => CastCrewMobileScreen(
               isMovies: isMovies,
-              imageUrl: imageUrl,
-              mediaName: mediaName,
             ),
             tabletBuilder: () => CastCrewWebTabScreen(
               isMovies: isMovies,
-              imageUrl: imageUrl,
-              mediaName: mediaName,
             ),
             desktopBuilder: () => CastCrewWebTabScreen(
               isMovies: isMovies,
-              imageUrl: imageUrl,
-              mediaName: mediaName,
             ),
           ),
         ),

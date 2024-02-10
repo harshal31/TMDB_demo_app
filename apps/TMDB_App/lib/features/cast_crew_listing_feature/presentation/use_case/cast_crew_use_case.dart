@@ -3,6 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/data/cast_crew_listing_api_service.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/network/error_response.dart';
 import 'package:tmdb_app/network/safe_api_call.dart';
 
@@ -11,30 +12,34 @@ class CastCrewUseCase {
 
   CastCrewUseCase(this.castCrewListingApiService);
 
-  Future<Either<ErrorResponse, MediaCredits>> fetchMediaCredits(
+  Future<Either<ErrorResponse, MediaDetail>> fetchMediaCredits(
     bool isMovies,
     String mediaId, {
     String language = ApiKey.defaultLanguage,
   }) async {
-    final result = await apiCall(
-      () => castCrewListingApiService.getMediaCredits(
+    final response = await apiCall(
+      () => castCrewListingApiService.fetchMediaDetail(
         isMovies ? ApiKey.movie : ApiKey.tv,
         mediaId,
         language,
+        ApiKey.castCrewAppendToResponse,
       ),
     );
 
-    return result.fold((l) => left(l), (r) => right(r));
+    return response.fold((l) => left(l), (r) {
+      return right(r);
+    });
   }
 }
 
 class CastCrewState with EquatableMixin {
-  final MediaCredits? mediaCredit;
+  final MediaDetail? mediaDetail;
+
   final CastCrewStatus castCrewStatus;
   final Map<String, List<Crew>> groupCrew;
 
   CastCrewState(
-    this.mediaCredit,
+    this.mediaDetail,
     this.castCrewStatus,
     this.groupCrew,
   );
@@ -44,12 +49,12 @@ class CastCrewState with EquatableMixin {
   }
 
   CastCrewState copyWith({
-    MediaCredits? mediaCredit,
+    MediaDetail? mediaDetail,
     CastCrewStatus? castCrewStatus,
     Map<String, List<Crew>>? groupCrew,
   }) {
     return CastCrewState(
-      mediaCredit ?? this.mediaCredit,
+      mediaDetail ?? this.mediaDetail,
       castCrewStatus ?? this.castCrewStatus,
       groupCrew ?? this.groupCrew,
     );
@@ -57,7 +62,7 @@ class CastCrewState with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        mediaCredit,
+        mediaDetail,
         castCrewStatus,
         groupCrew,
       ];

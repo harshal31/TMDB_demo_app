@@ -1,6 +1,5 @@
 import "dart:async";
 
-import "package:common_widgets/common_utils/time_conversion.dart";
 import "package:common_widgets/localizations/localized_extension.dart";
 import "package:common_widgets/widgets/youtube_video.dart";
 import "package:flutter/material.dart";
@@ -204,22 +203,15 @@ class AppRouter {
                             },
                           ),
                           GoRoute(
-                            path:
-                                "${RouteName.cast}/:${RouteParam.mediaName}/:${RouteParam.mediaImage}",
+                            path: RouteName.cast,
                             pageBuilder: (ctx, state) {
                               final tvId = state.pathParameters[RouteParam.id] ?? "";
-                              final name =
-                                  state.pathParameters[RouteParam.mediaName]?.decodeString() ?? "";
-                              final image =
-                                  state.pathParameters[RouteParam.mediaImage]?.decodeString() ?? "";
                               return animatedPage(
                                 ctx,
                                 state,
                                 widget: CastCrewScreen(
                                   isMovies: true,
                                   mediaId: tvId,
-                                  imageUrl: image,
-                                  mediaName: name,
                                 ),
                               );
                             },
@@ -278,22 +270,15 @@ class AppRouter {
                             },
                           ),
                           GoRoute(
-                            path:
-                                "${RouteName.cast}/:${RouteParam.mediaName}/:${RouteParam.mediaImage}",
+                            path: RouteName.cast,
                             pageBuilder: (ctx, state) {
                               final tvId = state.pathParameters[RouteParam.id] ?? "";
-                              final name =
-                                  state.pathParameters[RouteParam.mediaName]?.decodeString() ?? "";
-                              final image =
-                                  state.pathParameters[RouteParam.mediaImage]?.decodeString() ?? "";
                               return animatedPage(
                                 ctx,
                                 state,
                                 widget: CastCrewScreen(
                                   isMovies: false,
                                   mediaId: tvId,
-                                  imageUrl: image,
-                                  mediaName: name,
                                 ),
                               );
                             },

@@ -18,7 +18,7 @@ class CastCrewCubit extends Cubit<CastCrewState> {
         state.copyWith(castCrewStatus: CastCrewError(l.errorMessage)),
       );
     }, (r) {
-      if ((r.cast?.isEmpty ?? false) && (r.crew?.isEmpty ?? false)) {
+      if ((r.credits?.cast?.isEmpty ?? false) && (r.credits?.crew?.isEmpty ?? false)) {
         emit(
           state.copyWith(castCrewStatus: CastCrewError("No Cast and crew available")),
         );
@@ -28,8 +28,8 @@ class CastCrewCubit extends Cubit<CastCrewState> {
       emit(
         state.copyWith(
           castCrewStatus: CastCrewSuccess(),
-          mediaCredit: r,
-          groupCrew: r.groupByDepartment(),
+          mediaDetail: r,
+          groupCrew: r.credits?.groupByDepartment(),
         ),
       );
     });

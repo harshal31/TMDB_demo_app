@@ -89,4 +89,5 @@ class ApiKey {
   static const String personDetailAppendToMediaResponse = "external_ids,combined_credits";
   static const String appendToMediaResponse =
       "account_states,credits,external_ids,images,keywords,recommendations,reviews,translations,videos";
+  static const String castCrewAppendToResponse = "credits";
 }

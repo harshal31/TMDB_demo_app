@@ -19,24 +19,28 @@ class _CastCrewListingApiService implements CastCrewListingApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<MediaCredits>> getMediaCredits(
-    String dynamicPath,
-    String timeWindow,
+  Future<HttpResponse<MediaDetail>> fetchMediaDetail(
+    String mediaType,
+    String typeId,
     String language,
+    String appendToResponse,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'language': language};
+    final queryParameters = <String, dynamic>{
+      r'language': language,
+      r'append_to_response': appendToResponse,
+    };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<MediaCredits>>(Options(
+        _setStreamType<HttpResponse<MediaDetail>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/${dynamicPath}/${timeWindow}/credits',
+              '/${mediaType}/${typeId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -45,7 +49,7 @@ class _CastCrewListingApiService implements CastCrewListingApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = MediaCredits.fromJson(_result.data!);
+    final value = MediaDetail.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

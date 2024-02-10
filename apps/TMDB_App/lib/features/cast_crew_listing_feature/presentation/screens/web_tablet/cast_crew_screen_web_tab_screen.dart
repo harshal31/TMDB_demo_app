@@ -11,14 +11,10 @@ import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 
 class CastCrewWebTabScreen extends StatelessWidget {
   final bool isMovies;
-  final String imageUrl;
-  final String mediaName;
 
   const CastCrewWebTabScreen({
     super.key,
     required this.isMovies,
-    required this.imageUrl,
-    required this.mediaName,
   });
 
   @override
@@ -45,8 +41,9 @@ class CastCrewWebTabScreen extends StatelessWidget {
             ),
           );
         }
-        final casts = state.mediaCredit?.cast ?? [];
-        final crews = state.mediaCredit?.crew ?? [];
+        final casts = state.mediaDetail?.credits?.cast ?? [];
+        final crews = state.mediaDetail?.credits?.crew ?? [];
+
         return CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -58,7 +55,7 @@ class CastCrewWebTabScreen extends StatelessWidget {
                     Positioned.fill(
                       child: DominantColorFromImage(
                         imageProvider: ExtendedNetworkImageProvider(
-                          imageUrl,
+                          state.mediaDetail?.getBackdropImage() ?? "",
                           cache: true,
                         ),
                       ),
@@ -71,7 +68,7 @@ class CastCrewWebTabScreen extends StatelessWidget {
                           child: Row(
                             children: [
                               ExtendedImageCreator(
-                                imageUrl: imageUrl,
+                                imageUrl: state.mediaDetail?.getBackdropImage() ?? "",
                                 width: 58,
                                 height: 87,
                                 fit: BoxFit.cover,
@@ -79,7 +76,7 @@ class CastCrewWebTabScreen extends StatelessWidget {
                               const SizedBox(width: 16),
                               Expanded(
                                 child: Text(
-                                  mediaName,
+                                  state.mediaDetail?.getMediaName(isMovies) ?? "",
                                   style: context.textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -295,13 +292,13 @@ class CastCrewWebTabScreen extends StatelessWidget {
 
   String numberCastValue(BuildContext context, CastCrewState state) {
     return isMovies
-        ? context.tr.castNumber(state.mediaCredit?.cast?.length.toString() ?? "")
-        : context.tr.seriesCastNumber(state.mediaCredit?.cast?.length.toString() ?? "");
+        ? context.tr.castNumber(state.mediaDetail?.credits?.cast?.length.toString() ?? "")
+        : context.tr.seriesCastNumber(state.mediaDetail?.credits?.cast?.length.toString() ?? "");
   }
 
   String numberCrewValue(BuildContext context, CastCrewState state) {
     return isMovies
-        ? context.tr.crewNumber(state.mediaCredit?.crew?.length.toString() ?? "")
-        : context.tr.seriesCrewNumber(state.mediaCredit?.crew?.length.toString() ?? "");
+        ? context.tr.crewNumber(state.mediaDetail?.credits?.crew?.length.toString() ?? "")
+        : context.tr.seriesCrewNumber(state.mediaDetail?.credits?.crew?.length.toString() ?? "");
   }
 }

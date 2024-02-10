@@ -1,4 +1,3 @@
-import 'package:common_widgets/common_utils/time_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
@@ -304,13 +303,11 @@ class TvDetailWebScreen extends StatelessWidget {
                                   size: 40,
                                 ),
                                 onPressed: () {
-                                  final detail = state.mediaDetailModel.mediaDetail;
-                                  final imageUrl = detail?.getBackdropImage() ?? "";
-                                  final mediaName = detail?.getMediaName(false) ?? "";
+                                  final id = state.mediaDetailModel.mediaDetail?.id ?? "";
                                   context.push(
                                     Uri(
                                       path:
-                                          "${RouteName.home}/${RouteName.tv}/${detail?.id ?? ""}/${RouteName.cast}/${mediaName.encodeString()}/${imageUrl.encodeString()}",
+                                          "${RouteName.home}/${RouteName.tv}/$id/${RouteName.cast}",
                                     ).toString(),
                                   );
                                 },
