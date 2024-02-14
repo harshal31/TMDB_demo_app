@@ -19,4 +19,28 @@ class CommonNavigation {
   }) {
     context.push("${RouteName.home}/$mediaType/$mediaId/${RouteName.videos}");
   }
+
+  static void redirectToReviewsScreen(
+    BuildContext context, {
+    String? mediaType,
+    int? mediaId,
+  }) {
+    context.push(
+      Uri(
+        path: "${RouteName.home}/$mediaType/$mediaId/${RouteName.reviews}",
+      ).toString(),
+    );
+  }
+
+  static void redirectToCastScreen(
+    BuildContext context, {
+    String? mediaType,
+    int? mediaId,
+  }) {
+    context.push(
+      Uri(
+        path: "${RouteName.home}/$mediaType/$mediaId/${RouteName.cast}",
+      ).toString(),
+    );
+  }
 }

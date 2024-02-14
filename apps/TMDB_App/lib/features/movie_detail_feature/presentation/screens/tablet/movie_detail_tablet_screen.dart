@@ -9,7 +9,6 @@ import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/movie_detail_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
@@ -21,7 +20,6 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_recomendations%20.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
-import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
 class MovieDetailTabletScreen extends StatelessWidget {
@@ -340,12 +338,11 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                   size: 40,
                                 ),
                                 onPressed: () {
-                                  final id = state.mediaDetailModel.mediaDetail?.id ?? "";
-                                  context.push(
-                                    Uri(
-                                      path:
-                                          "${RouteName.home}/${RouteName.movie}/$id/${RouteName.cast}",
-                                    ).toString(),
+                                  final id = state.mediaDetailModel.mediaDetail?.id;
+                                  CommonNavigation.redirectToCastScreen(
+                                    context,
+                                    mediaType: ApiKey.movie,
+                                    mediaId: id,
                                   );
                                 },
                               ),
@@ -386,13 +383,11 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                     size: 40,
                                   ),
                                   onPressed: () {
-                                    final value =
-                                        movieDetailCubit.state.mediaDetailModel.mediaDetail;
-                                    context.push(
-                                      Uri(
-                                        path:
-                                            "${RouteName.home}/${RouteName.movie}/${value?.id}/${RouteName.reviews}",
-                                      ).toString(),
+                                    final id = state.mediaDetailModel.mediaDetail?.id;
+                                    CommonNavigation.redirectToReviewsScreen(
+                                      context,
+                                      mediaType: ApiKey.movie,
+                                      mediaId: id,
                                     );
                                   },
                                 ),
