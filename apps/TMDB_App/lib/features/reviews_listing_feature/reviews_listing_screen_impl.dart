@@ -119,6 +119,7 @@ class _ReviewsListingScreenImplState extends State<ReviewsListingScreenImpl> {
                 return TmdbReview(
                   key: ValueKey(index),
                   result: item,
+                  shouldUseAnimatedReadMe: false,
                 );
               },
             ),

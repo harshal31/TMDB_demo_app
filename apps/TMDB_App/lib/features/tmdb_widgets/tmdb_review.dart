@@ -10,11 +10,13 @@ import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 class TmdbReview extends StatelessWidget {
   final ReviewResults? result;
   final MediaDetail? mediaDetail;
+  final bool shouldUseAnimatedReadMe;
 
   const TmdbReview({
     super.key,
     required this.result,
     this.mediaDetail,
+    this.shouldUseAnimatedReadMe = true,
   });
 
   @override
@@ -125,12 +127,19 @@ class TmdbReview extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16.0),
-            AnimatedReadMoreText(
-              result?.content ?? "",
-              maxLines: 5,
-              readMoreText: context.tr.readMore,
-              readLessText: context.tr.readLess,
-              textStyle: context.textTheme.bodyMedium,
+            Visibility(
+              visible: shouldUseAnimatedReadMe,
+              child: AnimatedReadMoreText(
+                result?.content ?? "",
+                maxLines: 5,
+                readMoreText: context.tr.readMore,
+                readLessText: context.tr.readLess,
+                textStyle: context.textTheme.bodyMedium,
+              ),
+              replacement: Text(
+                result?.content ?? "",
+                style: context.textTheme.bodyMedium,
+              ),
             ),
           ],
         ),
