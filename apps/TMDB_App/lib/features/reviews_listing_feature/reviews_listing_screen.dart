@@ -43,10 +43,9 @@ class ReviewsListingScreen extends StatelessWidget {
         ),
         BlocProvider(
           create: (c) => CastCrewCubit(c.read())
-            ..fetchMediaCredits(
+            ..fetchMediaDetails(
               isMovies,
               mediaId,
-              appendResponse: "",
             ),
         )
       ],

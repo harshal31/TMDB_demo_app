@@ -90,4 +90,6 @@ class ApiKey {
   static const String appendToMediaResponse =
       "account_states,credits,external_ids,images,keywords,recommendations,reviews,translations,videos";
   static const String castCrewAppendToResponse = "credits";
+  static const String videosAppendToResponse = "videos";
+  static const String imagesAppendToResponse = "images";
 }

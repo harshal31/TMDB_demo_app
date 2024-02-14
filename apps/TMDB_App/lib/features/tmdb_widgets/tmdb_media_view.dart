@@ -40,7 +40,7 @@ class TmdbMediaView extends StatelessWidget {
       ),
       child: pos == 0
           ? _TmdbVideos(
-              videos: videos,
+              videos: videos.take(10).toList(),
               mediaId: mediaId,
               height: height,
               width: width,
@@ -103,7 +103,6 @@ class _TmdbVideos extends StatelessWidget {
                   fitAndroidIos: BoxFit.cover,
                   borderRadius: _getBorderRadius(index),
                   curve: Curves.easeIn,
-                  fullScreen: false,
                 ),
                 Align(
                   alignment: Alignment.center,

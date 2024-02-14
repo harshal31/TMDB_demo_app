@@ -12,4 +12,5 @@ class RouteName {
   static const String keywords = "keywords";
   static const String company = "company";
   static const String network = "network";
+  static const String videos = "videos";
 }

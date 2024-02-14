@@ -21,6 +21,7 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
 import 'package:tmdb_app/features/tv_detail_feature/presentation/cubits/tv_detail_cubit.dart';
 import 'package:tmdb_app/features/tv_detail_feature/presentation/use_cases/tv_detail_use_case.dart';
 import 'package:tmdb_app/routes/route_name.dart';
+import 'package:tmdb_app/utils/common_navigation.dart';
 
 class TvDetailMobileScreen extends StatelessWidget {
   const TvDetailMobileScreen({super.key});
@@ -437,7 +438,15 @@ class TvDetailMobileScreen extends StatelessWidget {
                             Icons.keyboard_double_arrow_right_sharp,
                             size: 30,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (positionCubit.state == 0) {
+                              CommonNavigation.redirectToVideosScreen(
+                                context,
+                                mediaId: state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
+                                mediaType: ApiKey.tv,
+                              );
+                            }
+                          },
                         ),
                       ],
                     ),

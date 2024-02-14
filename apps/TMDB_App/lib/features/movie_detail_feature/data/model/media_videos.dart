@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'media_videos.g.dart';
 
 @JsonSerializable()
@@ -13,8 +15,7 @@ class MediaVideos {
     this.results,
   });
 
-  factory MediaVideos.fromJson(Map<String, dynamic> json) =>
-      _$MediaVideosFromJson(json);
+  factory MediaVideos.fromJson(Map<String, dynamic> json) => _$MediaVideosFromJson(json);
 
   Map<String, dynamic> toJson() => _$MediaVideosToJson(this);
 
@@ -26,6 +27,10 @@ class MediaVideos {
       id: id ?? this.id,
       results: results ?? this.results,
     );
+  }
+
+  Map<String, List<Videos>> groupVideosByType() {
+    return this.results?.groupListsBy((element) => element.type ?? "") ?? {};
   }
 }
 
@@ -65,8 +70,7 @@ class Videos {
     this.id,
   });
 
-  factory Videos.fromJson(Map<String, dynamic> json) =>
-      _$VideosFromJson(json);
+  factory Videos.fromJson(Map<String, dynamic> json) => _$VideosFromJson(json);
 
   Map<String, dynamic> toJson() => _$VideosToJson(this);
 

@@ -23,6 +23,8 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 
+import '../../../../../utils/common_navigation.dart';
+
 class MovieDetailMobileScreen extends StatelessWidget {
   const MovieDetailMobileScreen({super.key});
 
@@ -424,7 +426,13 @@ class MovieDetailMobileScreen extends StatelessWidget {
                             Icons.keyboard_double_arrow_right_sharp,
                             size: 30,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            CommonNavigation.redirectToVideosScreen(
+                              context,
+                              mediaId: state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
+                              mediaType: ApiKey.movie,
+                            );
+                          },
                         ),
                       ],
                     ),

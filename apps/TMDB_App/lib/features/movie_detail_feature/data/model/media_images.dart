@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
 
@@ -37,6 +38,14 @@ class MediaImages {
       logos: logos ?? this.logos,
       posters: posters ?? this.posters,
     );
+  }
+
+  Map<String, List<Backdrops>> groupBackdropsByLanguage() {
+    return this.backdrops?.groupListsBy((element) => element.iso6391 ?? "") ?? {};
+  }
+
+  Map<String, List<Posters>> groupPostersByLanguage() {
+    return this.posters?.groupListsBy((element) => element.iso6391 ?? "") ?? {};
   }
 }
 

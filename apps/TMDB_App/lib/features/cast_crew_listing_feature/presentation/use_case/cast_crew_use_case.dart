@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/constants/app_constant.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/data/cast_crew_listing_api_service.dart';
+import 'package:tmdb_app/features/cast_crew_listing_feature/data/media_grouping.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/network/error_response.dart';
@@ -35,29 +37,32 @@ class CastCrewUseCase {
 
 class CastCrewState with EquatableMixin {
   final MediaDetail? mediaDetail;
-
   final CastCrewStatus castCrewStatus;
+  final TmdbMediaState tmdbMediaState;
   final Map<String, List<Crew>> groupCrew;
 
   CastCrewState(
     this.mediaDetail,
     this.castCrewStatus,
     this.groupCrew,
+    this.tmdbMediaState,
   );
 
   factory CastCrewState.initial() {
-    return CastCrewState(null, CastCrewNone(), {});
+    return CastCrewState(null, CastCrewNone(), {}, TmdbMediaState.initial());
   }
 
   CastCrewState copyWith({
     MediaDetail? mediaDetail,
     CastCrewStatus? castCrewStatus,
     Map<String, List<Crew>>? groupCrew,
+    TmdbMediaState? tmdbMediaState,
   }) {
     return CastCrewState(
       mediaDetail ?? this.mediaDetail,
       castCrewStatus ?? this.castCrewStatus,
       groupCrew ?? this.groupCrew,
+      tmdbMediaState ?? this.tmdbMediaState,
     );
   }
 
@@ -66,6 +71,7 @@ class CastCrewState with EquatableMixin {
         mediaDetail,
         castCrewStatus,
         groupCrew,
+        tmdbMediaState,
       ];
 }
 
@@ -88,3 +94,73 @@ class CastCrewError extends CastCrewStatus {
   @override
   List<Object?> get props => [error];
 }
+
+class TmdbMediaState with EquatableMixin {
+  final MediaDetail? mediaDetail;
+  final GroupVideos groupVideos;
+  final GroupBackdrops groupBackdrops;
+  final GroupPosters groupPosters;
+  final TmdbMediaStatus tmdbMediaStatus;
+  final String currentPopupState;
+
+  TmdbMediaState({
+    required this.mediaDetail,
+    required this.groupVideos,
+    required this.groupBackdrops,
+    required this.groupPosters,
+    required this.tmdbMediaStatus,
+    required this.currentPopupState,
+  });
+
+  factory TmdbMediaState.initial() {
+    return TmdbMediaState(
+      mediaDetail: null,
+      groupVideos: GroupVideos.initial(),
+      groupBackdrops: GroupBackdrops.initial(),
+      groupPosters: GroupPosters.initial(),
+      tmdbMediaStatus: TmdbFilterDone(),
+      currentPopupState: AppConstant.all,
+    );
+  }
+
+  TmdbMediaState copyWith({
+    MediaDetail? mediaDetail,
+    GroupVideos? groupVideos,
+    GroupBackdrops? groupBackdrops,
+    GroupPosters? groupPosters,
+    TmdbMediaStatus? tmdbMediaStatus,
+    String? currentPopupState,
+  }) {
+    return TmdbMediaState(
+      mediaDetail: mediaDetail ?? this.mediaDetail,
+      groupVideos: groupVideos ?? this.groupVideos,
+      groupBackdrops: groupBackdrops ?? this.groupBackdrops,
+      groupPosters: groupPosters ?? this.groupPosters,
+      tmdbMediaStatus: tmdbMediaStatus ?? this.tmdbMediaStatus,
+      currentPopupState: currentPopupState ?? this.currentPopupState,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        mediaDetail,
+        groupVideos,
+        groupBackdrops,
+        groupPosters,
+        tmdbMediaStatus,
+        currentPopupState,
+      ];
+}
+
+sealed class TmdbMediaStatus with EquatableMixin {
+  @override
+  List<Object?> get props => [];
+}
+
+class TmdbFilterProcessing extends TmdbMediaStatus {}
+
+class TmdbFilterDone extends TmdbMediaStatus {}
+
+class TmdbFilterNone extends TmdbMediaStatus {}
+
+class TmdbNoDataPresent extends TmdbMediaStatus {}

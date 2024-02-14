@@ -16,6 +16,6 @@ class SocialUrlConstants {
   }
 
   static String imdbUrl(String? id) {
-    return "https://www.imdb.com/title/$id";
+    return "https://www.imdb.com/name/$id";
   }
 }

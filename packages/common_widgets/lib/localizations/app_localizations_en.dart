@@ -316,4 +316,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get isAdultIncluded => 'Adult Content Included';
+
+  @override
+  String noDataPresentForType(Object mediaName, Object type) {
+    return 'No $type Data Present for the $mediaName';
+  }
 }

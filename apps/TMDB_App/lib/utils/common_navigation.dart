@@ -11,4 +11,12 @@ class CommonNavigation {
   }) {
     context.push("${RouteName.home}/$mediaType/$mediaId");
   }
+
+  static void redirectToVideosScreen(
+    BuildContext context, {
+    String? mediaType = ApiKey.movie,
+    String? mediaId = "609681",
+  }) {
+    context.push("${RouteName.home}/$mediaType/$mediaId/${RouteName.videos}");
+  }
 }

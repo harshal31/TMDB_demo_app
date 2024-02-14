@@ -89,5 +89,6 @@
   "actionFor": "{knownFor}. {name}",
   "country": "Country",
   "language": "Language",
-  "isAdultIncluded": "Adult Content Included"
+  "isAdultIncluded": "Adult Content Included",
+  "noDataPresentForType": "No {type} Data Present for the {mediaName}"
 }

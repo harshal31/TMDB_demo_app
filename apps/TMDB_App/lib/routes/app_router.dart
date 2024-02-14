@@ -22,6 +22,7 @@ import "package:tmdb_app/features/persons_listing_feature/person_listing_screen.
 import "package:tmdb_app/features/profile_feature/profile_screen.dart";
 import "package:tmdb_app/features/reviews_listing_feature/reviews_listing_screen.dart";
 import "package:tmdb_app/features/search_feature/presentation/screens/search_screen.dart";
+import "package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/tmdb_media_youtube_media_listing.dart";
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
 import "package:tmdb_app/routes/route_param.dart";
@@ -212,6 +213,33 @@ class AppRouter {
                               );
                             },
                           ),
+                          GoRoute(
+                            path: RouteName.videos,
+                            pageBuilder: (ctx, state) {
+                              final movieId = state.pathParameters[RouteParam.id] ?? "";
+                              return animatedPage(
+                                ctx,
+                                state,
+                                widget: TmdbYoutubeMediaListingScreen(
+                                  mediaId: movieId,
+                                  isMovies: true,
+                                ),
+                              );
+                            },
+                            routes: [
+                              GoRoute(
+                                path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                                pageBuilder: (ctx, state) {
+                                  final id = state.pathParameters[RouteParam.videoId] ?? "";
+                                  return animatedPage(
+                                    ctx,
+                                    state,
+                                    widget: YoutubeVideo(id: id),
+                                  );
+                                },
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ],
@@ -275,6 +303,33 @@ class AppRouter {
                                 ),
                               );
                             },
+                          ),
+                          GoRoute(
+                            path: RouteName.videos,
+                            pageBuilder: (ctx, state) {
+                              final movieId = state.pathParameters[RouteParam.id] ?? "";
+                              return animatedPage(
+                                ctx,
+                                state,
+                                widget: TmdbYoutubeMediaListingScreen(
+                                  mediaId: movieId,
+                                  isMovies: false,
+                                ),
+                              );
+                            },
+                            routes: [
+                              GoRoute(
+                                path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
+                                pageBuilder: (ctx, state) {
+                                  final id = state.pathParameters[RouteParam.videoId] ?? "";
+                                  return animatedPage(
+                                    ctx,
+                                    state,
+                                    widget: YoutubeVideo(id: id),
+                                  );
+                                },
+                              )
+                            ],
                           ),
                         ],
                       ),

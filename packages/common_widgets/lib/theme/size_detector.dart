@@ -21,11 +21,10 @@ class SizeDetector extends StatelessWidget {
       widget = mobileBuilder.call();
     } else if (value.isTablet) {
       widget = tabletBuilder.call();
-    } else if (value.isDesktop) {
-      widget = desktopBuilder.call();
     } else {
-      widget = const SizedBox.shrink();
+      widget = desktopBuilder.call();
     }
+
     return SafeArea(
       child: AnimatedContainer(
         width: MediaQuery.of(context).size.width,
@@ -34,9 +33,8 @@ class SizeDetector extends StatelessWidget {
           maxWidth: MediaQuery.of(context).size.width,
           maxHeight: MediaQuery.of(context).size.height,
         ),
-        duration: const Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 200),
         child: widget,
-        curve: Curves.linear,
       ),
     );
   }

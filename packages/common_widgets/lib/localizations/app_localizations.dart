@@ -636,6 +636,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Adult Content Included'**
   String get isAdultIncluded;
+
+  /// No description provided for @noDataPresentForType.
+  ///
+  /// In en, this message translates to:
+  /// **'No {type} Data Present for the {mediaName}'**
+  String noDataPresentForType(Object mediaName, Object type);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -5,17 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/data/cast_crew_listing_api_service.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/cubits/cast_crew_cubit.dart';
-import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/screens/mobile/cast_crew_mobile_screen.dart';
-import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/screens/web_tablet/cast_crew_screen_web_tab_screen.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
+import 'package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/screens/desktop_tab/tmdb_youtube_media_listing_impl.dart';
+import 'package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/screens/mobile/tmdb_youtube_media_listing_mobile_impl.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_app_bar.dart';
 import 'package:tmdb_app/network/dio_manager.dart';
 
-class CastCrewScreen extends StatelessWidget {
+class TmdbYoutubeMediaListingScreen extends StatelessWidget {
   final bool isMovies;
   final String mediaId;
 
-  const CastCrewScreen({
+  const TmdbYoutubeMediaListingScreen({
     super.key,
     required this.isMovies,
     required this.mediaId,
@@ -36,7 +36,7 @@ class CastCrewScreen extends StatelessWidget {
             ..fetchMediaDetails(
               isMovies,
               mediaId,
-              castCrewType: CastCrewType.crew,
+              castCrewType: CastCrewType.videos,
             ),
         )
       ],
@@ -46,14 +46,17 @@ class CastCrewScreen extends StatelessWidget {
             shouldDisplayBack: !kIsWeb,
           ),
           body: SizeDetector(
-            mobileBuilder: () => CastCrewMobileScreen(
+            desktopBuilder: () => TmdbYoutubeMediaListingImpl(
               isMovies: isMovies,
+              mediaId: mediaId,
             ),
-            tabletBuilder: () => CastCrewWebTabScreen(
+            mobileBuilder: () => TmdbYoutubeMediaListingMobileImpl(
               isMovies: isMovies,
+              mediaId: mediaId,
             ),
-            desktopBuilder: () => CastCrewWebTabScreen(
+            tabletBuilder: () => TmdbYoutubeMediaListingImpl(
               isMovies: isMovies,
+              mediaId: mediaId,
             ),
           ),
         ),
