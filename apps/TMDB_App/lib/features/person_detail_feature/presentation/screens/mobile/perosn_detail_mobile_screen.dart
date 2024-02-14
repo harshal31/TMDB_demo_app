@@ -20,11 +20,7 @@ class PersonDetailMobileScreen extends StatelessWidget {
         if (state.personDetailStatus is PersonDetailNone ||
             state.personDetailStatus is PersonDetailLoading) {
           return const Center(
-            child: SizedBox(
-              width: 80,
-              height: 80,
-              child: CircularProgressIndicator(),
-            ),
+            child: CircularProgressIndicator(),
           );
         }
 
