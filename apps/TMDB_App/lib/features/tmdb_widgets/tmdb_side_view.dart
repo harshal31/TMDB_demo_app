@@ -3,6 +3,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
@@ -364,6 +365,7 @@ class TmdbSidePersonView extends StatelessWidget {
         children: [
           TmdbShare(
             tmdbShareModel: tmdbShare,
+            mediaType: ApiKey.person,
           ),
           const SizedBox(height: 16),
           Text(

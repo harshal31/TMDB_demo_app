@@ -1,3 +1,5 @@
+import 'package:tmdb_app/constants/api_key.dart';
+
 class SocialUrlConstants {
   static String facebookUrl(String? id) {
     return "https://www.facebook.com/$id";
@@ -15,7 +17,8 @@ class SocialUrlConstants {
     return "https://www.wikidata.org/wiki/$id";
   }
 
-  static String imdbUrl(String? id) {
-    return "https://www.imdb.com/name/$id";
+  static String imdbUrl(String? id, String mediaType) {
+    final tmdbTYpe = mediaType == ApiKey.person ? "name" : "title";
+    return "https://www.imdb.com/$tmdbTYpe/$id";
   }
 }

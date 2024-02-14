@@ -516,7 +516,10 @@ class MovieDetailTabletScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            TmdbShare(tmdbShareModel: state.mediaDetailModel.mediaExternalId),
+                            TmdbShare(
+                              tmdbShareModel: state.mediaDetailModel.mediaExternalId,
+                              mediaType: ApiKey.movie,
+                            ),
                             const SizedBox(height: 16),
                             TmdbSideView(
                               mediaDetail: state.mediaDetailModel.mediaDetail,

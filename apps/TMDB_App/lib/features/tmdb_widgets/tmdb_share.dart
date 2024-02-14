@@ -7,10 +7,12 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external
 
 class TmdbShare extends StatelessWidget {
   final MediaExternalId? tmdbShareModel;
+  final String mediaType;
 
   const TmdbShare({
     super.key,
     this.tmdbShareModel,
+    required this.mediaType,
   });
 
   @override
@@ -118,7 +120,7 @@ class TmdbShare extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     UrlUtil.launchInBrowser(
-                      SocialUrlConstants.imdbUrl(tmdbShareModel?.imdbId),
+                      SocialUrlConstants.imdbUrl(tmdbShareModel?.imdbId, mediaType),
                     );
                   },
                   icon: ImageIcon(

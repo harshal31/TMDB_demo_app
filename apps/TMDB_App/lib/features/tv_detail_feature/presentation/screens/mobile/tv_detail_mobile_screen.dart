@@ -533,7 +533,10 @@ class TvDetailMobileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    TmdbShare(tmdbShareModel: state.mediaDetailModel.mediaExternalId),
+                    TmdbShare(
+                      tmdbShareModel: state.mediaDetailModel.mediaExternalId,
+                      mediaType: ApiKey.tv,
+                    ),
                     const SizedBox(height: 16),
                     TmdbTvSeriesSideView(
                       keywordSpacing: 2.0,
