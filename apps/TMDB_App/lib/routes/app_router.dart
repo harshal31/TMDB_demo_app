@@ -46,6 +46,7 @@ class AppRouter {
             navigatorKey: _homeRouterKey,
             routes: [
               GoRoute(
+                redirect: shouldRedirectToLoginScreenIfNotLoggedIn,
                 path: RouteName.home,
                 builder: (ctx, state) {
                   return const HomeScreen();
@@ -410,6 +411,17 @@ class AppRouter {
     final sessionId = await GetIt.instance.get<HiveManager>().getString(HiveKey.sessionId);
     if (sessionId.isNotEmpty) {
       return RouteName.home;
+    }
+    return null;
+  }
+
+  static FutureOr<String?> shouldRedirectToLoginScreenIfNotLoggedIn(
+    BuildContext c,
+    GoRouterState s,
+  ) async {
+    final sessionId = await GetIt.instance.get<HiveManager>().getString(HiveKey.sessionId);
+    if (sessionId.isEmpty) {
+      return RouteName.login;
     }
     return null;
   }
