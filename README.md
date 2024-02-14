@@ -28,7 +28,7 @@ To integrate your TMDB API key into the application, modify the `AuthInterceptor
 API key declaration with your actual TMDB API key as shown below:
 
 - Find the line: `const String _token = "";`
-- Replace it with: `const String _token = "<your_api_key>";`
+- Replace it with: `const String _token = "Bearer <your_api_key>";`
 
 This step ensures the application can authenticate and retrieve data from TMDB successfully.
 
