@@ -25,13 +25,13 @@ class _CastCrewListingApiService implements CastCrewListingApiService {
     String language,
     String appendToResponse,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'language': language,
       r'append_to_response': appendToResponse,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<MediaDetail>>(Options(
       method: 'GET',

@@ -24,10 +24,10 @@ class _HomeApiService implements HomeApiService {
     String timeWindow,
     String language,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'language': language};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<Trending>>(Options(
       method: 'GET',
@@ -58,14 +58,14 @@ class _HomeApiService implements HomeApiService {
     int page,
     String region,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'language': language,
       r'page': page,
       r'region': region,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<LatestResults>>(Options(
       method: 'GET',
@@ -96,14 +96,14 @@ class _HomeApiService implements HomeApiService {
     int page,
     String timezone,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'language': language,
       r'page': page,
       r'timezone': timezone,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<LatestResults>>(Options(
       method: 'GET',
@@ -131,11 +131,11 @@ class _HomeApiService implements HomeApiService {
     String dynamicPath,
     Map<String, dynamic> queryMap,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(queryMap);
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<LatestResults>>(Options(
       method: 'GET',

@@ -4,6 +4,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
+import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:extended_image/extended_image.dart';
@@ -35,11 +36,7 @@ class MovieDetailWebScreen extends StatelessWidget {
         if (state.movieDetailState is MovieDetailLoading ||
             state.movieDetailState is MovieDetailNone) {
           return const Center(
-            child: SizedBox(
-              width: 80,
-              height: 80,
-              child: CircularProgressIndicator(),
-            ),
+            child: LottieLoader(),
           );
         }
 

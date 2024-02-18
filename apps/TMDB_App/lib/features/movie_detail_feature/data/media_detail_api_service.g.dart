@@ -25,13 +25,13 @@ class _MediaDetailApiService implements MediaDetailApiService {
     String language,
     String appendToResponse,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'language': language,
       r'append_to_response': appendToResponse,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<MediaDetail>>(Options(
       method: 'GET',
@@ -62,7 +62,7 @@ class _MediaDetailApiService implements MediaDetailApiService {
     String sessionId,
     Map<String, dynamic> body,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'session_id': sessionId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -96,7 +96,7 @@ class _MediaDetailApiService implements MediaDetailApiService {
     String sessionId,
     Map<String, dynamic> body,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'session_id': sessionId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -130,7 +130,7 @@ class _MediaDetailApiService implements MediaDetailApiService {
     int typeId,
     Map<String, dynamic> body,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -163,7 +163,7 @@ class _MediaDetailApiService implements MediaDetailApiService {
     String dynamicPath,
     Map<String, dynamic> body,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

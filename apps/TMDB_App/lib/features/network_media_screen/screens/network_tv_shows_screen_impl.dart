@@ -1,5 +1,6 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -79,7 +80,7 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
             pagingController: tvShowsController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
               firstPageProgressIndicatorBuilder: (context) => const Center(
-                child: CircularProgressIndicator(),
+                child: LottieLoader(),
               ),
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(

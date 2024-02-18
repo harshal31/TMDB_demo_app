@@ -1,6 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/country_flag.dart';
+import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,9 +16,7 @@ class ProfileScreenImpl extends StatelessWidget {
       builder: (context, state) {
         if (state.profileStatus is ProfileLoading || state.profileStatus is ProfileNone) {
           return const Center(
-            child: SizedBox(
-              child: CircularProgressIndicator(),
-            ),
+            child: LottieLoader(),
           );
         }
 

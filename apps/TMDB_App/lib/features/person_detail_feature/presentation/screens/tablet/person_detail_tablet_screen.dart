@@ -1,6 +1,7 @@
 import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/read_more_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,11 +21,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
         if (state.personDetailStatus is PersonDetailNone ||
             state.personDetailStatus is PersonDetailLoading) {
           return const Center(
-            child: SizedBox(
-              width: 80,
-              height: 80,
-              child: CircularProgressIndicator(),
-            ),
+            child: LottieLoader(),
           );
         }
 

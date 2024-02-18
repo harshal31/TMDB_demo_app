@@ -1,6 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
+import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,11 +24,7 @@ class CastCrewWebTabScreen extends StatelessWidget {
       builder: (context, state) {
         if (state.castCrewStatus is CastCrewLoading || state.castCrewStatus is CastCrewNone) {
           return const Center(
-            child: SizedBox(
-              width: 80,
-              height: 80,
-              child: CircularProgressIndicator(),
-            ),
+            child: LottieLoader(),
           );
         }
 

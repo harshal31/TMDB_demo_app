@@ -20,10 +20,10 @@ class _AuthenticationApiService implements AuthenticationApiService {
 
   @override
   Future<HttpResponse<NewRequestToken>> requestNewToken() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<NewRequestToken>>(Options(
       method: 'GET',
@@ -49,7 +49,7 @@ class _AuthenticationApiService implements AuthenticationApiService {
   @override
   Future<HttpResponse<NewRequestToken>> validateWithLogin(
       Map<String, dynamic> loginBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -79,7 +79,7 @@ class _AuthenticationApiService implements AuthenticationApiService {
   @override
   Future<HttpResponse<NewSession>> createNewSession(
       Map<String, dynamic> sessionBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

@@ -1,6 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/listing_tooltip.dart';
+import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -106,7 +107,7 @@ class _CompanyMovieScreenMovieImplState extends State<CompanyMovieScreenMovieImp
             pagingController: movieController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
               firstPageProgressIndicatorBuilder: (context) => const Center(
-                child: CircularProgressIndicator(),
+                child: LottieLoader(),
               ),
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
