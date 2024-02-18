@@ -1,5 +1,6 @@
 import "package:common_widgets/localizations/app_localizations.dart";
 import "package:common_widgets/theme/app_theme.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart";
@@ -14,10 +15,15 @@ import "package:tmdb_app/routes/app_router.dart";
 
 void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
-  final widgetBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetBinding);
-  await initializeDependencies();
-  FlutterNativeSplash.remove();
+  if (kIsWeb) {
+    WidgetsFlutterBinding.ensureInitialized();
+    await initializeDependencies();
+  } else {
+    final widgetBinding = WidgetsFlutterBinding.ensureInitialized();
+    FlutterNativeSplash.preserve(widgetsBinding: widgetBinding);
+    await initializeDependencies();
+    FlutterNativeSplash.remove();
+  }
   runApp(MainApp());
 }
 
