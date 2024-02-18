@@ -13,10 +13,15 @@ class LottieSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppAsset.json.search.lottie(
-      package: "common_widgets",
-      width: width,
-      height: height,
+    return SizedBox(
+      width: width ?? MediaQuery.of(context).size.width * 0.5,
+      height: height ?? MediaQuery.of(context).size.height * 0.5,
+      child: AppAsset.json.search.lottie(
+        package: "common_widgets",
+        width: MediaQuery.of(context).size.width * 0.5,
+        height: MediaQuery.of(context).size.height * 0.5,
+        alignment: Alignment.center,
+      ),
     );
   }
 }

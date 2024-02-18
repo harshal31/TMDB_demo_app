@@ -2,6 +2,7 @@ import "dart:async";
 
 import "package:common_widgets/localizations/localized_extension.dart";
 import "package:common_widgets/widgets/youtube_video.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:get_it/get_it.dart";
 import "package:go_router/go_router.dart";
@@ -396,10 +397,23 @@ class AppRouter {
     return CustomTransitionPage<void>(
       key: state.pageKey,
       child: widget,
-      transitionDuration: const Duration(milliseconds: 200),
-      reverseTransitionDuration: const Duration(milliseconds: 200),
+      transitionDuration: const Duration(milliseconds: 300),
+      reverseTransitionDuration: const Duration(milliseconds: 300),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(opacity: animation, child: child);
+        if (kIsWeb) {
+          return FadeTransition(opacity: animation, child: child);
+        }
+
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
       },
     );
   }
