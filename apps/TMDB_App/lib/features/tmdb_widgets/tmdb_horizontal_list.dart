@@ -35,7 +35,7 @@ class TmdbHorizontalList extends StatelessWidget {
               height: height ?? 225,
               child: IconButton(
                 icon: const Icon(
-                  Icons.keyboard_double_arrow_right_sharp,
+                  Icons.arrow_circle_right_outlined,
                   size: 40,
                 ),
                 onPressed: () {
