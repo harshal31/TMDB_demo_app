@@ -46,16 +46,19 @@ class MediaListingItem extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Positioned.fill(
-                child: InkWell(
-                  splashColor: context.colorTheme.primary.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(10),
-                  onTap: () {
-                    CommonNavigation.redirectToDetailScreen(
-                      context,
-                      mediaType: (isMovies ? ApiKey.movie : ApiKey.tv),
-                      mediaId: latestData.id.toString(),
-                    );
-                  },
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    splashColor: context.colorTheme.primary.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(10),
+                    onTap: () {
+                      CommonNavigation.redirectToDetailScreen(
+                        context,
+                        mediaType: (isMovies ? ApiKey.movie : ApiKey.tv),
+                        mediaId: latestData.id.toString(),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
