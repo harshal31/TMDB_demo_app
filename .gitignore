@@ -29,5 +29,4 @@ migrate_working_dir/
 build/
 
 # Project exclude paths
-/apps/TMDB_App/ios/Flutter/
 /packages/common_widgets/ios/Flutter/
