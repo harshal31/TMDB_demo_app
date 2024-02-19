@@ -186,6 +186,14 @@ class MediaDetail {
     return result;
   }
 
+  String getActualName(bool isMovies) {
+    String value = isMovies
+        ? (this.title ?? this.originalTitle ?? "")
+        : (this.name ?? this.originalName ?? "");
+
+    return value;
+  }
+
   String getBackdropImage() {
     return AppConstant.originalImageBaseUrl + (backdropPath ?? "");
   }

@@ -120,7 +120,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                       children: [
                         const SizedBox(height: 8),
                         Text(
-                          "${state.mediaDetailModel.mediaDetail?.originalTitle ?? ""} ",
+                          "${state.mediaDetailModel.mediaDetail?.getActualName(true) ?? ""} ",
                           textAlign: TextAlign.center,
                           style: context.textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.bold,

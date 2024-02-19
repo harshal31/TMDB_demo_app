@@ -108,7 +108,7 @@ class TvDetailTabletScreen extends StatelessWidget {
                                           children: [
                                             TextSpan(
                                               text:
-                                                  "${state.mediaDetailModel.mediaDetail?.originalName ?? ""} ",
+                                                  "${state.mediaDetailModel.mediaDetail?.getActualName(false) ?? ""} ",
                                               style: context.textTheme.headlineLarge?.copyWith(
                                                 fontWeight: FontWeight.w900,
                                               ),

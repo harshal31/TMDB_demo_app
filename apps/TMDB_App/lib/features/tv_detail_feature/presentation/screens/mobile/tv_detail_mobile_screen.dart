@@ -117,7 +117,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       children: [
                         const SizedBox(height: 8),
                         Text(
-                          "${state.mediaDetailModel.mediaDetail?.originalName ?? ""} ",
+                          "${state.mediaDetailModel.mediaDetail?.getActualName(false) ?? ""} ",
                           textAlign: TextAlign.center,
                           style: context.textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.bold,

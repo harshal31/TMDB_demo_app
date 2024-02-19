@@ -113,7 +113,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                         text: TextSpan(children: [
                                           TextSpan(
                                             text:
-                                                "${state.mediaDetailModel.mediaDetail?.originalTitle ?? ""} ",
+                                                "${state.mediaDetailModel.mediaDetail?.getActualName(true) ?? ""} ",
                                             style: context.textTheme.headlineLarge?.copyWith(
                                               fontWeight: FontWeight.w900,
                                             ),
