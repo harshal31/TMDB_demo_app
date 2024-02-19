@@ -3,8 +3,9 @@
 # Flutter test coverage will not included untested files:
 # workaround for this issue is in any of the test file we need to import untested file.
 # https://github.com/flutter/flutter/issues/27997
+#if ! flutter pub global run melos run test_coverage; then
 
-if ! flutter pub global run melos run test_coverage; then
+if ! flutter test --coverage; then
   echo "tests failed"
   exit 1
 fi
