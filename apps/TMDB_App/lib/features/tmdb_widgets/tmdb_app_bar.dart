@@ -3,6 +3,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tmdb_app/features/tmdb_widgets/tmdb_animated_icon_switcher.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';
 
@@ -121,7 +122,6 @@ class _TmdbAppBarState extends State<TmdbAppBar> {
                       ),
                     )
                   : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
                           onTap: () {
@@ -136,14 +136,22 @@ class _TmdbAppBarState extends State<TmdbAppBar> {
                             height: 30,
                           ),
                         ),
-                        IconButton(
-                          key: UniqueKey(),
-                          onPressed: () {
-                            setState(() {
-                              shouldDisplaySearchBar = true;
-                            });
-                          },
-                          icon: const Icon(Icons.search),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TmdbAnimatedIconSwitcher(),
+                              IconButton(
+                                key: UniqueKey(),
+                                onPressed: () {
+                                  setState(() {
+                                    shouldDisplaySearchBar = true;
+                                  });
+                                },
+                                icon: const Icon(Icons.search),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
