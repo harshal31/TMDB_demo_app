@@ -250,6 +250,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
                             height: 30,
                             fit: BoxFit.cover,
                             imageColor: context.colorTheme.primary,
+                            borderRadius: BorderRadius.zero,
                           ),
                         ),
                       );
