@@ -26,12 +26,46 @@ class ExtendedImageCreator extends StatefulWidget {
     this.imageColor,
   });
 
+  static ExtendedImage getImage(
+    String? url, {
+    bool shouldDisplayErrorImage = false,
+    double? width,
+    double? height,
+    BoxFit? fit,
+    BoxShape? shape,
+    BorderRadius? borderRadius,
+  }) {
+    return ExtendedImage.network(
+      url ?? "",
+      width: width ?? double.infinity,
+      height: height ?? double.infinity,
+      fit: fit ?? BoxFit.cover,
+      clipBehavior: Clip.hardEdge,
+      loadStateChanged: (s) {
+        if (s.extendedImageLoadState == LoadState.failed && shouldDisplayErrorImage) {
+          return Center(
+            child: AppAsset.images.error.image(
+              package: "common_widgets",
+              fit: BoxFit.contain,
+            ),
+          );
+        }
+
+        return null;
+      },
+      shape: shape ?? BoxShape.rectangle,
+      borderRadius: borderRadius ?? BorderRadius.zero,
+      clearMemoryCacheWhenDispose: true,
+    );
+  }
+
   @override
   State<ExtendedImageCreator> createState() => _ExtendedImageCreatorState();
 }
 
 class _ExtendedImageCreatorState extends State<ExtendedImageCreator> {
   late String imageUrl;
+  ImageProvider? imageProvider;
 
   @override
   void initState() {

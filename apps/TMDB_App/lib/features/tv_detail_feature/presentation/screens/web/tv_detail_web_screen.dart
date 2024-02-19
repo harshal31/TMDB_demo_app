@@ -5,7 +5,6 @@ import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
@@ -49,6 +48,10 @@ class TvDetailWebScreen extends StatelessWidget {
           );
         }
 
+        final backdropImage = ExtendedImageCreator.getImage(
+          state.mediaDetailModel.getBackdropImage(),
+        );
+
         return CustomScrollView(
           physics: const BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
           scrollBehavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -61,25 +64,12 @@ class TvDetailWebScreen extends StatelessWidget {
                     Positioned.fill(
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: Opacity(
-                          opacity: 0.3,
-                          child: ExtendedImageCreator(
-                            imageUrl: state.mediaDetailModel.getBackdropImage(),
-                            fit: BoxFit.cover,
-                            height: double.infinity,
-                            shape: BoxShape.rectangle,
-                            shouldDisplayErrorImage: false,
-                            borderRadius: BorderRadius.zero,
-                          ),
-                        ),
+                        child: backdropImage,
                       ),
                     ),
                     Positioned.fill(
                       child: DominantColorFromImage(
-                        imageProvider: ExtendedNetworkImageProvider(
-                          state.mediaDetailModel.getBackdropImage(),
-                          cache: true,
-                        ),
+                        imageProvider: backdropImage.image,
                       ),
                     ),
                     Positioned.fill(

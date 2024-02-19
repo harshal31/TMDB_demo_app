@@ -52,6 +52,15 @@ class MovieDetailMobileScreen extends StatelessWidget {
           );
         }
 
+        final backdropImage = ExtendedImageCreator.getImage(
+          state.mediaDetailModel.getBackdropImage(),
+          width: MediaQuery.of(context).size.width * 0.7,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
+          ),
+        );
+
         return CustomScrollView(
           scrollBehavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           slivers: [
@@ -67,27 +76,11 @@ class MovieDetailMobileScreen extends StatelessWidget {
                           top: 0,
                           right: 0,
                           bottom: 0,
-                          child: Opacity(
-                            opacity: 0.6,
-                            child: ExtendedImageCreator(
-                              imageUrl: state.mediaDetailModel.getBackdropImage(),
-                              fit: BoxFit.cover,
-                              height: double.infinity,
-                              width: MediaQuery.of(context).size.width * 0.7,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(6),
-                                bottomLeft: Radius.circular(6),
-                              ),
-                              shouldDisplayErrorImage: false,
-                            ),
-                          ),
+                          child: backdropImage,
                         ),
                         Positioned.fill(
                           child: DominantColorFromImage(
-                            imageProvider: ExtendedNetworkImageProvider(
-                              state.mediaDetailModel.getBackdropImage(),
-                              cache: true,
-                            ),
+                            imageProvider: backdropImage.image,
                           ),
                         ),
                         Positioned(

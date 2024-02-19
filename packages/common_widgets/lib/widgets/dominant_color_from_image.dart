@@ -31,7 +31,7 @@ class _DominantColorState extends State<DominantColorFromImage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            currentColorScheme.primary.withOpacity(0.5),
+            currentColorScheme.primary.withOpacity(0.9),
             currentColorScheme.primary.withOpacity(0.1),
           ],
         ),
@@ -43,7 +43,6 @@ class _DominantColorState extends State<DominantColorFromImage> {
   Future<void> _updateImage(ImageProvider provider) async {
     final ColorScheme newColorScheme = await ColorScheme.fromImageProvider(
       provider: provider,
-      brightness: Theme.of(context).brightness,
     );
     setState(() {
       currentColorScheme = newColorScheme;
