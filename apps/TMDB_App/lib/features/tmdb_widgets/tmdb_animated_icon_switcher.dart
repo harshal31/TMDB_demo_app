@@ -8,6 +8,7 @@ class TmdbAnimatedIconSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SystemCubit, SystemState>(
+      buildWhen: (prev, cur) => prev != cur,
       builder: (context, state) {
         return AnimatedSwitcher(
           switchInCurve: Curves.easeIn,
