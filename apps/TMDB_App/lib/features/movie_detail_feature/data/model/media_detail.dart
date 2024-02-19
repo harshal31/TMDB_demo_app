@@ -172,7 +172,7 @@ class MediaDetail {
     String value = isMovies
         ? (this.title ?? this.originalTitle ?? "")
         : (this.name ?? this.originalName ?? "");
-    String year = isMovies ? (this.getReleaseYear() ?? "") : (this.getTvSeriesYear() ?? "");
+    String year = isMovies ? (this.getReleaseYear()) : (this.getTvSeriesYear());
 
     String result = "";
     if (value.isNotEmpty) {
