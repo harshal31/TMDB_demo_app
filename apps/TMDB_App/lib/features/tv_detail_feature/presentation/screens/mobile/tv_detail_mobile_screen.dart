@@ -322,7 +322,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 44,
+                      height: 4,
                     ),
                     TmdbCastList(
                       model: state.mediaDetailModel.mediaCredits?.cast,
