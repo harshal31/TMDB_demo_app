@@ -331,7 +331,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                               ),
                               IconButton(
                                 icon: const Icon(
-                                  Icons.keyboard_double_arrow_right_sharp,
+                                  Icons.arrow_circle_right_outlined,
                                   size: 40,
                                 ),
                                 onPressed: () {
@@ -346,21 +346,13 @@ class MovieDetailTabletScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(
-                            height: 16,
+                            height: 8,
                           ),
                           TmdbCastList(
                             model: state.mediaDetailModel.mediaCredits?.cast,
                           ),
                           const SizedBox(
-                            height: 16,
-                          ),
-                          Divider(
-                            color: context.colorTheme.onBackground.withOpacity(0.6),
-                            thickness: 2.0,
-                            height: 1.0,
-                          ),
-                          const SizedBox(
-                            height: 16,
+                            height: 22,
                           ),
                           Row(
                             children: [
@@ -376,7 +368,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                     false,
                                 child: IconButton(
                                   icon: const Icon(
-                                    Icons.keyboard_double_arrow_right_sharp,
+                                    Icons.arrow_circle_right_outlined,
                                     size: 40,
                                   ),
                                   onPressed: () {
@@ -392,22 +384,14 @@ class MovieDetailTabletScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(
-                            height: 16,
+                            height: 8,
                           ),
                           TmdbReview(
                             result: state.mediaDetailModel.mediaReviews?.getSafeReview(),
                             mediaDetail: state.mediaDetailModel.mediaDetail,
                           ),
                           const SizedBox(
-                            height: 16,
-                          ),
-                          Divider(
-                            color: context.colorTheme.onBackground.withOpacity(0.6),
-                            thickness: 2.0,
-                            height: 1.0,
-                          ),
-                          const SizedBox(
-                            height: 16,
+                            height: 22,
                           ),
                           Row(
                             children: [
@@ -420,7 +404,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                               ),
                               IconButton(
                                 icon: const Icon(
-                                  Icons.keyboard_double_arrow_right_sharp,
+                                  Icons.arrow_circle_right_outlined,
                                   size: 40,
                                 ),
                                 onPressed: () {
@@ -455,7 +439,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 16,
+                            height: 8,
                           ),
                           BlocBuilder<PositionCubit, int>(
                             builder: (context, s) {
@@ -469,15 +453,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                             },
                           ),
                           const SizedBox(
-                            height: 16,
-                          ),
-                          Divider(
-                            color: context.colorTheme.onBackground.withOpacity(0.6),
-                            thickness: 2.0,
-                            height: 1.0,
-                          ),
-                          const SizedBox(
-                            height: 16,
+                            height: 22,
                           ),
                           Text(
                             context.tr.recommendations,
@@ -485,7 +461,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                 ?.copyWith(fontWeight: FontWeight.w800),
                           ),
                           const SizedBox(
-                            height: 16,
+                            height: 8,
                           ),
                           TmdbRecomendations(
                             recommendations:
@@ -494,7 +470,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                             mediaType: ApiKey.movie,
                           ),
                           const SizedBox(
-                            height: 16,
+                            height: 22,
                           ),
                         ],
                       ),

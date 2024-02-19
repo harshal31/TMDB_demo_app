@@ -312,16 +312,6 @@ class MovieDetailMobileScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Divider(
-                  color: context.colorTheme.onBackground.withOpacity(0.6),
-                  thickness: 2.0,
-                  height: 1.0,
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -337,7 +327,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                         ),
                         IconButton(
                           icon: const Icon(
-                            Icons.keyboard_double_arrow_right_sharp,
+                            Icons.arrow_circle_right_outlined,
                             size: 30,
                           ),
                           onPressed: () {
@@ -360,11 +350,6 @@ class MovieDetailMobileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Divider(
-                      color: context.colorTheme.onBackground.withOpacity(0.6),
-                      thickness: 2.0,
-                      height: 1.0,
-                    ),
                     Row(
                       children: [
                         Expanded(
@@ -380,7 +365,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                           child: IconButton(
                             padding: EdgeInsets.zero,
                             icon: const Icon(
-                              Icons.keyboard_double_arrow_right_sharp,
+                              Icons.arrow_circle_right_outlined,
                               size: 30,
                             ),
                             onPressed: () {
@@ -396,7 +381,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 4,
                     ),
                     TmdbReview(
                       result: state.mediaDetailModel.mediaReviews?.getSafeReview(),
@@ -404,11 +389,6 @@ class MovieDetailMobileScreen extends StatelessWidget {
                     ),
                     const SizedBox(
                       height: 16,
-                    ),
-                    Divider(
-                      color: context.colorTheme.onBackground.withOpacity(0.6),
-                      thickness: 2.0,
-                      height: 1.0,
                     ),
                     Row(
                       children: [
@@ -421,7 +401,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                         ),
                         IconButton(
                           icon: const Icon(
-                            Icons.keyboard_double_arrow_right_sharp,
+                            Icons.arrow_circle_right_outlined,
                             size: 30,
                           ),
                           onPressed: () {
@@ -455,7 +435,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 4,
                     ),
                     BlocBuilder<PositionCubit, int>(
                       builder: (context, s) {
@@ -473,20 +453,12 @@ class MovieDetailMobileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Divider(
-                      color: context.colorTheme.onBackground.withOpacity(0.6),
-                      thickness: 2.0,
-                      height: 1.0,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
                     Text(
                       context.tr.recommendations,
                       style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 4,
                     ),
                     TmdbRecomendations(
                       recommendations: state.mediaDetailModel.mediaRecommendations?.results ?? [],
@@ -498,17 +470,6 @@ class MovieDetailMobileScreen extends StatelessWidget {
               ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(
-                  color: context.colorTheme.onBackground.withOpacity(0.6),
-                  thickness: 2.0,
-                  height: 1.0,
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(child: SizedBox(height: 8)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

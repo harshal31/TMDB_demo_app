@@ -292,16 +292,6 @@ class TvDetailMobileScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Divider(
-                  color: context.colorTheme.onBackground.withOpacity(0.6),
-                  thickness: 2.0,
-                  height: 1.0,
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -317,7 +307,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                         ),
                         IconButton(
                           icon: const Icon(
-                            Icons.keyboard_double_arrow_right_sharp,
+                            Icons.arrow_circle_right_outlined,
                             size: 30,
                           ),
                           onPressed: () {
@@ -332,18 +322,13 @@ class TvDetailMobileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 44,
                     ),
                     TmdbCastList(
                       model: state.mediaDetailModel.mediaCredits?.cast,
                     ),
                     const SizedBox(
                       height: 16,
-                    ),
-                    Divider(
-                      color: context.colorTheme.onBackground.withOpacity(0.6),
-                      thickness: 2.0,
-                      height: 1.0,
                     ),
                     Row(
                       children: [
@@ -356,7 +341,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                         ),
                         IconButton(
                           icon: const Icon(
-                            Icons.keyboard_double_arrow_right_sharp,
+                            Icons.arrow_circle_right_outlined,
                             size: 30,
                           ),
                           onPressed: () {},
@@ -364,7 +349,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 4,
                     ),
                     TmdbCurrentSeasonMobileView(
                       season: state.mediaDetailModel.mediaDetail?.seasons?.lastOrNull,
@@ -372,11 +357,6 @@ class TvDetailMobileScreen extends StatelessWidget {
                     ),
                     const SizedBox(
                       height: 16,
-                    ),
-                    Divider(
-                      color: context.colorTheme.onBackground.withOpacity(0.6),
-                      thickness: 2.0,
-                      height: 1.0,
                     ),
                     Row(
                       children: [
@@ -392,7 +372,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                               state.mediaDetailModel.mediaReviews?.results?.isNotEmpty ?? false,
                           child: IconButton(
                             icon: const Icon(
-                              Icons.keyboard_double_arrow_right_sharp,
+                              Icons.arrow_circle_right_outlined,
                               size: 30,
                             ),
                             onPressed: () {
@@ -408,7 +388,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 4,
                     ),
                     TmdbReview(
                       result: state.mediaDetailModel.mediaReviews?.getSafeReview(),
@@ -416,11 +396,6 @@ class TvDetailMobileScreen extends StatelessWidget {
                     ),
                     const SizedBox(
                       height: 16,
-                    ),
-                    Divider(
-                      color: context.colorTheme.onBackground.withOpacity(0.6),
-                      thickness: 2.0,
-                      height: 1.0,
                     ),
                     Row(
                       children: [
@@ -433,7 +408,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                         ),
                         IconButton(
                           icon: const Icon(
-                            Icons.keyboard_double_arrow_right_sharp,
+                            Icons.arrow_circle_right_outlined,
                             size: 30,
                           ),
                           onPressed: () {
@@ -469,7 +444,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 4,
                     ),
                     BlocBuilder<PositionCubit, int>(
                       builder: (context, s) {
@@ -487,20 +462,12 @@ class TvDetailMobileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Divider(
-                      color: context.colorTheme.onBackground.withOpacity(0.6),
-                      thickness: 2.0,
-                      height: 1.0,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
                     Text(
                       context.tr.recommendations,
                       style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 4,
                     ),
                     TmdbRecomendations(
                       recommendations: state.mediaDetailModel.mediaRecommendations?.results ?? [],
@@ -512,17 +479,6 @@ class TvDetailMobileScreen extends StatelessWidget {
               ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(
-                  color: context.colorTheme.onBackground.withOpacity(0.6),
-                  thickness: 2.0,
-                  height: 1.0,
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(child: SizedBox(height: 8)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
