@@ -4,6 +4,7 @@ import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
+import 'package:common_widgets/widgets/tmdb_user_score.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:extended_image/extended_image.dart';
@@ -136,62 +137,64 @@ class TvDetailMobileScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Center(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TmdbIcon(
-                                  iconSize: 20,
-                                  icons: (Icons.favorite, Icons.favorite_outline_sharp),
-                                  isSelected:
-                                      state.mediaDetailModel.mediaAccountState?.favorite ?? false,
-                                  selectedColor: Colors.red,
-                                  onSelection: (s) {
-                                    tvDetailCubit.saveUserPreference(
-                                      state.mediaDetailModel.mediaDetail?.id,
-                                      ApiKey.favorite,
-                                      s,
-                                    );
-                                  },
-                                  hoverMessage: context.tr.markAsFavorite,
-                                ),
-                                const SizedBox(width: 16),
-                                TmdbIcon(
-                                  iconSize: 20,
-                                  icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
-                                  isSelected:
-                                      state.mediaDetailModel.mediaAccountState?.watchlist ?? false,
-                                  selectedColor: Colors.red,
-                                  onSelection: (s) {
-                                    tvDetailCubit.saveUserPreference(
-                                      state.mediaDetailModel.mediaDetail?.id,
-                                      ApiKey.watchList,
-                                      s,
-                                    );
-                                  },
-                                  hoverMessage: context.tr.addToWatchlist,
-                                ),
-                                const SizedBox(width: 16),
-                                TooltipRating(
-                                  rating:
-                                      state.mediaDetailModel.mediaAccountState?.getSafeRating() ??
-                                          0.0,
-                                  iconSize: 20,
-                                  hoverMessage: context.tr.addToWatchlist,
-                                  onRatingUpdate: (rating) {
-                                    tvDetailCubit.addMediaRating(
-                                      state.mediaDetailModel.mediaDetail?.id,
-                                      rating,
-                                    );
-                                  },
-                                ),
-                              ],
+                        const SizedBox(height: 6),
+                        TmdbUserScore(
+                          average: state.mediaDetailModel.mediaDetail?.voteAverage ?? 0.0,
+                          circleSize: 50,
+                          numberStyle: context.textTheme.titleMedium,
+                          style: context.textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TmdbIcon(
+                              iconSize: 20,
+                              icons: (Icons.favorite, Icons.favorite_outline_sharp),
+                              isSelected:
+                                  state.mediaDetailModel.mediaAccountState?.favorite ?? false,
+                              selectedColor: Colors.red,
+                              onSelection: (s) {
+                                tvDetailCubit.saveUserPreference(
+                                  state.mediaDetailModel.mediaDetail?.id,
+                                  ApiKey.favorite,
+                                  s,
+                                );
+                              },
+                              hoverMessage: context.tr.markAsFavorite,
                             ),
-                          ),
+                            const SizedBox(width: 16),
+                            TmdbIcon(
+                              iconSize: 20,
+                              icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
+                              isSelected:
+                                  state.mediaDetailModel.mediaAccountState?.watchlist ?? false,
+                              selectedColor: Colors.red,
+                              onSelection: (s) {
+                                tvDetailCubit.saveUserPreference(
+                                  state.mediaDetailModel.mediaDetail?.id,
+                                  ApiKey.watchList,
+                                  s,
+                                );
+                              },
+                              hoverMessage: context.tr.addToWatchlist,
+                            ),
+                            const SizedBox(width: 16),
+                            TooltipRating(
+                              rating:
+                                  state.mediaDetailModel.mediaAccountState?.getSafeRating() ?? 0.0,
+                              iconSize: 20,
+                              hoverMessage: context.tr.addToWatchlist,
+                              onRatingUpdate: (rating) {
+                                tvDetailCubit.addMediaRating(
+                                  state.mediaDetailModel.mediaDetail?.id,
+                                  rating,
+                                );
+                              },
+                            ),
+                          ],
                         ),
                         Visibility(
                           visible: state.mediaDetailModel.mediaDetail?.tagline?.isNotEmpty ?? false,

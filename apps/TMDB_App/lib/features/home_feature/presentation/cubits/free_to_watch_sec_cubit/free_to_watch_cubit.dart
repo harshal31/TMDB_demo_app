@@ -12,10 +12,13 @@ class FreeToWatchCubit extends Cubit<AdvanceFilterState> {
       : super(AdvanceFilterState.initial());
 
   void fetchFreeResults(int pos) async {
-    emit(state.copyWith(
-      latestStatus: AdvanceFilterStatusLoading(generateUniqueKey()),
-      pos: pos,
-    ));
+    emit(
+      state.copyWith(
+        latestStatus: AdvanceFilterStatusLoading(generateUniqueKey()),
+        pos: pos,
+        error: null,
+      ),
+    );
 
     final result = pos == 0
         ? await _moviesAdvanceFilterUseCase.advanceMovieFilter(
@@ -26,16 +29,22 @@ class FreeToWatchCubit extends Cubit<AdvanceFilterState> {
           );
 
     result.fold((l) {
-      emit(state.copyWith(
-        latestStatus: AdvanceFilterStatusLoading(generateUniqueKey()),
-        pos: pos,
-      ));
+      emit(
+        state.copyWith(
+          latestStatus: AdvanceFilterStatusDone(generateUniqueKey()),
+          pos: pos,
+          error: l.errorMessage,
+        ),
+      );
     }, (r) {
-      emit(state.copyWith(
-        latestStatus: AdvanceFilterStatusDone(generateUniqueKey()),
-        results: r.latestData ?? [],
-        pos: pos,
-      ));
+      emit(
+        state.copyWith(
+          latestStatus: AdvanceFilterStatusDone(generateUniqueKey()),
+          results: r.latestData ?? [],
+          pos: pos,
+          error: null,
+        ),
+      );
     });
   }
 }

@@ -321,4 +321,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String noDataPresentForType(Object mediaName, Object type) {
     return 'No $type Data Present for the $mediaName';
   }
+
+  @override
+  String get userScore => 'User Score';
 }

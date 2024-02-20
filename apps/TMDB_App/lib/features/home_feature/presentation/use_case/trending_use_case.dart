@@ -43,20 +43,23 @@ class TrendingUseCase {
 class TrendingState with EquatableMixin {
   final Trending? trendingResult;
   final TrendingStatus? trendingStatus;
+  final String? error;
 
-  TrendingState(this.trendingResult, this.trendingStatus);
+  TrendingState(this.trendingResult, this.trendingStatus, this.error);
 
   factory TrendingState.initial() {
-    return TrendingState(null, null);
+    return TrendingState(null, null, null);
   }
 
   TrendingState copyWith({
     Trending? trendingResult,
     TrendingStatus? trendingStatus,
+    String? error,
   }) {
     return TrendingState(
       trendingResult ?? this.trendingResult,
       trendingStatus ?? this.trendingStatus,
+      error ?? this.error,
     );
   }
 
@@ -65,7 +68,7 @@ class TrendingState with EquatableMixin {
   }
 
   @override
-  List<Object?> get props => [trendingResult, trendingStatus];
+  List<Object?> get props => [trendingResult, trendingStatus, error];
 }
 
 sealed class TrendingStatus with EquatableMixin {}

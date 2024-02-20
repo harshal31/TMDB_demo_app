@@ -90,5 +90,6 @@
   "country": "Country",
   "language": "Language",
   "isAdultIncluded": "Adult Content Included",
-  "noDataPresentForType": "No {type} Data Present for the {mediaName}"
+  "noDataPresentForType": "No {type} Data Present for the {mediaName}",
+  "userScore": "User Score"
 }

@@ -13,13 +13,29 @@ class TrendingCubit extends Cubit<TrendingState> {
     bool? switchState,
     String timeWindow = ApiKey.day,
   }) async {
-    emit(state.copyWith(trendingStatus: TrendingLoading(generateUniqueKey())));
+    emit(
+      state.copyWith(
+        trendingStatus: TrendingLoading(generateUniqueKey()),
+        error: null,
+      ),
+    );
     final result = await _trendingUseCase.getTrendingResult(pos!, timeWindow);
 
     result.fold((l) {
-      emit(state.copyWith(trendingStatus: TrendingDone(generateUniqueKey())));
+      emit(
+        state.copyWith(
+          trendingStatus: TrendingDone(generateUniqueKey()),
+          error: l.errorMessage,
+        ),
+      );
     }, (r) {
-      emit(state.copyWith(trendingResult: r, trendingStatus: TrendingDone(generateUniqueKey())));
+      emit(
+        state.copyWith(
+          trendingResult: r,
+          error: null,
+          trendingStatus: TrendingDone(generateUniqueKey()),
+        ),
+      );
     });
   }
 }

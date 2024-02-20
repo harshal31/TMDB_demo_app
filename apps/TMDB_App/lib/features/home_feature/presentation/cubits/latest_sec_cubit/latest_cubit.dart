@@ -9,7 +9,12 @@ class LatestCubit extends Cubit<LatestState> {
   LatestCubit(this._latestUseCase) : super(LatestState.initial());
 
   void fetchLatestResults(bool switchState, String currentTabTitle) async {
-    emit(state.copyWith(latestStatus: LatestSectionLoading(generateUniqueKey())));
+    emit(
+      state.copyWith(
+        latestStatus: LatestSectionLoading(generateUniqueKey()),
+        error: null,
+      ),
+    );
 
     final mediaType = switchState ? ApiKey.movie : ApiKey.tv;
     final result = await _latestUseCase.fetchLatestResultsBasedOnMediaType(
@@ -18,9 +23,20 @@ class LatestCubit extends Cubit<LatestState> {
     );
 
     result.fold((l) {
-      emit(state.copyWith(latestStatus: LatestSectionLoading(generateUniqueKey())));
+      emit(
+        state.copyWith(
+          latestStatus: LatestSectionDone(generateUniqueKey()),
+          error: l.errorMessage,
+        ),
+      );
     }, (r) {
-      emit(state.copyWith(results: r, latestStatus: LatestSectionDone(generateUniqueKey())));
+      emit(
+        state.copyWith(
+          results: r,
+          latestStatus: LatestSectionDone(generateUniqueKey()),
+          error: null,
+        ),
+      );
     });
   }
 }

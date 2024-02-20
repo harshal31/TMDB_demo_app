@@ -4,6 +4,7 @@ import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
+import 'package:common_widgets/widgets/tmdb_user_score.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
@@ -85,181 +86,182 @@ class TvDetailTabletScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 18),
                             Expanded(
-                              child: ScrollConfiguration(
-                                behavior:
-                                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text:
-                                                  "${state.mediaDetailModel.mediaDetail?.getActualName(false) ?? ""} ",
-                                              style: context.textTheme.headlineLarge?.copyWith(
-                                                fontWeight: FontWeight.w900,
-                                              ),
+                              child: Center(
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                "${state.mediaDetailModel.mediaDetail?.getActualName(false) ?? ""} ",
+                                            style: context.textTheme.headlineLarge?.copyWith(
+                                              fontWeight: FontWeight.w900,
                                             ),
-                                            TextSpan(
-                                              text: state.mediaDetailModel.getTvSeriesYear(),
-                                              style: context.textTheme.headlineLarge?.copyWith(
-                                                fontWeight: FontWeight.w100,
-                                              ),
+                                          ),
+                                          TextSpan(
+                                            text: state.mediaDetailModel.getTvSeriesYear(),
+                                            style: context.textTheme.headlineLarge?.copyWith(
+                                              fontWeight: FontWeight.w100,
                                             ),
-                                          ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: state.mediaDetailModel.genres().isNotEmpty,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(bottom: 16),
+                                        child: WrappedText(
+                                          state.mediaDetailModel.genres(),
+                                          style: context.textTheme.titleMedium,
                                         ),
                                       ),
-                                      Visibility(
-                                        visible: state.mediaDetailModel.genres().isNotEmpty,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(bottom: 16),
-                                          child: WrappedText(
-                                            state.mediaDetailModel.genres(),
+                                    ),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      clipBehavior: Clip.none,
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          TmdbUserScore(
+                                            average:
+                                                state.mediaDetailModel.mediaDetail?.voteAverage ??
+                                                    0.0,
+                                            circleSize: 60,
+                                            numberStyle: context.textTheme.titleLarge,
                                             style: context.textTheme.titleMedium,
                                           ),
+                                          const SizedBox(width: 16),
+                                          TmdbIcon(
+                                            iconSize: 20,
+                                            icons: (Icons.favorite, Icons.favorite_outline_sharp),
+                                            isSelected: state
+                                                    .mediaDetailModel.mediaAccountState?.favorite ??
+                                                false,
+                                            selectedColor: Colors.red,
+                                            onSelection: (s) {
+                                              tvDetailCubit.saveUserPreference(
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                ApiKey.favorite,
+                                                s,
+                                              );
+                                            },
+                                            hoverMessage: context.tr.markAsFavorite,
+                                          ),
+                                          const SizedBox(width: 30),
+                                          TmdbIcon(
+                                            iconSize: 20,
+                                            icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
+                                            isSelected: state.mediaDetailModel.mediaAccountState
+                                                    ?.watchlist ??
+                                                false,
+                                            selectedColor: Colors.red,
+                                            onSelection: (s) {
+                                              tvDetailCubit.saveUserPreference(
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                ApiKey.watchList,
+                                                s,
+                                              );
+                                            },
+                                            hoverMessage: context.tr.addToWatchlist,
+                                          ),
+                                          const SizedBox(width: 30),
+                                          TooltipRating(
+                                            rating: state.mediaDetailModel.mediaAccountState
+                                                    ?.getSafeRating() ??
+                                                0.0,
+                                            iconSize: 20,
+                                            hoverMessage: context.tr.addToWatchlist,
+                                            onRatingUpdate: (rating) {
+                                              tvDetailCubit.addMediaRating(
+                                                state.mediaDetailModel.mediaDetail?.id,
+                                                rating,
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible:
+                                          state.mediaDetailModel.mediaDetail?.tagline?.isNotEmpty ??
+                                              false,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 16),
+                                        child: WrappedText(
+                                          state.mediaDetailModel.mediaDetail?.tagline ?? "",
+                                          style: context.textTheme.titleMedium?.copyWith(
+                                              fontStyle: FontStyle.italic,
+                                              fontWeight: FontWeight.w100,
+                                              color:
+                                                  context.colorTheme.onBackground.withOpacity(0.6)),
                                         ),
                                       ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            TmdbIcon(
-                                              iconSize: 20,
-                                              icons: (Icons.favorite, Icons.favorite_outline_sharp),
-                                              isSelected: state.mediaDetailModel.mediaAccountState
-                                                      ?.favorite ??
-                                                  false,
-                                              selectedColor: Colors.red,
-                                              onSelection: (s) {
-                                                tvDetailCubit.saveUserPreference(
-                                                  state.mediaDetailModel.mediaDetail?.id,
-                                                  ApiKey.favorite,
-                                                  s,
-                                                );
-                                              },
-                                              hoverMessage: context.tr.markAsFavorite,
-                                            ),
-                                            const SizedBox(width: 30),
-                                            TmdbIcon(
-                                              iconSize: 20,
-                                              icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
-                                              isSelected: state.mediaDetailModel.mediaAccountState
-                                                      ?.watchlist ??
-                                                  false,
-                                              selectedColor: Colors.red,
-                                              onSelection: (s) {
-                                                tvDetailCubit.saveUserPreference(
-                                                  state.mediaDetailModel.mediaDetail?.id,
-                                                  ApiKey.watchList,
-                                                  s,
-                                                );
-                                              },
-                                              hoverMessage: context.tr.addToWatchlist,
-                                            ),
-                                            const SizedBox(width: 30),
-                                            TooltipRating(
-                                              rating: state.mediaDetailModel.mediaAccountState
-                                                      ?.getSafeRating() ??
-                                                  0.0,
-                                              iconSize: 20,
-                                              hoverMessage: context.tr.addToWatchlist,
-                                              onRatingUpdate: (rating) {
-                                                tvDetailCubit.addMediaRating(
-                                                  state.mediaDetailModel.mediaDetail?.id,
-                                                  rating,
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    WrappedText(
+                                      context.tr.overview,
+                                      style: context.textTheme.titleLarge?.copyWith(
+                                        fontWeight: FontWeight.w900,
                                       ),
-                                      Visibility(
-                                        visible: state.mediaDetailModel.mediaDetail?.tagline
-                                                ?.isNotEmpty ??
-                                            false,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 16),
-                                          child: WrappedText(
-                                            state.mediaDetailModel.mediaDetail?.tagline ?? "",
-                                            style: context.textTheme.titleMedium?.copyWith(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.w100,
-                                                color: context.colorTheme.onBackground
-                                                    .withOpacity(0.6)),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    WrappedText(
+                                      state.mediaDetailModel.mediaDetail?.overview ?? "",
+                                      style: context.textTheme.titleSmall,
+                                    ),
+                                    Visibility(
+                                      visible:
+                                          state.mediaDetailModel.getTvSeriesMapping().$1.isNotEmpty,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 16.0),
+                                        child: SizedBox(
+                                          height: 100,
+                                          child: ListView.separated(
+                                            separatorBuilder: (ctx, index) =>
+                                                const Divider(indent: 80),
+                                            itemCount: state.mediaDetailModel
+                                                .getTvSeriesMapping()
+                                                .$1
+                                                .length,
+                                            padding: EdgeInsets.zero,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (ctx, index) {
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: WrappedText(
+                                                      state.mediaDetailModel
+                                                          .getTvSeriesMapping()
+                                                          .$1[index],
+                                                      style: context.textTheme.bodyLarge?.copyWith(
+                                                        fontWeight: FontWeight.w900,
+                                                      ),
+                                                      maxLines: 1,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: WrappedText(
+                                                      state.mediaDetailModel
+                                                          .getTvSeriesMapping()
+                                                          .$2[index],
+                                                      style: context.textTheme.bodyMedium,
+                                                      maxLines: 1,
+                                                    ),
+                                                  ),
+                                                  const Spacer(),
+                                                ],
+                                              );
+                                            },
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(height: 16),
-                                      WrappedText(
-                                        context.tr.overview,
-                                        style: context.textTheme.titleLarge?.copyWith(
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      WrappedText(
-                                        state.mediaDetailModel.mediaDetail?.overview ?? "",
-                                        style: context.textTheme.titleSmall,
-                                      ),
-                                      Visibility(
-                                        visible: state.mediaDetailModel
-                                            .getTvSeriesMapping()
-                                            .$1
-                                            .isNotEmpty,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 16.0),
-                                          child: SizedBox(
-                                            height: 100,
-                                            child: ListView.separated(
-                                              separatorBuilder: (ctx, index) =>
-                                                  const Divider(indent: 80),
-                                              itemCount: state.mediaDetailModel
-                                                  .getTvSeriesMapping()
-                                                  .$1
-                                                  .length,
-                                              padding: EdgeInsets.zero,
-                                              scrollDirection: Axis.horizontal,
-                                              itemBuilder: (ctx, index) {
-                                                return Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Expanded(
-                                                      child: WrappedText(
-                                                        state.mediaDetailModel
-                                                            .getTvSeriesMapping()
-                                                            .$1[index],
-                                                        style:
-                                                            context.textTheme.bodyLarge?.copyWith(
-                                                          fontWeight: FontWeight.w900,
-                                                        ),
-                                                        maxLines: 1,
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: WrappedText(
-                                                        state.mediaDetailModel
-                                                            .getTvSeriesMapping()
-                                                            .$2[index],
-                                                        style: context.textTheme.bodyMedium,
-                                                        maxLines: 1,
-                                                      ),
-                                                    ),
-                                                    const Spacer(),
-                                                  ],
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
                               ),
                             )

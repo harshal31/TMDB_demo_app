@@ -95,36 +95,45 @@ class HomeTabletScreen extends StatelessWidget {
                       duration: const Duration(milliseconds: 500),
                       child: SizedBox(
                         height: 225,
-                        child: TmdbHorizontalList(
-                          imageUrls: state.getImageUrls,
-                          onViewAllClick: () {
-                            if (trendingPosCubit.state.pos == 0) {
-                              context.push("${RouteName.home}/${RouteName.movie}");
-                              return;
-                            }
+                        child: Visibility(
+                          visible: state.error?.isEmpty ?? true,
+                          replacement: Center(
+                            child: WrappedText(
+                              state.error,
+                              style: context.textTheme.titleLarge,
+                            ),
+                          ),
+                          child: TmdbHorizontalList(
+                            imageUrls: state.getImageUrls,
+                            onViewAllClick: () {
+                              if (trendingPosCubit.state.pos == 0) {
+                                context.push("${RouteName.home}/${RouteName.movie}");
+                                return;
+                              }
 
-                            if (trendingPosCubit.state.pos == 1) {
-                              context.push("${RouteName.home}/${RouteName.movie}");
-                              return;
-                            }
+                              if (trendingPosCubit.state.pos == 1) {
+                                context.push("${RouteName.home}/${RouteName.movie}");
+                                return;
+                              }
 
-                            if (trendingPosCubit.state.pos == 2) {
-                              context.push("${RouteName.home}/${RouteName.tv}");
-                              return;
-                            }
+                              if (trendingPosCubit.state.pos == 2) {
+                                context.push("${RouteName.home}/${RouteName.tv}");
+                                return;
+                              }
 
-                            if (trendingPosCubit.state.pos == 3) {
-                              context.push("${RouteName.home}/${RouteName.person}");
-                              return;
-                            }
-                          },
-                          onItemClick: (i) {
-                            CommonNavigation.redirectToDetailScreen(
-                              context,
-                              mediaType: state.trendingResult?.results?[i].mediaType,
-                              mediaId: state.trendingResult?.results?[i].id.toString(),
-                            );
-                          },
+                              if (trendingPosCubit.state.pos == 3) {
+                                context.push("${RouteName.home}/${RouteName.person}");
+                                return;
+                              }
+                            },
+                            onItemClick: (i) {
+                              CommonNavigation.redirectToDetailScreen(
+                                context,
+                                mediaType: state.trendingResult?.results?[i].mediaType,
+                                mediaId: state.trendingResult?.results?[i].id.toString(),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     );
@@ -203,24 +212,33 @@ class HomeTabletScreen extends StatelessWidget {
                       duration: const Duration(milliseconds: 500),
                       child: SizedBox(
                         height: 225,
-                        child: TmdbHorizontalList(
-                          imageUrls: state.getImageUrls,
-                          onViewAllClick: () {
-                            if (latestPosCubit.state.currentSwitchState) {
-                              context.push("${RouteName.home}/${RouteName.movie}");
-                            } else {
-                              context.push("${RouteName.home}/${RouteName.tv}");
-                            }
-                          },
-                          onItemClick: (i) {
-                            CommonNavigation.redirectToDetailScreen(
-                              context,
-                              mediaType: latestPosCubit.state.currentSwitchState
-                                  ? ApiKey.movie
-                                  : ApiKey.tv,
-                              mediaId: state.results[i].id.toString(),
-                            );
-                          },
+                        child: Visibility(
+                          visible: state.error?.isEmpty ?? true,
+                          replacement: Center(
+                            child: WrappedText(
+                              state.error,
+                              style: context.textTheme.titleLarge,
+                            ),
+                          ),
+                          child: TmdbHorizontalList(
+                            imageUrls: state.getImageUrls,
+                            onViewAllClick: () {
+                              if (latestPosCubit.state.currentSwitchState) {
+                                context.push("${RouteName.home}/${RouteName.movie}");
+                              } else {
+                                context.push("${RouteName.home}/${RouteName.tv}");
+                              }
+                            },
+                            onItemClick: (i) {
+                              CommonNavigation.redirectToDetailScreen(
+                                context,
+                                mediaType: latestPosCubit.state.currentSwitchState
+                                    ? ApiKey.movie
+                                    : ApiKey.tv,
+                                mediaId: state.results[i].id.toString(),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     );
@@ -266,26 +284,35 @@ class HomeTabletScreen extends StatelessWidget {
                       duration: const Duration(milliseconds: 500),
                       child: SizedBox(
                         height: 225,
-                        child: TmdbHorizontalList(
-                          imageUrls: state.getImageUrls,
-                          onViewAllClick: () {
-                            if (freeToWatchCubit.state.pos == 0) {
-                              context.push("${RouteName.home}/${RouteName.movie}");
-                              return;
-                            }
+                        child: Visibility(
+                          visible: state.error?.isEmpty ?? true,
+                          replacement: Center(
+                            child: WrappedText(
+                              state.error,
+                              style: context.textTheme.titleLarge,
+                            ),
+                          ),
+                          child: TmdbHorizontalList(
+                            imageUrls: state.getImageUrls,
+                            onViewAllClick: () {
+                              if (freeToWatchCubit.state.pos == 0) {
+                                context.push("${RouteName.home}/${RouteName.movie}");
+                                return;
+                              }
 
-                            if (freeToWatchCubit.state.pos == 1) {
-                              context.push("${RouteName.home}/${RouteName.tv}");
-                              return;
-                            }
-                          },
-                          onItemClick: (i) {
-                            CommonNavigation.redirectToDetailScreen(
-                              context,
-                              mediaType: state.pos == 0 ? ApiKey.movie : ApiKey.tv,
-                              mediaId: state.results[i].id.toString(),
-                            );
-                          },
+                              if (freeToWatchCubit.state.pos == 1) {
+                                context.push("${RouteName.home}/${RouteName.tv}");
+                                return;
+                              }
+                            },
+                            onItemClick: (i) {
+                              CommonNavigation.redirectToDetailScreen(
+                                context,
+                                mediaType: state.pos == 0 ? ApiKey.movie : ApiKey.tv,
+                                mediaId: state.results[i].id.toString(),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     );

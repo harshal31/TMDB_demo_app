@@ -44,20 +44,23 @@ class LatestUseCase {
 class LatestState with EquatableMixin {
   final LatestSectionStatus? latestStatus;
   final List<LatestData> results;
+  final String? error;
 
-  LatestState(this.latestStatus, this.results);
+  LatestState(this.latestStatus, this.results, this.error);
 
   factory LatestState.initial() {
-    return LatestState(null, []);
+    return LatestState(null, [], null);
   }
 
   LatestState copyWith({
     LatestSectionStatus? latestStatus,
     List<LatestData>? results,
+    String? error,
   }) {
     return LatestState(
       latestStatus ?? this.latestStatus,
       results ?? this.results,
+      error ?? this.error,
     );
   }
 
@@ -66,7 +69,7 @@ class LatestState with EquatableMixin {
   }
 
   @override
-  List<Object?> get props => [latestStatus, results];
+  List<Object?> get props => [latestStatus, results, error];
 }
 
 sealed class LatestSectionStatus with EquatableMixin {}

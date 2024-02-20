@@ -109,26 +109,30 @@ class AdvanceFilterState with EquatableMixin {
   final AdvanceFilterStatus? latestStatus;
   final List<LatestData> results;
   final int pos;
+  final String? error;
 
   AdvanceFilterState(
     this.latestStatus,
     this.results,
     this.pos,
+    this.error,
   );
 
   factory AdvanceFilterState.initial() {
-    return AdvanceFilterState(null, [], 0);
+    return AdvanceFilterState(null, [], 0, null);
   }
 
   AdvanceFilterState copyWith({
     AdvanceFilterStatus? latestStatus,
     List<LatestData>? results,
     int? pos,
+    String? error,
   }) {
     return AdvanceFilterState(
       latestStatus ?? this.latestStatus,
       results ?? this.results,
       pos ?? this.pos,
+      error ?? this.error,
     );
   }
 
@@ -150,7 +154,7 @@ class AdvanceFilterState with EquatableMixin {
   }
 
   @override
-  List<Object?> get props => [latestStatus, results, pos];
+  List<Object?> get props => [latestStatus, results, pos, error];
 }
 
 sealed class AdvanceFilterStatus with EquatableMixin {}

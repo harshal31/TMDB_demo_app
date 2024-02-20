@@ -17,9 +17,9 @@ class DioManager {
     dio = Dio();
     dio.options = BaseOptions(
       baseUrl: _baseUrl,
-      connectTimeout: _timeOut ?? const Duration(seconds: 20),
-      receiveTimeout: _timeOut ?? const Duration(seconds: 20),
-      sendTimeout: _timeOut ?? const Duration(seconds: 20),
+      connectTimeout: _timeOut ?? const Duration(seconds: 30),
+      receiveTimeout: _timeOut ?? const Duration(seconds: 30),
+      sendTimeout: _timeOut ?? const Duration(seconds: 30),
     );
 
     dio.interceptors

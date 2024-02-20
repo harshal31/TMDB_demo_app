@@ -11,13 +11,17 @@ class TmdbAnimatedIconSwitcher extends StatelessWidget {
       buildWhen: (prev, cur) => prev != cur,
       builder: (context, state) {
         return AnimatedSwitcher(
-          switchInCurve: Curves.easeIn,
-          switchOutCurve: Curves.easeOut,
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 500),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return RotationTransition(
+              turns: animation,
+              child: child,
+            );
+          },
           child: (state.themeState ?? GetIt.instance.get<bool>(instanceName: HiveKey.theme))
               ? IconButton(
                   key: ValueKey(state),
-                  icon: const Icon(Icons.dark_mode_outlined),
+                  icon: const Icon(Icons.light_mode),
                   onPressed: () {
                     context.read<SystemCubit>().updateTheme(false);
                   },
@@ -33,4 +37,6 @@ class TmdbAnimatedIconSwitcher extends StatelessWidget {
       },
     );
   }
+
+  TmdbAnimatedIconSwitcher();
 }

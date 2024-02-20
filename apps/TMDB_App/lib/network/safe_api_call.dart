@@ -17,7 +17,8 @@ Future<Either<ErrorResponse, T>> apiCall<T>(Future<HttpResponse<T>> Function() c
     }
   } on SocketException catch (e) {
     return left(ErrorResponse.initial(errorCode: -1, errorMsg: e.message));
-  } on DioException catch (e) {
+  } on DioException catch (e, s) {
+    Log.e("Error occurred", error: e, stackTrace: s);
     return left(ErrorResponse.fromJson(e.response?.data));
   } catch (e, s) {
     Log.e("Error occurred", error: e, stackTrace: s);
