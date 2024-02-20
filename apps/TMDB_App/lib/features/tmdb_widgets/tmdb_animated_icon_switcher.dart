@@ -19,14 +19,14 @@ class TmdbAnimatedIconSwitcher extends StatelessWidget {
             );
           },
           child: (state.themeState ?? GetIt.instance.get<bool>(instanceName: HiveKey.theme))
-              ? IconButton(
+              ? IconButton.outlined(
                   key: ValueKey(state),
                   icon: const Icon(Icons.light_mode),
                   onPressed: () {
                     context.read<SystemCubit>().updateTheme(false);
                   },
                 )
-              : IconButton(
+              : IconButton.outlined(
                   key: ValueKey(state),
                   icon: const Icon(Icons.dark_mode),
                   onPressed: () {
