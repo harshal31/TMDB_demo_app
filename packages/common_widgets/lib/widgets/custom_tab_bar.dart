@@ -1,4 +1,5 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatelessWidget {
@@ -83,7 +84,7 @@ class CustomTabBar extends StatelessWidget {
                 .map((e) => Tab(
                       child: Align(
                         alignment: Alignment.center,
-                        child: Text(e),
+                        child: WrappedText(e),
                       ),
                     ))
                 .toList(),

@@ -1,5 +1,6 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
@@ -23,7 +24,7 @@ class TmdbRecomendations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (recommendations.isEmpty) {
-      return Text(
+      return WrappedText(
         context.tr.noRecommendation(detail?.originalTitle ?? ""),
         style: context.textTheme.titleMedium,
         textAlign: TextAlign.center,

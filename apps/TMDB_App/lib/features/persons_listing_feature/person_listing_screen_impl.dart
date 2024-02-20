@@ -1,5 +1,6 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -37,12 +38,10 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
+                  child: WrappedText(
                     context.tr.people,
                     style: context.dynamicTextStyle,
                     maxLines: 3,
-                    softWrap: true,
-                    overflow: TextOverflow.fade,
                   ),
                 ),
                 const Spacer(),
@@ -50,12 +49,10 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
                   child: BlocBuilder<PersonListingCubit, PersonListingState>(
                     buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
                     builder: (c, s) {
-                      return Text(
+                      return WrappedText(
                         "${(s.totalResults).toString()}",
                         style: context.dynamicTextStyle,
                         maxLines: 3,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
                         textAlign: TextAlign.end,
                       );
                     },
@@ -81,7 +78,7 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
                   onPressed: () => personListingController.refresh(),
-                  child: Text(
+                  child: WrappedText(
                     context.tr.tryAgain,
                     style: context.textTheme.titleMedium,
                   ),

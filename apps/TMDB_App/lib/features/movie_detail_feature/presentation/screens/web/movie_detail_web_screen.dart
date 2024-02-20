@@ -7,6 +7,7 @@ import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
@@ -41,7 +42,7 @@ class MovieDetailWebScreen extends StatelessWidget {
 
         if (state.movieDetailState is MovieDetailFailure) {
           return Center(
-            child: Text(
+            child: WrappedText(
               (state.movieDetailState as MovieDetailFailure).errorResponse.errorMessage,
               style: context.textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.w800,
@@ -206,7 +207,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                               false,
                                       child: Padding(
                                         padding: const EdgeInsets.only(top: 16),
-                                        child: Text(
+                                        child: WrappedText(
                                           state.mediaDetailModel.mediaDetail?.tagline ?? "",
                                           style: context.textTheme.titleMedium?.copyWith(
                                               fontStyle: FontStyle.italic,
@@ -217,14 +218,14 @@ class MovieDetailWebScreen extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(height: 16),
-                                    Text(
+                                    WrappedText(
                                       context.tr.overview,
                                       style: context.textTheme.titleLarge?.copyWith(
                                         fontWeight: FontWeight.w900,
                                       ),
                                     ),
                                     const SizedBox(height: 16),
-                                    Text(
+                                    WrappedText(
                                       state.mediaDetailModel.mediaDetail?.overview ?? "",
                                       style: context.textTheme.titleSmall,
                                     ),
@@ -251,7 +252,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Expanded(
-                                                  child: Text(
+                                                  child: WrappedText(
                                                     state.mediaDetailModel
                                                         .getWriterDirectorMapping()
                                                         .$1[index],
@@ -259,19 +260,15 @@ class MovieDetailWebScreen extends StatelessWidget {
                                                       fontWeight: FontWeight.w900,
                                                     ),
                                                     maxLines: 1,
-                                                    softWrap: true,
-                                                    overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                                 Expanded(
-                                                  child: Text(
+                                                  child: WrappedText(
                                                     state.mediaDetailModel
                                                         .getWriterDirectorMapping()
                                                         .$2[index],
                                                     style: context.textTheme.bodyMedium,
                                                     maxLines: 1,
-                                                    softWrap: true,
-                                                    overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                                 const Spacer(),
@@ -308,7 +305,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: Text(
+                                child: WrappedText(
                                   context.tr.topBilledCast,
                                   style: context.textTheme.headlineLarge
                                       ?.copyWith(fontWeight: FontWeight.w800),
@@ -342,7 +339,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: Text(
+                                child: WrappedText(
                                   context.tr.reviews,
                                   style: context.textTheme.headlineLarge
                                       ?.copyWith(fontWeight: FontWeight.w800),
@@ -381,7 +378,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: Text(
+                                child: WrappedText(
                                   context.tr.media,
                                   style: context.textTheme.headlineLarge
                                       ?.copyWith(fontWeight: FontWeight.w800),
@@ -442,7 +439,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                           const SizedBox(
                             height: 22,
                           ),
-                          Text(
+                          WrappedText(
                             context.tr.recommendations,
                             style: context.textTheme.headlineLarge
                                 ?.copyWith(fontWeight: FontWeight.w800),

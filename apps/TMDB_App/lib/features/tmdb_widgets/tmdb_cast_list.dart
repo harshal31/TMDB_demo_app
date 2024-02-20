@@ -1,4 +1,5 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
@@ -20,9 +21,9 @@ class TmdbCastList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final models = model?.take(10).toList() ?? [];
-    return SizedBox(
-      height: height ?? 245,
-      child: Scrollbar(
+    return Scrollbar(
+      child: SizedBox(
+        height: height ?? 245,
         child: ListView.builder(
           itemCount: models.length,
           padding: EdgeInsets.zero,
@@ -63,32 +64,30 @@ class TmdbCastList extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 4.0),
-                            child: Text(
-                              models[index].originalName ?? "",
-                              style: context.textTheme.labelMedium?.copyWith(
-                                fontWeight: FontWeight.w800,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4.0),
+                                child: WrappedText(
+                                  models[index].originalName ?? "",
+                                  style: context.textTheme.labelMedium?.copyWith(
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                  maxLines: 1,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 4),
-                            child: Text(
-                              models[index].character ?? "",
-                              style: context.textTheme.labelMedium,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              textAlign: TextAlign.center,
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 4),
+                                child: WrappedText(
+                                  models[index].character ?? "",
+                                  style: context.textTheme.labelMedium,
+                                  maxLines: 1,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

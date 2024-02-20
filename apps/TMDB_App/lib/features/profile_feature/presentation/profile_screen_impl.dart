@@ -2,6 +2,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/country_flag.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,7 @@ class ProfileScreenImpl extends StatelessWidget {
 
         if (state.profileStatus is ProfileError) {
           return Center(
-            child: Text(
+            child: WrappedText(
               (state.profileStatus as ProfileError).error,
               style: context.textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.w800,
@@ -71,7 +72,7 @@ class ProfileScreenImpl extends StatelessWidget {
                                       height: double.infinity,
                                       shape: BoxShape.circle,
                                     )
-                                  : Text(
+                                  : WrappedText(
                                       ((state.profileDetailModel?.name ??
                                                           state.profileDetailModel?.username)
                                                       ?.length ??
@@ -95,7 +96,7 @@ class ProfileScreenImpl extends StatelessWidget {
                                     state.profileDetailModel?.username ??
                                     "")
                                 .isNotEmpty,
-                            child: Text(
+                            child: WrappedText(
                                 (state.profileDetailModel?.name ??
                                     state.profileDetailModel?.username ??
                                     ""),
@@ -113,7 +114,7 @@ class ProfileScreenImpl extends StatelessWidget {
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
+                              WrappedText(
                                 context.tr.country,
                                 style: context.textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
@@ -137,14 +138,14 @@ class ProfileScreenImpl extends StatelessWidget {
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
+                              WrappedText(
                                 context.tr.language,
                                 style: context.textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 2),
-                              Text(
+                              WrappedText(
                                 (state.profileDetailModel?.iso6391 ?? "en").toString(),
                                 style: context.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
@@ -162,14 +163,14 @@ class ProfileScreenImpl extends StatelessWidget {
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
+                              WrappedText(
                                 context.tr.isAdultIncluded,
                                 style: context.textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 2),
-                              Text(
+                              WrappedText(
                                 (state.profileDetailModel?.includeAdult ?? false).toString(),
                                 style: context.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,

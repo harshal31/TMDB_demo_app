@@ -2,6 +2,7 @@ import "package:common_widgets/gen/app_asset.dart";
 import "package:common_widgets/localizations/localized_extension.dart";
 import "package:common_widgets/theme/app_theme.dart";
 import "package:common_widgets/widgets/snackbar.dart";
+import "package:common_widgets/widgets/wrapped_text.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:go_router/go_router.dart";
@@ -147,7 +148,7 @@ class AuthenticationMobileScreen extends StatelessWidget {
                                                     );
                                               }
                                             },
-                                      child: Text(
+                                      child: WrappedText(
                                         context.tr.login,
                                         style: context.textTheme.titleMedium?.copyWith(
                                           color: state

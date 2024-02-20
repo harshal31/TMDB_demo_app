@@ -1,5 +1,6 @@
 import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 
@@ -69,14 +70,12 @@ class TmdbMediaSearchListItem extends StatelessWidget {
                         visible: title.isNotEmpty,
                         child: Column(
                           children: [
-                            Text(
+                            WrappedText(
                               title,
                               style: context.textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                               maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
                             ),
                             const SizedBox(height: 4),
                           ],
@@ -87,12 +86,10 @@ class TmdbMediaSearchListItem extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
+                            WrappedText(
                               date.formatDateInMMMMFormat,
                               style: context.textTheme.titleSmall,
                               maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
                             ),
                             const SizedBox(height: 16),
                           ],
@@ -100,12 +97,10 @@ class TmdbMediaSearchListItem extends StatelessWidget {
                       ),
                       Visibility(
                         visible: subtitle.isNotEmpty,
-                        child: Text(
+                        child: WrappedText(
                           subtitle,
                           style: context.textTheme.titleSmall,
                           maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
                         ),
                       ),
                     ],

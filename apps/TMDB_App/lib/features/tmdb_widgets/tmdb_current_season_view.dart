@@ -1,6 +1,7 @@
 import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
@@ -35,7 +36,7 @@ class TmdbCurrentSeasonView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  WrappedText(
                     context.tr.season(season?.seasonNumber ?? 0),
                     style: context.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w900,
@@ -61,7 +62,7 @@ class TmdbCurrentSeasonView extends StatelessWidget {
                                 size: 15,
                               ),
                               const SizedBox(width: 8),
-                              Text(
+                              WrappedText(
                                 season?.voteAverage.toString() ?? "",
                                 style: context.textTheme.titleSmall?.copyWith(
                                   color: context.colorTheme.onPrimary,
@@ -72,7 +73,7 @@ class TmdbCurrentSeasonView extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text(
+                        WrappedText(
                           '• ${season?.getAirDate()} • ${season?.episodeCount ?? 0} Episodes',
                           style: context.textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ class TmdbCurrentSeasonView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
+                  WrappedText(
                     season?.overview ?? "",
                     style: context.textTheme.titleSmall,
                   ),
@@ -92,7 +93,7 @@ class TmdbCurrentSeasonView extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
+                        WrappedText(
                           '${lastEpisodeToAir?.name ?? ""} (${season?.seasonNumber ?? 0}x${season?.episodeCount ?? 0}}, ${lastEpisodeToAir?.airDate?.formatDateInMMMMFormat ?? ""})',
                           style: context.textTheme.titleMedium,
                         ),
@@ -108,7 +109,7 @@ class TmdbCurrentSeasonView extends StatelessWidget {
                               color: context.colorTheme.primary,
                               borderRadius: BorderRadius.circular(4.0),
                             ),
-                            child: Text(
+                            child: WrappedText(
                               context.tr.season(lastEpisodeToAir?.episodeType ?? ""),
                               style: context.textTheme.titleSmall?.copyWith(
                                 color: context.colorTheme.onPrimary,
@@ -162,7 +163,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      WrappedText(
                         context.tr.season(season?.seasonNumber ?? 0),
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.w900,
@@ -188,7 +189,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
                                     size: 15,
                                   ),
                                   const SizedBox(width: 8),
-                                  Text(
+                                  WrappedText(
                                     season?.voteAverage.toString() ?? "",
                                     style: context.textTheme.titleSmall?.copyWith(
                                       color: context.colorTheme.onPrimary,
@@ -199,7 +200,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 8),
-                            Text(
+                            WrappedText(
                               '• ${season?.getAirDate()} • ${season?.episodeCount ?? 0} Episodes',
                               style: context.textTheme.titleSmall?.copyWith(
                                 fontWeight: FontWeight.bold,
@@ -209,7 +210,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Text(
+                      WrappedText(
                         season?.overview ?? "",
                         style: context.textTheme.titleSmall,
                       ),
@@ -219,7 +220,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
               ),
             ],
           ),
-          Text(
+          WrappedText(
             '${lastEpisodeToAir?.name ?? ""} (${season?.seasonNumber ?? 0}x${season?.episodeCount ?? 0}}, ${lastEpisodeToAir?.airDate?.formatDateInMMMMFormat ?? ""})',
             style: context.textTheme.titleMedium,
           ),
@@ -235,7 +236,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
                 color: context.colorTheme.primary,
                 borderRadius: BorderRadius.circular(4.0),
               ),
-              child: Text(
+              child: WrappedText(
                 context.tr.season(lastEpisodeToAir?.episodeType ?? ""),
                 style: context.textTheme.titleSmall?.copyWith(
                   color: context.colorTheme.onPrimary,

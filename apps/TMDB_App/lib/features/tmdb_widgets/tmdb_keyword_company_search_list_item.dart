@@ -1,4 +1,5 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 
 class TmdbKeywordCompanySearchListItem extends StatelessWidget {
@@ -42,7 +43,7 @@ class TmdbKeywordCompanySearchListItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                WrappedText(
                   name,
                   style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w300,

@@ -1,4 +1,5 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
@@ -45,12 +46,12 @@ class CastCrewListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
+                  WrappedText(
                     title,
                     style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 2),
-                  Text(
+                  WrappedText(
                     subtitle,
                     style: context.textTheme.titleSmall,
                   ),

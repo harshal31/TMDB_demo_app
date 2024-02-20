@@ -1,5 +1,6 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:common_widgets/youtube/youtube_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -130,7 +131,7 @@ class _TmdbVideos extends StatelessWidget {
         },
       ),
       replacement: Center(
-        child: Text(
+        child: WrappedText(
           context.tr.noVideos,
           style: context.textTheme.titleMedium,
         ),
@@ -185,7 +186,7 @@ class _TmdbBackdrops extends StatelessWidget {
         },
       ),
       replacement: Center(
-        child: Text(
+        child: WrappedText(
           context.tr.noBackdrops,
           style: context.textTheme.titleMedium,
         ),
@@ -235,7 +236,7 @@ class _TmdbPosters extends StatelessWidget {
         },
       ),
       replacement: Center(
-        child: Text(
+        child: WrappedText(
           context.tr.noPosters,
           style: context.textTheme.titleMedium,
         ),

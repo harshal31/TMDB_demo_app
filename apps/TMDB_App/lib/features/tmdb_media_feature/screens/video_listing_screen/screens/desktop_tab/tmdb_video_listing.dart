@@ -1,5 +1,6 @@
 import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:common_widgets/youtube/youtube_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,7 @@ class TmdbVideosListing extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            WrappedText(
               map.keys.toList()[outer],
               style: context.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -121,14 +122,14 @@ class TmdbVideosListingItem extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
-                          Text(
+                          WrappedText(
                             video.name ?? "",
                             style: context.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           const SizedBox(height: 4),
-                          Text(
+                          WrappedText(
                             video.publishedAt.formatDateInMMMMFormat,
                             style: context.textTheme.titleSmall,
                           )

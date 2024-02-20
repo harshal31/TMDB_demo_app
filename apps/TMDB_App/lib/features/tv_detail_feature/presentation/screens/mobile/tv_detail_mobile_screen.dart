@@ -5,6 +5,7 @@ import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +41,7 @@ class TvDetailMobileScreen extends StatelessWidget {
 
         if (state.tvDetailState is TvDetailFailure) {
           return Center(
-            child: Text(
+            child: WrappedText(
               (state.tvDetailState as TvDetailFailure).errorResponse.errorMessage,
               style: context.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -109,7 +110,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const SizedBox(height: 8),
-                        Text(
+                        WrappedText(
                           "${state.mediaDetailModel.mediaDetail?.getActualName(false) ?? ""} ",
                           textAlign: TextAlign.center,
                           style: context.textTheme.titleLarge?.copyWith(
@@ -117,7 +118,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 2),
-                        Text(
+                        WrappedText(
                           "${state.mediaDetailModel.getTvSeriesYear()}",
                           textAlign: TextAlign.center,
                           style: context.textTheme.titleLarge?.copyWith(
@@ -128,7 +129,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                           visible: state.mediaDetailModel.genres().isNotEmpty,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 2.0),
-                            child: Text(
+                            child: WrappedText(
                               textAlign: TextAlign.center,
                               state.mediaDetailModel.genres(),
                               style: context.textTheme.titleSmall,
@@ -196,7 +197,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                           visible: state.mediaDetailModel.mediaDetail?.tagline?.isNotEmpty ?? false,
                           child: Padding(
                             padding: const EdgeInsets.only(top: 8.0),
-                            child: Text(
+                            child: WrappedText(
                               state.mediaDetailModel.mediaDetail?.tagline ?? "",
                               textAlign: TextAlign.center,
                               style: context.textTheme.titleSmall?.copyWith(
@@ -224,21 +225,17 @@ class TvDetailMobileScreen extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        WrappedText(
                                           state.mediaDetailModel.getTvSeriesMapping().$1[index],
                                           style: context.textTheme.bodySmall?.copyWith(
                                             fontWeight: FontWeight.w900,
                                           ),
                                           maxLines: 1,
-                                          softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        Text(
+                                        WrappedText(
                                           state.mediaDetailModel.getTvSeriesMapping().$2[index],
                                           style: context.textTheme.bodySmall,
                                           maxLines: 1,
-                                          softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     );
@@ -265,14 +262,14 @@ class TvDetailMobileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 16),
-                      Text(
+                      WrappedText(
                         context.tr.overview,
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.w900,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
+                      WrappedText(
                         state.mediaDetailModel.mediaDetail?.overview ?? "",
                         style: context.textTheme.titleSmall,
                       ),
@@ -292,7 +289,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Text(
+                          child: WrappedText(
                             context.tr.seriesCast,
                             style:
                                 context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -326,7 +323,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Text(
+                          child: WrappedText(
                             context.tr.currentSeason,
                             style:
                                 context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -354,7 +351,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Text(
+                          child: WrappedText(
                             context.tr.reviews,
                             style:
                                 context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -393,7 +390,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Text(
+                          child: WrappedText(
                             context.tr.media,
                             style:
                                 context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -455,7 +452,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Text(
+                    WrappedText(
                       context.tr.recommendations,
                       style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                     ),

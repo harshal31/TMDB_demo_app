@@ -1,4 +1,5 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_person_model.dart';
@@ -62,7 +63,7 @@ class PersonListingItem extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Padding(
                 padding: const EdgeInsets.only(left: 4.0),
-                child: Text(
+                child: WrappedText(
                   person.name ?? person.originalName ?? "",
                   style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
@@ -74,7 +75,7 @@ class PersonListingItem extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Padding(
                 padding: const EdgeInsets.only(left: 4.0),
-                child: Text(
+                child: WrappedText(
                   person.knownForWork,
                   style: context.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w200,

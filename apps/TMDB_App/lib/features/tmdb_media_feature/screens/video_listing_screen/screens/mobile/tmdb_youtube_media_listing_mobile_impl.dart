@@ -3,6 +3,7 @@ import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_pop_menu.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class TmdbYoutubeMediaListingMobileImpl extends StatelessWidget {
 
         if (state.castCrewStatus is CastCrewError) {
           return Center(
-            child: Text(
+            child: WrappedText(
               (state.castCrewStatus as CastCrewError).error,
               style: context.textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.w800,
@@ -76,14 +77,12 @@ class TmdbYoutubeMediaListingMobileImpl extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 16),
                                 Expanded(
-                                  child: Text(
+                                  child: WrappedText(
                                     state.mediaDetail?.getMediaName(isMovies) ?? "",
                                     style: context.textTheme.titleLarge?.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                                     maxLines: 2,
-                                    overflow: TextOverflow.fade,
-                                    softWrap: true,
                                   ),
                                 ),
                                 const SizedBox(width: 8),
@@ -146,7 +145,7 @@ class TmdbYoutubeVideoList extends StatelessWidget {
   Widget build(BuildContext context) {
     if (tmdbState.tmdbMediaState.tmdbMediaStatus is TmdbNoDataPresent) {
       return Center(
-        child: Text(
+        child: WrappedText(
           context.tr.noDataPresentForType(
             tmdbState.mediaDetail?.getMediaName(isMovies) ?? "",
             tmdbState.tmdbMediaState.currentPopupState,

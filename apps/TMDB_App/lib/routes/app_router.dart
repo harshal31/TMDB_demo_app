@@ -1,6 +1,7 @@
 import "dart:async";
 
 import "package:common_widgets/localizations/localized_extension.dart";
+import "package:common_widgets/widgets/wrapped_text.dart";
 import "package:common_widgets/widgets/youtube_video.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
@@ -532,11 +533,11 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
             labelType: NavigationRailLabelType.all,
             destinations: const [
               NavigationRailDestination(
-                label: Text(""),
+                label: WrappedText(""),
                 icon: Icon(Icons.home_filled),
               ),
               NavigationRailDestination(
-                label: Text(""),
+                label: WrappedText(""),
                 icon: Icon(Icons.person_pin),
               ),
             ],

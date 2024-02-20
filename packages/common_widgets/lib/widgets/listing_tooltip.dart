@@ -1,4 +1,5 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 
@@ -53,7 +54,7 @@ class _ListingTooltipState extends State<ListingTooltip> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              WrappedText(
                 widget.defaultSelectedItem,
                 style: context.textTheme.titleMedium,
               ),
@@ -80,11 +81,10 @@ class _ListingTooltipState extends State<ListingTooltip> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
+                  WrappedText(
                     widget.items[index],
                     style: context.textTheme.titleMedium,
                     textAlign: TextAlign.center,
-                    softWrap: true,
                   ),
                   const SizedBox(height: 8),
                 ],

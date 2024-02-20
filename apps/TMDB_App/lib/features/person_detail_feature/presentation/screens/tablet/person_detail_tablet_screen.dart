@@ -3,6 +3,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/read_more_text.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/cubits/person_detail_cubit.dart';
@@ -27,7 +28,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
 
         if (state.personDetailStatus is PersonDetailFailed) {
           return Center(
-            child: Text(
+            child: WrappedText(
               (state.personDetailStatus as PersonDetailFailed).errorMessage,
               style: context.textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.w800,
@@ -59,14 +60,14 @@ class PersonDetailTabletScreen extends StatelessWidget {
                           child: ListView(
                             shrinkWrap: true,
                             children: [
-                              Text(
+                              WrappedText(
                                 state.personDetailModel.personDetail?.name ?? "",
                                 style: context.textTheme.displaySmall?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              Text(
+                              WrappedText(
                                 context.tr.biography,
                                 style: context.textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
@@ -86,7 +87,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    WrappedText(
                                       context.tr.knownFor,
                                       style: context.textTheme.titleLarge?.copyWith(
                                         fontWeight: FontWeight.bold,
@@ -158,7 +159,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
+                              WrappedText(
                                 state.personDetailModel.mapping[index]?.firstOrNull?.department ??
                                     "",
                                 style: context.textTheme.titleLarge,
@@ -181,7 +182,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                           Row(
                                             children: [
                                               Expanded(
-                                                child: Text(
+                                                child: WrappedText(
                                                   state.personDetailModel.mapping[index]?[i]
                                                           .releaseDate.getDateTime?.year
                                                           .toString() ??
@@ -206,7 +207,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                                             "");
                                                   },
                                                   onHover: (s) => s,
-                                                  child: Text(
+                                                  child: WrappedText(
                                                     state.personDetailModel.mapping[index]?[i]
                                                             .originalTitle ??
                                                         "",
@@ -215,8 +216,6 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                                     ),
                                                     textAlign: TextAlign.start,
                                                     maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    softWrap: true,
                                                   ),
                                                 ),
                                               ),
@@ -226,7 +225,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
                                               Expanded(
-                                                child: Text(
+                                                child: WrappedText(
                                                   "${state.personDetailModel.mapping[index]?[i].episodeCount != null ? context.tr.episodeMapping(state.personDetailModel.mapping[index]?[i].episodeCount ?? "") : ""}${context.tr.asCharacter(state.personDetailModel.mapping[index]?[i].job ?? "")}",
                                                   style: context.textTheme.bodySmall,
                                                   textAlign: TextAlign.start,

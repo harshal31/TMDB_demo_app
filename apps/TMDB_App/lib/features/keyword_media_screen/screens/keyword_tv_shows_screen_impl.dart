@@ -2,6 +2,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/listing_tooltip.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -49,24 +50,20 @@ class _KeywordTvShowsScreenImplState extends State<KeywordTvShowsScreenImpl> {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
+                  child: WrappedText(
                     widget.keywordName,
                     style: context.dynamicTextStyle,
                     maxLines: 3,
-                    softWrap: true,
-                    overflow: TextOverflow.fade,
                   ),
                 ),
                 Expanded(
                   child: BlocBuilder<KeywordMediaCubit, AdvanceFilterPaginationState>(
                     buildWhen: (prev, cur) => prev.totalResults != cur.totalResults,
                     builder: (c, s) {
-                      return Text(
+                      return WrappedText(
                         "${(s.totalResults).toString()} ${context.tr.movies}",
                         style: context.dynamicTextStyle,
                         maxLines: 3,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
                         textAlign: TextAlign.end,
                       );
                     },
@@ -113,7 +110,7 @@ class _KeywordTvShowsScreenImplState extends State<KeywordTvShowsScreenImpl> {
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
                   onPressed: () => tvShowsController.refresh(),
-                  child: Text(
+                  child: WrappedText(
                     context.tr.tryAgain,
                     style: context.textTheme.titleMedium,
                   ),

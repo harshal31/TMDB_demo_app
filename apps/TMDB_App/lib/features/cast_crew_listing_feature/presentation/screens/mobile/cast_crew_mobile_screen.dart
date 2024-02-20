@@ -2,6 +2,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +31,7 @@ class CastCrewMobileScreen extends StatelessWidget {
 
         if (state.castCrewStatus is CastCrewError) {
           return Center(
-            child: Text(
+            child: WrappedText(
               (state.castCrewStatus as CastCrewError).error,
               style: context.textTheme.displayMedium?.copyWith(
                 fontWeight: FontWeight.w800,
@@ -73,14 +74,12 @@ class CastCrewMobileScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 16),
                                 Expanded(
-                                  child: Text(
+                                  child: WrappedText(
                                     state.mediaDetail?.getMediaName(isMovies) ?? "",
                                     style: context.textTheme.titleLarge?.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                                     maxLines: 2,
-                                    overflow: TextOverflow.fade,
-                                    softWrap: true,
                                   ),
                                 )
                               ],
@@ -103,7 +102,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      WrappedText(
                         numberCastValue(context, state),
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -139,7 +138,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      WrappedText(
                         numberCrewValue(context, state),
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -157,7 +156,7 @@ class CastCrewMobileScreen extends StatelessWidget {
                             key: ValueKey(index),
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              WrappedText(
                                 state.groupCrew.keys.toList()[index],
                                 style: context.textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,

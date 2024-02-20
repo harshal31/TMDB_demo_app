@@ -2,6 +2,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/lottie_search.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -101,7 +102,7 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
                           firstPageErrorIndicatorBuilder: (context) => Center(
                             child: TextButton(
                               onPressed: () => _searchManager.getController().refresh(),
-                              child: Text(
+                              child: WrappedText(
                                 context.tr.tryAgain,
                                 style: context.textTheme.titleMedium,
                               ),

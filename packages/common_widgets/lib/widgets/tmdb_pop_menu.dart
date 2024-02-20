@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 
 class TmdbPopMenu extends StatefulWidget {
@@ -60,12 +61,10 @@ class _TmdbPopMenuState extends State<TmdbPopMenu> {
                       size: widget.iconSize,
                     ),
                   ),
-                  Text(
+                  WrappedText(
                     element.name,
                     style: context.textTheme.titleMedium,
                     maxLines: 1,
-                    softWrap: true,
-                    overflow: TextOverflow.fade,
                   )
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_person_model.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
@@ -59,23 +60,19 @@ class TmdbPersonSearchListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
+                    WrappedText(
                       person?.name ?? "",
                       style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                       maxLines: 1,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
-                    Text(
+                    WrappedText(
                       context.tr.actionFor(
                         person?.knownForDepartment ?? "",
                         person?.knownFor?.map((e) => e.title).join(", ") ?? "",
                       ),
                       style: context.textTheme.titleSmall,
                       maxLines: 1,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),

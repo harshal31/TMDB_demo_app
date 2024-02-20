@@ -1,6 +1,7 @@
 import 'package:common_widgets/common_utils/currency_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
@@ -40,11 +41,11 @@ class TmdbSideView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.status,
                   style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
-                Text(
+                WrappedText(
                   mediaDetail?.status ?? "",
                   style: context.textTheme.titleSmall,
                 ),
@@ -59,11 +60,11 @@ class TmdbSideView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.originalLanguage,
                   style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
-                Text(
+                WrappedText(
                   mediaDetail?.originalLanguage ?? "",
                   style: context.textTheme.titleMedium,
                 ),
@@ -78,11 +79,11 @@ class TmdbSideView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.budget,
                   style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
-                Text(
+                WrappedText(
                   mediaDetail?.budget?.formatCurrencyInDollar ?? "-",
                   style: context.textTheme.titleMedium,
                 ),
@@ -97,11 +98,11 @@ class TmdbSideView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.revenue,
                   style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
-                Text(
+                WrappedText(
                   mediaDetail?.revenue?.formatCurrencyInDollar ?? "-",
                   style: context.textTheme.titleMedium,
                 ),
@@ -109,7 +110,7 @@ class TmdbSideView extends StatelessWidget {
               ],
             ),
           ),
-          Text(
+          WrappedText(
             context.tr.keywords,
             style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w900),
           ),
@@ -132,7 +133,7 @@ class TmdbSideView extends StatelessWidget {
                         extra: keywords[index].name ?? "",
                       );
                     },
-                    label: Text(
+                    label: WrappedText(
                       keywords[index].name ?? "",
                       style: context.textTheme.titleSmall,
                     ),
@@ -141,7 +142,7 @@ class TmdbSideView extends StatelessWidget {
                 },
               ),
             ),
-            replacement: Text(
+            replacement: WrappedText(
               context.tr.noKeywords,
               style: context.textTheme.titleSmall,
             ),
@@ -173,7 +174,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          WrappedText(
             context.tr.facts,
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
@@ -185,11 +186,11 @@ class TmdbTvSeriesSideView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.budget,
                   style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
-                Text(
+                WrappedText(
                   mediaDetail?.budget?.formatCurrencyInDollar ?? "-",
                   style: context.textTheme.titleMedium,
                 ),
@@ -204,11 +205,11 @@ class TmdbTvSeriesSideView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.status,
                   style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
-                Text(
+                WrappedText(
                   mediaDetail?.status ?? "",
                   style: context.textTheme.titleMedium,
                 ),
@@ -216,7 +217,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
               ],
             ),
           ),
-          Text(
+          WrappedText(
             context.tr.network,
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
@@ -259,7 +260,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
                 ),
               ],
             ),
-            replacement: Text(
+            replacement: WrappedText(
               context.tr.noNetworkForTvSeriesAvailable,
               style: context.textTheme.titleLarge,
               textAlign: TextAlign.center,
@@ -273,11 +274,11 @@ class TmdbTvSeriesSideView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.originalLanguage,
                   style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
-                Text(
+                WrappedText(
                   mediaDetail?.originalLanguage ?? "",
                   style: context.textTheme.titleMedium,
                 ),
@@ -292,11 +293,11 @@ class TmdbTvSeriesSideView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.type,
                   style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
-                Text(
+                WrappedText(
                   mediaDetail?.type ?? "",
                   style: context.textTheme.titleMedium,
                 ),
@@ -304,7 +305,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
               ],
             ),
           ),
-          Text(
+          WrappedText(
             context.tr.keywords,
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
           ),
@@ -327,7 +328,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
                         extra: keywords[index].name ?? "",
                       );
                     },
-                    label: Text(
+                    label: WrappedText(
                       keywords[index].name ?? "",
                       style: context.textTheme.titleSmall,
                     ),
@@ -336,7 +337,7 @@ class TmdbTvSeriesSideView extends StatelessWidget {
                 },
               ),
             ),
-            replacement: Text(
+            replacement: WrappedText(
               context.tr.noKeywords,
               style: context.textTheme.titleSmall,
             ),
@@ -369,7 +370,7 @@ class TmdbSidePersonView extends StatelessWidget {
             mediaType: ApiKey.person,
           ),
           const SizedBox(height: 16),
-          Text(
+          WrappedText(
             context.tr.personalInfo,
             style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
@@ -380,11 +381,11 @@ class TmdbSidePersonView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.knownFor,
                   style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Text(
+                WrappedText(
                   personDetail?.knownForDepartment ?? "",
                   style: context.textTheme.titleSmall,
                 ),
@@ -398,11 +399,11 @@ class TmdbSidePersonView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.gender,
                   style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Text(
+                WrappedText(
                   personDetail?.genderString ?? "",
                   style: context.textTheme.titleSmall,
                 ),
@@ -416,11 +417,11 @@ class TmdbSidePersonView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.birthday,
                   style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Text(
+                WrappedText(
                   "${personDetail?.birthday ?? ""} ${personDetail?.getYearsOld(context) ?? ""}",
                   style: context.textTheme.titleSmall,
                 ),
@@ -434,11 +435,11 @@ class TmdbSidePersonView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.placeOfBirth,
                   style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Text(
+                WrappedText(
                   personDetail?.placeOfBirth ?? "",
                   style: context.textTheme.titleSmall,
                 ),
@@ -452,11 +453,11 @@ class TmdbSidePersonView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                WrappedText(
                   context.tr.alsoKnownAs,
                   style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Text(
+                WrappedText(
                   personDetail?.alsoKnownAsString ?? "",
                   style: context.textTheme.titleSmall,
                 ),

@@ -1,6 +1,7 @@
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/switch_icon.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -43,14 +44,12 @@ class HomeWebScreen extends StatelessWidget {
                     Expanded(
                       child: BlocBuilder<TrendingPositionCubit, TrendingPositionState>(
                         builder: (context, state) {
-                          return Text(
+                          return WrappedText(
                             state.getTrendingText(context),
                             style: context.textTheme.displayLarge?.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                             maxLines: 1,
-                            softWrap: true,
-                            overflow: TextOverflow.fade,
                           );
                         },
                       ),
@@ -146,14 +145,12 @@ class HomeWebScreen extends StatelessWidget {
                     Expanded(
                       child: BlocBuilder<LatestPositionCubit, LatestPositionState>(
                         builder: (context, state) {
-                          return Text(
+                          return WrappedText(
                             state.getLatestText(context),
                             style: context.textTheme.displayLarge?.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                             maxLines: 1,
-                            softWrap: true,
-                            overflow: TextOverflow.fade,
                           );
                         },
                       ),
@@ -240,14 +237,12 @@ class HomeWebScreen extends StatelessWidget {
               children: [
                 BlocBuilder<FreeToWatchCubit, AdvanceFilterState>(
                   builder: (context, state) {
-                    return Text(
+                    return WrappedText(
                       state.getFreeToWatchText(context, state.pos),
                       style: context.textTheme.displayLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                       maxLines: 1,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
                     );
                   },
                 ),

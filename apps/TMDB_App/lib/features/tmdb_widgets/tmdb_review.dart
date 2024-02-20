@@ -2,6 +2,7 @@ import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/read_more_text.dart';
+import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
@@ -22,7 +23,7 @@ class TmdbReview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (result == null) {
-      return Text(
+      return WrappedText(
         context.tr.noReviews(mediaDetail?.originalTitle ?? ""),
         style: context.textTheme.titleMedium,
       );
@@ -50,7 +51,7 @@ class TmdbReview extends StatelessWidget {
                           fit: BoxFit.cover,
                           shape: BoxShape.circle,
                         )
-                      : Text(
+                      : WrappedText(
                           (result?.author?.length ?? 0) > 0
                               ? ((result?.author ?? "A")[0]).toUpperCase()
                               : "A",
@@ -66,7 +67,7 @@ class TmdbReview extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      WrappedText(
                         context.tr.aReviewBy(result?.author ?? ""),
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.w900,
@@ -96,7 +97,7 @@ class TmdbReview extends StatelessWidget {
                                         size: 15,
                                       ),
                                       const SizedBox(width: 8),
-                                      Text(
+                                      WrappedText(
                                         result?.authorDetails?.rating.toString() ?? "",
                                         style: context.textTheme.titleSmall?.copyWith(
                                           color: context.colorTheme.onPrimary,
@@ -111,7 +112,7 @@ class TmdbReview extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                            child: Text(
+                            child: WrappedText(
                               context.tr.writtenBy(result?.authorDetails?.name ?? "",
                                   result?.createdAt.formatDateInMMMMFormat ?? ""),
                               style: context.textTheme.titleSmall?.copyWith(
@@ -136,7 +137,7 @@ class TmdbReview extends StatelessWidget {
                 readLessText: context.tr.readLess,
                 textStyle: context.textTheme.bodyMedium,
               ),
-              replacement: Text(
+              replacement: WrappedText(
                 result?.content ?? "",
                 style: context.textTheme.bodyMedium,
               ),
