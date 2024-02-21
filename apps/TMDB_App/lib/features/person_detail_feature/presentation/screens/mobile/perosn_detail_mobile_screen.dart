@@ -187,28 +187,29 @@ class PersonDetailMobileScreen extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(width: 16),
-                                      Flexible(
-                                        child: TextButton(
-                                          onPressed: () {
-                                            CommonNavigation.redirectToDetailScreen(context,
-                                                mediaType: state.personDetailModel
-                                                        .mapping[index]?[i].mediaType ??
-                                                    "",
-                                                mediaId: state
-                                                        .personDetailModel.mapping[index]?[i].id
-                                                        .toString() ??
-                                                    "");
-                                          },
-                                          onHover: (s) => s,
-                                          child: WrappedText(
-                                            state.personDetailModel.mapping[index]?[i]
-                                                    .getActualName() ??
-                                                "",
-                                            style: context.textTheme.bodyLarge?.copyWith(
-                                              fontWeight: FontWeight.bold,
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: TextButton(
+                                            onPressed: () {
+                                              CommonNavigation.redirectToDetailScreen(context,
+                                                  mediaType: state.personDetailModel
+                                                          .mapping[index]?[i].mediaType ??
+                                                      "",
+                                                  mediaId: state
+                                                          .personDetailModel.mapping[index]?[i].id
+                                                          .toString() ??
+                                                      "");
+                                            },
+                                            onHover: (s) => s,
+                                            child: WrappedText(
+                                              state.personDetailModel.mapping[index]?[i]
+                                                      .getActualName() ??
+                                                  "",
+                                              style: context.textTheme.bodyLarge?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                            textAlign: TextAlign.start,
-                                            maxLines: 1,
                                           ),
                                         ),
                                       ),
