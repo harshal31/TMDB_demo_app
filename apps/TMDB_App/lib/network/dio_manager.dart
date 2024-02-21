@@ -1,4 +1,5 @@
 import "package:dio/dio.dart";
+import "package:flutter/foundation.dart";
 import "package:pretty_dio_logger/pretty_dio_logger.dart";
 import "package:tmdb_app/network/auth_interceptor.dart";
 
@@ -22,8 +23,10 @@ class DioManager {
       sendTimeout: _timeOut ?? const Duration(seconds: 30),
     );
 
-    dio.interceptors
-      ..add(AuthInterceptor())
-      ..add(PrettyDioLogger(requestHeader: true, requestBody: true, compact: false));
+    dio.interceptors..add(AuthInterceptor());
+
+    if (!kReleaseMode) {
+      dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true, compact: false));
+    }
   }
 }
