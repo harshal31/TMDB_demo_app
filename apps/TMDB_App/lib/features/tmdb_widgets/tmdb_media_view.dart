@@ -80,7 +80,7 @@ class _TmdbVideos extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: videos.isNotEmpty,
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: videos.length,
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
@@ -88,47 +88,49 @@ class _TmdbVideos extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           return Container(
+            width: width ?? 533,
+            height: height ?? 300,
             key: ValueKey(index),
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               color: Colors.transparent,
-              borderRadius: _getBorderRadius(index),
+              borderRadius: BorderRadius.circular(10),
             ),
-            child: Stack(
-              children: [
-                ImageNetwork(
-                  image: YoutubeThumbnail.hd(videos[index].key),
-                  width: width ?? 533,
-                  height: height ?? 300,
-                  duration: 400,
-                  fitAndroidIos: BoxFit.cover,
-                  borderRadius: _getBorderRadius(index),
-                  curve: Curves.easeIn,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: width ?? 533,
-                    height: height ?? 300,
-                    alignment: Alignment.center,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.play_circle_outline_sharp,
-                        size: 40,
-                        color: context.colorTheme.primaryContainer,
-                      ),
-                      onPressed: () {
-                        context.push(
-                          "${RouteName.home}/$mediaType/$mediaId/${RouteName.youtubeVideo}/${videos[index].key}/",
-                        );
-                      },
+            child: SizedBox(
+              width: width ?? 533,
+              height: height ?? 300,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: ImageNetwork(
+                      image: YoutubeThumbnail.hd(videos[index].key),
+                      width: width ?? 533,
+                      height: height ?? 300,
+                      duration: 400,
+                      fitAndroidIos: BoxFit.cover,
+                      borderRadius: BorderRadius.circular(10),
+                      curve: Curves.easeIn,
                     ),
                   ),
-                ),
-              ],
+                  Positioned.fill(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {
+                          context.push(
+                            "${RouteName.home}/$mediaType/$mediaId/${RouteName.youtubeVideo}/${videos[index].key}/",
+                          );
+                        },
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },
+        separatorBuilder: (ctx, index) => const SizedBox(width: 16),
       ),
       replacement: Center(
         child: WrappedText(
@@ -137,19 +139,6 @@ class _TmdbVideos extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  BorderRadius _getBorderRadius(int index) {
-    if (index == 0) {
-      return const BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
-    }
-
-    if (index == (videos.length - 1)) {
-      return const BorderRadius.only(
-          topRight: Radius.circular(15), bottomRight: Radius.circular(15));
-    }
-
-    return BorderRadius.zero;
   }
 }
 
@@ -168,22 +157,45 @@ class _TmdbBackdrops extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: backDrops.isNotEmpty,
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: backDrops.length,
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
-          return ExtendedImageCreator(
-            key: ValueKey(index),
-            imageUrl: backDrops[index].getImage(),
+          return SizedBox(
             width: width ?? 533,
             height: height ?? 300,
-            fit: BoxFit.cover,
-            borderRadius: _getBorderRadius(index),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: ExtendedImageCreator(
+                      key: ValueKey(index),
+                      imageUrl: backDrops[index].getImage(),
+                      width: width ?? 533,
+                      height: height ?? 300,
+                      fit: BoxFit.cover,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {},
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         },
+        separatorBuilder: (ctx, index) => const SizedBox(width: 16),
       ),
       replacement: Center(
         child: WrappedText(
@@ -192,19 +204,6 @@ class _TmdbBackdrops extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  BorderRadius _getBorderRadius(int index) {
-    if (index == 0) {
-      return const BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
-    }
-
-    if (index == (backDrops.length - 1)) {
-      return const BorderRadius.only(
-          topRight: Radius.circular(15), bottomRight: Radius.circular(15));
-    }
-
-    return BorderRadius.zero;
   }
 }
 
@@ -218,22 +217,42 @@ class _TmdbPosters extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: posters.isNotEmpty,
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: posters.length,
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
-          return ExtendedImageCreator(
-            key: ValueKey(index),
-            imageUrl: posters[index].getImage(),
+          return SizedBox(
             width: 160,
             height: height ?? 300,
-            fit: BoxFit.cover,
-            borderRadius: _getBorderRadius(index),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: ExtendedImageCreator(
+                    key: ValueKey(index),
+                    imageUrl: posters[index].getImage(),
+                    width: 160,
+                    height: height ?? 300,
+                    fit: BoxFit.cover,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {},
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         },
+        separatorBuilder: (ctx, index) => const SizedBox(width: 16),
       ),
       replacement: Center(
         child: WrappedText(
@@ -242,18 +261,5 @@ class _TmdbPosters extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  BorderRadius _getBorderRadius(int index) {
-    if (index == 0) {
-      return const BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15));
-    }
-
-    if (index == (posters.length - 1)) {
-      return const BorderRadius.only(
-          topRight: Radius.circular(15), bottomRight: Radius.circular(15));
-    }
-
-    return BorderRadius.zero;
   }
 }
