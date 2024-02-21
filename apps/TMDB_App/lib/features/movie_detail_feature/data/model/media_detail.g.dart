@@ -103,6 +103,10 @@ MediaDetail _$MediaDetailFromJson(Map<String, dynamic> json) => MediaDetail(
       videos: json['videos'] == null
           ? null
           : MediaVideos.fromJson(json['videos'] as Map<String, dynamic>),
+      similar: json['similar'] == null
+          ? null
+          : MediaRecommendations.fromJson(
+              json['similar'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MediaDetailToJson(MediaDetail instance) =>
@@ -154,6 +158,7 @@ Map<String, dynamic> _$MediaDetailToJson(MediaDetail instance) =>
       'images': instance.images,
       'keywords': instance.keywords,
       'recommendations': instance.recommendations,
+      'similar': instance.similar,
       'reviews': instance.reviews,
       'translations': instance.translations,
       'videos': instance.videos,

@@ -46,7 +46,7 @@ class MovieDetailWebScreen extends StatelessWidget {
             child: WrappedText(
               (state.movieDetailState as MovieDetailFailure).errorResponse.errorMessage,
               style: context.textTheme.displayMedium?.copyWith(
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.bold,
               ),
             ),
           );
@@ -103,7 +103,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                           text:
                                               "${state.mediaDetailModel.mediaDetail?.getActualName(true) ?? ""} ",
                                           style: context.textTheme.headlineLarge?.copyWith(
-                                            fontWeight: FontWeight.w900,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         TextSpan(
@@ -228,7 +228,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                     WrappedText(
                                       context.tr.overview,
                                       style: context.textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.w900,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     const SizedBox(height: 16),
@@ -264,7 +264,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                                         .getWriterDirectorMapping()
                                                         .$1[index],
                                                     style: context.textTheme.bodyLarge?.copyWith(
-                                                      fontWeight: FontWeight.w900,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                     maxLines: 1,
                                                   ),
@@ -315,7 +315,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                 child: WrappedText(
                                   context.tr.topBilledCast,
                                   style: context.textTheme.headlineLarge
-                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               IconButton(
@@ -349,7 +349,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                 child: WrappedText(
                                   context.tr.reviews,
                                   style: context.textTheme.headlineLarge
-                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Visibility(
@@ -388,7 +388,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                                 child: WrappedText(
                                   context.tr.media,
                                   style: context.textTheme.headlineLarge
-                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               IconButton(
@@ -447,9 +447,25 @@ class MovieDetailWebScreen extends StatelessWidget {
                             height: 22,
                           ),
                           WrappedText(
+                            context.tr.almostIdentical,
+                            style: context.textTheme.headlineLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          TmdbRecomendations(
+                            recommendations: state.mediaDetailModel.similar?.results ?? [],
+                            detail: state.mediaDetailModel.mediaDetail,
+                            mediaType: ApiKey.movie,
+                          ),
+                          const SizedBox(
+                            height: 22,
+                          ),
+                          WrappedText(
                             context.tr.recommendations,
                             style: context.textTheme.headlineLarge
-                                ?.copyWith(fontWeight: FontWeight.w800),
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 8,

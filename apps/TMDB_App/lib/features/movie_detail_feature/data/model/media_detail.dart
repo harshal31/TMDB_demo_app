@@ -108,6 +108,8 @@ class MediaDetail {
   MediaKeywords? keywords;
   @JsonKey(name: 'recommendations')
   MediaRecommendations? recommendations;
+  @JsonKey(name: 'similar')
+  MediaRecommendations? similar;
   @JsonKey(name: 'reviews')
   MediaReviews? reviews;
   @JsonKey(name: 'translations')
@@ -166,6 +168,7 @@ class MediaDetail {
     this.reviews,
     this.translations,
     this.videos,
+    this.similar,
   });
 
   String getMediaName(bool isMovies) {
@@ -275,6 +278,7 @@ class MediaDetail {
     MediaReviews? reviews,
     MediaTranslations? translations,
     MediaVideos? videos,
+    MediaRecommendations? similar,
   }) {
     return MediaDetail(
       adult: adult ?? this.adult,
@@ -327,6 +331,7 @@ class MediaDetail {
       reviews: reviews ?? this.reviews,
       translations: translations ?? this.translations,
       videos: videos ?? this.videos,
+      similar: similar ?? this.similar,
     );
   }
 }

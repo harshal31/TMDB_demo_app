@@ -7,7 +7,6 @@ import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tmdb_user_score.dart';
 import 'package:common_widgets/widgets/tooltip_rating.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
@@ -102,10 +101,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                     ),
                   ),
                   DominantColorFromImage(
-                    imageProvider: ExtendedNetworkImageProvider(
-                      state.mediaDetailModel.getBackdropImage(),
-                      cache: true,
-                    ),
+                    imageProvider: backdropImage.image,
                     dominantChild: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,7 +227,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                                         WrappedText(
                                           state.mediaDetailModel.getTvSeriesMapping().$1[index],
                                           style: context.textTheme.bodySmall?.copyWith(
-                                            fontWeight: FontWeight.w900,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                           maxLines: 1,
                                         ),
@@ -268,7 +264,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       WrappedText(
                         context.tr.overview,
                         style: context.textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -451,6 +447,21 @@ class TvDetailMobileScreen extends StatelessWidget {
                           mediaType: ApiKey.tv,
                         );
                       },
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    WrappedText(
+                      context.tr.almostIdentical,
+                      style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    TmdbRecomendations(
+                      recommendations: state.mediaDetailModel.similar?.results ?? [],
+                      detail: state.mediaDetailModel.mediaDetail,
+                      mediaType: ApiKey.tv,
                     ),
                     const SizedBox(
                       height: 16,

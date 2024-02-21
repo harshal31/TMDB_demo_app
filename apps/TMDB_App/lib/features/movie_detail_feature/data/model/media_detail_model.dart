@@ -21,6 +21,7 @@ class MediaDetailModel {
   final MediaReviews? mediaReviews;
   final MediaTranslations? mediaTranslations;
   final MediaVideos? mediaVideos;
+  final MediaRecommendations? similar;
 
   MediaDetailModel({
     this.mediaDetail,
@@ -33,6 +34,7 @@ class MediaDetailModel {
     this.mediaReviews,
     this.mediaTranslations,
     this.mediaVideos,
+    this.similar,
   });
 
   MediaDetailModel copyWith({
@@ -46,6 +48,7 @@ class MediaDetailModel {
     MediaReviews? mediaReviews,
     MediaTranslations? mediaTranslations,
     MediaVideos? mediaVideos,
+    MediaRecommendations? similar,
   }) {
     return MediaDetailModel(
       mediaDetail: mediaDetail ?? this.mediaDetail,
@@ -58,6 +61,7 @@ class MediaDetailModel {
       mediaReviews: mediaReviews ?? this.mediaReviews,
       mediaTranslations: mediaTranslations ?? this.mediaTranslations,
       mediaVideos: mediaVideos ?? this.mediaVideos,
+      similar: similar ?? this.similar,
     );
   }
 

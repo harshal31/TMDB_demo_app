@@ -184,7 +184,9 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                               Expanded(
                                                 child: WrappedText(
                                                   state.personDetailModel.mapping[index]?[i]
-                                                          .releaseDate.getDateTime?.year
+                                                          .getActualDate()
+                                                          .getDateTime
+                                                          ?.year
                                                           .toString() ??
                                                       "-",
                                                   style: context.textTheme.bodyLarge?.copyWith(
@@ -209,7 +211,7 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                                   onHover: (s) => s,
                                                   child: WrappedText(
                                                     state.personDetailModel.mapping[index]?[i]
-                                                            .originalTitle ??
+                                                            .getActualName() ??
                                                         "",
                                                     style: context.textTheme.bodyLarge?.copyWith(
                                                       fontWeight: FontWeight.bold,

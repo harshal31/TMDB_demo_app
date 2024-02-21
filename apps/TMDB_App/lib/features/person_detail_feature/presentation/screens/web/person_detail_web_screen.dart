@@ -186,7 +186,9 @@ class PersonDetailWebScreen extends StatelessWidget {
                                               children: [
                                                 WrappedText(
                                                   state.personDetailModel.mapping[index]?[i]
-                                                          .releaseDate.getDateTime?.year
+                                                          .getActualDate()
+                                                          .getDateTime
+                                                          ?.year
                                                           .toString() ??
                                                       "-",
                                                   style: context.textTheme.bodyLarge?.copyWith(
@@ -210,7 +212,7 @@ class PersonDetailWebScreen extends StatelessWidget {
                                                     onHover: (s) => s,
                                                     child: WrappedText(
                                                       state.personDetailModel.mapping[index]?[i]
-                                                              .originalTitle ??
+                                                              .getActualName() ??
                                                           "",
                                                       style: context.textTheme.bodyLarge?.copyWith(
                                                         fontWeight: FontWeight.bold,
@@ -228,7 +230,9 @@ class PersonDetailWebScreen extends StatelessWidget {
                                                 const Spacer(),
                                                 Flexible(
                                                   flex: state.personDetailModel.mapping[index]?[i]
-                                                              .releaseDate.getDateTime?.year !=
+                                                              .getActualDate()
+                                                              .getDateTime
+                                                              ?.year !=
                                                           null
                                                       ? 10
                                                       : 18,

@@ -91,5 +91,6 @@
   "language": "Language",
   "isAdultIncluded": "Adult Content Included",
   "noDataPresentForType": "No {type} Data Present for the {mediaName}",
-  "userScore": "User Score"
+  "userScore": "User Score",
+  "almostIdentical": "Almost Identical"
 }

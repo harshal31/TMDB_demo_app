@@ -40,6 +40,7 @@ class TvDetailUseCase {
         mediaReviews: r?.reviews,
         mediaTranslations: r?.translations,
         mediaVideos: r?.videos,
+        similar: r?.similar,
       );
       return right(model);
     });

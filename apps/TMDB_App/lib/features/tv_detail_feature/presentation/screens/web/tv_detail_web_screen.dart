@@ -44,7 +44,7 @@ class TvDetailWebScreen extends StatelessWidget {
             child: WrappedText(
               (state.tvDetailState as TvDetailFailure).errorResponse.errorMessage,
               style: context.textTheme.displayMedium?.copyWith(
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.bold,
               ),
             ),
           );
@@ -98,7 +98,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                             text:
                                                 "${state.mediaDetailModel.mediaDetail?.getActualName(false) ?? ""} ",
                                             style: context.textTheme.headlineLarge?.copyWith(
-                                              fontWeight: FontWeight.w900,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           TextSpan(
@@ -200,7 +200,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                     WrappedText(
                                       context.tr.overview,
                                       style: context.textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.w900,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     const SizedBox(height: 16),
@@ -235,7 +235,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                                           .getTvSeriesMapping()
                                                           .$1[index],
                                                       style: context.textTheme.bodyLarge?.copyWith(
-                                                        fontWeight: FontWeight.w900,
+                                                        fontWeight: FontWeight.bold,
                                                       ),
                                                       maxLines: 1,
                                                     ),
@@ -286,7 +286,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                 child: WrappedText(
                                   context.tr.seriesCast,
                                   style: context.textTheme.headlineLarge
-                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               IconButton(
@@ -320,7 +320,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                 child: WrappedText(
                                   context.tr.currentSeason,
                                   style: context.textTheme.headlineLarge
-                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               IconButton(
@@ -348,7 +348,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                 child: WrappedText(
                                   context.tr.reviews,
                                   style: context.textTheme.headlineLarge
-                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Visibility(
@@ -387,7 +387,7 @@ class TvDetailWebScreen extends StatelessWidget {
                                 child: WrappedText(
                                   context.tr.media,
                                   style: context.textTheme.headlineLarge
-                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               IconButton(
@@ -446,9 +446,25 @@ class TvDetailWebScreen extends StatelessWidget {
                             height: 22,
                           ),
                           WrappedText(
+                            context.tr.almostIdentical,
+                            style: context.textTheme.headlineLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          TmdbRecomendations(
+                            recommendations: state.mediaDetailModel.similar?.results ?? [],
+                            detail: state.mediaDetailModel.mediaDetail,
+                            mediaType: ApiKey.tv,
+                          ),
+                          const SizedBox(
+                            height: 22,
+                          ),
+                          WrappedText(
                             context.tr.recommendations,
                             style: context.textTheme.headlineLarge
-                                ?.copyWith(fontWeight: FontWeight.w800),
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 8,

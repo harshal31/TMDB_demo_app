@@ -648,6 +648,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'User Score'**
   String get userScore;
+
+  /// No description provided for @almostIdentical.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost Identical'**
+  String get almostIdentical;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

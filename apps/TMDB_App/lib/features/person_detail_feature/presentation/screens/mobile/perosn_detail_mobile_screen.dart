@@ -171,8 +171,10 @@ class PersonDetailMobileScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       WrappedText(
-                                        state.personDetailModel.mapping[index]?[i].releaseDate
-                                                .getDateTime?.year
+                                        state.personDetailModel.mapping[index]?[i]
+                                                .getActualDate()
+                                                .getDateTime
+                                                ?.year
                                                 .toString() ??
                                             "-",
                                         style: context.textTheme.bodyLarge?.copyWith(
@@ -195,7 +197,7 @@ class PersonDetailMobileScreen extends StatelessWidget {
                                           onHover: (s) => s,
                                           child: WrappedText(
                                             state.personDetailModel.mapping[index]?[i]
-                                                    .originalTitle ??
+                                                    .getActualName() ??
                                                 "",
                                             style: context.textTheme.bodyLarge?.copyWith(
                                               fontWeight: FontWeight.bold,
@@ -212,8 +214,10 @@ class PersonDetailMobileScreen extends StatelessWidget {
                                     children: [
                                       const Spacer(),
                                       Flexible(
-                                        flex: state.personDetailModel.mapping[index]?[i].releaseDate
-                                                    .getDateTime?.year !=
+                                        flex: state.personDetailModel.mapping[index]?[i]
+                                                    .getActualDate()
+                                                    .getDateTime
+                                                    ?.year !=
                                                 null
                                             ? 10
                                             : 18,

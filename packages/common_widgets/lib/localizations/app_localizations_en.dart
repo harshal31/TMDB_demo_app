@@ -324,4 +324,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get userScore => 'User Score';
+
+  @override
+  String get almostIdentical => 'Almost Identical';
 }

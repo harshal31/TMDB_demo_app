@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
 
 part 'person_credit.g.dart';
@@ -249,6 +250,20 @@ class PersonCrew {
     this.name,
     this.episodeCount,
   });
+
+  String getActualName() {
+    String value = this.mediaType == ApiKey.movie
+        ? (this.title ?? this.originalTitle ?? "")
+        : (this.name ?? this.originalName ?? "");
+
+    return value;
+  }
+
+  String getActualDate() {
+    String value =
+        this.mediaType == ApiKey.movie ? (this.releaseDate ?? "") : (this.firstAirDate ?? "");
+    return value;
+  }
 
   factory PersonCrew.fromJson(Map<String, dynamic> json) => _$PersonCrewFromJson(json);
 
