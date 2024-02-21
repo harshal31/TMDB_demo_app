@@ -40,16 +40,20 @@ class TmdbReview extends StatelessWidget {
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircleAvatar(
-                  radius: 20,
+                  radius: 30,
                   backgroundColor: context.colorTheme.primary,
                   // Replace with actual image or initial
                   child: result?.authorDetails?.avatarPath?.isNotEmpty ?? false
                       ? ExtendedImageCreator(
                           imageUrl: result?.authorDetails?.getAvatar() ?? "",
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                           shape: BoxShape.circle,
+                          width: double.infinity,
+                          height: double.infinity,
+                          borderRadius: BorderRadius.zero,
                         )
                       : WrappedText(
                           (result?.author?.length ?? 0) > 0
@@ -70,7 +74,7 @@ class TmdbReview extends StatelessWidget {
                       WrappedText(
                         context.tr.aReviewBy(result?.author ?? ""),
                         style: context.textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       Row(
