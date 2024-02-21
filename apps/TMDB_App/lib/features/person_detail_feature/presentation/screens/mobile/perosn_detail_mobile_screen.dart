@@ -6,6 +6,7 @@ import 'package:common_widgets/widgets/read_more_text.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb_app/features/person_detail_feature/data/model/person_credit.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/cubits/person_detail_cubit.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/use_cases/person_detail_use_case.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
@@ -161,6 +162,10 @@ class PersonDetailMobileScreen extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.personDetailModel.mapping[index]?.length ?? 0,
                           itemBuilder: (ctx, i) {
+                            final (result, after) = getPersonResult(
+                              context,
+                              state.personDetailModel.mapping[index]?[i],
+                            );
                             return Padding(
                               key: ValueKey(i),
                               padding: const EdgeInsets.all(16.0),
@@ -209,26 +214,29 @@ class PersonDetailMobileScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const Spacer(),
-                                      Flexible(
-                                        flex: state.personDetailModel.mapping[index]?[i]
-                                                    .getActualDate()
-                                                    .getDateTime
-                                                    ?.year !=
-                                                null
-                                            ? 10
-                                            : 18,
-                                        child: WrappedText(
-                                          "${state.personDetailModel.mapping[index]?[i].episodeCount != null ? context.tr.episodeMapping(state.personDetailModel.mapping[index]?[i].episodeCount ?? "") : ""}${context.tr.asCharacter(state.personDetailModel.mapping[index]?[i].job ?? "")}",
-                                          style: context.textTheme.bodySmall,
-                                          textAlign: TextAlign.start,
+                                  Visibility(
+                                    visible: after.isNotEmpty,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        const Spacer(),
+                                        Flexible(
+                                          flex: state.personDetailModel.mapping[index]?[i]
+                                                      .getActualDate()
+                                                      .getDateTime
+                                                      ?.year !=
+                                                  null
+                                              ? 10
+                                              : 18,
+                                          child: WrappedText(
+                                            "$result",
+                                            style: context.textTheme.bodySmall,
+                                            textAlign: TextAlign.start,
+                                          ),
                                         ),
-                                      ),
-                                      const Spacer(flex: 2),
-                                    ],
+                                        const Spacer(flex: 2),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -253,5 +261,12 @@ class PersonDetailMobileScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  (String, String) getPersonResult(BuildContext context, PersonCrew? state) {
+    final result =
+        "${state?.episodeCount != null ? context.tr.episodeMapping(state?.episodeCount ?? "") : ""}${context.tr.asCharacter(state?.job ?? "")}";
+    final after = state?.episodeCount != null ? result.split(" ")[0] : result.split(" ")[1];
+    return (result, after);
   }
 }
