@@ -32,6 +32,7 @@ dependencies:
   image_network: ^2.5.6
   infinite_scroll_pagination: ^4.0.0
   flutter_native_splash: ^2.3.10
+  envied: ^0.5.3
   common_widgets:
     path: ../../packages/common_widgets
 
@@ -44,6 +45,7 @@ dev_dependencies:
   retrofit_generator: ^8.1.0
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
+  envied_generator: ^0.5.3
 
 
 
@@ -194,7 +196,7 @@ flutter_native_splash:
     #       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top], );
     #fullscreen: true
 
-    # If you have changed the name(s) of your info.plist file(s), you can specify the filename(s)
+  # If you have changed the name(s) of your info.plist file(s), you can specify the filename(s)
   # with the info_plist_files parameter.  Remove only the # characters in the three lines below,
   # do not remove any spaces:
   #info_plist_files:

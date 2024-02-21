@@ -30,3 +30,4 @@ build/
 
 # Project exclude paths
 /packages/common_widgets/ios/Flutter/
+.env
