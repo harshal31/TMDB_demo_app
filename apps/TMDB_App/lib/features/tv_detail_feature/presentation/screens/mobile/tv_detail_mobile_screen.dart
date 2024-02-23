@@ -101,152 +101,157 @@ class TvDetailMobileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  DominantColorFromImage(
-                    imageProvider: backdropImage.image,
-                    dominantChild: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 8),
-                        WrappedText(
-                          "${state.mediaDetailModel.mediaDetail?.getActualName(false) ?? ""} ",
-                          textAlign: TextAlign.center,
-                          style: context.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        WrappedText(
-                          "${state.mediaDetailModel.getTvSeriesYear()}",
-                          textAlign: TextAlign.center,
-                          style: context.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Visibility(
-                          visible: state.mediaDetailModel.genres().isNotEmpty,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2.0),
-                            child: WrappedText(
-                              textAlign: TextAlign.center,
-                              state.mediaDetailModel.genres(),
-                              style: context.textTheme.titleSmall,
+                  SizedBox(
+                    width: double.infinity,
+                    child: DominantColorFromImage(
+                      imageProvider: backdropImage.image,
+                      dominantChild: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 8),
+                          WrappedText(
+                            "${state.mediaDetailModel.mediaDetail?.getActualName(false) ?? ""} ",
+                            textAlign: TextAlign.center,
+                            style: context.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 6),
-                        TmdbUserScore(
-                          average: state.mediaDetailModel.mediaDetail?.voteAverage ?? 0.0,
-                          circleSize: 50,
-                          numberStyle: context.textTheme.titleMedium,
-                          style: context.textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TmdbIcon(
-                              iconSize: 20,
-                              icons: (Icons.favorite, Icons.favorite_outline_sharp),
-                              isSelected:
-                                  state.mediaDetailModel.mediaAccountState?.favorite ?? false,
-                              selectedColor: Colors.red,
-                              onSelection: (s) {
-                                tvDetailCubit.saveUserPreference(
-                                  state.mediaDetailModel.mediaDetail?.id,
-                                  ApiKey.favorite,
-                                  s,
-                                );
-                              },
-                              hoverMessage: context.tr.markAsFavorite,
-                            ),
-                            const SizedBox(width: 16),
-                            TmdbIcon(
-                              iconSize: 20,
-                              icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
-                              isSelected:
-                                  state.mediaDetailModel.mediaAccountState?.watchlist ?? false,
-                              selectedColor: Colors.red,
-                              onSelection: (s) {
-                                tvDetailCubit.saveUserPreference(
-                                  state.mediaDetailModel.mediaDetail?.id,
-                                  ApiKey.watchList,
-                                  s,
-                                );
-                              },
-                              hoverMessage: context.tr.addToWatchlist,
-                            ),
-                            const SizedBox(width: 16),
-                            TooltipRating(
-                              rating:
-                                  state.mediaDetailModel.mediaAccountState?.getSafeRating() ?? 0.0,
-                              iconSize: 20,
-                              hoverMessage: context.tr.addToWatchlist,
-                              onRatingUpdate: (rating) {
-                                tvDetailCubit.addMediaRating(
-                                  state.mediaDetailModel.mediaDetail?.id,
-                                  rating,
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                        Visibility(
-                          visible: state.mediaDetailModel.mediaDetail?.tagline?.isNotEmpty ?? false,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: WrappedText(
-                              state.mediaDetailModel.mediaDetail?.tagline ?? "",
-                              textAlign: TextAlign.center,
-                              style: context.textTheme.titleSmall?.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w300,
-                                  color: context.colorTheme.onBackground.withOpacity(0.6)),
+                          const SizedBox(height: 2),
+                          WrappedText(
+                            "${state.mediaDetailModel.getTvSeriesYear()}",
+                            textAlign: TextAlign.center,
+                            style: context.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
-                        ),
-                        Visibility(
-                          visible: state.mediaDetailModel.getTvSeriesMapping().$1.isNotEmpty,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: SizedBox(
-                              height: 40,
-                              child: Center(
-                                child: ListView.separated(
-                                  shrinkWrap: true,
-                                  separatorBuilder: (ctx, index) => const Divider(indent: 20),
-                                  itemCount: state.mediaDetailModel.getTvSeriesMapping().$1.length,
-                                  padding: EdgeInsets.zero,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (ctx, index) {
-                                    return Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        WrappedText(
-                                          state.mediaDetailModel.getTvSeriesMapping().$1[index],
-                                          style: context.textTheme.bodySmall?.copyWith(
-                                            fontWeight: FontWeight.bold,
+                          Visibility(
+                            visible: state.mediaDetailModel.genres().isNotEmpty,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 2.0),
+                              child: WrappedText(
+                                textAlign: TextAlign.center,
+                                state.mediaDetailModel.genres(),
+                                style: context.textTheme.titleSmall,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          TmdbUserScore(
+                            average: state.mediaDetailModel.mediaDetail?.voteAverage ?? 0.0,
+                            circleSize: 50,
+                            numberStyle: context.textTheme.titleMedium,
+                            style: context.textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TmdbIcon(
+                                iconSize: 20,
+                                icons: (Icons.favorite, Icons.favorite_outline_sharp),
+                                isSelected:
+                                    state.mediaDetailModel.mediaAccountState?.favorite ?? false,
+                                selectedColor: Colors.red,
+                                onSelection: (s) {
+                                  tvDetailCubit.saveUserPreference(
+                                    state.mediaDetailModel.mediaDetail?.id,
+                                    ApiKey.favorite,
+                                    s,
+                                  );
+                                },
+                                hoverMessage: context.tr.markAsFavorite,
+                              ),
+                              const SizedBox(width: 16),
+                              TmdbIcon(
+                                iconSize: 20,
+                                icons: (Icons.bookmark, Icons.bookmark_outline_sharp),
+                                isSelected:
+                                    state.mediaDetailModel.mediaAccountState?.watchlist ?? false,
+                                selectedColor: Colors.red,
+                                onSelection: (s) {
+                                  tvDetailCubit.saveUserPreference(
+                                    state.mediaDetailModel.mediaDetail?.id,
+                                    ApiKey.watchList,
+                                    s,
+                                  );
+                                },
+                                hoverMessage: context.tr.addToWatchlist,
+                              ),
+                              const SizedBox(width: 16),
+                              TooltipRating(
+                                rating: state.mediaDetailModel.mediaAccountState?.getSafeRating() ??
+                                    0.0,
+                                iconSize: 20,
+                                hoverMessage: context.tr.addToWatchlist,
+                                onRatingUpdate: (rating) {
+                                  tvDetailCubit.addMediaRating(
+                                    state.mediaDetailModel.mediaDetail?.id,
+                                    rating,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                          Visibility(
+                            visible:
+                                state.mediaDetailModel.mediaDetail?.tagline?.isNotEmpty ?? false,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: WrappedText(
+                                state.mediaDetailModel.mediaDetail?.tagline ?? "",
+                                textAlign: TextAlign.center,
+                                style: context.textTheme.titleSmall?.copyWith(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w300,
+                                    color: context.colorTheme.onBackground.withOpacity(0.6)),
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: state.mediaDetailModel.getTvSeriesMapping().$1.isNotEmpty,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: SizedBox(
+                                height: 40,
+                                child: Center(
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    separatorBuilder: (ctx, index) => const Divider(indent: 20),
+                                    itemCount:
+                                        state.mediaDetailModel.getTvSeriesMapping().$1.length,
+                                    padding: EdgeInsets.zero,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (ctx, index) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          WrappedText(
+                                            state.mediaDetailModel.getTvSeriesMapping().$1[index],
+                                            style: context.textTheme.bodySmall?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            maxLines: 1,
                                           ),
-                                          maxLines: 1,
-                                        ),
-                                        WrappedText(
-                                          state.mediaDetailModel.getTvSeriesMapping().$2[index],
-                                          style: context.textTheme.bodySmall,
-                                          maxLines: 1,
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                          WrappedText(
+                                            state.mediaDetailModel.getTvSeriesMapping().$2[index],
+                                            style: context.textTheme.bodySmall,
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                      ],
+                          const SizedBox(height: 16),
+                        ],
+                      ),
                     ),
                   ),
                 ],
