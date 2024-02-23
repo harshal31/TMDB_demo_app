@@ -112,6 +112,12 @@ class _TmdbVideos extends StatelessWidget {
                       curve: Curves.easeIn,
                     ),
                   ),
+                  Center(
+                    child: Icon(
+                      Icons.play_circle,
+                      size: (width ?? 300) / 5,
+                    ),
+                  ),
                   Positioned.fill(
                     child: Material(
                       color: Colors.transparent,

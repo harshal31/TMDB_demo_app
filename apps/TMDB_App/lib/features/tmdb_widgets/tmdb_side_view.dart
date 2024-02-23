@@ -5,6 +5,7 @@ import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';

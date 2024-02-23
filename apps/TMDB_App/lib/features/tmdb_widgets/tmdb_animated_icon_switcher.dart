@@ -37,6 +37,4 @@ class TmdbAnimatedIconSwitcher extends StatelessWidget {
       },
     );
   }
-
-  TmdbAnimatedIconSwitcher();
 }

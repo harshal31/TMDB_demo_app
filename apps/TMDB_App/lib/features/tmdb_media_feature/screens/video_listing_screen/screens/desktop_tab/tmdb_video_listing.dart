@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 
@@ -110,12 +111,26 @@ class TmdbVideosListingItem extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    ImageNetwork(
-                      image: YoutubeThumbnail.mq(video.key),
+                    SizedBox(
                       width: imageWidth,
                       height: imageHeight,
-                      borderRadius: BorderRadius.circular(10),
-                      curve: Curves.easeIn,
+                      child: Stack(
+                        children: [
+                          ImageNetwork(
+                            image: YoutubeThumbnail.mq(video.key),
+                            width: imageWidth,
+                            height: imageHeight,
+                            borderRadius: BorderRadius.circular(10),
+                            curve: Curves.easeIn,
+                          ),
+                          Center(
+                            child: Icon(
+                              Icons.play_circle,
+                              size: imageHeight / 3,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(

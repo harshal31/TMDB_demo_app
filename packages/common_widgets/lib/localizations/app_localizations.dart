@@ -601,6 +601,12 @@ abstract class AppLocalizations {
   /// **'Companies ({count})'**
   String companiesCount(Object count);
 
+  /// No description provided for @companies.
+  ///
+  /// In en, this message translates to:
+  /// **'Companies'**
+  String get companies;
+
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:
@@ -642,6 +648,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No {type} Data Present for the {mediaName}'**
   String noDataPresentForType(Object mediaName, Object type);
+
+  /// No description provided for @noSearchResultFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No \${type} Search Result Found'**
+  String noSearchResultFound(Object type);
+
+  /// No description provided for @pleaseEnterBeginQuery.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a query to begin your search'**
+  String get pleaseEnterBeginQuery;
 
   /// No description provided for @userScore.
   ///

@@ -84,6 +84,7 @@
   "keywordsCount": "Keywords ({count})",
   "networksCount": "Networks ({count})",
   "companiesCount": "Companies ({count})",
+  "companies": "Companies",
   "tryAgain": "Try Again",
   "searchFor": "Search for a movie, tv show, person...",
   "actionFor": "{knownFor}. {name}",
@@ -91,6 +92,8 @@
   "language": "Language",
   "isAdultIncluded": "Adult Content Included",
   "noDataPresentForType": "No {type} Data Present for the {mediaName}",
+  "noSearchResultFound": "No ${type} Search Result Found",
+  "pleaseEnterBeginQuery": "Please enter a query to begin your search",
   "userScore": "User Score",
   "almostIdentical": "Almost Identical"
 }

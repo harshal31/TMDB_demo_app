@@ -22,6 +22,7 @@ import 'package:tmdb_app/features/tmdb_widgets/tmdb_recomendations%20.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
 class MovieDetailTabletScreen extends StatelessWidget {
@@ -329,7 +330,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                   final id = state.mediaDetailModel.mediaDetail?.id;
                                   CommonNavigation.redirectToCastScreen(
                                     context,
-                                    mediaType: ApiKey.movie,
+                                    mediaType: RouteParam.movie,
                                     mediaId: id,
                                   );
                                 },
@@ -366,7 +367,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                     final id = state.mediaDetailModel.mediaDetail?.id;
                                     CommonNavigation.redirectToReviewsScreen(
                                       context,
-                                      mediaType: ApiKey.movie,
+                                      mediaType: RouteParam.movie,
                                       mediaId: id,
                                     );
                                   },
@@ -403,7 +404,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                     context,
                                     mediaId:
                                         state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
-                                    mediaType: ApiKey.movie,
+                                    mediaType: RouteParam.movie,
                                   );
                                 },
                               ),
@@ -439,7 +440,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                 pos: s,
                                 videos: state.mediaDetailModel.mediaVideos?.results ?? [],
                                 images: state.mediaDetailModel.mediaImages,
-                                mediaType: ApiKey.movie,
+                                mediaType: RouteParam.movie,
                               );
                             },
                           ),
@@ -457,7 +458,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                           TmdbRecomendations(
                             recommendations: state.mediaDetailModel.similar?.results ?? [],
                             detail: state.mediaDetailModel.mediaDetail,
-                            mediaType: ApiKey.movie,
+                            mediaType: RouteParam.movie,
                           ),
                           const SizedBox(
                             height: 22,
@@ -474,7 +475,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                             recommendations:
                                 state.mediaDetailModel.mediaRecommendations?.results ?? [],
                             detail: state.mediaDetailModel.mediaDetail,
-                            mediaType: ApiKey.movie,
+                            mediaType: RouteParam.movie,
                           ),
                           const SizedBox(
                             height: 22,
@@ -493,7 +494,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                           children: [
                             TmdbShare(
                               tmdbShareModel: state.mediaDetailModel.mediaExternalId,
-                              mediaType: ApiKey.movie,
+                              mediaType: RouteParam.movie,
                             ),
                             const SizedBox(height: 16),
                             TmdbSideView(

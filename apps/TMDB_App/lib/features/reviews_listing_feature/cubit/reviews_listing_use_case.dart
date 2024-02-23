@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 import 'package:tmdb_app/features/reviews_listing_feature/data/reviews_listing_api_service.dart';

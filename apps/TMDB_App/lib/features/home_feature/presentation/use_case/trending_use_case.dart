@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/features/home_feature/data/home_api_service.dart';
 import 'package:tmdb_app/features/home_feature/data/model/trending.dart';
 import 'package:tmdb_app/network/error_response.dart';

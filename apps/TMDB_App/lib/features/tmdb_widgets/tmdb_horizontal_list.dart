@@ -1,6 +1,6 @@
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 
 class TmdbHorizontalList extends StatelessWidget {
   final List<String> imageUrls;
@@ -28,19 +28,22 @@ class TmdbHorizontalList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           if (index == imageUrls.length) {
-            return Container(
-              key: ValueKey(index),
-              alignment: Alignment.center,
-              width: width ?? 150,
-              height: height ?? 225,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_circle_right_outlined,
-                  size: 40,
+            return Visibility(
+              visible: imageUrls.length >= 10,
+              child: Container(
+                key: ValueKey(index),
+                alignment: Alignment.center,
+                width: width ?? 150,
+                height: height ?? 225,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_circle_right_outlined,
+                    size: 40,
+                  ),
+                  onPressed: () {
+                    onViewAllClick?.call();
+                  },
                 ),
-                onPressed: () {
-                  onViewAllClick?.call();
-                },
               ),
             );
           }
@@ -51,22 +54,21 @@ class TmdbHorizontalList extends StatelessWidget {
               children: [
                 Card(
                   margin: EdgeInsets.zero,
+                  shadowColor: Colors.transparent,
                   surfaceTintColor: context.colorTheme.background,
                   elevation: 10,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: ExtendedImage.network(
-                    imageUrls[index],
+                  child: ExtendedImageCreator(
+                    imageUrl: imageUrls[index],
                     width: width ?? 150,
                     height: height ?? 225,
                     fit: BoxFit.fill,
-                    cache: true,
                     shape: BoxShape.rectangle,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(10.0),
                     ),
-                    cacheMaxAge: const Duration(hours: 4),
                   ),
                 ),
                 Positioned.fill(

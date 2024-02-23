@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/constants/endpoint.dart';
 import 'package:tmdb_app/features/profile_feature/data/model/profile_detail_model.dart';
 

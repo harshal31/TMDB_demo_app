@@ -298,6 +298,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get companies => 'Companies';
+
+  @override
   String get tryAgain => 'Try Again';
 
   @override
@@ -321,6 +324,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String noDataPresentForType(Object mediaName, Object type) {
     return 'No $type Data Present for the $mediaName';
   }
+
+  @override
+  String noSearchResultFound(Object type) {
+    return 'No \$$type Search Result Found';
+  }
+
+  @override
+  String get pleaseEnterBeginQuery => 'Please enter a query to begin your search';
 
   @override
   String get userScore => 'User Score';

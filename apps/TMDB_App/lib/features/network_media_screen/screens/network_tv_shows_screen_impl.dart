@@ -5,11 +5,11 @@ import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';
 import 'package:tmdb_app/features/network_media_screen/cubits/network_media_cubit.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 import 'package:tmdb_app/utils/dynamic_text_style.dart';
 
@@ -32,6 +32,7 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
 
   @override
   void initState() {
+    RouteParam.id;
     super.initState();
     _listenMoviesPaginationChanges(context.read());
   }
@@ -99,7 +100,7 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
                   onItemClick: () {
                     CommonNavigation.redirectToDetailScreen(
                       context,
-                      mediaType: ApiKey.tv,
+                      mediaType: RouteParam.tv,
                       mediaId: item.id?.toString() ?? "",
                     );
                   },

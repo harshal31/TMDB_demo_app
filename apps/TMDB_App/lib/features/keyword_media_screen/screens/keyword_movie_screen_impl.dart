@@ -13,6 +13,7 @@ import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_adva
 import 'package:tmdb_app/features/keyword_media_screen/cubits/keyword_media_cubit.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_search_list_item.dart';
 import 'package:tmdb_app/routes/route_name.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 import 'package:tmdb_app/utils/dynamic_text_style.dart';
 
@@ -127,7 +128,7 @@ class _KeywordMovieScreenMovieImplState extends State<KeywordMovieScreenMovieImp
                   onItemClick: () {
                     CommonNavigation.redirectToDetailScreen(
                       context,
-                      mediaType: ApiKey.movie,
+                      mediaType: RouteParam.movie,
                       mediaId: item.id?.toString() ?? "",
                     );
                   },

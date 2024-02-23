@@ -1,6 +1,5 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/lottie_search.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,6 @@ import 'package:tmdb_app/features/search_feature/data/model/search_keywords_mode
 import 'package:tmdb_app/features/search_feature/data/model/search_movie_model.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_person_model.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_tv_model.dart';
-import 'package:tmdb_app/features/search_feature/presentation/cubits/combine_count_cubit.dart';
-import 'package:tmdb_app/features/search_feature/presentation/cubits/combine_count_state.dart';
 import 'package:tmdb_app/features/search_feature/presentation/cubits/search_cubit.dart';
 import 'package:tmdb_app/features/search_feature/presentation/cubits/search_state.dart';
 import 'package:tmdb_app/features/search_feature/presentation/screens/search_manager.dart';
@@ -25,30 +22,26 @@ import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
-class SearchImplementationScreen extends StatefulWidget {
+class SearchDetailImplementationScreen extends StatefulWidget {
   final String searchType;
   final String query;
-  final TextEditingController controller;
 
-  const SearchImplementationScreen({
+  const SearchDetailImplementationScreen({
     super.key,
     required this.searchType,
     required this.query,
-    required this.controller,
   });
 
   @override
-  State<SearchImplementationScreen> createState() => _SearchImplementationScreenState();
+  State<SearchDetailImplementationScreen> createState() => _SearchDetailImplementationScreenState();
 }
 
-class _SearchImplementationScreenState extends State<SearchImplementationScreen> {
-  late TextEditingController _textEditingController;
+class _SearchDetailImplementationScreenState extends State<SearchDetailImplementationScreen> {
   late SearchManager _searchManager;
 
   @override
   void initState() {
     super.initState();
-    _textEditingController = widget.controller;
     _searchManager = SearchManager();
     _searchManager.listenPaginationChanges(context, widget.query);
   }
@@ -60,33 +53,6 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BlocBuilder<CombineCountCubit, CombineCountState>(
-            builder: (context, state) {
-              return CustomTabBar(
-                initialIndex: _searchManager.getIndex(widget.searchType),
-                isScrollable: true,
-                tabAlignment: TabAlignment.start,
-                selectedColor: context.colorTheme.primaryContainer,
-                titles: [
-                  context.tr.moviesCount(state.movieCount),
-                  context.tr.tvShowsCount(state.tvShowsCount),
-                  context.tr.peopleCount(state.personCount),
-                  context.tr.keywordsCount(state.keywordsCount),
-                  context.tr.companiesCount(state.companyCount),
-                ],
-                onSelectedTab: (i) {
-                  context.push(
-                    Uri(
-                      path:
-                          "${RouteName.home}/${RouteName.search}/${_searchManager.getSearchType(i)}",
-                      queryParameters: {RouteParam.query: _textEditingController.text},
-                    ).toString(),
-                  );
-                },
-              );
-            },
-          ),
-          const SizedBox(height: 16),
           Expanded(
             child: BlocBuilder<SearchCubit, SearchState>(
               builder: (context, state) {
@@ -120,7 +86,7 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
                                 onItemClick: () {
                                   CommonNavigation.redirectToDetailScreen(
                                     context,
-                                    mediaType: ApiKey.movie,
+                                    mediaType: RouteParam.movie,
                                     mediaId: item.id?.toString() ?? "",
                                   );
                                 },
@@ -137,7 +103,7 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
                                 onItemClick: () {
                                   CommonNavigation.redirectToDetailScreen(
                                     context,
-                                    mediaType: ApiKey.tv,
+                                    mediaType: RouteParam.tv,
                                     mediaId: item.id?.toString() ?? "",
                                   );
                                 },
@@ -207,7 +173,6 @@ class _SearchImplementationScreenState extends State<SearchImplementationScreen>
 
   @override
   void dispose() {
-    _textEditingController.dispose();
     _searchManager.disposeControllers();
     super.dispose();
   }

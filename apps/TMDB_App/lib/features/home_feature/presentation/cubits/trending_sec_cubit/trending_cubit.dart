@@ -1,6 +1,7 @@
 import 'package:common_widgets/widgets/code_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/trending_use_case.dart';
 
 class TrendingCubit extends Cubit<TrendingState> {

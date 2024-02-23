@@ -23,7 +23,8 @@ import "package:tmdb_app/features/person_detail_feature/presentation/screens/per
 import "package:tmdb_app/features/persons_listing_feature/person_listing_screen.dart";
 import "package:tmdb_app/features/profile_feature/profile_screen.dart";
 import "package:tmdb_app/features/reviews_listing_feature/reviews_listing_screen.dart";
-import "package:tmdb_app/features/search_feature/presentation/screens/search_screen.dart";
+import "package:tmdb_app/features/search_feature/presentation/screens/search_detail_screen/search_detail_screen.dart";
+import "package:tmdb_app/features/search_feature/presentation/screens/search_screen/search_screen.dart";
 import "package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/tmdb_media_youtube_media_listing.dart";
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
@@ -33,6 +34,7 @@ class AppRouter {
   static GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
   static GlobalKey<NavigatorState> _homeRouterKey = GlobalKey<NavigatorState>();
   static GlobalKey<NavigatorState> _profileRouterKey = GlobalKey<NavigatorState>();
+  static GlobalKey<NavigatorState> _searchRouterKey = GlobalKey<NavigatorState>();
 
   static GoRouter goRouter = GoRouter(
     navigatorKey: _rootNavigatorKey,
@@ -54,23 +56,6 @@ class AppRouter {
                   return const HomeScreen();
                 },
                 routes: [
-                  GoRoute(
-                    path: "${RouteName.search}/:${RouteParam.searchType}",
-                    pageBuilder: (ctx, state) {
-                      final path = state.pathParameters[RouteParam.searchType] ?? "";
-                      final searchQuery = state.uri.queryParameters[RouteParam.query] ?? "";
-
-                      return animatedPage(
-                        ctx,
-                        state,
-                        widget: SearchScreen(
-                          searchType: path,
-                          key: ValueKey(path + searchQuery),
-                          query: searchQuery,
-                        ),
-                      );
-                    },
-                  ),
                   GoRoute(
                     path: "${RouteName.keywords}/${RouteParam.movie}/:${RouteParam.id}",
                     pageBuilder: (ctx, state) {
@@ -366,10 +351,49 @@ class AppRouter {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: _searchRouterKey,
+            routes: [
+              GoRoute(
+                path: RouteName.search,
+                redirect: shouldRedirectToLoginScreenIfNotLoggedIn,
+                pageBuilder: (ctx, state) {
+                  final searchQuery = state.uri.queryParameters[RouteParam.query] ?? "";
+                  return animatedPage(
+                    ctx,
+                    state,
+                    widget: SearchScreen(
+                      query: searchQuery,
+                    ),
+                  );
+                },
+                routes: [
+                  GoRoute(
+                    path: "${RouteName.searchDetail}/:${RouteParam.searchType}",
+                    pageBuilder: (ctx, state) {
+                      final path = state.pathParameters[RouteParam.searchType] ?? "";
+                      final searchQuery = state.uri.queryParameters[RouteParam.query] ?? "";
+
+                      return animatedPage(
+                        ctx,
+                        state,
+                        widget: SearchDetailScreen(
+                          searchType: path,
+                          key: ValueKey(path + searchQuery),
+                          query: searchQuery,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
             navigatorKey: _profileRouterKey,
             routes: [
               GoRoute(
                 path: RouteName.profile,
+                redirect: shouldRedirectToLoginScreenIfNotLoggedIn,
                 builder: (ctx, state) {
                   return ProfileScreen();
                 },
@@ -497,11 +521,15 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
         destinations: [
           NavigationDestination(
             label: context.tr.home,
-            icon: const Icon(Icons.home_filled),
+            icon: const Icon(Icons.home),
+          ),
+          NavigationDestination(
+            label: context.tr.search,
+            icon: const Icon(Icons.search),
           ),
           NavigationDestination(
             label: context.tr.profile,
-            icon: const Icon(Icons.person_pin),
+            icon: const Icon(Icons.emoji_people),
           ),
         ],
         onDestinationSelected: onDestinationSelected,
@@ -534,11 +562,15 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
             destinations: const [
               NavigationRailDestination(
                 label: WrappedText(""),
-                icon: Icon(Icons.home_filled),
+                icon: Icon(Icons.home),
               ),
               NavigationRailDestination(
                 label: WrappedText(""),
-                icon: Icon(Icons.person_pin),
+                icon: Icon(Icons.search),
+              ),
+              NavigationRailDestination(
+                label: WrappedText(""),
+                icon: Icon(Icons.emoji_people),
               ),
             ],
           ),

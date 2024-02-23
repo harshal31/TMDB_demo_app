@@ -1,4 +1,5 @@
 import 'package:tmdb_app/constants/api_key.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 
 /// All Endpoints will reside here
 class Endpoint {
