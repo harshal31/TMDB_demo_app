@@ -190,41 +190,44 @@ class SearchScreenWebTabImpl extends StatelessWidget {
                               if (index == 3 || index == 4)
                                 Visibility(
                                   visible: results[index].$2.isNotEmpty,
-                                  child: Wrap(
-                                    spacing: 8.0,
-                                    runSpacing: 2.0,
-                                    children: List<Widget>.generate(
-                                      results[index].$2.length,
-                                      (int i) {
-                                        return ActionChip(
-                                          padding: EdgeInsets.zero,
-                                          onPressed: () {
-                                            final urlIdNameMapper = results[index].$2[i];
-                                            if (index == 3) {
-                                              CommonNavigation.redirectToKeywordsScreen(
-                                                context,
-                                                type: RouteParam.movie,
-                                                id: urlIdNameMapper.id,
-                                                extra: urlIdNameMapper.value ?? "",
-                                              );
-                                            }
+                                  child: Container(
+                                    alignment: Alignment.topLeft,
+                                    child: Wrap(
+                                      spacing: 8.0,
+                                      runSpacing: 2.0,
+                                      children: List<Widget>.generate(
+                                        results[index].$2.length,
+                                        (int i) {
+                                          return ActionChip(
+                                            padding: EdgeInsets.zero,
+                                            onPressed: () {
+                                              final urlIdNameMapper = results[index].$2[i];
+                                              if (index == 3) {
+                                                CommonNavigation.redirectToKeywordsScreen(
+                                                  context,
+                                                  type: RouteParam.movie,
+                                                  id: urlIdNameMapper.id,
+                                                  extra: urlIdNameMapper.value ?? "",
+                                                );
+                                              }
 
-                                            if (index == 4) {
-                                              CommonNavigation.redirectToCompaniesScreen(
-                                                context,
-                                                type: RouteParam.movie,
-                                                id: urlIdNameMapper.id,
-                                                extra: urlIdNameMapper.value ?? "",
-                                              );
-                                            }
-                                          },
-                                          label: WrappedText(
-                                            results[index].$2[i].value,
-                                            style: context.textTheme.titleSmall,
-                                          ),
-                                          backgroundColor: context.colorTheme.surface,
-                                        );
-                                      },
+                                              if (index == 4) {
+                                                CommonNavigation.redirectToCompaniesScreen(
+                                                  context,
+                                                  type: RouteParam.movie,
+                                                  id: urlIdNameMapper.id,
+                                                  extra: urlIdNameMapper.value ?? "",
+                                                );
+                                              }
+                                            },
+                                            label: WrappedText(
+                                              results[index].$2[i].value,
+                                              style: context.textTheme.titleSmall,
+                                            ),
+                                            backgroundColor: context.colorTheme.surface,
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                   replacement: SizedBox(
