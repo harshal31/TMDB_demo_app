@@ -5,7 +5,6 @@ import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
-import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
@@ -13,6 +12,7 @@ import 'package:tmdb_app/features/person_detail_feature/data/model/person_detail
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/routes/route_name.dart';
+import 'package:tmdb_app/routes/route_param.dart';
 
 class TmdbSideView extends StatelessWidget {
   final MediaDetail? mediaDetail;
@@ -119,11 +119,12 @@ class TmdbSideView extends StatelessWidget {
             visible: keywords.isNotEmpty,
             child: Wrap(
               spacing: 8.0, // gap between adjacent chips
-              runSpacing: keywordSpacing ?? 8.0, // gap between lines
+              runSpacing: keywordSpacing ?? 4.0, // gap between lines
               children: List<Widget>.generate(
                 keywords.length,
                 (int index) {
                   return ActionChip(
+                    padding: EdgeInsets.zero,
                     onPressed: () {
                       context.push(
                         Uri(
@@ -314,11 +315,12 @@ class TmdbTvSeriesSideView extends StatelessWidget {
             visible: keywords.isNotEmpty,
             child: Wrap(
               spacing: 8.0, // gap between adjacent chips
-              runSpacing: keywordSpacing ?? 8.0, // gap between lines
+              runSpacing: keywordSpacing ?? 4.0, // gap between lines
               children: List<Widget>.generate(
                 keywords.length,
                 (int index) {
                   return ActionChip(
+                    padding: EdgeInsets.zero,
                     onPressed: () {
                       context.push(
                         Uri(

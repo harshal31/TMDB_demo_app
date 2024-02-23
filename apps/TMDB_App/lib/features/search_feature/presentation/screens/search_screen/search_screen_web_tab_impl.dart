@@ -192,11 +192,12 @@ class SearchScreenWebTabImpl extends StatelessWidget {
                                   visible: results[index].$2.isNotEmpty,
                                   child: Wrap(
                                     spacing: 8.0,
-                                    runSpacing: 8.0,
+                                    runSpacing: 2.0,
                                     children: List<Widget>.generate(
                                       results[index].$2.length,
                                       (int i) {
                                         return ActionChip(
+                                          padding: EdgeInsets.zero,
                                           onPressed: () {
                                             final urlIdNameMapper = results[index].$2[i];
                                             if (index == 3) {
