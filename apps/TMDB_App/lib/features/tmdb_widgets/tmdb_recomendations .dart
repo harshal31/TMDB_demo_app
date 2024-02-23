@@ -25,7 +25,9 @@ class TmdbRecomendations extends StatelessWidget {
   Widget build(BuildContext context) {
     if (recommendations.isEmpty) {
       return WrappedText(
-        context.tr.noRecommendation(detail?.originalTitle ?? ""),
+        context.tr.noRecommendation(
+          detail?.getActualName(detail?.type == ApiKey.movie) ?? "",
+        ),
         style: context.textTheme.titleMedium,
         textAlign: TextAlign.center,
       );
