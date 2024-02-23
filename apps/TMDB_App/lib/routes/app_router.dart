@@ -5,8 +5,10 @@ import "package:common_widgets/widgets/wrapped_text.dart";
 import "package:common_widgets/widgets/youtube_video.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:get_it/get_it.dart";
 import "package:go_router/go_router.dart";
+import "package:tmdb_app/app_level_provider/bottom_nav_cubit.dart";
 import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
 import 'package:tmdb_app/features/authentication_feature/presentation/screens/authentication_screen.dart';
@@ -43,6 +45,7 @@ class AppRouter {
     routes: [
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
+          _changeBottomNavVisibility(context);
           return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
         },
         branches: [
@@ -50,7 +53,7 @@ class AppRouter {
             navigatorKey: _homeRouterKey,
             routes: [
               GoRoute(
-                redirect: shouldRedirectToLoginScreenIfNotLoggedIn,
+                redirect: _shouldRedirectToLoginScreenIfNotLoggedIn,
                 path: RouteName.home,
                 builder: (ctx, state) {
                   return const HomeScreen();
@@ -62,7 +65,7 @@ class AppRouter {
                       final keywordType = (state.extra is String ? state.extra as String : "");
                       final keywordId = state.pathParameters[RouteParam.id] ?? "";
 
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: KeywordMoviesScreen(
@@ -79,7 +82,7 @@ class AppRouter {
                       final keywordType = (state.extra is String ? state.extra as String : "");
                       final keywordId = state.pathParameters[RouteParam.id] ?? "";
 
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: KeywordTvShowsScreen(
@@ -96,7 +99,7 @@ class AppRouter {
                       final companyName = (state.extra is String ? state.extra as String : "");
                       final companyId = state.pathParameters[RouteParam.id] ?? "";
 
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: CompanyMoviesScreen(
@@ -113,7 +116,7 @@ class AppRouter {
                       final companyName = (state.extra is String ? state.extra as String : "");
                       final companyId = state.pathParameters[RouteParam.id] ?? "";
 
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: CompanyTvShowsScreen(
@@ -130,7 +133,7 @@ class AppRouter {
                       final networkName = (state.extra is String ? state.extra as String : "");
                       final networkId = state.pathParameters[RouteParam.id] ?? "";
 
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: NetworkTvShowsScreen(
@@ -144,7 +147,7 @@ class AppRouter {
                   GoRoute(
                     path: RouteName.movie,
                     pageBuilder: (ctx, state) {
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: const MediaListingScreen(isMovies: true),
@@ -155,7 +158,7 @@ class AppRouter {
                         path: ":${RouteParam.id}",
                         pageBuilder: (ctx, state) {
                           final movieId = state.pathParameters[RouteParam.id] ?? "";
-                          return animatedPage(
+                          return _animatedPage(
                             ctx,
                             state,
                             widget: MovieDetailScreen(key: ValueKey(movieId), movieId: movieId),
@@ -166,7 +169,7 @@ class AppRouter {
                             path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
                             pageBuilder: (ctx, state) {
                               final id = state.pathParameters[RouteParam.videoId] ?? "";
-                              return animatedPage(
+                              return _animatedPage(
                                 ctx,
                                 state,
                                 widget: YoutubeVideo(id: id),
@@ -177,7 +180,7 @@ class AppRouter {
                             path: RouteName.reviews,
                             pageBuilder: (ctx, state) {
                               final movieId = state.pathParameters[RouteParam.id] ?? "";
-                              return animatedPage(
+                              return _animatedPage(
                                 ctx,
                                 state,
                                 widget: ReviewsListingScreen(
@@ -191,7 +194,7 @@ class AppRouter {
                             path: RouteName.cast,
                             pageBuilder: (ctx, state) {
                               final tvId = state.pathParameters[RouteParam.id] ?? "";
-                              return animatedPage(
+                              return _animatedPage(
                                 ctx,
                                 state,
                                 widget: CastCrewScreen(
@@ -205,7 +208,7 @@ class AppRouter {
                             path: RouteName.videos,
                             pageBuilder: (ctx, state) {
                               final movieId = state.pathParameters[RouteParam.id] ?? "";
-                              return animatedPage(
+                              return _animatedPage(
                                 ctx,
                                 state,
                                 widget: TmdbYoutubeMediaListingScreen(
@@ -219,7 +222,7 @@ class AppRouter {
                                 path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
                                 pageBuilder: (ctx, state) {
                                   final id = state.pathParameters[RouteParam.videoId] ?? "";
-                                  return animatedPage(
+                                  return _animatedPage(
                                     ctx,
                                     state,
                                     widget: YoutubeVideo(id: id),
@@ -235,7 +238,7 @@ class AppRouter {
                   GoRoute(
                     path: RouteName.tv,
                     pageBuilder: (ctx, state) {
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: const MediaListingScreen(isMovies: false),
@@ -246,7 +249,7 @@ class AppRouter {
                         path: ":${RouteParam.id}",
                         pageBuilder: (ctx, state) {
                           final seriesId = state.pathParameters[RouteParam.id] ?? "";
-                          return animatedPage(
+                          return _animatedPage(
                             ctx,
                             state,
                             widget: TvDetailScreen(key: ValueKey(seriesId), seriesId: seriesId),
@@ -257,7 +260,7 @@ class AppRouter {
                             path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
                             pageBuilder: (ctx, state) {
                               final id = state.pathParameters[RouteParam.videoId] ?? "";
-                              return animatedPage(
+                              return _animatedPage(
                                 ctx,
                                 state,
                                 widget: YoutubeVideo(id: id),
@@ -268,7 +271,7 @@ class AppRouter {
                             path: RouteName.reviews,
                             pageBuilder: (ctx, state) {
                               final movieId = state.pathParameters[RouteParam.id] ?? "";
-                              return animatedPage(
+                              return _animatedPage(
                                 ctx,
                                 state,
                                 widget: ReviewsListingScreen(
@@ -282,7 +285,7 @@ class AppRouter {
                             path: RouteName.cast,
                             pageBuilder: (ctx, state) {
                               final tvId = state.pathParameters[RouteParam.id] ?? "";
-                              return animatedPage(
+                              return _animatedPage(
                                 ctx,
                                 state,
                                 widget: CastCrewScreen(
@@ -296,7 +299,7 @@ class AppRouter {
                             path: RouteName.videos,
                             pageBuilder: (ctx, state) {
                               final movieId = state.pathParameters[RouteParam.id] ?? "";
-                              return animatedPage(
+                              return _animatedPage(
                                 ctx,
                                 state,
                                 widget: TmdbYoutubeMediaListingScreen(
@@ -310,7 +313,7 @@ class AppRouter {
                                 path: "${RouteName.youtubeVideo}/:${RouteParam.videoId}",
                                 pageBuilder: (ctx, state) {
                                   final id = state.pathParameters[RouteParam.videoId] ?? "";
-                                  return animatedPage(
+                                  return _animatedPage(
                                     ctx,
                                     state,
                                     widget: YoutubeVideo(id: id),
@@ -326,7 +329,7 @@ class AppRouter {
                   GoRoute(
                     path: "${RouteName.person}",
                     pageBuilder: (ctx, state) {
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: const PersonListingScreen(),
@@ -337,7 +340,7 @@ class AppRouter {
                         path: ":${RouteParam.id}",
                         pageBuilder: (ctx, state) {
                           final personId = state.pathParameters[RouteParam.id] ?? "";
-                          return animatedPage(
+                          return _animatedPage(
                             ctx,
                             state,
                             widget: PersonDetailScreen(key: ValueKey(personId), personId: personId),
@@ -355,10 +358,10 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: RouteName.search,
-                redirect: shouldRedirectToLoginScreenIfNotLoggedIn,
+                redirect: _shouldRedirectToLoginScreenIfNotLoggedIn,
                 pageBuilder: (ctx, state) {
                   final searchQuery = state.uri.queryParameters[RouteParam.query] ?? "";
-                  return animatedPage(
+                  return _animatedPage(
                     ctx,
                     state,
                     widget: SearchScreen(
@@ -373,7 +376,7 @@ class AppRouter {
                       final path = state.pathParameters[RouteParam.searchType] ?? "";
                       final searchQuery = state.uri.queryParameters[RouteParam.query] ?? "";
 
-                      return animatedPage(
+                      return _animatedPage(
                         ctx,
                         state,
                         widget: SearchDetailScreen(
@@ -393,7 +396,7 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: RouteName.profile,
-                redirect: shouldRedirectToLoginScreenIfNotLoggedIn,
+                redirect: _shouldRedirectToLoginScreenIfNotLoggedIn,
                 builder: (ctx, state) {
                   return ProfileScreen();
                 },
@@ -405,7 +408,7 @@ class AppRouter {
       GoRoute(
         path: RouteName.login,
         redirect: (ctx, s) {
-          return shouldRedirectToHomeScreenIfLoggedIn(ctx, s);
+          return _shouldRedirectToHomeScreenIfLoggedIn(ctx, s);
         },
         builder: (ctx, state) {
           return AuthenticationScreen();
@@ -414,7 +417,7 @@ class AppRouter {
     ],
   );
 
-  static Page<dynamic> animatedPage(
+  static Page<dynamic> _animatedPage(
     BuildContext ctx,
     GoRouterState state, {
     required Widget widget,
@@ -443,7 +446,7 @@ class AppRouter {
     );
   }
 
-  static FutureOr<String?> shouldRedirectToHomeScreenIfLoggedIn(
+  static FutureOr<String?> _shouldRedirectToHomeScreenIfLoggedIn(
     BuildContext c,
     GoRouterState s,
   ) async {
@@ -454,7 +457,7 @@ class AppRouter {
     return null;
   }
 
-  static FutureOr<String?> shouldRedirectToLoginScreenIfNotLoggedIn(
+  static FutureOr<String?> _shouldRedirectToLoginScreenIfNotLoggedIn(
     BuildContext c,
     GoRouterState s,
   ) async {
@@ -463,6 +466,17 @@ class AppRouter {
       return RouteName.login;
     }
     return null;
+  }
+
+  static void _changeBottomNavVisibility(BuildContext context) {
+    final pathSegment =
+        GoRouter.of(context).routerDelegate.currentConfiguration.last.matchedLocation.split("/");
+
+    context.read<BottomNavCubit>().changeBottomNavVisibility(
+        (pathSegment.length == 2 || pathSegment.length == 1) &&
+                pathSegment[1] == RouteName.home.replaceAll("/", "") ||
+            pathSegment[1] == RouteName.search.replaceAll("/", "") ||
+            pathSegment[1] == RouteName.profile.replaceAll("/", ""));
   }
 }
 
@@ -516,23 +530,29 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: body,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: selectedIndex,
-        destinations: [
-          NavigationDestination(
-            label: context.tr.home,
-            icon: const Icon(Icons.home),
-          ),
-          NavigationDestination(
-            label: context.tr.search,
-            icon: const Icon(Icons.search),
-          ),
-          NavigationDestination(
-            label: context.tr.profile,
-            icon: const Icon(Icons.emoji_people),
-          ),
-        ],
-        onDestinationSelected: onDestinationSelected,
+      bottomNavigationBar: BlocBuilder<BottomNavCubit, bool>(
+        builder: (context, state) {
+          return state
+              ? NavigationBar(
+                  selectedIndex: selectedIndex,
+                  destinations: [
+                    NavigationDestination(
+                      label: context.tr.home,
+                      icon: const Icon(Icons.home),
+                    ),
+                    NavigationDestination(
+                      label: context.tr.search,
+                      icon: const Icon(Icons.search),
+                    ),
+                    NavigationDestination(
+                      label: context.tr.profile,
+                      icon: const Icon(Icons.emoji_people),
+                    ),
+                  ],
+                  onDestinationSelected: onDestinationSelected,
+                )
+              : const SizedBox.shrink();
+        },
       ),
     );
   }

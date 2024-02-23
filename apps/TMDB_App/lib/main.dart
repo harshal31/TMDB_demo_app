@@ -10,6 +10,7 @@ import "package:get_it/get_it.dart";
 import "package:go_router/go_router.dart";
 import "package:responsive_framework/responsive_framework.dart";
 import "package:tmdb_app/app_level_provider/app_provider.dart";
+import "package:tmdb_app/app_level_provider/bottom_nav_cubit.dart";
 import "package:tmdb_app/app_level_provider/system_cubit.dart";
 import "package:tmdb_app/constants/app_constant.dart";
 import "package:tmdb_app/constants/hive_key.dart";
@@ -46,8 +47,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SystemCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SystemCubit(),
+        ),
+        BlocProvider(
+          create: (context) => BottomNavCubit(),
+        ),
+      ],
       child: BlocBuilder<SystemCubit, SystemState>(
         buildWhen: (prev, cur) => prev != cur,
         builder: (context, state) {
