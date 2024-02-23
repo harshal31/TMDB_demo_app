@@ -362,7 +362,7 @@ class AppRouter {
                     ctx,
                     state,
                     widget: SearchScreen(
-                      query: searchQuery,
+                      query: searchQuery.trim(),
                     ),
                   );
                 },

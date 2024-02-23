@@ -340,6 +340,7 @@ class MovieDetailWebScreen extends StatelessWidget {
                           ),
                           TmdbCastList(
                             model: state.mediaDetailModel.mediaCredits?.cast,
+                            mediaDetail: state.mediaDetailModel.mediaDetail,
                           ),
                           const SizedBox(
                             height: 22,

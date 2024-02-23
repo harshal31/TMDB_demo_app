@@ -155,6 +155,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String noCastPresent(Object name) {
+    return 'We don\'t have any casts for $name.';
+  }
+
+  @override
   String noRecommendation(Object name) {
     return 'We don\'t have enough data to suggest any movies based on $name. You can help by rating movies you\'ve seen.';
   }

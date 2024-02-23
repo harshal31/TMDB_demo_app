@@ -379,6 +379,12 @@ abstract class AppLocalizations {
   /// **'We don\'t have any reviews for {name}.'**
   String noReviews(Object name);
 
+  /// No description provided for @noCastPresent.
+  ///
+  /// In en, this message translates to:
+  /// **'We don\'t have any casts for {name}.'**
+  String noCastPresent(Object name);
+
   /// No description provided for @noRecommendation.
   ///
   /// In en, this message translates to:

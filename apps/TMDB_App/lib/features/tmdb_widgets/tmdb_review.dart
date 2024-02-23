@@ -4,6 +4,7 @@ import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/read_more_text.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
+import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
@@ -24,7 +25,7 @@ class TmdbReview extends StatelessWidget {
   Widget build(BuildContext context) {
     if (result == null) {
       return WrappedText(
-        context.tr.noReviews(mediaDetail?.originalTitle ?? ""),
+        context.tr.noReviews(mediaDetail?.getActualName(mediaDetail?.type == ApiKey.movie) ?? ""),
         style: context.textTheme.titleMedium,
       );
     }

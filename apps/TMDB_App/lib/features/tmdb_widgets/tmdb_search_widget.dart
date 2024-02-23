@@ -4,15 +4,20 @@ import 'package:flutter/material.dart';
 
 class TmdbSearchWidget extends StatefulWidget {
   final Function(String) onSearch;
+  final String? query;
 
-  const TmdbSearchWidget({super.key, required this.onSearch});
+  const TmdbSearchWidget({
+    super.key,
+    required this.onSearch,
+    this.query,
+  });
 
   @override
   State<TmdbSearchWidget> createState() => _TmdbSearchWidgetState();
 }
 
 class _TmdbSearchWidgetState extends State<TmdbSearchWidget> {
-  final TextEditingController controller = TextEditingController(text: "");
+  late final TextEditingController controller = TextEditingController(text: widget.query ?? "");
   final FocusNode focusNode = FocusNode();
   bool isDisplaySearchIcon = false;
 

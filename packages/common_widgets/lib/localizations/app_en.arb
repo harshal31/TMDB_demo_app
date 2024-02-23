@@ -47,6 +47,7 @@
   "aReviewBy": "A Review By {user}",
   "noKeywords": "No keywords have been added.",
   "noReviews": "We don't have any reviews for {name}.",
+  "noCastPresent": "We don't have any casts for {name}.",
   "noRecommendation": "We don't have enough data to suggest any movies based on {name}. You can help by rating movies you've seen.",
   "noVideos": "No Videos have been present.",
   "noBackdrops": "No Backdrops have been present.",

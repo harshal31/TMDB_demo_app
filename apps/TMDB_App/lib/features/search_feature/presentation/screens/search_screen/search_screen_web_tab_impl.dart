@@ -29,6 +29,7 @@ class SearchScreenWebTabImpl extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TmdbSearchWidget(
+            query: query,
             onSearch: (s) {
               context.read<CombineSearchResultCubit>().consolidatedSearchResult(s);
             },
