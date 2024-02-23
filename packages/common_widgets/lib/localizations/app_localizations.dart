@@ -678,6 +678,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Almost Identical'**
   String get almostIdentical;
+
+  /// No description provided for @seasonOfMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Season {num} of {seasonName} premiered on {date}'**
+  String seasonOfMessage(Object date, Object num, Object seasonName);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

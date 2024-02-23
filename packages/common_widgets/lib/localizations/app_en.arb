@@ -96,5 +96,6 @@
   "noSearchResultFound": "No ${type} Search Result Found",
   "pleaseEnterBeginQuery": "Please enter a query to begin your search",
   "userScore": "User Score",
-  "almostIdentical": "Almost Identical"
+  "almostIdentical": "Almost Identical",
+  "seasonOfMessage": "Season {num} of {seasonName} premiered on {date}"
 }

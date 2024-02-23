@@ -343,4 +343,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get almostIdentical => 'Almost Identical';
+
+  @override
+  String seasonOfMessage(Object date, Object num, Object seasonName) {
+    return 'Season $num of $seasonName premiered on $date';
+  }
 }
