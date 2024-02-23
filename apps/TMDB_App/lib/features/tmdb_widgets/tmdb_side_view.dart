@@ -13,7 +13,6 @@ import 'package:tmdb_app/features/person_detail_feature/data/model/person_detail
 import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/routes/route_name.dart';
-import 'package:tmdb_app/routes/route_param.dart';
 
 class TmdbSideView extends StatelessWidget {
   final MediaDetail? mediaDetail;

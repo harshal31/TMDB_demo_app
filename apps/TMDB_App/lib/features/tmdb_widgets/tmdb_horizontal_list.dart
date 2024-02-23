@@ -48,7 +48,7 @@ class TmdbHorizontalList extends StatelessWidget {
             );
           }
           return Padding(
-            key: ValueKey(index),
+            key: ValueKey(imageUrls[index]),
             padding: const EdgeInsets.only(right: 16.0),
             child: Stack(
               children: [
