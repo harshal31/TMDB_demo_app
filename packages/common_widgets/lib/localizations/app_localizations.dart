@@ -684,6 +684,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Season {num} of {seasonName} premiered on {date}'**
   String seasonOfMessage(Object date, Object num, Object seasonName);
+
+  /// No description provided for @totalVotes.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 vote} other{{count} votes}}'**
+  String totalVotes(num count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

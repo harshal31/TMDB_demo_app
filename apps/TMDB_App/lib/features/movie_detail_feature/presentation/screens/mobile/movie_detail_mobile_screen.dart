@@ -138,11 +138,12 @@ class MovieDetailMobileScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         TmdbUserScore(
                           average: state.mediaDetailModel.mediaDetail?.voteAverage ?? 0.0,
+                          voteCount: state.mediaDetailModel.mediaDetail?.voteCount,
                           circleSize: 50,
                           numberStyle: context.textTheme.titleMedium,
                           style: context.textTheme.titleMedium,
                         ),
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 8),
                         Visibility(
                           visible: state.mediaDetailModel.genres().isNotEmpty,
                           child: Padding(
@@ -302,7 +303,6 @@ class MovieDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

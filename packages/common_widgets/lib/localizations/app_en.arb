@@ -97,5 +97,12 @@
   "pleaseEnterBeginQuery": "Please enter a query to begin your search",
   "userScore": "User Score",
   "almostIdentical": "Almost Identical",
-  "seasonOfMessage": "Season {num} of {seasonName} premiered on {date}"
+  "seasonOfMessage": "Season {num} of {seasonName} premiered on {date}",
+  "totalVotes": "{count, plural, one{1 vote} other{{count} votes}}",
+  "@subscriptionEndReminder": {
+    "description": "Total votes",
+    "placeholders": {
+      "count": {}
+    }
+  }
 }

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class TmdbUserScore extends StatelessWidget {
   final double average;
+  final int? voteCount;
   final double? circleSize;
   final Color? color;
   final TextStyle? style;
@@ -15,6 +16,7 @@ class TmdbUserScore extends StatelessWidget {
   const TmdbUserScore({
     super.key,
     required this.average,
+    required this.voteCount,
     this.circleSize,
     this.color,
     this.style,
@@ -70,10 +72,30 @@ class TmdbUserScore extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 8),
-        WrappedText(
-          context.tr.userScore,
-          style: style?.copyWith(fontWeight: FontWeight.bold),
-          maxLines: 2,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            WrappedText(
+              context.tr.userScore,
+              style: style?.copyWith(fontWeight: FontWeight.bold),
+              maxLines: 2,
+            ),
+            Visibility(
+              visible: voteCount != 0,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 2),
+                  WrappedText(
+                    "(${context.tr.totalVotes(voteCount ?? 0)})",
+                    style: context.textTheme.titleSmall,
+                    maxLines: 2,
+                  ),
+                ],
+              ),
+            )
+          ],
         )
       ],
     );

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 /// The translations for English (`en`).
@@ -347,5 +349,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String seasonOfMessage(Object date, Object num, Object seasonName) {
     return 'Season $num of $seasonName premiered on $date';
+  }
+
+  @override
+  String totalVotes(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count votes',
+      one: '1 vote',
+    );
+    return '$_temp0';
   }
 }

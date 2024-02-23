@@ -130,6 +130,8 @@ class TvDetailTabletScreen extends StatelessWidget {
                                             average:
                                                 state.mediaDetailModel.mediaDetail?.voteAverage ??
                                                     0.0,
+                                            voteCount:
+                                                state.mediaDetailModel.mediaDetail?.voteCount,
                                             circleSize: 60,
                                             numberStyle: context.textTheme.titleLarge,
                                             style: context.textTheme.titleMedium,

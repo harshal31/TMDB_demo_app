@@ -1,4 +1,5 @@
 import 'package:common_widgets/gen/app_asset.dart';
+import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/url_util/url_util.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/constants/social_url_constants.dart';
@@ -102,6 +103,7 @@ class TmdbShare extends StatelessWidget {
                   },
                   icon: AppAsset.images.wiki.image(
                     package: "common_widgets",
+                    color: context.colorTheme.onBackground,
                     width: 30,
                     height: 30,
                   ),
