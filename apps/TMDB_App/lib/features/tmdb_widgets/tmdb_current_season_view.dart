@@ -213,6 +213,7 @@ class TmdbCurrentSeasonMobileView extends StatelessWidget {
                       season?.name ?? "",
                     ),
                     style: context.textTheme.titleSmall,
+                    maxLines: 4,
                   ),
                   const SizedBox(height: 8),
                   Visibility(

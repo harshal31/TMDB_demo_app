@@ -62,7 +62,7 @@ class TmdbReview extends StatelessWidget {
                               : "A",
                           style: context.textTheme.titleMedium?.copyWith(
                             color: context.colorTheme.onPrimary,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                 ),
@@ -74,7 +74,7 @@ class TmdbReview extends StatelessWidget {
                     children: [
                       WrappedText(
                         context.tr.aReviewBy(result?.author ?? ""),
-                        style: context.textTheme.titleLarge?.copyWith(
+                        style: context.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -106,13 +106,13 @@ class TmdbReview extends StatelessWidget {
                                         result?.authorDetails?.rating.toString() ?? "",
                                         style: context.textTheme.titleSmall?.copyWith(
                                           color: context.colorTheme.onPrimary,
-                                          fontWeight: FontWeight.w800,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(width: 16),
+                                const SizedBox(width: 4),
                               ],
                             ),
                           ),

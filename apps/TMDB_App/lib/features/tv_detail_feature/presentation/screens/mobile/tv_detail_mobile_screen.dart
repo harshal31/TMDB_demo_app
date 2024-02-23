@@ -284,6 +284,30 @@ class TvDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TmdbShare(
+                      tmdbShareModel: state.mediaDetailModel.mediaExternalId,
+                      mediaType: RouteParam.tv,
+                    ),
+                    const SizedBox(height: 16),
+                    TmdbTvSeriesSideView(
+                      keywordSpacing: 2.0,
+                      mediaDetail: state.mediaDetailModel.mediaDetail,
+                      keywords: state.mediaDetailModel.mediaKeywords?.results ?? [],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -489,29 +513,6 @@ class TvDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TmdbShare(
-                      tmdbShareModel: state.mediaDetailModel.mediaExternalId,
-                      mediaType: RouteParam.tv,
-                    ),
-                    const SizedBox(height: 16),
-                    TmdbTvSeriesSideView(
-                      keywordSpacing: 2.0,
-                      mediaDetail: state.mediaDetailModel.mediaDetail,
-                      keywords: state.mediaDetailModel.mediaKeywords?.results ?? [],
-                    ),
-                  ],
-                ),
-              ),
-            )
           ],
         );
       },

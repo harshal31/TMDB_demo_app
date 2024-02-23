@@ -302,6 +302,30 @@ class MovieDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TmdbShare(
+                      tmdbShareModel: state.mediaDetailModel.mediaExternalId,
+                      mediaType: RouteParam.movie,
+                    ),
+                    const SizedBox(height: 16),
+                    TmdbSideView(
+                      keywordSpacing: 2.0,
+                      mediaDetail: state.mediaDetailModel.mediaDetail,
+                      keywords: state.mediaDetailModel.mediaKeywords?.keywords ?? [],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -478,29 +502,6 @@ class MovieDetailMobileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 16)),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TmdbShare(
-                      tmdbShareModel: state.mediaDetailModel.mediaExternalId,
-                      mediaType: RouteParam.movie,
-                    ),
-                    const SizedBox(height: 16),
-                    TmdbSideView(
-                      keywordSpacing: 2.0,
-                      mediaDetail: state.mediaDetailModel.mediaDetail,
-                      keywords: state.mediaDetailModel.mediaKeywords?.keywords ?? [],
-                    ),
-                  ],
-                ),
-              ),
-            )
           ],
         );
       },

@@ -1,5 +1,4 @@
 import 'package:common_widgets/gen/app_asset.dart';
-import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/url_util/url_util.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/constants/social_url_constants.dart';
@@ -35,10 +34,10 @@ class TmdbShare extends StatelessWidget {
                       SocialUrlConstants.facebookUrl(tmdbShareModel?.facebookId),
                     );
                   },
-                  icon: ImageIcon(
-                    AppAsset.images.facebook.provider(package: "common_widgets"),
-                    size: 30,
-                    color: context.colorTheme.primary,
+                  icon: AppAsset.images.facebook.image(
+                    package: "common_widgets",
+                    width: 30,
+                    height: 30,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -57,10 +56,10 @@ class TmdbShare extends StatelessWidget {
                       SocialUrlConstants.instaUrl(tmdbShareModel?.twitterId),
                     );
                   },
-                  icon: ImageIcon(
-                    AppAsset.images.instagram.provider(package: "common_widgets"),
-                    size: 30,
-                    color: context.colorTheme.primary,
+                  icon: AppAsset.images.instagram.image(
+                    package: "common_widgets",
+                    width: 30,
+                    height: 30,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -79,10 +78,10 @@ class TmdbShare extends StatelessWidget {
                       SocialUrlConstants.twitterUrl(tmdbShareModel?.twitterId),
                     );
                   },
-                  icon: ImageIcon(
-                    AppAsset.images.twitter.provider(package: "common_widgets"),
-                    size: 30,
-                    color: context.colorTheme.primary,
+                  icon: AppAsset.images.twitter.image(
+                    package: "common_widgets",
+                    width: 30,
+                    height: 30,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -101,10 +100,10 @@ class TmdbShare extends StatelessWidget {
                       SocialUrlConstants.wikiUrl(tmdbShareModel?.wikidataId),
                     );
                   },
-                  icon: ImageIcon(
-                    AppAsset.images.wiki.provider(package: "common_widgets"),
-                    size: 30,
-                    color: context.colorTheme.primary,
+                  icon: AppAsset.images.wiki.image(
+                    package: "common_widgets",
+                    width: 30,
+                    height: 30,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -123,10 +122,10 @@ class TmdbShare extends StatelessWidget {
                       SocialUrlConstants.imdbUrl(tmdbShareModel?.imdbId, mediaType),
                     );
                   },
-                  icon: ImageIcon(
-                    AppAsset.images.imdb.provider(package: "common_widgets"),
-                    size: 30,
-                    color: context.colorTheme.primary,
+                  icon: AppAsset.images.imdb.image(
+                    package: "common_widgets",
+                    width: 30,
+                    height: 30,
                   ),
                 ),
               ],
