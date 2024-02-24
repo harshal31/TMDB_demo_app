@@ -1,18 +1,19 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:common_widgets/youtube/youtube_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 
 class TmdbMediaView extends StatelessWidget {
   final int pos;
-  final String mediaId;
+  final MediaDetail? mediaDetail;
   final List<Videos> videos;
   final MediaImages? images;
   final String? mediaType;
@@ -24,7 +25,7 @@ class TmdbMediaView extends StatelessWidget {
     required this.pos,
     required this.videos,
     required this.images,
-    required this.mediaId,
+    required this.mediaDetail,
     this.height,
     this.width,
     required this.mediaType,
@@ -42,7 +43,7 @@ class TmdbMediaView extends StatelessWidget {
       child: pos == 0
           ? _TmdbVideos(
               videos: videos.take(10).toList(),
-              mediaId: mediaId,
+              mediaId: mediaDetail?.id.toString() ?? "",
               height: height,
               width: width,
               mediaType: mediaType,
@@ -52,10 +53,14 @@ class TmdbMediaView extends StatelessWidget {
                   backDrops: images?.backdrops?.take(10).toList() ?? [],
                   height: height,
                   width: width,
+                  mediaId: mediaDetail?.id.toString() ?? "",
+                  mediaDetail: mediaDetail,
                 )
               : _TmdbPosters(
                   posters: images?.posters?.take(10).toList() ?? [],
                   height: height,
+                  mediaId: mediaDetail?.id.toString() ?? "",
+                  mediaDetail: mediaDetail,
                 )),
     );
   }
@@ -150,13 +155,17 @@ class _TmdbVideos extends StatelessWidget {
 
 class _TmdbBackdrops extends StatelessWidget {
   final List<Backdrops> backDrops;
+  final MediaDetail? mediaDetail;
+  final String mediaId;
   final double? height;
   final double? width;
 
   const _TmdbBackdrops({
     required this.backDrops,
+    required this.mediaDetail,
     this.height,
     this.width,
+    required this.mediaId,
   });
 
   @override
@@ -193,7 +202,12 @@ class _TmdbBackdrops extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: () {},
+                      onTap: () {
+                        context.push(
+                          "${RouteName.home}/${RouteName.movie}/$mediaId/${RouteName.backdrops}/$index",
+                          extra: mediaDetail,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -215,9 +229,16 @@ class _TmdbBackdrops extends StatelessWidget {
 
 class _TmdbPosters extends StatelessWidget {
   final List<Posters> posters;
+  final MediaDetail? mediaDetail;
+  final String mediaId;
   final double? height;
 
-  const _TmdbPosters({required this.posters, this.height});
+  const _TmdbPosters({
+    required this.posters,
+    required this.mediaDetail,
+    this.height,
+    required this.mediaId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -250,7 +271,12 @@ class _TmdbPosters extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: () {},
+                      onTap: () {
+                        context.push(
+                          "${RouteName.home}/${RouteName.movie}/$mediaId/${RouteName.posters}/$index",
+                          extra: mediaDetail,
+                        );
+                      },
                     ),
                   ),
                 ),

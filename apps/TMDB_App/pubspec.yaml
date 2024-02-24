@@ -27,7 +27,6 @@ dependencies:
   equatable: ^2.0.5
   google_fonts: ^6.1.0
   responsive_framework: ^1.1.1
-  extended_image: ^8.2.0
   pretty_dio_logger: ^1.3.1
   image_network: ^2.5.6
   infinite_scroll_pagination: ^4.0.0
@@ -131,7 +130,7 @@ flutter_native_splash:
     #color_dark: "#042a49"
     #icon_background_color_dark: "#eeeeee"
 
-    # The android, ios and web parameters can be used to disable generating a splash screen on a given
+    # The android, ios and web_tab parameters can be used to disable generating a splash screen on a given
     # platform.
   web: false
     #android: true
@@ -150,20 +149,20 @@ flutter_native_splash:
     #image_dark_android: assets/splash-invert-android.png
     #image_ios: assets/splash-ios.png
     #image_dark_ios: assets/splash-invert-ios.png
-    #image_web: assets/splash-web.gif
-    #image_dark_web: assets/splash-invert-web.gif
+    #image_web: assets/splash-web_tab.gif
+    #image_dark_web: assets/splash-invert-web_tab.gif
     #background_image_android: "assets/background-android.png"
     #background_image_dark_android: "assets/dark-background-android.png"
     #background_image_ios: "assets/background-ios.png"
     #background_image_dark_ios: "assets/dark-background-ios.png"
-    #background_image_web: "assets/background-web.png"
-    #background_image_dark_web: "assets/dark-background-web.png"
+    #background_image_web: "assets/background-web_tab.png"
+    #background_image_dark_web: "assets/dark-background-web_tab.png"
     #branding_android: assets/brand-android.png
     #branding_dark_android: assets/dart_dark-android.png
     #branding_ios: assets/brand-ios.png
     #branding_dark_ios: assets/dart_dark-ios.png
-    #branding_web: assets/brand-web.gif
-    #branding_dark_web: assets/dart_dark-web.gif
+    #branding_web: assets/brand-web_tab.gif
+    #branding_dark_web: assets/dart_dark-web_tab.gif
 
     # The position of the splash image can be set with android_gravity, ios_content_mode, and
     # web_image_mode parameters.  All default to center.
@@ -188,7 +187,7 @@ flutter_native_splash:
     # https://developer.android.com/guide/topics/manifest/activity-element#screen
     #android_screen_orientation: sensorLandscape
 
-    # To hide the notification bar, use the fullscreen parameter.  Has no effect in web since web
+    # To hide the notification bar, use the fullscreen parameter.  Has no effect in web_tab since web_tab
     # has no notification bar.  Defaults to false.
     # NOTE: Unlike Android, iOS will not automatically show the notification bar when the app loads.
     #       To show the notification bar, add the following code to your Flutter app:

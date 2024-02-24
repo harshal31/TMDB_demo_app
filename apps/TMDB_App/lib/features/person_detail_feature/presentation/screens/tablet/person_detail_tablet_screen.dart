@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/features/person_detail_feature/data/model/person_credit.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/cubits/person_detail_cubit.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/use_cases/person_detail_use_case.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 

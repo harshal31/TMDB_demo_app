@@ -6,6 +6,7 @@ import 'package:tmdb_app/features/cast_crew_listing_feature/data/cast_crew_listi
 import 'package:tmdb_app/features/cast_crew_listing_feature/data/media_grouping.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
 import 'package:tmdb_app/network/error_response.dart';
 import 'package:tmdb_app/network/safe_api_call.dart';
 
@@ -98,16 +99,16 @@ class CastCrewError extends CastCrewStatus {
 class TmdbMediaState with EquatableMixin {
   final MediaDetail? mediaDetail;
   final GroupVideos groupVideos;
-  final GroupBackdrops groupBackdrops;
-  final GroupPosters groupPosters;
+  final List<Backdrops> backdrops;
+  final List<Posters> posters;
   final TmdbMediaStatus tmdbMediaStatus;
   final String currentPopupState;
 
   TmdbMediaState({
     required this.mediaDetail,
     required this.groupVideos,
-    required this.groupBackdrops,
-    required this.groupPosters,
+    required this.backdrops,
+    required this.posters,
     required this.tmdbMediaStatus,
     required this.currentPopupState,
   });
@@ -116,8 +117,8 @@ class TmdbMediaState with EquatableMixin {
     return TmdbMediaState(
       mediaDetail: null,
       groupVideos: GroupVideos.initial(),
-      groupBackdrops: GroupBackdrops.initial(),
-      groupPosters: GroupPosters.initial(),
+      backdrops: [],
+      posters: [],
       tmdbMediaStatus: TmdbFilterDone(),
       currentPopupState: AppConstant.all,
     );
@@ -126,16 +127,16 @@ class TmdbMediaState with EquatableMixin {
   TmdbMediaState copyWith({
     MediaDetail? mediaDetail,
     GroupVideos? groupVideos,
-    GroupBackdrops? groupBackdrops,
-    GroupPosters? groupPosters,
+    List<Backdrops>? backdrops,
+    List<Posters>? posters,
     TmdbMediaStatus? tmdbMediaStatus,
     String? currentPopupState,
   }) {
     return TmdbMediaState(
       mediaDetail: mediaDetail ?? this.mediaDetail,
       groupVideos: groupVideos ?? this.groupVideos,
-      groupBackdrops: groupBackdrops ?? this.groupBackdrops,
-      groupPosters: groupPosters ?? this.groupPosters,
+      backdrops: backdrops ?? this.backdrops,
+      posters: posters ?? this.posters,
       tmdbMediaStatus: tmdbMediaStatus ?? this.tmdbMediaStatus,
       currentPopupState: currentPopupState ?? this.currentPopupState,
     );
@@ -145,8 +146,8 @@ class TmdbMediaState with EquatableMixin {
   List<Object?> get props => [
         mediaDetail,
         groupVideos,
-        groupBackdrops,
-        groupPosters,
+        backdrops,
+        posters,
         tmdbMediaStatus,
         currentPopupState,
       ];

@@ -9,7 +9,7 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.d
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
 import 'package:tmdb_app/features/person_detail_feature/data/model/person_detail.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';

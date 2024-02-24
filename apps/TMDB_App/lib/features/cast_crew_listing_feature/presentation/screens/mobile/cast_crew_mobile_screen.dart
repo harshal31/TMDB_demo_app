@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/cubits/cast_crew_cubit.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/screens/cast_crew_list_item.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 
 class CastCrewMobileScreen extends StatelessWidget {
   final bool isMovies;

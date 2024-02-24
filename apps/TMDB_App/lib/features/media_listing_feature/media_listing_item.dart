@@ -2,7 +2,7 @@ import 'package:common_widgets/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
 class MediaListingItem extends StatelessWidget {

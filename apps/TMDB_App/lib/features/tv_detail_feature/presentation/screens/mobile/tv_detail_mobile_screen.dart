@@ -2,6 +2,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tmdb_user_score.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_cast_list.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_current_season_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_view.dart';
@@ -471,7 +471,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                         return TmdbMediaView(
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: 200,
-                          mediaId: state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
+                          mediaDetail: state.mediaDetailModel.mediaDetail,
                           pos: s,
                           videos: state.mediaDetailModel.mediaVideos?.results ?? [],
                           images: state.mediaDetailModel.mediaImages,

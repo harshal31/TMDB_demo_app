@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 
 class TmdbReview extends StatelessWidget {
   final ReviewResults? result;

@@ -18,7 +18,12 @@ class TvDetailCubit extends Cubit<TvDetailState> {
   void fetchTvSeriesDetails(String seriesId) async {
     emit(state.copyWith(tvDetailState: TvDetailLoading()));
     final sessionId = await GetIt.instance.get<HiveManager>().getString(HiveKey.sessionId);
-    final result = await _tvDetailUseCase.fetchTvSeriesDetail(seriesId, ApiKey.tv, sessionId);
+    final result = await _tvDetailUseCase.fetchTvSeriesDetail(
+      seriesId,
+      ApiKey.tv,
+      sessionId,
+      language: "",
+    );
 
     result.fold((l) {
       emit(state.copyWith(tvDetailState: TvDetailFailure(l)));

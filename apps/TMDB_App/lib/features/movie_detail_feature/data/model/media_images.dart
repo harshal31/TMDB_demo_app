@@ -211,4 +211,8 @@ class Posters {
   String getImage() {
     return AppConstant.imageBaseUrl + (this.filePath ?? "");
   }
+
+  String getOriginalImage() {
+    return AppConstant.originalImageBaseUrl + (this.filePath ?? "");
+  }
 }

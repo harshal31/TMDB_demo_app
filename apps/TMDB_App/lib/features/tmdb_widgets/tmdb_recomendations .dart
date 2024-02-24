@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommendations.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 
 class TmdbRecomendations extends StatelessWidget {

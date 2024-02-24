@@ -12,7 +12,7 @@ import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_cas
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 import 'package:tmdb_app/features/reviews_listing_feature/cubit/reviews_listing_cubit.dart';
 import 'package:tmdb_app/features/reviews_listing_feature/cubit/reviews_listing_use_case.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 
 class ReviewsListingScreenImpl extends StatefulWidget {

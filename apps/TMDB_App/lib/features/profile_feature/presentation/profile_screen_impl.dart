@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/features/profile_feature/presentation/cubit/profile_cubit.dart';
 import 'package:tmdb_app/features/profile_feature/presentation/use_cases/profile_use_case.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 
 class ProfileScreenImpl extends StatelessWidget {
   @override

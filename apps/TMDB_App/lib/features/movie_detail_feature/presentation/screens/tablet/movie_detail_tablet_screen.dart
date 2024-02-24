@@ -4,6 +4,7 @@ import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_icon.dart';
 import 'package:common_widgets/widgets/tmdb_user_score.dart';
@@ -15,7 +16,6 @@ import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/movie_detail_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/cubits/position_cubit.dart';
 import 'package:tmdb_app/features/movie_detail_feature/presentation/use_cases/movie_detail_use_case.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_cast_list.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_media_view.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_recomendations%20.dart';
@@ -439,7 +439,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
                           BlocBuilder<PositionCubit, int>(
                             builder: (context, s) {
                               return TmdbMediaView(
-                                mediaId: state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
+                                mediaDetail: state.mediaDetailModel.mediaDetail,
                                 pos: s,
                                 videos: state.mediaDetailModel.mediaVideos?.results ?? [],
                                 images: state.mediaDetailModel.mediaImages,

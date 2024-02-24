@@ -1,6 +1,6 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:flutter/material.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
 
 class TmdbHorizontalList extends StatelessWidget {
   final List<String> imageUrls;

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_network/image_network.dart';
 import 'package:tmdb_app/constants/api_key.dart';
-import 'package:tmdb_app/routes/route_param.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 

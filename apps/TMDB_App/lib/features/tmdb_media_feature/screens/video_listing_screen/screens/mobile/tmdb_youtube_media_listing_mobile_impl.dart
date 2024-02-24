@@ -11,7 +11,7 @@ import 'package:tmdb_app/constants/app_constant.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/cubits/cast_crew_cubit.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
 import 'package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/screens/desktop_tab/tmdb_video_listing.dart';
-import 'package:tmdb_app/features/tmdb_widgets/extended_image_creator.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 
 class TmdbYoutubeMediaListingMobileImpl extends StatelessWidget {
   final bool isMovies;

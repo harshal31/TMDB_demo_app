@@ -5,6 +5,8 @@ class RouteName {
   static const String movie = "movie";
   static const String cast = "cast";
   static const String youtubeVideo = "youtubeVideo";
+  static const String backdrops = "backdrops";
+  static const String posters = "posters";
   static const String reviews = "reviews";
   static const String tv = "tv";
   static const String person = "person";
