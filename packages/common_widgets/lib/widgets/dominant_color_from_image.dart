@@ -27,7 +27,8 @@ class _DominantColorState extends State<DominantColorFromImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      curve: Curves.easeInOut,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -36,6 +37,7 @@ class _DominantColorState extends State<DominantColorFromImage> {
           ],
         ),
       ),
+      duration: const Duration(seconds: 1),
       child: widget.dominantChild,
     );
   }
