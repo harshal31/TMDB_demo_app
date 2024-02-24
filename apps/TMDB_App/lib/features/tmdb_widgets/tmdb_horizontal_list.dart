@@ -75,7 +75,6 @@ class TmdbHorizontalList extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      splashColor: context.colorTheme.primaryContainer.withOpacity(0.4),
                       borderRadius: BorderRadius.circular(10),
                       onTap: () {
                         onItemClick?.call(index);
