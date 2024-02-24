@@ -531,6 +531,7 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
     return Scaffold(
       body: body,
       bottomNavigationBar: BlocBuilder<BottomNavCubit, bool>(
+        buildWhen: (prev, cur) => prev != cur,
         builder: (context, state) {
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
