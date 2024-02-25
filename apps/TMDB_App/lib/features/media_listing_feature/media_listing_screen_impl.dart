@@ -1,6 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -74,7 +75,7 @@ class _MediaListingScreenImplState extends State<MediaListingScreenImpl> {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               crossAxisCount: _getCrossAxisGridCount,
-              mainAxisExtent: 400,
+              mainAxisExtent: kIsWeb ? 450 : 250,
             ),
             pagingController: mediaListingController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
@@ -90,7 +91,7 @@ class _MediaListingScreenImplState extends State<MediaListingScreenImpl> {
               animateTransitions: true,
               itemBuilder: (ctx, item, index) {
                 return MediaListingItem(
-                  key: ValueKey(index),
+                  key: ValueKey(item.posterPath),
                   latestData: item,
                   isMovies: widget.isMovies,
                 );

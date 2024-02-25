@@ -1,33 +1,31 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:common_widgets/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ColorizedText extends StatelessWidget {
   final String value;
+  final TextStyle textStyle;
 
-  const ColorizedText({super.key, required this.value});
+  const ColorizedText({super.key, required this.value, required this.textStyle});
 
   @override
   Widget build(BuildContext context) {
     const colorizeColors = [
-      Colors.purple,
-      Colors.blue,
-      Colors.yellow,
-      Colors.red,
+      Colors.orange,
+      Colors.white,
+      Colors.green,
     ];
 
-    return SizedBox(
-      width: 250.0,
-      child: AnimatedTextKit(
-        animatedTexts: [
-          ColorizeAnimatedText(
-            value,
-            textStyle: context.textTheme.titleLarge!,
-            colors: colorizeColors,
+    return AnimatedTextKit(
+      animatedTexts: [
+        ColorizeAnimatedText(
+          value,
+          textStyle: textStyle.copyWith(
+            fontWeight: FontWeight.bold,
           ),
-        ],
-        isRepeatingAnimation: true,
-      ),
+          colors: colorizeColors,
+        ),
+      ],
+      isRepeatingAnimation: true,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -71,7 +72,7 @@ class _PersonListingScreenImplState extends State<PersonListingScreenImpl> {
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
               crossAxisCount: _getCrossAxisGridCount,
-              mainAxisExtent: 380,
+              mainAxisExtent: kIsWeb ? 450 : 250,
             ),
             pagingController: personListingController,
             builderDelegate: PagedChildBuilderDelegate<Persons>(

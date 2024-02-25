@@ -1,8 +1,9 @@
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
 class MediaListingItem extends StatelessWidget {
@@ -25,7 +26,7 @@ class MediaListingItem extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Container(
-        height: 400,
+        height: kIsWeb ? 450 : 250,
         decoration: BoxDecoration(
           color: Colors.transparent,
           border: Border.all(
@@ -36,13 +37,13 @@ class MediaListingItem extends StatelessWidget {
         ),
         child: SizedBox(
           width: double.infinity,
-          height: 400,
+          height: kIsWeb ? 450 : 250,
           child: Stack(
             children: [
               ExtendedImageCreator(
                 imageUrl: latestData.getImagePath(),
                 width: double.infinity,
-                height: 400,
+                height: kIsWeb ? 450 : 250,
                 fit: BoxFit.cover,
               ),
               Positioned.fill(

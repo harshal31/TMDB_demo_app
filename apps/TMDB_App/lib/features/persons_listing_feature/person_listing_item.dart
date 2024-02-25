@@ -1,9 +1,10 @@
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:common_widgets/widgets/wrapped_text.dart';
+import 'package:common_widgets/widgets/colorized_text.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/features/search_feature/data/model/search_person_model.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 
 class PersonListingItem extends StatelessWidget {
@@ -29,61 +30,42 @@ class PersonListingItem extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(10), // Border radius
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 315,
-              child: Stack(
-                children: [
-                  ExtendedImageCreator(
-                    imageUrl: person.imageUrl,
-                    width: double.infinity,
-                    height: 315,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned.fill(
-                    child: InkWell(
-                      splashColor: context.colorTheme.primary.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(10),
-                      onTap: () {
-                        context.push("${RouteName.home}/${RouteName.person}/${person.id}");
-                      },
-                    ),
-                  ),
-                ],
+        child: SizedBox(
+          width: double.infinity,
+          height: kIsWeb ? 450 : 250,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: ExtendedImageCreator(
+                  imageUrl: person.imageUrl,
+                  width: double.infinity,
+                  height: kIsWeb ? 450 : 250,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 4.0),
-                child: WrappedText(
-                  person.name ?? person.originalName ?? "",
-                  style: context.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  child: ColorizedText(
+                    value: (person.name ?? person.originalName ?? "").split(" ").firstOrNull ?? "",
+                    textStyle: kIsWeb
+                        ? context.textTheme.displayLarge!
+                        : context.textTheme.headlineMedium!,
                   ),
                 ),
               ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 4.0),
-                child: WrappedText(
-                  person.knownForWork,
-                  style: context.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w200,
-                  ),
+              Positioned.fill(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () {
+                    context.push("${RouteName.home}/${RouteName.person}/${person.id}");
+                  },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
