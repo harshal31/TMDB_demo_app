@@ -286,7 +286,7 @@ class AppRouter {
                                 pageBuilder: (ctx, state) {
                                   final movieId = state.pathParameters[RouteParam.id] ?? "";
                                   final index = int.parse(
-                                    state.pathParameters[RouteParam.backdrop] ?? "0",
+                                    state.pathParameters[RouteParam.poster] ?? "0",
                                   );
                                   final mediaDetail = state.extra is MediaDetail
                                       ? state.extra as MediaDetail

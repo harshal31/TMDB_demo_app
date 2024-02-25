@@ -1,4 +1,3 @@
-import 'package:common_widgets/theme/size_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -45,15 +44,11 @@ class PosterBackdropScreenDetail extends StatelessWidget {
             ),
         )
       ],
-      child: SizeDetector(
-        mobileBuilder: () => PosterBackdropScreenDetailMobile(
-          isMovies: isMovies,
-          mediaDetail: mediaDetail,
-          gotToIndex: gotToIndex,
-          isPosters: isPosters,
-        ),
-        tabletBuilder: () => Container(),
-        desktopBuilder: () => Container(),
+      child: PosterBackdropScreenDetailMobile(
+        isMovies: isMovies,
+        mediaDetail: mediaDetail,
+        gotToIndex: gotToIndex,
+        isPosters: isPosters,
       ),
     );
   }

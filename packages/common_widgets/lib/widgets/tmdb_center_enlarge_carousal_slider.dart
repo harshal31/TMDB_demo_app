@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -42,7 +43,9 @@ class _TmdbCenterEnlargeCarousalSliderState extends State<TmdbCenterEnlargeCarou
               itemCount: widget.images.length,
               options: CarouselOptions(
                 initialPage: widget.initialIndex,
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: kIsWeb
+                    ? MediaQuery.of(context).size.height
+                    : MediaQuery.of(context).size.height * 0.8,
                 enlargeCenterPage: true,
                 enableInfiniteScroll: false,
                 viewportFraction: 1.0,
@@ -84,7 +87,7 @@ class _TmdbCenterEnlargeCarousalSliderState extends State<TmdbCenterEnlargeCarou
                   },
                   icon: Icon(
                     Icons.close,
-                    size: 20,
+                    size: 30,
                     color: context.colorTheme.onBackground,
                   ),
                 )
