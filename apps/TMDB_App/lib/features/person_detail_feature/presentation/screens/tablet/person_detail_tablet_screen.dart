@@ -1,6 +1,7 @@
 import 'package:common_widgets/common_utils/date_util.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/read_more_text.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/features/person_detail_feature/data/model/person_credit.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/cubits/person_detail_cubit.dart';
 import 'package:tmdb_app/features/person_detail_feature/presentation/use_cases/person_detail_use_case.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_side_view.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
@@ -68,21 +68,32 @@ class PersonDetailTabletScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              WrappedText(
-                                context.tr.biography,
-                                style: context.textTheme.titleLarge?.copyWith(
-                                  fontWeight: FontWeight.bold,
+                              Visibility(
+                                visible: (state.personDetailModel.personDetail?.biography ?? "")
+                                    .isNotEmpty,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    WrappedText(
+                                      context.tr.biography,
+                                      style: context.textTheme.titleLarge?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    AnimatedReadMoreText(
+                                      state.personDetailModel.personDetail?.biography ?? "",
+                                      maxLines: 10,
+                                      readMoreText: context.tr.readMore,
+                                      readLessText: context.tr.readLess,
+                                      textStyle: context.textTheme.bodyLarge,
+                                    ),
+                                    const SizedBox(height: 16),
+                                  ],
                                 ),
+                                replacement: const SizedBox.shrink(),
                               ),
-                              const SizedBox(height: 8),
-                              AnimatedReadMoreText(
-                                state.personDetailModel.personDetail?.biography ?? "",
-                                maxLines: 10,
-                                readMoreText: context.tr.readMore,
-                                readLessText: context.tr.readLess,
-                                textStyle: context.textTheme.bodyLarge,
-                              ),
-                              const SizedBox(height: 16),
                               Visibility(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,

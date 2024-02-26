@@ -50,7 +50,6 @@ class MediaListingItem extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    splashColor: context.colorTheme.primary.withOpacity(0.4),
                     borderRadius: BorderRadius.circular(10),
                     onTap: () {
                       CommonNavigation.redirectToDetailScreen(

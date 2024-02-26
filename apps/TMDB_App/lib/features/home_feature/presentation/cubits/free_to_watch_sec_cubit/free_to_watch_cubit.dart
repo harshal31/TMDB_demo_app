@@ -7,6 +7,7 @@ import 'package:tmdb_app/features/home_feature/presentation/use_case/tv_advance_
 class FreeToWatchCubit extends Cubit<AdvanceFilterState> {
   final MoviesAdvanceFilterUseCase _moviesAdvanceFilterUseCase;
   final TvAdvanceFilterUseCase _tvAdvanceFilterUseCase;
+  int latestApiCall = 0;
 
   FreeToWatchCubit(this._moviesAdvanceFilterUseCase, this._tvAdvanceFilterUseCase)
       : super(AdvanceFilterState.initial());
@@ -20,6 +21,7 @@ class FreeToWatchCubit extends Cubit<AdvanceFilterState> {
       ),
     );
 
+    final currentCall = ++latestApiCall;
     final result = pos == 0
         ? await _moviesAdvanceFilterUseCase.advanceMovieFilter(
             withWatchMonetizationTypes: ApiKey.freeToWatchValue,
@@ -29,22 +31,26 @@ class FreeToWatchCubit extends Cubit<AdvanceFilterState> {
           );
 
     result.fold((l) {
-      emit(
-        state.copyWith(
-          latestStatus: AdvanceFilterStatusDone(generateUniqueKey()),
-          pos: pos,
-          error: l.errorMessage,
-        ),
-      );
+      if (currentCall == latestApiCall) {
+        emit(
+          state.copyWith(
+            latestStatus: AdvanceFilterStatusDone(generateUniqueKey()),
+            pos: pos,
+            error: l.errorMessage,
+          ),
+        );
+      }
     }, (r) {
-      emit(
-        state.copyWith(
-          latestStatus: AdvanceFilterStatusDone(generateUniqueKey()),
-          results: r.latestData ?? [],
-          pos: pos,
-          error: null,
-        ),
-      );
+      if (currentCall == latestApiCall) {
+        emit(
+          state.copyWith(
+            latestStatus: AdvanceFilterStatusDone(generateUniqueKey()),
+            results: r.latestData ?? [],
+            pos: pos,
+            error: null,
+          ),
+        );
+      }
     });
   }
 }
