@@ -438,7 +438,16 @@ class TvDetailMobileScreen extends StatelessWidget {
                                 mediaId: state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
                                 mediaType: RouteParam.tv,
                               );
+                              return;
                             }
+                            CommonNavigation.redirectToPosterBackdropScreen(
+                              context,
+                              state.mediaDetailModel.mediaDetail,
+                              state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
+                              RouteParam.tv,
+                              positionCubit.state == 2,
+                              isDetail: false,
+                            );
                           },
                         ),
                       ],
@@ -470,7 +479,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       builder: (context, s) {
                         return TmdbMediaView(
                           width: MediaQuery.of(context).size.width * 0.8,
-                          height: 200,
+                          height: 230,
                           mediaDetail: state.mediaDetailModel.mediaDetail,
                           pos: s,
                           videos: state.mediaDetailModel.mediaVideos?.results ?? [],

@@ -411,7 +411,16 @@ class TvDetailTabletScreen extends StatelessWidget {
                                           state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
                                       mediaType: RouteParam.tv,
                                     );
+                                    return;
                                   }
+                                  CommonNavigation.redirectToPosterBackdropScreen(
+                                    context,
+                                    state.mediaDetailModel.mediaDetail,
+                                    state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
+                                    RouteParam.tv,
+                                    positionCubit.state == 2,
+                                    isDetail: false,
+                                  );
                                 },
                               ),
                             ],

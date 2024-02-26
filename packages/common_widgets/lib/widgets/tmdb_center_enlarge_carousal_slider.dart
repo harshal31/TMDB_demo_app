@@ -36,7 +36,6 @@ class _TmdbCenterEnlargeCarousalSliderState extends State<TmdbCenterEnlargeCarou
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 16),
       child: Stack(
         children: [
           Positioned.fill(

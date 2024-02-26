@@ -408,7 +408,17 @@ class MovieDetailWebScreen extends StatelessWidget {
                                           state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
                                       mediaType: RouteParam.movie,
                                     );
+                                    return;
                                   }
+
+                                  CommonNavigation.redirectToPosterBackdropScreen(
+                                    context,
+                                    state.mediaDetailModel.mediaDetail,
+                                    state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
+                                    RouteParam.movie,
+                                    positionCubit.state == 2,
+                                    isDetail: false,
+                                  );
                                 },
                               ),
                             ],

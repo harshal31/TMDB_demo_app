@@ -403,11 +403,23 @@ class MovieDetailTabletScreen extends StatelessWidget {
                                   size: 40,
                                 ),
                                 onPressed: () {
-                                  CommonNavigation.redirectToVideosScreen(
+                                  if (positionCubit.state == 0) {
+                                    CommonNavigation.redirectToVideosScreen(
+                                      context,
+                                      mediaId:
+                                          state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
+                                      mediaType: RouteParam.movie,
+                                    );
+                                    return;
+                                  }
+
+                                  CommonNavigation.redirectToPosterBackdropScreen(
                                     context,
-                                    mediaId:
-                                        state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
-                                    mediaType: RouteParam.movie,
+                                    state.mediaDetailModel.mediaDetail,
+                                    state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
+                                    RouteParam.movie,
+                                    positionCubit.state == 2,
+                                    isDetail: false,
                                   );
                                 },
                               ),

@@ -432,9 +432,14 @@ class MovieDetailMobileScreen extends StatelessWidget {
                               return;
                             }
 
-                            if (positionCubit.state == 1) {}
-
-                            if (positionCubit.state == 2) {}
+                            CommonNavigation.redirectToPosterBackdropScreen(
+                              context,
+                              state.mediaDetailModel.mediaDetail,
+                              state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
+                              RouteParam.movie,
+                              positionCubit.state == 2,
+                              isDetail: false,
+                            );
                           },
                         ),
                       ],
@@ -466,7 +471,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                       builder: (context, s) {
                         return TmdbMediaView(
                           width: MediaQuery.of(context).size.width * 0.8,
-                          height: 200,
+                          height: 230,
                           mediaDetail: state.mediaDetailModel.mediaDetail,
                           pos: s,
                           videos: state.mediaDetailModel.mediaVideos?.results ?? [],

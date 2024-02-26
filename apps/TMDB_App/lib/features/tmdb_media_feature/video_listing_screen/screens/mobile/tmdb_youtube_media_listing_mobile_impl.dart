@@ -1,6 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/tmdb_pop_menu.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
@@ -10,14 +11,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/app_constant.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/cubits/cast_crew_cubit.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
-import 'package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/screens/desktop_tab/tmdb_video_listing.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
+import 'package:tmdb_app/features/tmdb_media_feature/video_listing_screen/screens/desktop_tab/tmdb_video_listing.dart';
 
-class TmdbYoutubeMediaListingImpl extends StatelessWidget {
+class TmdbYoutubeMediaListingMobileImpl extends StatelessWidget {
   final bool isMovies;
   final String mediaId;
 
-  const TmdbYoutubeMediaListingImpl({
+  const TmdbYoutubeMediaListingMobileImpl({
     super.key,
     required this.isMovies,
     required this.mediaId,
@@ -87,7 +87,7 @@ class TmdbYoutubeMediaListingImpl extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 TmdbPopMenu(
-                                  iconSize: 30,
+                                  iconSize: 20,
                                   iconData: Icons.sort,
                                   menus: [
                                     PopMenuData(name: AppConstant.all),
@@ -165,7 +165,8 @@ class TmdbYoutubeVideoList extends StatelessWidget {
         map: tmdbState.tmdbMediaState.groupVideos.currentGroupVideos.isEmpty
             ? tmdbState.tmdbMediaState.groupVideos.groupVideos
             : tmdbState.tmdbMediaState.groupVideos.currentGroupVideos,
-        imageWidth: 350,
+        imageWidth: 150,
+        imageHeight: 150,
         mediaId: mediaId,
         isMovies: isMovies,
       ),

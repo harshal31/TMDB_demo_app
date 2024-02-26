@@ -56,6 +56,7 @@ class ExtendedImageCreator extends StatefulWidget {
       shape: shape ?? BoxShape.rectangle,
       borderRadius: borderRadius ?? BorderRadius.zero,
       clearMemoryCacheWhenDispose: true,
+      cache: true,
     );
   }
 

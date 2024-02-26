@@ -10,6 +10,7 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.d
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_images.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_videos.dart';
 import 'package:tmdb_app/routes/route_name.dart';
+import 'package:tmdb_app/utils/common_navigation.dart';
 
 class TmdbMediaView extends StatelessWidget {
   final int pos;
@@ -55,12 +56,14 @@ class TmdbMediaView extends StatelessWidget {
                   width: width,
                   mediaId: mediaDetail?.id.toString() ?? "",
                   mediaDetail: mediaDetail,
+                  mediaType: mediaType ?? mediaDetail?.type ?? "",
                 )
               : _TmdbPosters(
                   posters: images?.posters?.take(10).toList() ?? [],
                   height: height,
                   mediaId: mediaDetail?.id.toString() ?? "",
                   mediaDetail: mediaDetail,
+                  mediaType: mediaType ?? mediaDetail?.type ?? "",
                 )),
     );
   }
@@ -157,6 +160,7 @@ class _TmdbBackdrops extends StatelessWidget {
   final List<Backdrops> backDrops;
   final MediaDetail? mediaDetail;
   final String mediaId;
+  final String mediaType;
   final double? height;
   final double? width;
 
@@ -166,6 +170,7 @@ class _TmdbBackdrops extends StatelessWidget {
     this.height,
     this.width,
     required this.mediaId,
+    required this.mediaType,
   });
 
   @override
@@ -203,9 +208,13 @@ class _TmdbBackdrops extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
                       onTap: () {
-                        context.push(
-                          "${RouteName.home}/${RouteName.movie}/$mediaId/${RouteName.backdrops}/$index",
-                          extra: mediaDetail,
+                        CommonNavigation.redirectToPosterBackdropScreen(
+                          context,
+                          mediaDetail,
+                          mediaId,
+                          mediaType,
+                          false,
+                          index: index,
                         );
                       },
                     ),
@@ -232,12 +241,14 @@ class _TmdbPosters extends StatelessWidget {
   final MediaDetail? mediaDetail;
   final String mediaId;
   final double? height;
+  final String mediaType;
 
   const _TmdbPosters({
     required this.posters,
     required this.mediaDetail,
     this.height,
     required this.mediaId,
+    required this.mediaType,
   });
 
   @override
@@ -262,7 +273,7 @@ class _TmdbPosters extends StatelessWidget {
                     imageUrl: posters[index].getImage(),
                     width: 160,
                     height: height ?? 300,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
@@ -272,9 +283,13 @@ class _TmdbPosters extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
                       onTap: () {
-                        context.push(
-                          "${RouteName.home}/${RouteName.movie}/$mediaId/${RouteName.posters}/$index",
-                          extra: mediaDetail,
+                        CommonNavigation.redirectToPosterBackdropScreen(
+                          context,
+                          mediaDetail,
+                          mediaId,
+                          mediaType,
+                          true,
+                          index: index,
                         );
                       },
                     ),

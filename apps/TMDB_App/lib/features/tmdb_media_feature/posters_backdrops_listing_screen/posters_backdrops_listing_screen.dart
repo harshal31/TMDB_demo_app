@@ -1,4 +1,3 @@
-import 'package:common_widgets/theme/size_detector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,19 +5,25 @@ import 'package:get_it/get_it.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/data/cast_crew_listing_api_service.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/cubits/cast_crew_cubit.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
-import 'package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/screens/desktop_tab/tmdb_youtube_media_listing_impl.dart';
-import 'package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/screens/mobile/tmdb_youtube_media_listing_mobile_impl.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
+import 'package:tmdb_app/features/tmdb_media_feature/posters_backdrops_listing_screen/posters_backdrop_listing_screen_impl.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_app_bar.dart';
 import 'package:tmdb_app/network/dio_manager.dart';
 
-class TmdbYoutubeMediaListingScreen extends StatelessWidget {
-  final bool isMovies;
+class PostersBackdropsListingScreen extends StatelessWidget {
+  final MediaDetail? mediaDetail;
+  final String mediaType;
   final String mediaId;
+  final bool isMovies;
+  final bool isPosters;
 
-  const TmdbYoutubeMediaListingScreen({
+  const PostersBackdropsListingScreen({
     super.key,
-    required this.isMovies,
+    this.mediaDetail,
     required this.mediaId,
+    required this.isMovies,
+    required this.isPosters,
+    required this.mediaType,
   });
 
   @override
@@ -36,7 +41,8 @@ class TmdbYoutubeMediaListingScreen extends StatelessWidget {
             ..fetchMediaDetails(
               isMovies,
               mediaId,
-              castCrewType: CastCrewType.videos,
+              castCrewType: isPosters ? CastCrewType.posters : CastCrewType.backDrops,
+              mediaDetail: mediaDetail,
             ),
         )
       ],
@@ -45,19 +51,12 @@ class TmdbYoutubeMediaListingScreen extends StatelessWidget {
           appBar: const TmdbAppBar(
             shouldDisplayBack: !kIsWeb,
           ),
-          body: SizeDetector(
-            desktopBuilder: () => TmdbYoutubeMediaListingImpl(
-              isMovies: isMovies,
-              mediaId: mediaId,
-            ),
-            mobileBuilder: () => TmdbYoutubeMediaListingMobileImpl(
-              isMovies: isMovies,
-              mediaId: mediaId,
-            ),
-            tabletBuilder: () => TmdbYoutubeMediaListingImpl(
-              isMovies: isMovies,
-              mediaId: mediaId,
-            ),
+          body: PostersBackdropsListingScreenImpl(
+            isMovies: isMovies,
+            mediaDetail: mediaDetail,
+            isPosters: isPosters,
+            mediaType: mediaType,
+            mediaId: mediaId,
           ),
         ),
       ),

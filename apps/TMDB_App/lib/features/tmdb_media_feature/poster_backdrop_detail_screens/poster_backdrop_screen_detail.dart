@@ -5,7 +5,7 @@ import 'package:tmdb_app/features/cast_crew_listing_feature/data/cast_crew_listi
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/cubits/cast_crew_cubit.dart';
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
-import 'package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/poster_backdrop_screens/mobile/poster_backdrop_screen_detail_mobile.dart';
+import 'package:tmdb_app/features/tmdb_media_feature/poster_backdrop_detail_screens/poster_backdrop_screen_detail_impl.dart';
 import 'package:tmdb_app/network/dio_manager.dart';
 
 class PosterBackdropScreenDetail extends StatelessWidget {
@@ -44,11 +44,15 @@ class PosterBackdropScreenDetail extends StatelessWidget {
             ),
         )
       ],
-      child: PosterBackdropScreenDetailMobile(
-        isMovies: isMovies,
-        mediaDetail: mediaDetail,
-        gotToIndex: gotToIndex,
-        isPosters: isPosters,
+      child: SafeArea(
+        child: Scaffold(
+          body: PosterBackdropScreenDetailImpl(
+            isMovies: isMovies,
+            mediaDetail: mediaDetail,
+            gotToIndex: gotToIndex,
+            isPosters: isPosters,
+          ),
+        ),
       ),
     );
   }

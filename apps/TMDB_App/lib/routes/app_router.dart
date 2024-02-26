@@ -28,8 +28,9 @@ import "package:tmdb_app/features/profile_feature/profile_screen.dart";
 import "package:tmdb_app/features/reviews_listing_feature/reviews_listing_screen.dart";
 import "package:tmdb_app/features/search_feature/presentation/screens/search_detail_screen/search_detail_screen.dart";
 import "package:tmdb_app/features/search_feature/presentation/screens/search_screen/search_screen.dart";
-import "package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/poster_backdrop_screen_detail.dart";
-import "package:tmdb_app/features/tmdb_media_feature/screens/video_listing_screen/tmdb_media_youtube_media_listing.dart";
+import "package:tmdb_app/features/tmdb_media_feature/poster_backdrop_detail_screens/poster_backdrop_screen_detail.dart";
+import "package:tmdb_app/features/tmdb_media_feature/posters_backdrops_listing_screen/posters_backdrops_listing_screen.dart";
+import "package:tmdb_app/features/tmdb_media_feature/video_listing_screen/tmdb_media_youtube_media_listing.dart";
 import "package:tmdb_app/features/tv_detail_feature/presentation/screens/tv_detail_screen.dart";
 import "package:tmdb_app/routes/route_name.dart";
 import "package:tmdb_app/routes/route_param.dart";
@@ -237,10 +238,18 @@ class AppRouter {
                             path: RouteName.backdrops,
                             pageBuilder: (ctx, state) {
                               final movieId = state.pathParameters[RouteParam.id] ?? "";
+                              final mediaDetail =
+                                  state.extra is MediaDetail ? state.extra as MediaDetail : null;
                               return _animatedPage(
                                 ctx,
                                 state,
-                                widget: Container(),
+                                widget: PostersBackdropsListingScreen(
+                                  mediaDetail: mediaDetail,
+                                  mediaId: movieId,
+                                  isMovies: true,
+                                  isPosters: false,
+                                  mediaType: RouteParam.movie,
+                                ),
                               );
                             },
                             routes: [
@@ -273,11 +282,19 @@ class AppRouter {
                           GoRoute(
                             path: RouteName.posters,
                             pageBuilder: (ctx, state) {
+                              final mediaDetail =
+                                  state.extra is MediaDetail ? state.extra as MediaDetail : null;
                               final movieId = state.pathParameters[RouteParam.id] ?? "";
                               return _animatedPage(
                                 ctx,
                                 state,
-                                widget: Container(),
+                                widget: PostersBackdropsListingScreen(
+                                  mediaDetail: mediaDetail,
+                                  mediaId: movieId,
+                                  isMovies: true,
+                                  isPosters: true,
+                                  mediaType: RouteParam.movie,
+                                ),
                               );
                             },
                             routes: [
@@ -393,6 +410,96 @@ class AppRouter {
                                     ctx,
                                     state,
                                     widget: YoutubeVideo(id: id),
+                                  );
+                                },
+                              )
+                            ],
+                          ),
+                          GoRoute(
+                            path: RouteName.backdrops,
+                            pageBuilder: (ctx, state) {
+                              final tvId = state.pathParameters[RouteParam.id] ?? "";
+                              final mediaDetail =
+                                  state.extra is MediaDetail ? state.extra as MediaDetail : null;
+                              return _animatedPage(
+                                ctx,
+                                state,
+                                widget: PostersBackdropsListingScreen(
+                                  mediaDetail: mediaDetail,
+                                  mediaId: tvId,
+                                  isMovies: false,
+                                  isPosters: false,
+                                  mediaType: RouteParam.tv,
+                                ),
+                              );
+                            },
+                            routes: [
+                              GoRoute(
+                                path: ":${RouteParam.backdrop}",
+                                pageBuilder: (ctx, state) {
+                                  final tvId = state.pathParameters[RouteParam.id] ?? "";
+                                  final index = int.parse(
+                                    state.pathParameters[RouteParam.backdrop] ?? "0",
+                                  );
+                                  final mediaDetail = state.extra is MediaDetail
+                                      ? state.extra as MediaDetail
+                                      : null;
+
+                                  return _animatedPage(
+                                    ctx,
+                                    state,
+                                    widget: PosterBackdropScreenDetail(
+                                      mediaDetail: mediaDetail,
+                                      mediaId: tvId,
+                                      gotToIndex: index,
+                                      isMovies: false,
+                                      isPosters: false,
+                                    ),
+                                  );
+                                },
+                              )
+                            ],
+                          ),
+                          GoRoute(
+                            path: RouteName.posters,
+                            pageBuilder: (ctx, state) {
+                              final mediaDetail =
+                                  state.extra is MediaDetail ? state.extra as MediaDetail : null;
+                              final tvId = state.pathParameters[RouteParam.id] ?? "";
+                              return _animatedPage(
+                                ctx,
+                                state,
+                                widget: PostersBackdropsListingScreen(
+                                  mediaDetail: mediaDetail,
+                                  mediaId: tvId,
+                                  isMovies: false,
+                                  isPosters: true,
+                                  mediaType: RouteParam.tv,
+                                ),
+                              );
+                            },
+                            routes: [
+                              GoRoute(
+                                path: ":${RouteParam.poster}",
+                                pageBuilder: (ctx, state) {
+                                  final tvId = state.pathParameters[RouteParam.id] ?? "";
+                                  final index = int.parse(
+                                    state.pathParameters[RouteParam.poster] ?? "0",
+                                  );
+                                  final mediaDetail = state.extra is MediaDetail
+                                      ? state.extra as MediaDetail
+                                      : null;
+
+                                  return _animatedPage(
+                                    ctx,
+                                    state,
+                                    widget: PosterBackdropScreenDetail(
+                                      mediaDetail: mediaDetail,
+                                      mediaId: tvId,
+                                      gotToIndex: index,
+                                      isMovies: false,
+                                      isPosters: true,
+                                    ),
                                   );
                                 },
                               )

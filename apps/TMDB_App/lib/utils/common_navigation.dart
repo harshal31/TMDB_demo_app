@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';
 
@@ -70,5 +71,27 @@ class CommonNavigation {
       ).toString(),
       extra: extra,
     );
+  }
+
+  static void redirectToPosterBackdropScreen(
+    BuildContext context,
+    MediaDetail? mediaDetail,
+    String mediaId,
+    String apiType,
+    bool isPoster, {
+    bool isDetail = true,
+    int index = 0,
+  }) {
+    if (isDetail) {
+      context.push(
+        "${RouteName.home}/$apiType/$mediaId/${isPoster ? RouteName.posters : RouteName.backdrops}/$index",
+        extra: mediaDetail,
+      );
+    } else {
+      context.push(
+        "${RouteName.home}/$apiType/$mediaId/${isPoster ? RouteName.posters : RouteName.backdrops}",
+        extra: mediaDetail,
+      );
+    }
   }
 }

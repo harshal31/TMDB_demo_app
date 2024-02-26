@@ -9,13 +9,13 @@ import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/cubits/
 import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_case/cast_crew_use_case.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 
-class PosterBackdropScreenDetailMobile extends StatelessWidget {
+class PosterBackdropScreenDetailImpl extends StatelessWidget {
   final MediaDetail? mediaDetail;
   final int gotToIndex;
   final bool isMovies;
   final bool isPosters;
 
-  const PosterBackdropScreenDetailMobile({
+  const PosterBackdropScreenDetailImpl({
     super.key,
     required this.mediaDetail,
     required this.gotToIndex,
