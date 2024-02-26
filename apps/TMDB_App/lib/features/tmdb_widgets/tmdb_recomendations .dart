@@ -1,12 +1,12 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_recommendations.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 
 class TmdbRecomendations extends StatelessWidget {
@@ -65,7 +65,6 @@ class TmdbRecomendations extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      splashColor: context.colorTheme.primaryContainer.withOpacity(0.4),
                       borderRadius: BorderRadius.circular(10),
                       onTap: () {
                         _redirectToDetailScreen(
