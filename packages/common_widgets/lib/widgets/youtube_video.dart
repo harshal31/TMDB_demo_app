@@ -26,8 +26,10 @@ class _YoutubeVideoState extends State<YoutubeVideo> {
 
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayer(
-      controller: _controller,
+    return SafeArea(
+      child: YoutubePlayer(
+        controller: _controller,
+      ),
     );
   }
 
