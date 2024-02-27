@@ -1,5 +1,6 @@
 import "package:common_widgets/localizations/app_localizations.dart";
 import "package:common_widgets/theme/app_theme.dart";
+import "package:common_widgets/widgets/extended_image_creator.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
@@ -22,12 +23,14 @@ void main() async {
   bool themeState = false;
   if (kIsWeb) {
     WidgetsFlutterBinding.ensureInitialized();
+    await ExtendedImageCreator.clearImageDiskCache();
     await initializeDependencies();
     themeState = await GetIt.instance.get<HiveManager>().getBool(HiveKey.theme);
     GetIt.instance.registerFactory<bool>(() => themeState, instanceName: HiveKey.theme);
   } else {
     final widgetBinding = WidgetsFlutterBinding.ensureInitialized();
     FlutterNativeSplash.preserve(widgetsBinding: widgetBinding);
+    await ExtendedImageCreator.clearImageDiskCache();
     await initializeDependencies();
     themeState = await GetIt.instance.get<HiveManager>().getBool(HiveKey.theme);
     GetIt.instance.registerFactory<bool>(() => themeState, instanceName: HiveKey.theme);

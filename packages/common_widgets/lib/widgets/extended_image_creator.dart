@@ -1,5 +1,6 @@
 import 'package:common_widgets/gen/app_asset.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ExtendedImageCreator extends StatefulWidget {
@@ -25,6 +26,14 @@ class ExtendedImageCreator extends StatefulWidget {
     this.shouldDisplayErrorImage = true,
     this.imageColor,
   });
+
+  static Future<void> clearImageDiskCache() async {
+    if (!kIsWeb) {
+      await clearDiskCachedImages(
+        duration: const Duration(days: 3),
+      );
+    }
+  }
 
   static ExtendedImage getImage(
     String? url, {
