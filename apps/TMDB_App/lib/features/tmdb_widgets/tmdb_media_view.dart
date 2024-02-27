@@ -1,5 +1,6 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/widgets/code_utils.dart';
 import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:common_widgets/youtube/youtube_thumbnail.dart';
@@ -60,6 +61,7 @@ class TmdbMediaView extends StatelessWidget {
                 )
               : _TmdbPosters(
                   posters: images?.posters?.take(10).toList() ?? [],
+                  width: width,
                   height: height,
                   mediaId: mediaDetail?.id.toString() ?? "",
                   mediaDetail: mediaDetail,
@@ -241,12 +243,14 @@ class _TmdbPosters extends StatelessWidget {
   final MediaDetail? mediaDetail;
   final String mediaId;
   final double? height;
+  final double? width;
   final String mediaType;
 
   const _TmdbPosters({
     required this.posters,
     required this.mediaDetail,
     this.height,
+    required this.width,
     required this.mediaId,
     required this.mediaType,
   });
@@ -263,7 +267,7 @@ class _TmdbPosters extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, index) {
           return SizedBox(
-            width: 160,
+            width: width ?? (isTabWeb(context) ? 200 : 160),
             height: height ?? 300,
             child: Stack(
               children: [
@@ -271,7 +275,7 @@ class _TmdbPosters extends StatelessWidget {
                   child: ExtendedImageCreator(
                     key: ValueKey(index),
                     imageUrl: posters[index].getImage(),
-                    width: 160,
+                    width: width ?? (isTabWeb(context) ? 200 : 160),
                     height: height ?? 300,
                     fit: BoxFit.fill,
                     borderRadius: BorderRadius.circular(10),
