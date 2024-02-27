@@ -392,29 +392,37 @@ class TvDetailWebScreen extends StatelessWidget {
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_circle_right_outlined,
-                                  size: 40,
-                                ),
-                                onPressed: () {
-                                  if (positionCubit.state == 0) {
-                                    CommonNavigation.redirectToVideosScreen(
-                                      context,
-                                      mediaId:
-                                          state.mediaDetailModel.mediaDetail?.id?.toString() ?? "",
-                                      mediaType: RouteParam.tv,
-                                    );
-                                    return;
-                                  }
+                              BlocBuilder<PositionCubit, int>(
+                                builder: (context, pos) {
+                                  return Visibility(
+                                    visible: state.mediaDetailModel.shouldDisplayMoreArrow(pos),
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.arrow_circle_right_outlined,
+                                        size: 40,
+                                      ),
+                                      onPressed: () {
+                                        if (positionCubit.state == 0) {
+                                          CommonNavigation.redirectToVideosScreen(
+                                            context,
+                                            mediaId: state.mediaDetailModel.mediaDetail?.id
+                                                    ?.toString() ??
+                                                "",
+                                            mediaType: RouteParam.tv,
+                                          );
+                                          return;
+                                        }
 
-                                  CommonNavigation.redirectToPosterBackdropScreen(
-                                    context,
-                                    state.mediaDetailModel.mediaDetail,
-                                    state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
-                                    RouteParam.tv,
-                                    positionCubit.state == 2,
-                                    isDetail: false,
+                                        CommonNavigation.redirectToPosterBackdropScreen(
+                                          context,
+                                          state.mediaDetailModel.mediaDetail,
+                                          state.mediaDetailModel.mediaDetail?.id.toString() ?? "",
+                                          RouteParam.tv,
+                                          positionCubit.state == 2,
+                                          isDetail: false,
+                                        );
+                                      },
+                                    ),
                                   );
                                 },
                               ),

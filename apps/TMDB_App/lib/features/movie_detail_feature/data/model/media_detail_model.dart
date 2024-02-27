@@ -111,6 +111,22 @@ class MediaDetailModel {
     }
   }
 
+  bool shouldDisplayMoreArrow(int pos) {
+    if (pos == 0) {
+      return (mediaDetail?.videos?.results?.length ?? 0) >= 5;
+    }
+
+    if (pos == 1) {
+      return (mediaDetail?.images?.backdrops?.length ?? 0) >= 10;
+    }
+
+    if (pos == 2) {
+      return (mediaDetail?.images?.posters?.length ?? 0) >= 10;
+    }
+
+    return true;
+  }
+
   String genres() {
     return mediaDetail?.genres?.map((e) => e.name).join(",") ?? "";
   }
