@@ -1,6 +1,6 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:common_widgets/widgets/lottie_loader.dart';
+import 'package:common_widgets/widgets/lottie_search.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +48,7 @@ class SearchScreenWebTabImpl extends StatelessWidget {
 
               if (state.status is CombineSearchStateLoading ||
                   state.status is CombineSearchStateNone) {
-                return const LottieLoader();
+                return const LottieSearch();
               }
 
               if (state.status is CombineSearchStateError) {

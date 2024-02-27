@@ -104,9 +104,7 @@ class _CompanyMovieScreenMovieImplState extends State<CompanyMovieScreenMovieImp
           sliver: PagedSliverList(
             pagingController: movieController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
-              firstPageProgressIndicatorBuilder: (context) => const Center(
-                child: LottieLoader(),
-              ),
+              firstPageProgressIndicatorBuilder: (context) => const LinearLoader(),
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
                   onPressed: () => movieController.refresh(),

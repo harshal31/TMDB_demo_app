@@ -1,6 +1,5 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
-import 'package:common_widgets/widgets/lottie_search.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,7 +62,7 @@ class _SearchDetailImplementationScreenState extends State<SearchDetailImplement
                         pagingController: _searchManager.getController(),
                         builderDelegate: PagedChildBuilderDelegate<dynamic>(
                           firstPageProgressIndicatorBuilder: (context) => const Center(
-                            child: LottieSearch(),
+                            child: CircularProgressIndicator(),
                           ),
                           firstPageErrorIndicatorBuilder: (context) => Center(
                             child: TextButton(

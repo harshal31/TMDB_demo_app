@@ -1,6 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:extended_image/extended_image.dart';
@@ -12,7 +13,6 @@ import 'package:tmdb_app/features/cast_crew_listing_feature/presentation/use_cas
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_reviews.dart';
 import 'package:tmdb_app/features/reviews_listing_feature/cubit/reviews_listing_cubit.dart';
 import 'package:tmdb_app/features/reviews_listing_feature/cubit/reviews_listing_use_case.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_review.dart';
 
 class ReviewsListingScreenImpl extends StatefulWidget {
@@ -102,9 +102,7 @@ class _ReviewsListingScreenImplState extends State<ReviewsListingScreenImpl> {
             pagingController: reviewsController,
             separatorBuilder: (ctx, index) => const SizedBox(height: 16),
             builderDelegate: PagedChildBuilderDelegate<ReviewResults>(
-              firstPageProgressIndicatorBuilder: (context) => const Center(
-                child: LottieLoader(),
-              ),
+              firstPageProgressIndicatorBuilder: (context) => const LinearLoader(),
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
                   onPressed: () => reviewsController.refresh(),

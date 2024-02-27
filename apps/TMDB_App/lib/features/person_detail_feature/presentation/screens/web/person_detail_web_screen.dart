@@ -22,9 +22,7 @@ class PersonDetailWebScreen extends StatelessWidget {
       builder: (context, state) {
         if (state.personDetailStatus is PersonDetailNone ||
             state.personDetailStatus is PersonDetailLoading) {
-          return const Center(
-            child: LottieLoader(),
-          );
+          return const LinearLoader();
         }
 
         if (state.personDetailStatus is PersonDetailFailed) {

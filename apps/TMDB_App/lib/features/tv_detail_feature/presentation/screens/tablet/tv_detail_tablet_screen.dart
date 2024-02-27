@@ -35,9 +35,7 @@ class TvDetailTabletScreen extends StatelessWidget {
     return BlocBuilder<TvDetailCubit, TvDetailState>(
       builder: (context, state) {
         if (state.tvDetailState is TvDetailLoading || state.tvDetailState is TvDetailNone) {
-          return const Center(
-            child: LottieLoader(),
-          );
+          return const LinearLoader();
         }
 
         if (state.tvDetailState is TvDetailFailure) {

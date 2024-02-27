@@ -77,9 +77,7 @@ class _NetworkTvShowsScreenImplState extends State<NetworkTvShowsScreenImpl> {
           sliver: PagedSliverList(
             pagingController: tvShowsController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
-              firstPageProgressIndicatorBuilder: (context) => const Center(
-                child: LottieLoader(),
-              ),
+              firstPageProgressIndicatorBuilder: (context) => const LinearLoader(),
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
                   onPressed: () => tvShowsController.refresh(),

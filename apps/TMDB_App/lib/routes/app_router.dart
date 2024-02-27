@@ -716,40 +716,27 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
       bottomNavigationBar: BlocBuilder<BottomNavCubit, bool>(
         buildWhen: (prev, cur) => prev != cur,
         builder: (context, state) {
-          return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            transitionBuilder: (child, animation) {
-              const begin = Offset(0.0, 1.0);
-              var tween = Tween(begin: begin, end: Offset.zero).chain(
-                CurveTween(curve: Curves.ease),
-              );
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
-              );
-            },
-            child: state
-                ? NavigationBar(
-                    key: UniqueKey(),
-                    selectedIndex: selectedIndex,
-                    destinations: [
-                      NavigationDestination(
-                        label: context.tr.home,
-                        icon: const Icon(Icons.home),
-                      ),
-                      NavigationDestination(
-                        label: context.tr.search,
-                        icon: const Icon(Icons.search),
-                      ),
-                      NavigationDestination(
-                        label: context.tr.profile,
-                        icon: const Icon(Icons.emoji_people),
-                      ),
-                    ],
-                    onDestinationSelected: onDestinationSelected,
-                  )
-                : SizedBox.shrink(key: UniqueKey()),
-          );
+          return state
+              ? NavigationBar(
+                  key: UniqueKey(),
+                  selectedIndex: selectedIndex,
+                  destinations: [
+                    NavigationDestination(
+                      label: context.tr.home,
+                      icon: const Icon(Icons.home),
+                    ),
+                    NavigationDestination(
+                      label: context.tr.search,
+                      icon: const Icon(Icons.search),
+                    ),
+                    NavigationDestination(
+                      label: context.tr.profile,
+                      icon: const Icon(Icons.emoji_people),
+                    ),
+                  ],
+                  onDestinationSelected: onDestinationSelected,
+                )
+              : SizedBox.shrink(key: UniqueKey());
         },
       ),
     );

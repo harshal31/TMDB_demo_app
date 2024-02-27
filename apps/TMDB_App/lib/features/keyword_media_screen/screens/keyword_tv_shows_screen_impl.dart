@@ -105,9 +105,7 @@ class _KeywordTvShowsScreenImplState extends State<KeywordTvShowsScreenImpl> {
           sliver: PagedSliverList(
             pagingController: tvShowsController,
             builderDelegate: PagedChildBuilderDelegate<LatestData>(
-              firstPageProgressIndicatorBuilder: (context) => const Center(
-                child: LottieLoader(),
-              ),
+              firstPageProgressIndicatorBuilder: (context) => const LinearLoader(),
               firstPageErrorIndicatorBuilder: (context) => Center(
                 child: TextButton(
                   onPressed: () => tvShowsController.refresh(),

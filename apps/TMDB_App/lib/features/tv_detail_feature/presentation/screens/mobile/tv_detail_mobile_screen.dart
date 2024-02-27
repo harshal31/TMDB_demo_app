@@ -35,9 +35,7 @@ class TvDetailMobileScreen extends StatelessWidget {
     return BlocBuilder<TvDetailCubit, TvDetailState>(
       builder: (context, state) {
         if (state.tvDetailState is TvDetailLoading || state.tvDetailState is TvDetailNone) {
-          return const Center(
-            child: LottieLoader(),
-          );
+          return const LinearLoader();
         }
 
         if (state.tvDetailState is TvDetailFailure) {
@@ -479,7 +477,7 @@ class TvDetailMobileScreen extends StatelessWidget {
                       builder: (context, s) {
                         return TmdbMediaView(
                           width: MediaQuery.of(context).size.width * 0.8,
-                          height: 230,
+                          height: 220,
                           mediaDetail: state.mediaDetailModel.mediaDetail,
                           pos: s,
                           videos: state.mediaDetailModel.mediaVideos?.results ?? [],

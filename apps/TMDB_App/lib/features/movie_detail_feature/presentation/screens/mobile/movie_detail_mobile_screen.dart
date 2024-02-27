@@ -38,9 +38,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
       builder: (context, state) {
         if (state.movieDetailState is MovieDetailLoading ||
             state.movieDetailState is MovieDetailNone) {
-          return const Center(
-            child: LottieLoader(),
-          );
+          return const LinearLoader();
         }
 
         if (state.movieDetailState is MovieDetailFailure) {
@@ -471,7 +469,7 @@ class MovieDetailMobileScreen extends StatelessWidget {
                       builder: (context, s) {
                         return TmdbMediaView(
                           width: MediaQuery.of(context).size.width * 0.8,
-                          height: 230,
+                          height: 220,
                           mediaDetail: state.mediaDetailModel.mediaDetail,
                           pos: s,
                           videos: state.mediaDetailModel.mediaVideos?.results ?? [],

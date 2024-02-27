@@ -2,7 +2,6 @@ import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
@@ -98,8 +97,8 @@ class PostersBackdropsListingScreenImpl extends StatelessWidget {
                       childAspectRatio: _calculateAspectRatio(context),
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
-                      crossAxisCount: _getCrossAxisGridCount(context),
-                      mainAxisExtent: kIsWeb ? 450 : 250,
+                      crossAxisCount: _postersCrossAxisGridCount(context),
+                      mainAxisExtent: _isTabWeb(context) ? 450 : 250,
                     ),
                     itemBuilder: (ctx, index) {
                       final image = state.tmdbMediaState.posters
@@ -107,13 +106,13 @@ class PostersBackdropsListingScreenImpl extends StatelessWidget {
                           .toList()[index];
 
                       return SizedBox(
-                        height: kIsWeb ? 450 : 260,
+                        height: _isTabWeb(context) ? 450 : 260,
                         child: Stack(
                           children: [
                             Positioned.fill(
                               child: ExtendedImageCreator(
                                 imageUrl: image,
-                                height: kIsWeb ? 450 : 260,
+                                height: _isTabWeb(context) ? 450 : 260,
                                 fit: BoxFit.fill,
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -147,7 +146,7 @@ class PostersBackdropsListingScreenImpl extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: BlocBuilder<CastCrewCubit, CastCrewState>(
                 builder: (context, state) {
-                  return kIsWeb
+                  return _isTabWeb(context)
                       ? GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -172,7 +171,7 @@ class PostersBackdropsListingScreenImpl extends StatelessWidget {
                                     child: ExtendedImageCreator(
                                       imageUrl: image,
                                       height: 450,
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fill,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
@@ -249,10 +248,15 @@ class PostersBackdropsListingScreenImpl extends StatelessWidget {
   }
 
   int _getCrossAxisGridCount(BuildContext context) {
-    return ResponsiveBreakpoints.of(context).isTablet || ResponsiveBreakpoints.of(context).isDesktop
-        ? 4
-        : 2;
+    return 2;
   }
+
+  int _postersCrossAxisGridCount(BuildContext context) {
+    return _isTabWeb(context) ? 4 : 2;
+  }
+
+  bool _isTabWeb(BuildContext context) =>
+      ResponsiveBreakpoints.of(context).isTablet || ResponsiveBreakpoints.of(context).isDesktop;
 
   double _calculateAspectRatio(BuildContext context) {
     return MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;

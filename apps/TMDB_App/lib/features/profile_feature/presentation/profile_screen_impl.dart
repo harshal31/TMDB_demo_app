@@ -1,6 +1,7 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/app_theme.dart';
 import 'package:common_widgets/widgets/country_flag.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/lottie_loader.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/features/profile_feature/presentation/cubit/profile_cubit.dart';
 import 'package:tmdb_app/features/profile_feature/presentation/use_cases/profile_use_case.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 
 class ProfileScreenImpl extends StatelessWidget {
   @override
@@ -16,9 +16,7 @@ class ProfileScreenImpl extends StatelessWidget {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         if (state.profileStatus is ProfileLoading || state.profileStatus is ProfileNone) {
-          return const Center(
-            child: LottieLoader(),
-          );
+          return const LinearLoader();
         }
 
         if (state.profileStatus is ProfileError) {

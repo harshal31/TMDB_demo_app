@@ -28,9 +28,7 @@ class TmdbYoutubeMediaListingImpl extends StatelessWidget {
     return BlocBuilder<CastCrewCubit, CastCrewState>(
       builder: (context, state) {
         if (state.castCrewStatus is CastCrewLoading || state.castCrewStatus is CastCrewNone) {
-          return const Center(
-            child: LottieLoader(),
-          );
+          return const LinearLoader();
         }
 
         if (state.castCrewStatus is CastCrewError) {

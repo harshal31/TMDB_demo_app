@@ -37,9 +37,7 @@ class MovieDetailTabletScreen extends StatelessWidget {
       builder: (context, state) {
         if (state.movieDetailState is MovieDetailLoading ||
             state.movieDetailState is MovieDetailNone) {
-          return const Center(
-            child: LottieLoader(),
-          );
+          return const LinearLoader();
         }
 
         if (state.movieDetailState is MovieDetailFailure) {
