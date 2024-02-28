@@ -104,5 +104,6 @@
     "placeholders": {
       "count": {}
     }
-  }
+  },
+  "hello": "Hello, \n{name}"
 }

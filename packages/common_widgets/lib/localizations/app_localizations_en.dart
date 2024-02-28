@@ -361,4 +361,9 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String hello(Object name) {
+    return 'Hello, \n$name';
+  }
 }
