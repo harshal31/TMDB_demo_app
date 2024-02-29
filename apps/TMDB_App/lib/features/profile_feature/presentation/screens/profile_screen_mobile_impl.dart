@@ -234,7 +234,8 @@ class ProfileScreenMobileImpl extends StatelessWidget {
                                     .toList() ??
                                 [],
                             onItemClick: (index) {
-                              final media = favState.latestResults?.latestData?[index];
+                              final media = favState.latestResults?.latestData?[index] ??
+                                  state.accountDetailData.favorites?.latestData?[index];
                               CommonNavigation.redirectToDetailScreen(
                                 context,
                                 mediaType: favState.pos == 0 ? RouteParam.movie : RouteParam.tv,
@@ -344,7 +345,8 @@ class ProfileScreenMobileImpl extends StatelessWidget {
                                     .toList() ??
                                 [],
                             onItemClick: (index) {
-                              final media = favState.latestResults?.latestData?[index];
+                              final media = favState.latestResults?.latestData?[index] ??
+                                  state.accountDetailData.rated?.latestData?[index];
                               CommonNavigation.redirectToDetailScreen(
                                 context,
                                 mediaType: favState.pos == 0 ? RouteParam.movie : RouteParam.tv,
@@ -453,7 +455,8 @@ class ProfileScreenMobileImpl extends StatelessWidget {
                                     .toList() ??
                                 [],
                             onItemClick: (index) {
-                              final media = favState.latestResults?.latestData?[index];
+                              final media = favState.latestResults?.latestData?[index] ??
+                                  state.accountDetailData.watchList?.latestData?[index];
                               CommonNavigation.redirectToDetailScreen(
                                 context,
                                 mediaType: favState.pos == 0 ? RouteParam.movie : RouteParam.tv,
