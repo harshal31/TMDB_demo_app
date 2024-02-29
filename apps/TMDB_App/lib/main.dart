@@ -6,7 +6,6 @@ import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart";
-import "package:flutter_web_plugins/url_strategy.dart";
 import "package:get_it/get_it.dart";
 import "package:go_router/go_router.dart";
 import "package:responsive_framework/responsive_framework.dart";
@@ -17,8 +16,10 @@ import "package:tmdb_app/constants/app_constant.dart";
 import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
 import "package:tmdb_app/routes/app_router.dart";
+import "package:url_strategy/url_strategy.dart";
 
 void main() async {
+  setPathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   bool themeState = false;
   if (kIsWeb) {
@@ -101,7 +102,6 @@ class MainApp extends StatelessWidget {
 }
 
 Future<void> initializeDependencies() async {
-  usePathUrlStrategy();
   await HiveManager.createHiveManager().initialize(HiveKey.appBoxName);
   AppProviders.registerAppLevelProviders();
 }

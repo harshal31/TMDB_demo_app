@@ -8,8 +8,4 @@ class AppAsset {
   static $AssetsIconGen get icon {
     return Assets.icon;
   }
-
-  static $AssetsJsonGen get json {
-    return Assets.json;
-  }
 }

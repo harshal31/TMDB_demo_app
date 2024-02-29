@@ -628,14 +628,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  lottie:
-    dependency: transitive
-    description:
-      name: lottie
-      sha256: ce2bb2605753915080e4ee47f036a64228c88dc7f56f7bc1dbe912d75b55b1e2
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0"
   matcher:
     dependency: transitive
     description:
@@ -1113,6 +1105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  url_strategy:
+    dependency: "direct main"
+    description:
+      name: url_strategy
+      sha256: "42b68b42a9864c4d710401add17ad06e28f1c1d5500c93b98c431f6b0ea4ab87"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   uuid:
     dependency: transitive
     description:
