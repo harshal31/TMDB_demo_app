@@ -93,11 +93,11 @@ class RecommendationResults {
   });
 
   String get posterImage {
-    return AppConstant.imageBaseUrl + (posterPath ?? "");
+    return AppConstant.imageBaseUrl + (posterPath ?? backdropPath ?? "");
   }
 
   String get backDropImage {
-    return AppConstant.originalImageBaseUrl + (backdropPath ?? "");
+    return AppConstant.originalImageBaseUrl + (backdropPath ?? posterPath ?? "");
   }
 
   factory RecommendationResults.fromJson(Map<String, dynamic> json) =>
