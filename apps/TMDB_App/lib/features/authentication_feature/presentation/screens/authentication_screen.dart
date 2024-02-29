@@ -12,12 +12,7 @@ import "package:tmdb_app/features/authentication_feature/presentation/use_case/l
 import "package:tmdb_app/features/authentication_feature/presentation/use_case/session_use_case.dart";
 import "package:tmdb_app/network/dio_manager.dart";
 
-class AuthenticationScreen extends StatefulWidget {
-  @override
-  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
-}
-
-class _AuthenticationScreenState extends State<AuthenticationScreen> {
+class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -46,11 +41,5 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    context.read<AuthenticationCubit>().disposeControllers();
   }
 }

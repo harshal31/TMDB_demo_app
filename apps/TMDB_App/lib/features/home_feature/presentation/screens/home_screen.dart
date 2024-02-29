@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
         ),
         BlocProvider(
           create: (c) => FreeToWatchCubit(c.read(), c.read())..fetchFreeResults(0),
-        )
+        ),
       ],
       child: SafeArea(
         child: Scaffold(

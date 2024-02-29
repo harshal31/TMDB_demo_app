@@ -1,5 +1,4 @@
 import 'package:tmdb_app/constants/api_key.dart';
-import 'package:tmdb_app/routes/route_param.dart';
 
 /// All Endpoints will reside here
 class Endpoint {
@@ -25,4 +24,8 @@ class Endpoint {
   static const String accountDetail = "/account/{${ApiKey.accountId}}";
   static const String accountDetailWithoutAccountId = "/account";
   static const String mediaCredit = "/{${ApiKey.mediaType}}/{${ApiKey.typeId}}/credits";
+  static const String accountMediaWithAccountId =
+      "/account/{${ApiKey.accountId}}/{${ApiKey.accountType}}/{${ApiKey.mediaType}}";
+  static const String accountMediaWithoutAccountId =
+      "/account/account_id/{${ApiKey.accountType}}/{${ApiKey.mediaType}}";
 }

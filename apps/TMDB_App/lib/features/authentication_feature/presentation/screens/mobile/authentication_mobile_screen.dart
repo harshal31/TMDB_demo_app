@@ -11,8 +11,18 @@ import "package:tmdb_app/features/authentication_feature/presentation/cubits/but
 import "package:tmdb_app/features/authentication_feature/presentation/use_case/login_use_case.dart";
 import "package:tmdb_app/routes/route_name.dart";
 
-class AuthenticationMobileScreen extends StatelessWidget {
+class AuthenticationMobileScreen extends StatefulWidget {
   const AuthenticationMobileScreen({super.key});
+
+  @override
+  State<AuthenticationMobileScreen> createState() => _AuthenticationMobileScreenState();
+}
+
+class _AuthenticationMobileScreenState extends State<AuthenticationMobileScreen> {
+  final ScrollController scrollController = ScrollController();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +33,17 @@ class AuthenticationMobileScreen extends StatelessWidget {
           showSimpleSnackBar(context, (state.status as LoginFailed).message);
         }
         if (state.status is LoginSuccess) {
-          context.replace(RouteName.home);
+          context.go(RouteName.home);
         }
       },
       builder: (context, state) {
         repositionScrollPositionAtCenter(authenticationCubit);
         return Form(
-          key: authenticationCubit.formKey,
+          key: formKey,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(
-              controller: authenticationCubit.scrollController,
+              controller: scrollController,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight: MediaQuery.of(context).size.height,
@@ -46,7 +56,7 @@ class AuthenticationMobileScreen extends StatelessWidget {
                       AppAsset.images.tmdbLogo.image(
                           package: "common_widgets", height: 150, width: 250, fit: BoxFit.cover),
                       TextFormField(
-                        controller: authenticationCubit.userNameController,
+                        controller: userNameController,
                         textAlignVertical: TextAlignVertical.center,
                         validator: (s) {
                           if (authenticationCubit.shouldSkipUserNameError) {
@@ -59,8 +69,7 @@ class AuthenticationMobileScreen extends StatelessWidget {
                         },
                         onChanged: (_) {
                           context.read<ButtonStateCubit>().updateButtonState(
-                              authenticationCubit.userNameController.text.isEmpty ||
-                                  authenticationCubit.passwordController.text.isEmpty);
+                              userNameController.text.isEmpty || passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -70,7 +79,7 @@ class AuthenticationMobileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
-                        controller: authenticationCubit.passwordController,
+                        controller: passwordController,
                         textAlignVertical: TextAlignVertical.center,
                         obscureText: state.shouldObscure,
                         validator: (s) {
@@ -82,18 +91,17 @@ class AuthenticationMobileScreen extends StatelessWidget {
                         },
                         onChanged: (c) {
                           if (c.length == 1) {
-                            authenticationCubit.formKey.currentState?.validate();
+                            formKey.currentState?.validate();
                           }
                           context.read<ButtonStateCubit>().updateButtonState(
-                              authenticationCubit.userNameController.text.isEmpty ||
-                                  authenticationCubit.passwordController.text.isEmpty);
+                              userNameController.text.isEmpty || passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () {
-                              if (authenticationCubit.passwordController.text.isEmpty) {
+                              if (passwordController.text.isEmpty) {
                                 authenticationCubit.shouldSkipUserNameError = true;
-                                authenticationCubit.formKey.currentState?.validate();
+                                formKey.currentState?.validate();
                                 return;
                               } else {
                                 authenticationCubit.shouldSkipUserNameError = false;
@@ -139,12 +147,10 @@ class AuthenticationMobileScreen extends StatelessWidget {
                                           ? null
                                           : () {
                                               authenticationCubit.shouldSkipUserNameError = false;
-                                              if (authenticationCubit.formKey.currentState
-                                                      ?.validate() ??
-                                                  false) {
+                                              if (formKey.currentState?.validate() ?? false) {
                                                 context.read<AuthenticationCubit>().login(
-                                                      authenticationCubit.userNameController.text,
-                                                      authenticationCubit.passwordController.text,
+                                                      userNameController.text,
+                                                      passwordController.text,
                                                     );
                                               }
                                             },
@@ -175,11 +181,19 @@ class AuthenticationMobileScreen extends StatelessWidget {
 
   void repositionScrollPositionAtCenter(AuthenticationCubit authenticationCubit) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (authenticationCubit.scrollController.positions.isNotEmpty) {
-        authenticationCubit.scrollController.jumpTo(
-          authenticationCubit.scrollController.position.maxScrollExtent,
+      if (scrollController.positions.isNotEmpty) {
+        scrollController.jumpTo(
+          scrollController.position.maxScrollExtent,
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+    userNameController.dispose();
+    passwordController.dispose();
   }
 }

@@ -181,4 +181,8 @@ class LatestData {
   String getImagePath() {
     return AppConstant.imageBaseUrl + (this.posterPath ?? "");
   }
+
+  String getOriginalImagePath() {
+    return AppConstant.originalImageBaseUrl + (this.posterPath ?? "");
+  }
 }

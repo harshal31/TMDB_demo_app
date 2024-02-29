@@ -694,8 +694,26 @@ abstract class AppLocalizations {
   /// No description provided for @hello.
   ///
   /// In en, this message translates to:
-  /// **'Hello, \n{name}'**
+  /// **'Hello, {name}'**
   String hello(Object name);
+
+  /// No description provided for @watchlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Watchlist {name}'**
+  String watchlist(Object name);
+
+  /// No description provided for @rated.
+  ///
+  /// In en, this message translates to:
+  /// **'Rated {name}'**
+  String rated(Object name);
+
+  /// No description provided for @favorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite {name}'**
+  String favorite(Object name);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -105,5 +105,8 @@
       "count": {}
     }
   },
-  "hello": "Hello, \n{name}"
+  "hello": "Hello, {name}",
+  "watchlist": "Watchlist {name}",
+  "rated": "Rated {name}",
+  "favorite": "Favorite {name}"
 }

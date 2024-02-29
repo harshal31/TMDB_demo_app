@@ -8,6 +8,7 @@ class ApiKey {
   static const String dynamicPath2 = "dynamicPath2";
   static const String mediaType = "mediaType";
   static const String accountId = "account_id";
+  static const String accountType = "account_type";
   static const String typeId = "typeId";
   static const String sessionId = "session_id";
   static const String creditType = "creditType";
@@ -36,6 +37,10 @@ class ApiKey {
   static const String defaultSortOrder = "popularity.desc";
   static const String freeToWatchValue = "free|ads";
   static const String vote_count_sort = "vote_count.desc";
+  static const String account_sorted_order = "created_at.desc";
+  static const String rated = "rated";
+  static const String watchlist = "rated";
+  static const String movies = "movies";
 
   static const String certification = "certification";
   static const String certification_gte = "certification.gte";

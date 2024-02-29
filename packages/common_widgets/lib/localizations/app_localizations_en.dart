@@ -364,6 +364,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String hello(Object name) {
-    return 'Hello, \n$name';
+    return 'Hello, $name';
+  }
+
+  @override
+  String watchlist(Object name) {
+    return 'Watchlist $name';
+  }
+
+  @override
+  String rated(Object name) {
+    return 'Rated $name';
+  }
+
+  @override
+  String favorite(Object name) {
+    return 'Favorite $name';
   }
 }

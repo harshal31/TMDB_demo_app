@@ -11,12 +11,23 @@ import "package:tmdb_app/features/authentication_feature/presentation/cubits/but
 import "package:tmdb_app/features/authentication_feature/presentation/use_case/login_use_case.dart";
 import "package:tmdb_app/routes/route_name.dart";
 
-class AuthenticationTabletScreen extends StatelessWidget {
+class AuthenticationTabletScreen extends StatefulWidget {
   const AuthenticationTabletScreen({super.key});
+
+  @override
+  State<AuthenticationTabletScreen> createState() => _AuthenticationTabletScreenState();
+}
+
+class _AuthenticationTabletScreenState extends State<AuthenticationTabletScreen> {
+  final ScrollController scrollController = ScrollController();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final authenticationCubit = context.read<AuthenticationCubit>();
+
     return BlocConsumer<AuthenticationCubit, LoginState>(
       listener: (context, state) {
         if (state.status is LoginFailed) {
@@ -30,7 +41,7 @@ class AuthenticationTabletScreen extends StatelessWidget {
       builder: (context, state) {
         repositionScrollPositionAtCenter(authenticationCubit);
         return Form(
-          key: authenticationCubit.formKey,
+          key: formKey,
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -39,7 +50,7 @@ class AuthenticationTabletScreen extends StatelessWidget {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: SingleChildScrollView(
-                  controller: authenticationCubit.scrollController,
+                  controller: scrollController,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +60,7 @@ class AuthenticationTabletScreen extends StatelessWidget {
                         height: 300,
                       ),
                       TextFormField(
-                        controller: authenticationCubit.userNameController,
+                        controller: userNameController,
                         textAlignVertical: TextAlignVertical.center,
                         validator: (s) {
                           if (authenticationCubit.shouldSkipUserNameError) {
@@ -62,8 +73,7 @@ class AuthenticationTabletScreen extends StatelessWidget {
                         },
                         onChanged: (_) {
                           context.read<ButtonStateCubit>().updateButtonState(
-                              authenticationCubit.userNameController.text.isEmpty ||
-                                  authenticationCubit.passwordController.text.isEmpty);
+                              userNameController.text.isEmpty || passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -79,7 +89,7 @@ class AuthenticationTabletScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
-                        controller: authenticationCubit.passwordController,
+                        controller: passwordController,
                         textAlignVertical: TextAlignVertical.center,
                         obscureText: state.shouldObscure,
                         validator: (s) {
@@ -91,11 +101,10 @@ class AuthenticationTabletScreen extends StatelessWidget {
                         },
                         onChanged: (c) {
                           if (c.length == 1) {
-                            authenticationCubit.formKey.currentState?.validate();
+                            formKey.currentState?.validate();
                           }
                           context.read<ButtonStateCubit>().updateButtonState(
-                              authenticationCubit.userNameController.text.isEmpty ||
-                                  authenticationCubit.passwordController.text.isEmpty);
+                              userNameController.text.isEmpty || passwordController.text.isEmpty);
                         },
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -106,9 +115,9 @@ class AuthenticationTabletScreen extends StatelessWidget {
                           ),
                           suffixIcon: IconButton(
                             onPressed: () {
-                              if (authenticationCubit.passwordController.text.isEmpty) {
+                              if (passwordController.text.isEmpty) {
                                 authenticationCubit.shouldSkipUserNameError = true;
-                                authenticationCubit.formKey.currentState?.validate();
+                                formKey.currentState?.validate();
                                 return;
                               } else {
                                 authenticationCubit.shouldSkipUserNameError = false;
@@ -155,12 +164,10 @@ class AuthenticationTabletScreen extends StatelessWidget {
                                           ? null
                                           : () {
                                               authenticationCubit.shouldSkipUserNameError = false;
-                                              if (authenticationCubit.formKey.currentState
-                                                      ?.validate() ??
-                                                  false) {
+                                              if (formKey.currentState?.validate() ?? false) {
                                                 context.read<AuthenticationCubit>().login(
-                                                      authenticationCubit.userNameController.text,
-                                                      authenticationCubit.passwordController.text,
+                                                      userNameController.text,
+                                                      passwordController.text,
                                                     );
                                               }
                                             },
@@ -191,11 +198,19 @@ class AuthenticationTabletScreen extends StatelessWidget {
 
   void repositionScrollPositionAtCenter(AuthenticationCubit authenticationCubit) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (authenticationCubit.scrollController.positions.isNotEmpty) {
-        authenticationCubit.scrollController.jumpTo(
-          authenticationCubit.scrollController.position.maxScrollExtent,
+      if (scrollController.positions.isNotEmpty) {
+        scrollController.jumpTo(
+          scrollController.position.maxScrollExtent,
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+    userNameController.dispose();
+    passwordController.dispose();
   }
 }

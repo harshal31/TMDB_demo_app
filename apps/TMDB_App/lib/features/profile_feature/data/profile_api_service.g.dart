@@ -48,6 +48,87 @@ class _ProfileApiService implements ProfileApiService {
   }
 
   @override
+  Future<HttpResponse<LatestResults>> getAccountMediaWithoutAccountId(
+    String accountType,
+    String mediaType,
+    String sessionId,
+    int page,
+    String language,
+    String sortBy,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'session_id': sessionId,
+      r'page': page,
+      r'language': language,
+      r'sort_by': sortBy,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<LatestResults>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/account/account_id/${accountType}/${mediaType}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = LatestResults.fromJson(_result.data!);
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<LatestResults>> getAccountMediaWithAccountId(
+    int accountId,
+    String accountType,
+    String mediaType,
+    String sessionId,
+    int page,
+    String language,
+    String sortBy,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'session_id': sessionId,
+      r'page': page,
+      r'language': language,
+      r'sort_by': sortBy,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<LatestResults>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/account/${accountId}/${accountType}/${mediaType}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = LatestResults.fromJson(_result.data!);
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<ProfileDetailModel>>
       getProfileDetailWithAccountAndSessionId() async {
     final _extra = <String, dynamic>{};
