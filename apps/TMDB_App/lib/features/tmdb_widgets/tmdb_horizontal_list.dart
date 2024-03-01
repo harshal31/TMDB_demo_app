@@ -30,20 +30,43 @@ class TmdbHorizontalList extends StatelessWidget {
           if (index == imageUrls.length) {
             return Visibility(
               visible: imageUrls.length >= 10,
-              child: Container(
-                key: ValueKey(index),
-                alignment: Alignment.center,
-                width: width ?? 150,
-                height: height ?? 225,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_circle_right_outlined,
-                    size: 40,
+              child: Stack(
+                children: [
+                  Container(
+                    key: ValueKey(index),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: context.colorTheme.onBackground.withOpacity(0.4), // Border color
+                        width: 1.0, // Border width
+                      ),
+                      borderRadius: BorderRadius.circular(10), // Border radius
+                    ),
+                    alignment: Alignment.center,
+                    width: width ?? 150,
+                    height: height ?? 225,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_circle_right_outlined,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        onViewAllClick?.call();
+                      },
+                    ),
                   ),
-                  onPressed: () {
-                    onViewAllClick?.call();
-                  },
-                ),
+                  Positioned.fill(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {
+                          onViewAllClick?.call();
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
             );
           }

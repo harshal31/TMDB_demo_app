@@ -40,7 +40,6 @@ This project utilizes the following dependencies:
 - `logger: ^2.0.2+1`
 - `intl: ^0.18.1`
 - `youtube_player_iframe: ^4.0.4`
-- `google_fonts: ^6.1.0`
 - `super_tooltip: ^2.0.7`
 - `flutter_rating_bar: ^4.0.1`
 - `url_launcher: ^6.2.4`

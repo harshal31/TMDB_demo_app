@@ -5,23 +5,23 @@ class FlagWidget extends StatelessWidget {
   final double width;
   final double height;
   final String code;
+  final String? langCode;
   final double? borderRadius;
-  final bool isFromCountryCode;
 
   const FlagWidget({
     super.key,
     required this.width,
     required this.height,
     required this.code,
-    this.isFromCountryCode = true,
     this.borderRadius,
+    this.langCode,
   });
 
   @override
   Widget build(BuildContext context) {
-    return isFromCountryCode
+    return langCode != null
         ? CountryFlag.fromCountryCode(
-            code,
+            langCode!,
             height: width,
             width: height,
             borderRadius: borderRadius ?? 8,

@@ -1,7 +1,7 @@
-import 'package:common_widgets/widgets/code_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/latest_use_case.dart';
+import 'package:tmdb_app/utils/code_utils.dart';
 
 class LatestCubit extends Cubit<LatestState> {
   final LatestUseCase _latestUseCase;

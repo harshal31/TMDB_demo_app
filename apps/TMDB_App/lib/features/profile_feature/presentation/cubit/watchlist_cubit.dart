@@ -1,4 +1,4 @@
-import 'package:common_widgets/widgets/code_utils.dart';
+import 'package:tmdb_app/utils/code_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tmdb_app/constants/api_key.dart';

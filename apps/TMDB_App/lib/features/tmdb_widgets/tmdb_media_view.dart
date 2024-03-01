@@ -1,6 +1,6 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
 import 'package:common_widgets/theme/theme_util.dart';
-import 'package:common_widgets/widgets/code_utils.dart';
+import 'package:tmdb_app/utils/code_utils.dart';
 import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:common_widgets/youtube/youtube_thumbnail.dart';

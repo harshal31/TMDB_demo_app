@@ -1,4 +1,4 @@
-import "package:common_widgets/theme/size_detector.dart";
+import 'package:tmdb_app/utils/size_detector.dart';
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:get_it/get_it.dart";

@@ -30,7 +30,7 @@ class ExtendedImageCreator extends StatefulWidget {
   static Future<void> clearImageDiskCache() async {
     if (!kIsWeb) {
       await clearDiskCachedImages(
-        duration: const Duration(days: 3),
+        duration: const Duration(days: 1),
       );
     }
   }

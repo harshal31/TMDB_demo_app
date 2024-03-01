@@ -1,4 +1,4 @@
-import 'package:common_widgets/widgets/code_utils.dart';
+import 'package:tmdb_app/utils/code_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';

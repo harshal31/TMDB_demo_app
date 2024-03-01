@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 class ColorizedText extends StatelessWidget {
@@ -9,23 +8,12 @@ class ColorizedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const colorizeColors = [
-      Colors.orange,
-      Colors.white,
-      Colors.green,
-    ];
-
-    return AnimatedTextKit(
-      animatedTexts: [
-        ColorizeAnimatedText(
-          value,
-          textStyle: textStyle.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-          colors: colorizeColors,
-        ),
-      ],
-      isRepeatingAnimation: true,
+    return Text(
+      value,
+      style: textStyle.copyWith(
+        fontWeight: FontWeight.bold,
+        color: Colors.orange,
+      ),
     );
   }
 }
