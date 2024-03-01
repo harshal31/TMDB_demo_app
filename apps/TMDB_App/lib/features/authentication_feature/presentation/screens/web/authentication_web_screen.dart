@@ -1,6 +1,6 @@
 import "package:common_widgets/gen/app_asset.dart";
 import "package:common_widgets/localizations/localized_extension.dart";
-import "package:common_widgets/theme/app_theme.dart";
+import "package:common_widgets/theme/theme_util.dart";
 import "package:common_widgets/widgets/snackbar.dart";
 import "package:common_widgets/widgets/wrapped_text.dart";
 import "package:flutter/material.dart";

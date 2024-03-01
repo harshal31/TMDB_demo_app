@@ -1,5 +1,5 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
 import 'package:flutter/material.dart';
 
 class TmdbSearchWidget extends StatefulWidget {

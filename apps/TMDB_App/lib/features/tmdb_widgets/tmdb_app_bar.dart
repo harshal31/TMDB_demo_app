@@ -1,5 +1,5 @@
 import 'package:common_widgets/gen/app_asset.dart';
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_animated_icon_switcher.dart';

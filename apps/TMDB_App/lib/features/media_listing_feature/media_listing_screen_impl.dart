@@ -1,11 +1,11 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:tmdb_app/features/company_media_screen/cubits/company_media_cubit.dart';
 import 'package:tmdb_app/features/home_feature/data/model/latest_results.dart';
 import 'package:tmdb_app/features/home_feature/presentation/use_case/movies_advance_filter_use.dart';

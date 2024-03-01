@@ -1,5 +1,4 @@
 import "package:common_widgets/localizations/app_localizations.dart";
-import "package:common_widgets/theme/app_theme.dart";
 import "package:common_widgets/widgets/extended_image_creator.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/gestures.dart";
@@ -16,6 +15,7 @@ import "package:tmdb_app/constants/app_constant.dart";
 import "package:tmdb_app/constants/hive_key.dart";
 import "package:tmdb_app/data_storage/hive_manager.dart";
 import "package:tmdb_app/routes/app_router.dart";
+import "package:tmdb_app/utils/app_theme.dart";
 import "package:url_strategy/url_strategy.dart";
 
 void main() async {

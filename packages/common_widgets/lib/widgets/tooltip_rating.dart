@@ -1,4 +1,4 @@
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:super_tooltip/super_tooltip.dart';

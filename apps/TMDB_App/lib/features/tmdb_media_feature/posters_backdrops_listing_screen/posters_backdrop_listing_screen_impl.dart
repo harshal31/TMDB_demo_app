@@ -1,4 +1,4 @@
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
 import 'package:common_widgets/widgets/code_utils.dart';
 import 'package:common_widgets/widgets/dominant_color_from_image.dart';
 import 'package:common_widgets/widgets/extended_image_creator.dart';

@@ -20,7 +20,6 @@ dependencies:
   logger: ^2.0.2+1
   intl: ^0.18.1
   youtube_player_iframe: ^4.0.4
-  google_fonts: ^6.1.0
   responsive_framework: ^1.1.1
   super_tooltip: ^2.0.7
   flutter_rating_bar: ^4.0.1
@@ -48,11 +47,11 @@ flutter_gen:
 
   assets:
     enabled: true
-
     output:
       class_name: AppAsset
       package_parameter_enabled: true
       style: camel-case
+
 
 
 flutter:

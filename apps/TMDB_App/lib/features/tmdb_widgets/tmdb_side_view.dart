@@ -1,6 +1,7 @@
 import 'package:common_widgets/common_utils/currency_conversion.dart';
 import 'package:common_widgets/localizations/localized_extension.dart';
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,6 @@ import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.d
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_external_id.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_keywords.dart';
 import 'package:tmdb_app/features/person_detail_feature/data/model/person_detail.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/features/tmdb_widgets/tmdb_share.dart';
 import 'package:tmdb_app/routes/route_name.dart';
 import 'package:tmdb_app/routes/route_param.dart';

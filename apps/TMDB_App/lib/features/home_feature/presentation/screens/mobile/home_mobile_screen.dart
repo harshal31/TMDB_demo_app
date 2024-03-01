@@ -1,4 +1,4 @@
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/switch_icon.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
@@ -46,7 +46,7 @@ class HomeMobileScreen extends StatelessWidget {
                           return WrappedText(
                             state.getTrendingText(context),
                             style: context.textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                             ),
                             maxLines: 1,
                           );
@@ -155,7 +155,7 @@ class HomeMobileScreen extends StatelessWidget {
                           return WrappedText(
                             state.getLatestText(context),
                             style: context.textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                             ),
                             maxLines: 1,
                           );
@@ -256,7 +256,7 @@ class HomeMobileScreen extends StatelessWidget {
                     return WrappedText(
                       state.getFreeToWatchText(context, state.pos),
                       style: context.textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                     );

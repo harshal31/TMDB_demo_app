@@ -1,5 +1,5 @@
 import 'package:common_widgets/common_utils/date_util.dart';
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:common_widgets/youtube/youtube_thumbnail.dart';
 import 'package:flutter/material.dart';

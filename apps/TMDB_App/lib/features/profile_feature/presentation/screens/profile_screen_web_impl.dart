@@ -1,5 +1,5 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
 import 'package:common_widgets/widgets/country_flag.dart';
 import 'package:common_widgets/widgets/custom_tab_bar.dart';
 import 'package:common_widgets/widgets/extended_image_creator.dart';

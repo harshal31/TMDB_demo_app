@@ -1,11 +1,11 @@
 import 'package:common_widgets/localizations/localized_extension.dart';
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/constants/api_key.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_credits.dart';
 import 'package:tmdb_app/features/movie_detail_feature/data/model/media_detail.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:tmdb_app/utils/common_navigation.dart';
 
 class TmdbCastList extends StatelessWidget {

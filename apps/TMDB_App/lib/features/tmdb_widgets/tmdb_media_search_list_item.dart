@@ -1,8 +1,8 @@
 import 'package:common_widgets/common_utils/date_util.dart';
-import 'package:common_widgets/theme/app_theme.dart';
+import 'package:common_widgets/theme/theme_util.dart';
+import 'package:common_widgets/widgets/extended_image_creator.dart';
 import 'package:common_widgets/widgets/wrapped_text.dart';
 import 'package:flutter/material.dart';
-import 'package:common_widgets/widgets/extended_image_creator.dart';
 
 class TmdbMediaSearchListItem extends StatelessWidget {
   final String title;
